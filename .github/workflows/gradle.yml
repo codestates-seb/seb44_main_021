@@ -52,3 +52,11 @@ jobs:
       # 압축한 프로젝트를 S3로 전송합니다.
     - name: Upload to S3
       run: aws s3 cp --region ap-northeast-2 ./ieun21.zip s3://ieun/ieun21.zip
+
+      # CodeDeploy에게 배포 명령을 내립니다.
+    - name: Code Deploy
+      run: >
+        aws deploy create-deployment --application-name re21
+        --deployment-config-name CodeDeployDefault.AllAtOnce
+        --deployment-group-name re21-group
+        --s3-location bucket=ieun,bundleType=zip,key=ieun21.zip
