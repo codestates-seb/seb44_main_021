@@ -18,9 +18,6 @@ public class Member extends Auditable {
     private Long memberId;
 
     @Column(nullable = false)
-    private String name;
-
-    @Column(nullable = false)
     private String displayName;
 
     @Column(nullable = false, updatable = false, unique = true)
@@ -30,19 +27,16 @@ public class Member extends Auditable {
     private String password;
 
     @Column
-    private String category;
-
-    @Column
     private String profileImg;
 
     @Enumerated(EnumType.STRING)
     @Column
-    private MemberRole memberRole = MemberRole.MEMBER_USER;
+    private MemberRole memberRole;
 
 
     public enum MemberRole {
         MEMBER_USER("사용자"),
-        MEMBER_ENGINEER("엔지니어");
+        MEMBER_UPCYCLER("업사이클러");
 
         @Getter
         private final String role;
@@ -50,7 +44,5 @@ public class Member extends Auditable {
         MemberRole(String roles) {
             this.role = roles;
         }
-
     }
-
 }

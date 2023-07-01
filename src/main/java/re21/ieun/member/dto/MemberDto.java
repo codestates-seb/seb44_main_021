@@ -20,9 +20,6 @@ public class MemberDto {
         private String password;
         @NotBlank
         private String displayName;
-        @NotBlank
-        private String name;
-        private String category;
         private LocalDateTime modifiedAt;
         private LocalDateTime createdAt;
     }
@@ -34,6 +31,8 @@ public class MemberDto {
 
         private long memberId;
         private String displayName;
+        private String password;
+        private String profileImg;
     }
 
     @Getter
@@ -41,9 +40,7 @@ public class MemberDto {
     public static class Response {
         private long memberId;
         private String email;
-        private String name;
         private String displayName;
-        private String category;
         private String memberRole;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;

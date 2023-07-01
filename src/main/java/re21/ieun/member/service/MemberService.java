@@ -9,8 +9,6 @@ import re21.ieun.member.mapper.MemberMapper;
 import re21.ieun.member.repository.MemberRepository;
 import re21.ieun.member.entity.Member;
 
-import java.util.Optional;
-
 @Service
 @Transactional
 public class MemberService {
@@ -27,6 +25,25 @@ public class MemberService {
 
         return memberRepository.save(member);
     }
+
+    public Member updateMember(Member member) {
+        Member findMember = findMember(member.getMemberId());
+        findMember.setDisplayName(member.getDisplayName());
+        findMember.setPassword(member.getPassword());
+        return memberRepository.save(findMember);
+    }
+
+    public Member findMember(long memberId) {
+        Member findMember = memberRepository.findById(memberId).orElseThrow(() ->
+                new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        return findMember;
+    }
+
+    public void deleteMember(long memberId) {
+        Member findMember = findMember(memberId);
+        memberRepository.deleteById(memberId);
+    }
+
 
 
 }

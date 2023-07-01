@@ -1,6 +1,7 @@
 package re21.ieun.member.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import re21.ieun.member.service.MemberService;
 import re21.ieun.utils.UriCreator;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 import java.net.URI;
 
 @RestController
@@ -28,12 +30,40 @@ public class MemberController {
         this.memberMapper = memberMapper;
     }
 
-    @PostMapping
+    // 사용자로 회원가입
+    @PostMapping("/users")
     public ResponseEntity postMember(@Valid @RequestBody MemberDto.Post requestBody) {
         Member member = memberService.createMember(memberMapper.memberPostDtotoMember(requestBody));
         URI location = UriCreator.createUri(MEMBER_DEFAULT_URL, member.getMemberId());
 
         return ResponseEntity.created(location).build();
+    }
+
+    // 업사이클러로 회원가입
+    @PostMapping("/upcycler")
+    public ResponseEntity postMember1(@Valid @RequestBody MemberDto.Post requestBody) {
+        Member member = memberService.createMember(memberMapper.memberPostDtotoMember1(requestBody));
+        URI location = UriCreator.createUri(MEMBER_DEFAULT_URL, member.getMemberId());
+
+        return ResponseEntity.created(location).build();
+    }
+
+
+
+    @PatchMapping("/{member-id}")
+    public ResponseEntity patchMember(@PathVariable("member-id") @Positive long memberId,
+                                      @Valid @RequestBody MemberDto.Patch requestBody) {
+        requestBody.setMemberId(memberId);
+        Member member = memberService.updateMember(memberMapper.memberPatchDtotoMember(requestBody));
+        MemberDto.Response response = memberMapper.memberToMemberResponseDto(member);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+
+    @DeleteMapping("/{member-id}")
+    public ResponseEntity deleteMember(@PathVariable("member-id") @Positive long memberId) {
+        memberService.deleteMember(memberId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 
