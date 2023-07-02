@@ -2,10 +2,12 @@ package re21.ieun.upcycling.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import re21.ieun.upcycling.dto.UpcyclingPatchDto;
 import re21.ieun.upcycling.dto.UpcyclingPostDto;
+import re21.ieun.upcycling.dto.UpcyclingResponseDto;
 import re21.ieun.upcycling.entity.Upcycling;
 import re21.ieun.upcycling.mapper.UpcyclingMapper;
 import re21.ieun.upcycling.service.UpcyclingService;
@@ -14,6 +16,7 @@ import re21.ieun.utils.UriCreator;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.net.URI;
+import java.util.List;
 
 @RestController         // @Controller 랑 @RestController 랑 무슨 차이인지 알아보기
 @RequestMapping("/upcyclings")
@@ -43,7 +46,7 @@ public class UpcyclingController {
     }
 
     @PatchMapping("/{upcycling-id}")
-    public ResponseEntity<?> patchAnswer(@PathVariable("upcycling-id") @Positive long upcyclingId,
+    public ResponseEntity<?> patchUpcycling(@PathVariable("upcycling-id") @Positive long upcyclingId,
                                          @Valid @RequestBody UpcyclingPatchDto upcyclingPatchDto) {
 
         upcyclingPatchDto.setId(upcyclingId);
@@ -53,11 +56,28 @@ public class UpcyclingController {
     }
 
     @GetMapping("/{upcycling-id}")
-    public ResponseEntity<?> getAnswer(@PathVariable("upcycling-id") @Positive long upcyclingId) {
+    public ResponseEntity<?> getUpcycling(@PathVariable("upcycling-id") @Positive long upcyclingId) {
 
         Upcycling upcycling = upcyclingService.findVerifyUpcycling(upcyclingId);
 
         return new ResponseEntity<>(upcyclingMapper.upcyclingToUpcyclingResponseDto(upcycling), HttpStatus.OK);
     }
+
+    @GetMapping
+    public ResponseEntity<?> getUpcyclings() {
+
+        List<UpcyclingResponseDto> upcyclings = upcyclingService.findUpcyclings();
+
+        return new ResponseEntity<>(upcyclings, HttpStatus.OK);
+    }
+
+    @GetMapping("/view/{upcycling-id}")
+    public ResponseEntity<?> viewUpcycling(@PathVariable("upcycling-id") @Positive long upcyclingId) {
+        // 조회수 증가 처리
+        Upcycling upcycling = upcyclingService.increaseViewCount(upcyclingId);
+        return new ResponseEntity<>(upcyclingMapper.upcyclingToUpcyclingResponseDto(upcycling), HttpStatus.OK);
+    }
+
+
 
 }

@@ -15,6 +15,7 @@ public class UpcyclingResponseDto {
     //@Positive
     //private long memberId;
 
+    @Positive
     private long id;
 
     @NotBlank(message = "제목을 작성해주세요.")
@@ -29,5 +30,9 @@ public class UpcyclingResponseDto {
 
     // category 만들어지면 생성
     //private String category;
+
+    // view(조회수)
+    @Positive
+    private long viewCount;
 
 }

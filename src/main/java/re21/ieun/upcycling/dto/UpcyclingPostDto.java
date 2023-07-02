@@ -28,4 +28,9 @@ public class UpcyclingPostDto {
     // category 만들어지면 생성
     //private String category;
 
+
+    // view(조회수)
+    @Positive
+    private long viewCount;
+
 }

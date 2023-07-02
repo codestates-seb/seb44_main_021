@@ -24,6 +24,7 @@ public class Upcycling extends Auditable {
     @Column(length = 30, nullable = false)
     private String title;
 
+    //@Column(columnDefinition = "TEXT", nullable = false)
     @Column(length = 300, nullable = false)
     private String content;
 
@@ -37,7 +38,11 @@ public class Upcycling extends Auditable {
     // category 만들어지면 생성
     //private String category;
 
-    // view(조회수)
+
+    // Upcycling View(조회수)
+    @Column(columnDefinition = "long default 0", nullable = false)
+    private Long viewCount;
+
 
     // like(좋아요)
 

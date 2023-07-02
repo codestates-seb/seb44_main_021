@@ -11,7 +11,7 @@ import re21.ieun.upcycling.entity.Upcycling;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-07-02T02:09:04+0900",
+    date = "2023-07-02T22:41:54+0900",
     comments = "version: 1.4.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.1.1.jar, environment: Java 11.0.18 (Azul Systems, Inc.)"
 )
 @Component
@@ -27,6 +27,7 @@ public class UpcyclingMapperImpl implements UpcyclingMapper {
 
         upcycling.setTitle( upcyclingPostDto.getTitle() );
         upcycling.setContent( upcyclingPostDto.getContent() );
+        upcycling.setViewCount( upcyclingPostDto.getViewCount() );
 
         return upcycling;
     }
@@ -59,6 +60,9 @@ public class UpcyclingMapperImpl implements UpcyclingMapper {
         }
         upcyclingResponseDto.setTitle( upcycling.getTitle() );
         upcyclingResponseDto.setContent( upcycling.getContent() );
+        if ( upcycling.getViewCount() != null ) {
+            upcyclingResponseDto.setViewCount( upcycling.getViewCount() );
+        }
 
         return upcyclingResponseDto;
     }

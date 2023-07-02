@@ -1,13 +1,16 @@
 package re21.ieun.upcycling.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import re21.ieun.exception.BusinessLogicException;
 import re21.ieun.exception.ExceptionCode;
 import re21.ieun.member.entity.Member;
+import re21.ieun.upcycling.dto.UpcyclingResponseDto;
 import re21.ieun.upcycling.entity.Upcycling;
 import re21.ieun.upcycling.mapper.UpcyclingMapper;
 import re21.ieun.upcycling.repository.UpcyclingRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -67,11 +70,28 @@ public class UpcyclingService {
     public Upcycling findVerifyUpcycling(long upcyclingId) {
 
         Optional<Upcycling> optionalUpcycling = upcyclingRepository.findById(upcyclingId);     // Optional : Null값 허용
-
         Upcycling findUpcycling = optionalUpcycling.orElseThrow(() ->
-                new BusinessLogicException(ExceptionCode.MEMBER_EXISTS));
+                new BusinessLogicException(ExceptionCode.MEMBER_EXISTS));   // ExceptionCode 코드 고쳐야함 임시로 MEMBER_EXISTS
 
         return findUpcycling;
+    }
+
+    // 모든 Upcycling 을 확인
+    public List<UpcyclingResponseDto> findUpcyclings() {
+
+        List<Upcycling> upcyclings = upcyclingRepository.findAll();
+
+        return upcyclingMapper.upcyclingToUpcyclingResponseDtos(upcyclings);
+    }
+
+
+    // Upcycling View(조회수) Counting
+    public Upcycling increaseViewCount(long upcyclingId) {
+
+        Upcycling findUpcycling = findVerifyUpcycling(upcyclingId);
+        findUpcycling.setViewCount(findUpcycling.getViewCount() + 1);
+
+        return upcyclingRepository.save(findUpcycling);
     }
 
 
