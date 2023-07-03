@@ -21,11 +21,10 @@ public class Upcycling extends Auditable {
     @Column(length = 100, nullable = false, unique = true)
     private String displayName;
 
-    @Column(length = 30, nullable = false)
+    @Column(length = 100, nullable = false)
     private String title;
 
-    //@Column(columnDefinition = "TEXT", nullable = false)
-    @Column(length = 300, nullable = false)
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
     //@Column(nullable = false)

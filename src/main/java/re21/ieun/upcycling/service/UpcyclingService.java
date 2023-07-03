@@ -38,7 +38,10 @@ public class UpcyclingService {
 
         Upcycling findUpcycling = findVerifyUpcycling(upcycling.getId());
 
-        Optional.ofNullable(upcycling.getContent())                        // ofNullable : 일반 객체뿐만 아니라 null 값까지 받을 수 있다.
+        Optional.ofNullable(upcycling.getTitle())                        // ofNullable : 일반 객체뿐만 아니라 null 값까지 받을 수 있다.
+                .ifPresent(title -> findUpcycling.setTitle(title));
+
+        Optional.ofNullable(upcycling.getContent())
                 .ifPresent(content -> findUpcycling.setContent(content));
 
         return upcyclingRepository.save(findUpcycling);

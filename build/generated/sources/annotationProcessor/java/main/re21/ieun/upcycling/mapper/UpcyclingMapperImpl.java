@@ -11,7 +11,7 @@ import re21.ieun.upcycling.entity.Upcycling;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-07-03T09:43:43+0900",
+    date = "2023-07-03T14:21:52+0900",
     comments = "version: 1.4.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.1.1.jar, environment: Java 11.0.18 (Azul Systems, Inc.)"
 )
 @Component
