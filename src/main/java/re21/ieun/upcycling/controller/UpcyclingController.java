@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import re21.ieun.member.entity.Member;
+import re21.ieun.member.service.MemberService;
 import re21.ieun.upcycling.dto.UpcyclingPatchDto;
 import re21.ieun.upcycling.dto.UpcyclingPostDto;
 import re21.ieun.upcycling.dto.UpcyclingResponseDto;
@@ -27,20 +29,21 @@ public class UpcyclingController {
 
     private final UpcyclingService upcyclingService;
     private final UpcyclingMapper upcyclingMapper;
+    private final MemberService memberService;
 
-    public UpcyclingController(UpcyclingService upcyclingService, UpcyclingMapper upcyclingMapper) {
+    public UpcyclingController(UpcyclingService upcyclingService, UpcyclingMapper upcyclingMapper, MemberService memberService) {
         this.upcyclingService = upcyclingService;
         this.upcyclingMapper = upcyclingMapper;
+        this.memberService = memberService;
     }
-
 
     @PostMapping
     public ResponseEntity<?> postUpcycling(@Valid @RequestBody UpcyclingPostDto upcyclingPostDto) {
 
-       // memberService.findMember(upcyclingPostDto.getMemberId());
+        memberService.findMember(upcyclingPostDto.getMemberId());
 
         Upcycling upcycling = upcyclingService.createUpcycling(upcyclingMapper.upcyclingPostDtoToUpcycling(upcyclingPostDto));
-        URI location = UriCreator.createUri(ANSWER_DEFAULT_URL, upcycling.getId());
+        URI location = UriCreator.createUri(ANSWER_DEFAULT_URL, upcycling.getUpcyclingId());
 
         return ResponseEntity.created(location).build();
     }
@@ -49,7 +52,7 @@ public class UpcyclingController {
     public ResponseEntity<?> patchUpcycling(@PathVariable("upcycling-id") @Positive long upcyclingId,
                                          @Valid @RequestBody UpcyclingPatchDto upcyclingPatchDto) {
 
-        upcyclingPatchDto.setId(upcyclingId);
+        upcyclingPatchDto.setUpcyclingId(upcyclingId);
         Upcycling upcycling = upcyclingService.updateUpcycling(upcyclingMapper.upcyclingPatchDtoToUpcycling(upcyclingPatchDto));
 
         return new ResponseEntity<>(upcyclingMapper.upcyclingToUpcyclingResponseDto(upcycling), HttpStatus.OK);

@@ -4,15 +4,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.Positive;
+
 @Getter
 @Setter
 @NoArgsConstructor
 public class UpcyclingResponseDto {
 
-    //@Positive
-    //private long memberId;
+    @Positive
+    private long memberId;
 
-    private long id;
+    private long upcyclingId;
 
     private String displayName;
 

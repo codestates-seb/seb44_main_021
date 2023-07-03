@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import re21.ieun.audit.Auditable;
+import re21.ieun.upcycling.entity.Upcycling;
 
 import javax.persistence.*;
 
@@ -33,6 +34,11 @@ public class Member extends Auditable {
     @Column
     private MemberRole memberRole;
 
+    /*
+    @OneToMany
+    @JoinColumn(name = "UPCYCLING_ID")
+    private Upcycling upcycling;
+     */
 
     public enum MemberRole {
         MEMBER_USER("사용자"),

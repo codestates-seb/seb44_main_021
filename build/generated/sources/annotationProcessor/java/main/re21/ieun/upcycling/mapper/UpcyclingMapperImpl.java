@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
+import re21.ieun.member.entity.Member;
 import re21.ieun.upcycling.dto.UpcyclingPatchDto;
 import re21.ieun.upcycling.dto.UpcyclingPostDto;
 import re21.ieun.upcycling.dto.UpcyclingResponseDto;
@@ -11,7 +12,7 @@ import re21.ieun.upcycling.entity.Upcycling;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-07-03T14:21:52+0900",
+    date = "2023-07-03T20:56:37+0900",
     comments = "version: 1.4.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.1.1.jar, environment: Java 11.0.18 (Azul Systems, Inc.)"
 )
 @Component
@@ -25,6 +26,7 @@ public class UpcyclingMapperImpl implements UpcyclingMapper {
 
         Upcycling upcycling = new Upcycling();
 
+        upcycling.setMember( upcyclingPostDtoToMember( upcyclingPostDto ) );
         upcycling.setDisplayName( upcyclingPostDto.getDisplayName() );
         upcycling.setTitle( upcyclingPostDto.getTitle() );
         upcycling.setContent( upcyclingPostDto.getContent() );
@@ -56,6 +58,10 @@ public class UpcyclingMapperImpl implements UpcyclingMapper {
 
         UpcyclingResponseDto upcyclingResponseDto = new UpcyclingResponseDto();
 
+        Long memberId = upcyclingMemberMemberId( upcycling );
+        if ( memberId != null ) {
+            upcyclingResponseDto.setMemberId( memberId );
+        }
         if ( upcycling.getId() != null ) {
             upcyclingResponseDto.setId( upcycling.getId() );
         }
@@ -81,5 +87,32 @@ public class UpcyclingMapperImpl implements UpcyclingMapper {
         }
 
         return list;
+    }
+
+    protected Member upcyclingPostDtoToMember(UpcyclingPostDto upcyclingPostDto) {
+        if ( upcyclingPostDto == null ) {
+            return null;
+        }
+
+        Member member = new Member();
+
+        member.setMemberId( upcyclingPostDto.getMemberId() );
+
+        return member;
+    }
+
+    private Long upcyclingMemberMemberId(Upcycling upcycling) {
+        if ( upcycling == null ) {
+            return null;
+        }
+        Member member = upcycling.getMember();
+        if ( member == null ) {
+            return null;
+        }
+        Long memberId = member.getMemberId();
+        if ( memberId == null ) {
+            return null;
+        }
+        return memberId;
     }
 }

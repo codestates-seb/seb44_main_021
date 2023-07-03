@@ -11,7 +11,7 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class UpcyclingPatchDto {
 
-    private long id;
+    private long upcyclingId;
 
     @NotBlank(message = "제목을 작성해주세요.")
     private String title;

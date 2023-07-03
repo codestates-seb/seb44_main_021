@@ -12,12 +12,12 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface UpcyclingMapper {
 
-    //@Mapping(source = "memberId", target = "member.memberId")
+    @Mapping(source = "memberId", target = "member.memberId")
     Upcycling upcyclingPostDtoToUpcycling(UpcyclingPostDto upcyclingPostDto);
 
     Upcycling upcyclingPatchDtoToUpcycling(UpcyclingPatchDto upcyclingPatchDto);
 
-    //@Mapping(source = "member.memberId", target = "memberId")
+    @Mapping(source = "member.memberId", target = "memberId")
     UpcyclingResponseDto upcyclingToUpcyclingResponseDto(Upcycling upcycling);
 
     List<UpcyclingResponseDto> upcyclingToUpcyclingResponseDtos(List<Upcycling> upcyclings);

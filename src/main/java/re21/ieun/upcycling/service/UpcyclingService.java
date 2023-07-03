@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 import re21.ieun.exception.BusinessLogicException;
 import re21.ieun.exception.ExceptionCode;
 import re21.ieun.member.entity.Member;
+import re21.ieun.member.service.MemberService;
 import re21.ieun.upcycling.dto.UpcyclingResponseDto;
 import re21.ieun.upcycling.entity.Upcycling;
 import re21.ieun.upcycling.mapper.UpcyclingMapper;
@@ -18,17 +19,18 @@ public class UpcyclingService {
 
     private final UpcyclingRepository upcyclingRepository;
     private final UpcyclingMapper upcyclingMapper;
+    private final MemberService memberService;
 
-    public UpcyclingService(UpcyclingRepository upcyclingRepository, UpcyclingMapper upcyclingMapper) {
+    public UpcyclingService(UpcyclingRepository upcyclingRepository, UpcyclingMapper upcyclingMapper, MemberService memberService) {
         this.upcyclingRepository = upcyclingRepository;
         this.upcyclingMapper = upcyclingMapper;
+        this.memberService = memberService;
     }
-
 
     // 업사이클링 펀딩 게시글 생성
     public Upcycling createUpcycling(Upcycling upcycling) {
 
-        //verifyUpcycling(upcycling);
+        verifyUpcycling(upcycling);
 
         return upcyclingRepository.save(upcycling);
     }
@@ -36,7 +38,7 @@ public class UpcyclingService {
     // 업사이클링 펀딩 게시글 수정
     public Upcycling updateUpcycling(Upcycling upcycling) {
 
-        Upcycling findUpcycling = findVerifyUpcycling(upcycling.getId());
+        Upcycling findUpcycling = findVerifyUpcycling(upcycling.getUpcyclingId());
 
         Optional.ofNullable(upcycling.getTitle())                        // ofNullable : 일반 객체뿐만 아니라 null 값까지 받을 수 있다.
                 .ifPresent(title -> findUpcycling.setTitle(title));
@@ -58,7 +60,7 @@ public class UpcyclingService {
 
     }
 
-    /*
+
     // member 가 존재하는지 확인
     public void verifyUpcycling(Upcycling upcycling) {
 
@@ -66,7 +68,7 @@ public class UpcyclingService {
         upcycling.setMember(member);
 
     }
-     */
+
 
 
     // Upcycling를 수정하기 위해선 Upcycling가 있는지 검증

@@ -16,7 +16,7 @@ public class Upcycling extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long upcyclingId;
 
     @Column(length = 100, nullable = false, unique = true)
     private String displayName;
@@ -46,9 +46,9 @@ public class Upcycling extends Auditable {
     // like(좋아요)
 
 
-    //@ManyToOne
-    //@JoinColumn(name = "MEMBER_ID")
-    //private Member member;
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
 
 
     @Enumerated(EnumType.STRING)
