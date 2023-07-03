@@ -83,7 +83,7 @@ public class UpcyclingController {
 
     // Upcycling 검색 기능
     @GetMapping("/search/{searchKeyword}")
-    public ResponseEntity<?> getUpcyclingsByTitle(@PathVariable("searchKeyword") String searchKeyword) {
+    public ResponseEntity<?> getUpcyclingsByTitleContaining(@PathVariable("searchKeyword") String searchKeyword) {
 
         List<UpcyclingResponseDto> response = upcyclingService.upcyclingSearchList(searchKeyword);
 
