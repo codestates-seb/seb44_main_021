@@ -71,7 +71,7 @@ public class UpcyclingService {
 
         Optional<Upcycling> optionalUpcycling = upcyclingRepository.findById(upcyclingId);     // Optional : Null값 허용
         Upcycling findUpcycling = optionalUpcycling.orElseThrow(() ->
-                new BusinessLogicException(ExceptionCode.MEMBER_EXISTS));   // ExceptionCode 코드 고쳐야함 임시로 MEMBER_EXISTS
+                new BusinessLogicException(ExceptionCode.UPCYCLING_NOT_FOUND));
 
         return findUpcycling;
     }
