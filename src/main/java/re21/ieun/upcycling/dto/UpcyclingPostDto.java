@@ -14,6 +14,8 @@ public class UpcyclingPostDto {
 
     //@Positive
     //private long memberId;
+    @NotBlank(message = "닉네임을 작성해주세요.")
+    private String displayName;
 
     @NotBlank(message = "제목을 작성해주세요.")
     private String title;

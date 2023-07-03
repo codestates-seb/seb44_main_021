@@ -18,8 +18,8 @@ public class Upcycling extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //@Column(length = 100, nullable = false, unique = true)
-    //private String disPlayName;
+    @Column(length = 100, nullable = false, unique = true)
+    private String displayName;
 
     @Column(length = 30, nullable = false)
     private String title;

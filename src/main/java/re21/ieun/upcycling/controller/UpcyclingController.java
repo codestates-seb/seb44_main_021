@@ -71,13 +71,23 @@ public class UpcyclingController {
         return new ResponseEntity<>(upcyclings, HttpStatus.OK);
     }
 
+    // Upcycling View(조회수)
     @GetMapping("/view/{upcycling-id}")
     public ResponseEntity<?> viewUpcycling(@PathVariable("upcycling-id") @Positive long upcyclingId) {
+
         // 조회수 증가 처리
         Upcycling upcycling = upcyclingService.increaseViewCount(upcyclingId);
+
         return new ResponseEntity<>(upcyclingMapper.upcyclingToUpcyclingResponseDto(upcycling), HttpStatus.OK);
     }
 
+    // Upcycling 검색 기능
+    @GetMapping("/search/{searchKeyword}")
+    public ResponseEntity<?> getUpcyclingsByTitle(@PathVariable("searchKeyword") String searchKeyword) {
 
+        List<UpcyclingResponseDto> response = upcyclingService.upcyclingSearchList(searchKeyword);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 
 }

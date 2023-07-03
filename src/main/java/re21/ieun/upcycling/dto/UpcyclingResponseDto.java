@@ -4,9 +4,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Positive;
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -15,13 +12,12 @@ public class UpcyclingResponseDto {
     //@Positive
     //private long memberId;
 
-    @Positive
     private long id;
 
-    @NotBlank(message = "제목을 작성해주세요.")
+    private String displayName;
+
     private String title;
 
-    @NotBlank(message = "내용을 작성해주세요.")
     private String content;
 
 
@@ -32,7 +28,6 @@ public class UpcyclingResponseDto {
     //private String category;
 
     // view(조회수)
-    @Positive
     private long viewCount;
 
 }

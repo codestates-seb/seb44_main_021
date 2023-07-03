@@ -94,5 +94,11 @@ public class UpcyclingService {
         return upcyclingRepository.save(findUpcycling);
     }
 
+    // Upcycling 검색 기능
+    public List<UpcyclingResponseDto> upcyclingSearchList(String searchKeyword) {
 
+        List<Upcycling> upcyclings = upcyclingRepository.findByTitleContaining(searchKeyword);
+
+        return upcyclingMapper.upcyclingToUpcyclingResponseDtos(upcyclings);
+    }
 }
