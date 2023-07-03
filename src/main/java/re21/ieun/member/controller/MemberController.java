@@ -1,10 +1,13 @@
 package re21.ieun.member.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import re21.ieun.dto.MultiResponseDto;
+import re21.ieun.dto.SingleResponseDto;
 import re21.ieun.member.dto.MemberDto;
 import re21.ieun.member.mapper.MemberMapper;
 import re21.ieun.member.entity.Member;
@@ -14,6 +17,7 @@ import re21.ieun.utils.UriCreator;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/members")
@@ -48,7 +52,23 @@ public class MemberController {
         return ResponseEntity.created(location).build();
     }
 
+    @GetMapping
+    public ResponseEntity getMembers(@RequestParam int page, @RequestParam int size){
 
+        Page<Member> pageMembers = memberService.findMembers(page-1,size);
+
+        List<Member> members = pageMembers.getContent();
+
+        return new ResponseEntity<>(new MultiResponseDto<>(memberMapper.membersToMemberResponseDtos(members),pageMembers),HttpStatus.OK);
+    }
+
+    @GetMapping("/{member-id}")
+    public ResponseEntity getMember(@PathVariable("member-id") @Positive long memberId) {
+        Member member = memberService.findMember(memberId);
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(memberMapper.memberToMemberResponseDto(member))
+                , HttpStatus.OK);
+    }
 
     @PatchMapping("/{member-id}")
     public ResponseEntity patchMember(@PathVariable("member-id") @Positive long memberId,
