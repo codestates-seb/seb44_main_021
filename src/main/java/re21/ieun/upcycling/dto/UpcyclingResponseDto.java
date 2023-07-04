@@ -22,6 +22,8 @@ public class UpcyclingResponseDto {
 
     private String content;
 
+    private long quantity;
+
 
     // 이미지가 구축이되면
     //private String contentImg;

@@ -12,7 +12,7 @@ import re21.ieun.sell.entity.Sell;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-07-04T14:16:01+0900",
+    date = "2023-07-04T16:17:13+0900",
     comments = "version: 1.4.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.1.1.jar, environment: Java 11.0.18 (Azul Systems, Inc.)"
 )
 @Component
@@ -46,6 +46,7 @@ public class SellMapperImpl implements SellMapper {
         sell.setSellId( sellPatchDto.getSellId() );
         sell.setTitle( sellPatchDto.getTitle() );
         sell.setContent( sellPatchDto.getContent() );
+        sell.setPrice( sellPatchDto.getPrice() );
 
         return sell;
     }

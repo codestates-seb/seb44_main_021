@@ -4,9 +4,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import re21.ieun.audit.Auditable;
+import re21.ieun.funding.entity.FundingUpcycling;
 import re21.ieun.member.entity.Member;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -18,17 +21,15 @@ public class Upcycling extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long upcyclingId;
 
-    @Column(length = 100, nullable = false, unique = true)
-    private String displayName;
-
     @Column(length = 100, nullable = false)
     private String title;
 
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    //@Column(nullable = false)
-    //private Long quantity;              // 사용자가 펀딩할 수량
+    // 총 펀딩 수량
+    @Column(nullable = false)
+    private Long quantity;
 
 
     // contentImg 만들어지면 생성
@@ -50,6 +51,17 @@ public class Upcycling extends Auditable {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
+
+    // Funding 과 다대다 관계
+    @OneToMany(mappedBy = "upcycling")
+    private List<FundingUpcycling> fundingUpcyclings = new ArrayList<>();
+
+    public void addFundingUpcycling(FundingUpcycling fundingUpcycling) {
+        this.fundingUpcyclings.add(fundingUpcycling);
+        if (fundingUpcycling.getUpcycling() != this) {
+            fundingUpcycling.addUpcycling(this);
+        }
+    }
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

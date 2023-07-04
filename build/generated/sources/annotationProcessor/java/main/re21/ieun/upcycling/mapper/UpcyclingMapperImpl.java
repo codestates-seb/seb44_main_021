@@ -12,7 +12,7 @@ import re21.ieun.upcycling.entity.Upcycling;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-07-04T13:49:30+0900",
+    date = "2023-07-04T17:27:13+0900",
     comments = "version: 1.4.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.1.1.jar, environment: Java 11.0.18 (Azul Systems, Inc.)"
 )
 @Component
@@ -27,9 +27,9 @@ public class UpcyclingMapperImpl implements UpcyclingMapper {
         Upcycling upcycling = new Upcycling();
 
         upcycling.setMember( upcyclingPostDtoToMember( upcyclingPostDto ) );
-        upcycling.setDisplayName( upcyclingPostDto.getDisplayName() );
         upcycling.setTitle( upcyclingPostDto.getTitle() );
         upcycling.setContent( upcyclingPostDto.getContent() );
+        upcycling.setQuantity( upcyclingPostDto.getQuantity() );
         upcycling.setViewCount( upcyclingPostDto.getViewCount() );
 
         return upcycling;
@@ -46,6 +46,7 @@ public class UpcyclingMapperImpl implements UpcyclingMapper {
         upcycling.setUpcyclingId( upcyclingPatchDto.getUpcyclingId() );
         upcycling.setTitle( upcyclingPatchDto.getTitle() );
         upcycling.setContent( upcyclingPatchDto.getContent() );
+        upcycling.setQuantity( upcyclingPatchDto.getQuantity() );
 
         return upcycling;
     }
@@ -62,12 +63,15 @@ public class UpcyclingMapperImpl implements UpcyclingMapper {
         if ( memberId != null ) {
             upcyclingResponseDto.setMemberId( memberId );
         }
+        upcyclingResponseDto.setDisplayName( upcyclingMemberDisplayName( upcycling ) );
         if ( upcycling.getUpcyclingId() != null ) {
             upcyclingResponseDto.setUpcyclingId( upcycling.getUpcyclingId() );
         }
-        upcyclingResponseDto.setDisplayName( upcycling.getDisplayName() );
         upcyclingResponseDto.setTitle( upcycling.getTitle() );
         upcyclingResponseDto.setContent( upcycling.getContent() );
+        if ( upcycling.getQuantity() != null ) {
+            upcyclingResponseDto.setQuantity( upcycling.getQuantity() );
+        }
         if ( upcycling.getViewCount() != null ) {
             upcyclingResponseDto.setViewCount( upcycling.getViewCount() );
         }
@@ -114,5 +118,20 @@ public class UpcyclingMapperImpl implements UpcyclingMapper {
             return null;
         }
         return memberId;
+    }
+
+    private String upcyclingMemberDisplayName(Upcycling upcycling) {
+        if ( upcycling == null ) {
+            return null;
+        }
+        Member member = upcycling.getMember();
+        if ( member == null ) {
+            return null;
+        }
+        String displayName = member.getDisplayName();
+        if ( displayName == null ) {
+            return null;
+        }
+        return displayName;
     }
 }

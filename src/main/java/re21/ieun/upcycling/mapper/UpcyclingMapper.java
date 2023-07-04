@@ -18,6 +18,7 @@ public interface UpcyclingMapper {
     Upcycling upcyclingPatchDtoToUpcycling(UpcyclingPatchDto upcyclingPatchDto);
 
     @Mapping(source = "member.memberId", target = "memberId")
+    @Mapping(source = "member.displayName", target = "displayName")
     UpcyclingResponseDto upcyclingToUpcyclingResponseDto(Upcycling upcycling);
 
     List<UpcyclingResponseDto> upcyclingToUpcyclingResponseDtos(List<Upcycling> upcyclings);
