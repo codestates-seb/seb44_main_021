@@ -1,6 +1,6 @@
 import React from "react";
 
-export const FundingDetail = () => {
+const FundingDetail = () => {
   return <div>FundingDetail</div>;
 };
 

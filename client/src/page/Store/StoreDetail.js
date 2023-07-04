@@ -1,6 +1,6 @@
 import React from "react";
 
-export const StoreDetail = () => {
+const StoreDetail = () => {
   return <div>StoreDetail</div>;
 };
 

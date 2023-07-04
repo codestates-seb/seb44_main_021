@@ -1,6 +1,6 @@
 import React from "react";
 
-export const FundingPage = () => {
+const FundingPage = () => {
   return <div>FundingPage</div>;
 };
 
