@@ -14,11 +14,12 @@ import java.util.List;
 public interface SellMapper {
 
     @Mapping(source = "memberId", target = "member.memberId")
-    Sell sellPostDtoToSell(Sell sell);
+    Sell sellPostDtoToSell(SellPostDto sellPostDto);
 
     Sell sellPatchDtoToSell(SellPatchDto sellPatchDto);
 
     @Mapping(source = "member.memberId", target = "memberId")
+    @Mapping(source = "member.displayName", target = "displayName")
     SellResponseDto sellToSellResponseDto(Sell sell);
 
     List<SellResponseDto> sellToSellResponseDtos(List<Sell> sells);

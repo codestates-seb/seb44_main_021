@@ -12,19 +12,20 @@ import javax.validation.constraints.Positive;
 @Getter
 @Setter
 @NoArgsConstructor
-public class SellPostDto extends Sell {
+public class SellPostDto {
 
     @Positive
     private long memberId;
 
-    @NotBlank(message = "닉네임을 작성해주세요.")
-    private String displayName;
 
     @NotBlank(message = "제목을 작성해주세요.")
     private String title;
 
     @NotBlank(message = "내용을 작성해주세요.")
     private String content;
+
+    @NotBlank(message = "가격을 입력해주세요.")
+    private int price;
 
     @Positive
     private long viewCount;

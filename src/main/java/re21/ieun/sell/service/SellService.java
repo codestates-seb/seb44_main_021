@@ -1,5 +1,6 @@
 package re21.ieun.sell.service;
 
+import org.springframework.stereotype.Service;
 import re21.ieun.exception.BusinessLogicException;
 import re21.ieun.exception.ExceptionCode;
 import re21.ieun.member.service.MemberService;
@@ -12,6 +13,7 @@ import re21.ieun.member.entity.Member;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class SellService {
 
     private final SellRepository sellRepository;

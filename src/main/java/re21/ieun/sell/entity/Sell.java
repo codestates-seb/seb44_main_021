@@ -19,14 +19,14 @@ public class Sell extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long sellId;
 
-    @Column(length = 100, nullable = false, unique = true)
-    private String displayName;
-
     @Column(length = 100, nullable = false)
     private String title;
 
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
+
+    @Column(nullable = false)
+    private int price;
 
     @Column(columnDefinition = "long default 0", nullable = false)
     private Long viewCount;

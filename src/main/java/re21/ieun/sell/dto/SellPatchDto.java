@@ -21,4 +21,7 @@ public class SellPatchDto {
     private String content;
 
 
+    @NotBlank(message = "가격을 입력해주세요")
+    private int price;
+
 }
