@@ -24,7 +24,7 @@ public class UpcyclingPostDto {
 
     // 총 펀딩 수량
     @NotBlank(message = "수량을 작성해주세요.")
-    private long quantity;
+    private int totalQuantity;
 
     // 이미지가 구축이되면
     //private String contentImg;

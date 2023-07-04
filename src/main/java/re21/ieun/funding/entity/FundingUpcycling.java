@@ -19,7 +19,7 @@ public class FundingUpcycling extends Auditable {
     private Long FundingUpcyclingId;
 
     @Column(nullable = false)
-    private Long quantity;
+    private int quantity;
 
     @ManyToOne
     @JoinColumn(name = "FUNDING_ID")

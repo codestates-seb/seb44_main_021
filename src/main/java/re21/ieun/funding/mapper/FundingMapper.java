@@ -1,6 +1,7 @@
 package re21.ieun.funding.mapper;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import re21.ieun.funding.dto.*;
 import re21.ieun.funding.entity.Funding;
 import re21.ieun.funding.entity.FundingUpcycling;
@@ -17,6 +18,7 @@ public interface FundingMapper {
 
     List<FundingResponseDto> fundingToFundingResponseDtos(List<Funding> funding);
 
+
     default Funding fundingPostDtoToFunding(FundingPostDto fundingPostDto) {
         Funding funding = new Funding();
         Member member = new Member();
@@ -29,7 +31,7 @@ public interface FundingMapper {
                     upcycling.setUpcyclingId(fundingUpcyclingDto.getUpcyclingId());
                     fundingUpcycling.addFunding(funding);
                     fundingUpcycling.addUpcycling(upcycling);
-                    fundingUpcycling.setQuantity(fundingUpcycling.getQuantity());
+                    fundingUpcycling.setQuantity(fundingUpcyclingDto.getQuantity());
                     return fundingUpcycling;
                 }).collect(Collectors.toList());
         funding.setMember(member);
@@ -42,7 +44,7 @@ public interface FundingMapper {
         List<FundingUpcycling> fundingUpcyclings = funding.getFundingUpcyclings();
 
         FundingResponseDto fundingResponseDto = new FundingResponseDto();
-        fundingResponseDto.setFundId(funding.getFundingId());
+        fundingResponseDto.setFundingId(funding.getFundingId());
         fundingResponseDto.setMember(funding.getMember());
         fundingResponseDto.setFundingStatus(funding.getFundingStatus());
         fundingResponseDto.setCreatedAt(funding.getCreatedAt());
@@ -61,9 +63,10 @@ public interface FundingMapper {
                 .map(fundingUpcycling -> FundingUpcyclingResponseDto
                         .builder()
                         .upcyclingId(fundingUpcycling.getFunding().getFundingId())
-                        .quantity(fundingUpcycling.getQuantity())
                         .title(fundingUpcycling.getUpcycling().getTitle())
+                        .quantity(fundingUpcycling.getQuantity())
                         .build())
                 .collect(Collectors.toList());
     }
+
 }

@@ -20,8 +20,8 @@ public class Funding extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long fundingId;
 
-    @Column(nullable = false)
-    private Long quantity;
+    //@Column(nullable = false)
+    //private Long quantity;
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
@@ -31,13 +31,24 @@ public class Funding extends Auditable {
     @OneToMany(mappedBy = "funding", cascade = CascadeType.PERSIST)
     private List<FundingUpcycling> fundingUpcyclings = new ArrayList<>();
 
+    /*
+    public void addOrderProduct(FundingUpcycling fundingUpcycling) {
+        this.fundingUpcyclings.addAll(List.of(fundingUpcycling));
+    }
+
+    public void addOrderProduct(List<FundingUpcycling> fundingUpcyclings) {
+        this.fundingUpcyclings.addAll(fundingUpcyclings);
+    }
+
+     */
+
     @Enumerated(EnumType.STRING)
     private FundingStatus fundingStatus = FundingStatus.FUNDING_REQUEST;
 
     public enum FundingStatus {
         FUNDING_REQUEST(1, "펀딩 요청"),
-        FUNDING_CONFIRM(2, "펀딩 확정"),
-        FUNDING_COMPLETE(3, "펀딩 처리 완료"),
+        FUNDING_COMPLETE(2, "펀딩 신청 완료"),
+        FUNDING_SENDING(3, "펀딩 물품 보내는 중"),
         FUNDING_CANCEL(4, "펀딩 취소");
 
         @Getter

@@ -12,7 +12,7 @@ import re21.ieun.upcycling.entity.Upcycling;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-07-04T17:27:13+0900",
+    date = "2023-07-04T23:39:07+0900",
     comments = "version: 1.4.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.1.1.jar, environment: Java 11.0.18 (Azul Systems, Inc.)"
 )
 @Component
@@ -29,7 +29,7 @@ public class UpcyclingMapperImpl implements UpcyclingMapper {
         upcycling.setMember( upcyclingPostDtoToMember( upcyclingPostDto ) );
         upcycling.setTitle( upcyclingPostDto.getTitle() );
         upcycling.setContent( upcyclingPostDto.getContent() );
-        upcycling.setQuantity( upcyclingPostDto.getQuantity() );
+        upcycling.setTotalQuantity( upcyclingPostDto.getTotalQuantity() );
         upcycling.setViewCount( upcyclingPostDto.getViewCount() );
 
         return upcycling;
@@ -46,7 +46,7 @@ public class UpcyclingMapperImpl implements UpcyclingMapper {
         upcycling.setUpcyclingId( upcyclingPatchDto.getUpcyclingId() );
         upcycling.setTitle( upcyclingPatchDto.getTitle() );
         upcycling.setContent( upcyclingPatchDto.getContent() );
-        upcycling.setQuantity( upcyclingPatchDto.getQuantity() );
+        upcycling.setTotalQuantity( upcyclingPatchDto.getTotalQuantity() );
 
         return upcycling;
     }
@@ -69,9 +69,7 @@ public class UpcyclingMapperImpl implements UpcyclingMapper {
         }
         upcyclingResponseDto.setTitle( upcycling.getTitle() );
         upcyclingResponseDto.setContent( upcycling.getContent() );
-        if ( upcycling.getQuantity() != null ) {
-            upcyclingResponseDto.setQuantity( upcycling.getQuantity() );
-        }
+        upcyclingResponseDto.setTotalQuantity( upcycling.getTotalQuantity() );
         if ( upcycling.getViewCount() != null ) {
             upcyclingResponseDto.setViewCount( upcycling.getViewCount() );
         }

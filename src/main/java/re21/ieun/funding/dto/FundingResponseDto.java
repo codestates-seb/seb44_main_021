@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 public class FundingResponseDto {
 
-    private long fundId;
+    private long fundingId;
 
     @Setter(AccessLevel.NONE)       // AccessLevel : 접근권한
     private long memberId;

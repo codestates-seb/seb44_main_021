@@ -46,8 +46,8 @@ public class UpcyclingService {
         Optional.ofNullable(upcycling.getContent())
                 .ifPresent(content -> findUpcycling.setContent(content));
 
-        Optional.ofNullable(upcycling.getQuantity())
-                .ifPresent(quantity -> findUpcycling.setQuantity(quantity));
+        Optional.ofNullable(upcycling.getTotalQuantity())
+                .ifPresent(quantity -> findUpcycling.setTotalQuantity(quantity));
 
         return upcyclingRepository.save(findUpcycling);
     }

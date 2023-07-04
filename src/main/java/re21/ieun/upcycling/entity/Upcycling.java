@@ -29,7 +29,7 @@ public class Upcycling extends Auditable {
 
     // 총 펀딩 수량
     @Column(nullable = false)
-    private Long quantity;
+    private int totalQuantity;
 
 
     // contentImg 만들어지면 생성

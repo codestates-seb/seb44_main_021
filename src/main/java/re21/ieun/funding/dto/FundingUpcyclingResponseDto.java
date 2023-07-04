@@ -1,12 +1,11 @@
 package re21.ieun.funding.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Builder
 @Getter
 @Setter
+@AllArgsConstructor         // @NoArgsConstructor 랑 @Builder랑 같이 쓰면 왜 오류??
 public class FundingUpcyclingResponseDto {
 
     private long upcyclingId;
@@ -16,6 +15,6 @@ public class FundingUpcyclingResponseDto {
     // category 만들어지면 생성
     //private String category;
 
-    private long quantity;      // 추가적인 부분
+    private int quantity;
 
 }

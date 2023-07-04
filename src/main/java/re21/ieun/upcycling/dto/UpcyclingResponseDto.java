@@ -22,7 +22,7 @@ public class UpcyclingResponseDto {
 
     private String content;
 
-    private long quantity;
+    private int totalQuantity;
 
 
     // 이미지가 구축이되면

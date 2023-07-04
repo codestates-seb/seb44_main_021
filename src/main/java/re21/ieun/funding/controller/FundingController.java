@@ -61,7 +61,7 @@ public class FundingController {
 
     }
 
-    @GetMapping("/{funding-id}")
+    @GetMapping("/{funding-id}")        // ("/{member-id}") 로 바꿀 생각
     public ResponseEntity<?> getOrder(@PathVariable("funding-id") @Positive long fundingId) {
 
         Funding funding = fundingService.findFunding(fundingId);

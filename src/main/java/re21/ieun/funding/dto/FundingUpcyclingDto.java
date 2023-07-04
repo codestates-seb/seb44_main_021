@@ -15,6 +15,6 @@ public class FundingUpcyclingDto {
     private long upcyclingId;
 
     @Positive
-    private long quantity;
+    private int quantity;
 
 }

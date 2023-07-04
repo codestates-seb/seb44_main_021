@@ -11,7 +11,7 @@ import re21.ieun.member.entity.Member;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-07-04T16:17:13+0900",
+    date = "2023-07-04T21:50:35+0900",
     comments = "version: 1.4.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.1.1.jar, environment: Java 11.0.18 (Azul Systems, Inc.)"
 )
 @Component
@@ -28,7 +28,6 @@ public class MemberMapperImpl implements MemberMapper {
         member.setMemberId( requestBody.getMemberId() );
         member.setDisplayName( requestBody.getDisplayName() );
         member.setPassword( requestBody.getPassword() );
-        member.setProfileImg( requestBody.getProfileImg() );
 
         return member;
     }
@@ -45,7 +44,6 @@ public class MemberMapperImpl implements MemberMapper {
         String memberRole = null;
         LocalDateTime createdAt = null;
         LocalDateTime modifiedAt = null;
-        String profileImg = null;
 
         if ( member.getMemberId() != null ) {
             memberId = member.getMemberId();
@@ -57,9 +55,8 @@ public class MemberMapperImpl implements MemberMapper {
         }
         createdAt = member.getCreatedAt();
         modifiedAt = member.getModifiedAt();
-        profileImg = member.getProfileImg();
 
-        Response response = new Response( memberId, email, displayName, memberRole, createdAt, modifiedAt, profileImg );
+        Response response = new Response( memberId, email, displayName, memberRole, createdAt, modifiedAt );
 
         return response;
     }

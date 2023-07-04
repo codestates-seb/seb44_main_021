@@ -33,19 +33,15 @@ public class FundingService {
     public Funding createFunding(Funding funding) {
 
         verifyFunding(funding);
-        Funding savedFunding = saveFunding(funding);
 
         //updateLike(savedFunding);
         //updateFollower(savedFunding);
 
-        return savedFunding;
+        return fundingRepository.save(funding);
     }
 
     public Funding updateFunding(Funding funding) {
         Funding findFunding = findVerifiedFunding(funding.getFundingId());
-
-        Optional.ofNullable(funding.getQuantity())
-                .ifPresent(fundingQuantity -> findFunding.setQuantity(fundingQuantity));
 
         Optional.ofNullable(funding.getFundingStatus())
                 .ifPresent(fundingStatus -> findFunding.setFundingStatus(fundingStatus));
@@ -58,8 +54,8 @@ public class FundingService {
         Funding findFunding = findVerifiedFunding(fundingId);
         int step = findFunding.getFundingStatus().getStepNumber();
 
-        // FundingStatus의 step이 2 이상일 경우(FUNDING_CONFIRM)에는 주문 취소가 되지 않도록한다.
-        if (step >= 2) {
+        // FundingStatus의 step이 3 이상일 경우(FUNDING_SENDING)에는 주문 취소가 되지 않도록한다.
+        if (step >= 3) {
             throw new BusinessLogicException(ExceptionCode.CANNOT_CHANGE_FUNDING);
         }
 

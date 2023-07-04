@@ -20,7 +20,7 @@ public class UpcyclingPatchDto {
     private String content;
 
     @NotBlank(message = "수량을 작성해주세요.")
-    private long quantity;
+    private int totalQuantity;
 
 
     // 이미지가 구축이되면
