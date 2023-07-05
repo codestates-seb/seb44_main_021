@@ -28,7 +28,7 @@ public class Funding extends Auditable {
     private Member member;
 
 
-    @OneToMany(mappedBy = "funding", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "funding", cascade = CascadeType.ALL)
     private List<FundingUpcycling> fundingUpcyclings = new ArrayList<>();
 
     /*

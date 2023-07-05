@@ -61,7 +61,7 @@ public class FundingService {
         }
 
         findFunding.setFundingStatus(Funding.FundingStatus.FUNDING_CANCEL);
-        fundingRepository.save(findFunding);
+        fundingRepository.delete(findFunding);
     }
 
     // 하나의 Funding 확인

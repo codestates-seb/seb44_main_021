@@ -1,7 +1,6 @@
 package re21.ieun.upcycling.service;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import re21.ieun.exception.BusinessLogicException;
 import re21.ieun.exception.ExceptionCode;
 import re21.ieun.member.entity.Member;
@@ -53,14 +52,13 @@ public class UpcyclingService {
     }
 
     // 업사이클링 펀딩 게시글 삭제
-    public Upcycling deleteUpcycling(long upcyclingId) {
+    public void deleteUpcycling(long upcyclingId) {
 
         Upcycling findUpcycling = findVerifyUpcycling(upcyclingId);
 
         findUpcycling.setUpcyclingStatus(Upcycling.UpcyclingStatus.UPCYCLING_DELETE);
 
-        return upcyclingRepository.save(findUpcycling);
-
+        upcyclingRepository.delete(findUpcycling);
     }
 
 

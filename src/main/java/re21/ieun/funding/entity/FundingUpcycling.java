@@ -22,7 +22,7 @@ public class FundingUpcycling extends Auditable {
     private int quantity;
 
     @ManyToOne
-    @JoinColumn(name = "FUNDING_ID")
+    @JoinColumn(name = "FUNDING_ID", referencedColumnName = "fundingId")
     private Funding funding;
 
     @ManyToOne
