@@ -1,0 +1,22 @@
+#loginContainer{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+
+}
+#loginInputContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.loginInput{
+    width: 200px;
+    height: 30px;
+    margin: 10px;
+}
+
+.loginButton{
+    width: 200px;
+    height: 30px;
+}
