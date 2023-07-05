@@ -33,6 +33,7 @@ public class FundingService {
     public Funding createFunding(Funding funding) {
 
         verifyFunding(funding);
+        funding.setFundingStatus(Funding.FundingStatus.FUNDING_APPLICATION_COMPLETE);
 
         //updateLike(savedFunding);
         //updateFollower(savedFunding);

@@ -47,7 +47,7 @@ public class Funding extends Auditable {
 
     public enum FundingStatus {
         FUNDING_REQUEST(1, "펀딩 요청"),
-        FUNDING_COMPLETE(2, "펀딩 신청 완료"),
+        FUNDING_APPLICATION_COMPLETE(2, "펀딩 신청 완료"),
         FUNDING_SENDING(3, "펀딩 물품 보내는 중"),
         FUNDING_CANCEL(4, "펀딩 취소");
 
