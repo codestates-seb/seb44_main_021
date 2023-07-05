@@ -4,8 +4,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import re21.ieun.audit.Auditable;
+import re21.ieun.upcycling.entity.Upcycling;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -18,9 +21,6 @@ public class Member extends Auditable {
     private Long memberId;
 
     @Column(nullable = false)
-    private String name;
-
-    @Column(nullable = false)
     private String displayName;
 
     @Column(nullable = false, updatable = false, unique = true)
@@ -30,19 +30,24 @@ public class Member extends Auditable {
     private String password;
 
     @Column
-    private String category;
-
-    @Column
     private String profileImg;
 
     @Enumerated(EnumType.STRING)
     @Column
-    private MemberRole memberRole = MemberRole.MEMBER_USER;
+    private MemberRole memberRole;
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
+
+    /*
+    @OneToMany
+    @JoinColumn(name = "UPCYCLING_ID")
+    private Upcycling upcycling;
+     */
 
     public enum MemberRole {
         MEMBER_USER("사용자"),
-        MEMBER_ENGINEER("엔지니어");
+        MEMBER_UPCYCLER("업사이클러");
 
         @Getter
         private final String role;
@@ -50,7 +55,5 @@ public class Member extends Auditable {
         MemberRole(String roles) {
             this.role = roles;
         }
-
     }
-
 }
