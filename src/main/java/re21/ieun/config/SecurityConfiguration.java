@@ -67,7 +67,7 @@ public class SecurityConfiguration {
                         .antMatchers(HttpMethod.GET, "/*/members").hasRole("USER")
                         .antMatchers(HttpMethod.GET, "/*/members/**").hasAnyRole("USER", "ADMIN")
                         .antMatchers(HttpMethod.DELETE, "/*/members/**").hasRole("USER")
-                        .antMatchers(HttpMethod.POST, "/*/questions/ask").hasRole("USER")
+                        //.antMatchers(HttpMethod.POST, "/*/upcycling").hasRole("USER")
                         .anyRequest().permitAll()
                 );
 
