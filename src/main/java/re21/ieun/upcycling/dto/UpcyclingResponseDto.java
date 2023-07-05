@@ -3,6 +3,7 @@ package re21.ieun.upcycling.dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import re21.ieun.category.entity.Category;
 
 import javax.validation.constraints.Positive;
 
@@ -26,8 +27,8 @@ public class UpcyclingResponseDto {
     // 이미지가 구축이되면
     //private String contentImg;
 
-    // category 만들어지면 생성
-    //private String category;
+
+    private Category category;
 
     // view(조회수)
     private long viewCount;

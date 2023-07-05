@@ -2,6 +2,7 @@ package re21.ieun.upcycling.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import re21.ieun.category.entity.Category;
 import re21.ieun.upcycling.dto.UpcyclingPatchDto;
 import re21.ieun.upcycling.dto.UpcyclingPostDto;
 import re21.ieun.upcycling.dto.UpcyclingResponseDto;
@@ -21,5 +22,6 @@ public interface UpcyclingMapper {
     UpcyclingResponseDto upcyclingToUpcyclingResponseDto(Upcycling upcycling);
 
     List<UpcyclingResponseDto> upcyclingToUpcyclingResponseDtos(List<Upcycling> upcyclings);
+
 
 }

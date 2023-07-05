@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
+import re21.ieun.category.entity.Category;
 import re21.ieun.member.entity.Member;
 import re21.ieun.upcycling.dto.UpcyclingPatchDto;
 import re21.ieun.upcycling.dto.UpcyclingPostDto;
@@ -12,7 +13,7 @@ import re21.ieun.upcycling.entity.Upcycling;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-07-04T13:49:30+0900",
+    date = "2023-07-04T22:39:07+0900",
     comments = "version: 1.4.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.1.1.jar, environment: Java 11.0.18 (Azul Systems, Inc.)"
 )
 @Component
@@ -27,9 +28,9 @@ public class UpcyclingMapperImpl implements UpcyclingMapper {
         Upcycling upcycling = new Upcycling();
 
         upcycling.setMember( upcyclingPostDtoToMember( upcyclingPostDto ) );
-        upcycling.setDisplayName( upcyclingPostDto.getDisplayName() );
         upcycling.setTitle( upcyclingPostDto.getTitle() );
         upcycling.setContent( upcyclingPostDto.getContent() );
+        upcycling.setCategory( map( upcyclingPostDto.getCategory() ) );
         upcycling.setViewCount( upcyclingPostDto.getViewCount() );
 
         return upcycling;
@@ -46,6 +47,7 @@ public class UpcyclingMapperImpl implements UpcyclingMapper {
         upcycling.setUpcyclingId( upcyclingPatchDto.getUpcyclingId() );
         upcycling.setTitle( upcyclingPatchDto.getTitle() );
         upcycling.setContent( upcyclingPatchDto.getContent() );
+        upcycling.setCategory( map( upcyclingPatchDto.getCategory() ) );
 
         return upcycling;
     }
@@ -65,9 +67,9 @@ public class UpcyclingMapperImpl implements UpcyclingMapper {
         if ( upcycling.getUpcyclingId() != null ) {
             upcyclingResponseDto.setUpcyclingId( upcycling.getUpcyclingId() );
         }
-        upcyclingResponseDto.setDisplayName( upcycling.getDisplayName() );
         upcyclingResponseDto.setTitle( upcycling.getTitle() );
         upcyclingResponseDto.setContent( upcycling.getContent() );
+        upcyclingResponseDto.setCategory( map( upcycling.getCategory() ) );
         if ( upcycling.getViewCount() != null ) {
             upcyclingResponseDto.setViewCount( upcycling.getViewCount() );
         }
@@ -87,6 +89,28 @@ public class UpcyclingMapperImpl implements UpcyclingMapper {
         }
 
         return list;
+    }
+
+    @Override
+    public Category map(String value) {
+        if ( value == null ) {
+            return null;
+        }
+
+        Category category = new Category();
+
+        return category;
+    }
+
+    @Override
+    public String map(Category value) {
+        if ( value == null ) {
+            return null;
+        }
+
+        String string = new String();
+
+        return string;
     }
 
     protected Member upcyclingPostDtoToMember(UpcyclingPostDto upcyclingPostDto) {

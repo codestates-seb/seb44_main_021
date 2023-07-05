@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import re21.ieun.audit.Auditable;
+import re21.ieun.category.entity.Category;
 import re21.ieun.member.entity.Member;
 
 import javax.persistence.*;
@@ -18,9 +19,6 @@ public class Upcycling extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long upcyclingId;
 
-    @Column(length = 100, nullable = false, unique = true)
-    private String displayName;
-
     @Column(length = 100, nullable = false)
     private String title;
 
@@ -33,14 +31,16 @@ public class Upcycling extends Auditable {
 
     // contentImg 만들어지면 생성
     //private String contentImg;
-
-    // category 만들어지면 생성
-    //private String category;
+    @ManyToOne
+    @JoinColumn(name = "categoryId")
+    private Category category;
 
 
     // Upcycling View(조회수)
     @Column(columnDefinition = "long default 0", nullable = false)
     private Long viewCount;
+
+
 
 
     // like(좋아요)
