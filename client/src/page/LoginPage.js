@@ -1,22 +1,25 @@
 import { useState } from "react";
 import Style from "./LoginPage.module.css";
 import axios from "axios";
+import { useCookies } from "react-cookie";
 
 const LoginPage = () => {
   const [loginInfo, setLoginInfo] = useState({
     username: "",
     password: "",
   });
+  const [cookies, setCookie] = useCookies();
 
   const handleInputValue = (key) => (e) => {
     setLoginInfo({ ...loginInfo, [key]: e.target.value });
     console.log(loginInfo);
   };
 
-  const AxiosLogin = async () => {
-    await axios
+  const AxiosLogin = (e) => {
+    e.preventDefault();
+    axios
       .post(
-        "ec2-43-201-105-214.ap-northeast-2.compute.amazonaws.com:8080/members/login",
+        "http://ec2-43-201-105-214.ap-northeast-2.compute.amazonaws.com:8080/auth/login",
         loginInfo
       )
 
@@ -24,14 +27,19 @@ const LoginPage = () => {
         console.log(res);
 
         if (res.status === 200) {
+          // 엑세스 토큰 저장
           const authHeader = res.headers.authorization;
           const accessToken = authHeader.split(" ")[1];
+          // 쿠키에 리프레시 토큰 저장
+          const refreshToken = res.headers.refresh;
+          setCookie("refreshToken", refreshToken, { path: "/" });
 
-          axios.defaults.headers.common[
-            "authorization"
-          ] = `Bearer ${accessToken}`;
+          // axios.defaults.headers.common[
+          //   "Authorization"
+          // ] = `Bearer ${accessToken}`;
 
-          console.log("성공");
+          console.log(accessToken);
+          console.log(cookies.refreshToken);
         }
       })
       .catch((err) => {
@@ -41,8 +49,8 @@ const LoginPage = () => {
   };
 
   return (
-    <div id={Style.loginContainer}>
-      <form id={Style.loginInputContainer} onSubmit={AxiosLogin}>
+    <div id={Style.loginContainer} onSubmit={AxiosLogin}>
+      <form id={Style.loginInputContainer}>
         <input
           className={Style.loginInput}
           type="email"
