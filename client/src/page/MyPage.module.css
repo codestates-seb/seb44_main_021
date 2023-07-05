@@ -1,0 +1,123 @@
+/* all */
+#MyPageContainer1{
+    background-color: #f6f6f6;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center ;
+}
+
+h2 {
+    width:70%;
+    color: #6E934D;
+    display: flex;
+}
+
+#MyPageContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width:100%;
+}
+
+#MyPageWrapper{
+    display: flex;
+    flex-direction: row;
+}
+
+
+/* UserProfile */
+.profileContainer{
+    width: 300px;
+    height: 90vh;
+    border-radius: 10px;
+    background: #ffffff;
+    box-shadow:  1px 1px 3px #95959540, -1px -1px 3px #95959540;
+    margin-right: 15px;
+}
+
+.userImg{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.userInfo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+}
+
+.userName{
+    font-size: 30px;
+    font-weight: 800;
+    margin-top: 20px;
+}
+
+.userEmail{
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.editButton {
+    height: 30px;
+    width: 130px;
+    letter-spacing: 3.5px;
+    color: #6E934D;
+    background: #ffffff;
+    box-shadow: 3px 3px 5px rgba(107, 107, 107, 0.288);
+    border-radius: 5px;
+    border: none;
+}
+
+.editButton:active {
+    box-shadow:  1px 1px 3px rgba(107, 107, 107, 0.288);
+}
+
+
+  /* History */
+.historyContainer{
+    width:800px;
+    height: 90vh;
+    border-radius: 10px;
+    background: #ffffff;
+    box-shadow:  1px 1px 3px #95959540, -1px -1px 3px #95959540;
+    overflow-y: scroll;
+}
+
+.historyWrapper{
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+}
+.historyTitle{
+    align-self: flex-start;
+    color: #6E934D;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 10px;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 10px;
+
+}
+
+th {
+    font-size: 16px;
+    font-weight: 400;
+    border-top: 2px solid #6E934D;
+    border-bottom: 1px solid #6E934D;
+    height: 30px;
+}
+
+.emptyText{
+    /* width: 100%; */
+    color: #767676;
+    text-align: center;
+    height: 150px;
+}
