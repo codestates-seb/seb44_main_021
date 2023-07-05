@@ -1,0 +1,39 @@
+#main {
+  overflow-x: hidden;
+}
+
+#header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+}
+
+#logosize1 {
+  width: 50px;
+  height: 50px;
+  border-radius: 20px;
+}
+
+#logosize2 {
+  width: 50px;
+  height: 50px;
+}
+
+#contents {
+  height: 1000px;
+}
+
+.horwrap {
+  display: flex;
+  flex-wrap: wrap;
+  width: 400vw;
+  height: 90vh;
+}
+
+.hor {
+  width: 80vw;
+  height: 90%;
+  border: 1px solid black;
+}
