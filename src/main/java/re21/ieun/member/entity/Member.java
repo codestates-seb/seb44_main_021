@@ -7,6 +7,8 @@ import re21.ieun.audit.Auditable;
 import re21.ieun.upcycling.entity.Upcycling;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -33,6 +35,9 @@ public class Member extends Auditable {
     @Enumerated(EnumType.STRING)
     @Column
     private MemberRole memberRole;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
 
     /*
     @OneToMany
