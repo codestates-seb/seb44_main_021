@@ -1,5 +1,6 @@
-import React from "react";
+import { useState } from "react";
 import Style from "./MyPage.module.css";
+import EditModal from "../components/Modal/EditModal";
 
 const MyPage = () => {
   const historyTitle = [
@@ -14,22 +15,36 @@ const MyPage = () => {
     Fregistration: ["날짜", "펀딩명", "펀딩기한", "펀딩률"],
     Oregistration: ["날짜", "제품명", "금액"],
   };
+  const [isOpenModal, setIsOpenModal] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsOpenModal(!isOpenModal);
+  };
+
+  const handleCloseModal = () => {
+    setIsOpenModal(!isOpenModal);
+  };
+
+  // const handleInputChange = (e) => {
+  //   // 입력 값 처리 로직
+  // };
 
   return (
     <div id={Style.MyPageContainer1}>
       <div id={Style.MyPageContainer}>
         <div id={Style.MyPageWrapper}>
-          <Profile />
+          <Profile onClick={handleOpenModal} />
           <History historyTitle={historyTitle} historyData={historyData} />
         </div>
       </div>
+      {isOpenModal && <EditModal onClose={handleCloseModal} />}
     </div>
   );
 };
 
 export default MyPage;
 
-const Profile = () => {
+const Profile = ({ onClick }) => {
   return (
     <div className={Style.profileContainer}>
       <div className={Style.userInfo}>
@@ -40,7 +55,9 @@ const Profile = () => {
         />
         <p className={Style.userName}>나예진 님</p>
         <p className={Style.userEmail}>yejin123@gmail.com</p>
-        <button className={Style.editButton}>Edit Profile</button>
+        <button className={Style.editButton} onClick={onClick}>
+          Edit Profile
+        </button>
       </div>
     </div>
   );
