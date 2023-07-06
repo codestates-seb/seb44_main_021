@@ -20,7 +20,7 @@ import javax.validation.constraints.Positive;
 import java.net.URI;
 import java.util.List;
 
-@RestController         // @Controller 랑 @RestController 랑 무슨 차이인지 알아보기
+@RestController
 @RequestMapping("/upcyclings")
 @Validated
 public class UpcyclingController {
