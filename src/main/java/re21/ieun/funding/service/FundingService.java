@@ -8,9 +8,12 @@ import re21.ieun.exception.BusinessLogicException;
 import re21.ieun.exception.ExceptionCode;
 import re21.ieun.funding.dto.FundingResponseDto;
 import re21.ieun.funding.entity.Funding;
+import re21.ieun.funding.entity.FundingUpcycling;
 import re21.ieun.funding.mapper.FundingMapper;
 import re21.ieun.funding.repository.FundingRepository;
 import re21.ieun.member.service.MemberService;
+import re21.ieun.upcycling.entity.Upcycling;
+import re21.ieun.upcycling.repository.UpcyclingRepository;
 import re21.ieun.upcycling.service.UpcyclingService;
 
 import java.util.List;
@@ -22,13 +25,15 @@ public class FundingService {
     private final FundingRepository fundingRepository;
     private final FundingMapper fundingMapper;
     private final UpcyclingService upcyclingService;
+    private final UpcyclingRepository upcyclingRepository;
     private final MemberService memberService;
 
     public FundingService(FundingRepository fundingRepository, FundingMapper fundingMapper,
-                          UpcyclingService upcyclingService, MemberService memberService) {
+                          UpcyclingService upcyclingService, UpcyclingRepository upcyclingRepository, MemberService memberService) {
         this.fundingRepository = fundingRepository;
         this.fundingMapper = fundingMapper;
         this.upcyclingService = upcyclingService;
+        this.upcyclingRepository = upcyclingRepository;
         this.memberService = memberService;
     }
 
@@ -53,7 +58,7 @@ public class FundingService {
     }
 
     // Delete
-    public void cancelFunding(long fundingId) {
+    public void cancelFunding(long fundingId, int quantity) {
         Funding findFunding = findVerifiedFunding(fundingId);
         int step = findFunding.getFundingStatus().getStepNumber();
 
@@ -63,7 +68,7 @@ public class FundingService {
         }
 
         findFunding.setFundingStatus(Funding.FundingStatus.FUNDING_CANCEL);
-        fundingRepository.delete(findFunding);
+        fundingRepository.save(findFunding);
     }
 
     // 하나의 Funding 확인
@@ -72,7 +77,7 @@ public class FundingService {
         return findVerifiedFunding(fundingId);
     }
 
-    // 모든 Funding 을 확인
+    // 모든 Funding 을 확인, 임시
     public List<FundingResponseDto> findFundings() {
 
         List<Funding> fundings = fundingRepository.findAll();
@@ -96,9 +101,11 @@ public class FundingService {
         return findFunding;
     }
 
+    /*
     private Funding saveFunding(Funding funding) {
         return fundingRepository.save(funding);
     }
+     */
 
     private void verifyFunding(Funding funding) {
 

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import re21.ieun.audit.Auditable;
+import re21.ieun.funding.entity.Funding;
 import re21.ieun.funding.entity.FundingUpcycling;
 import re21.ieun.member.entity.Member;
 
@@ -52,7 +53,7 @@ public class Upcycling extends Auditable {
     private Member member;
 
 
-    // Funding 과 다대다 관계
+    // FundingUpcycling 과 일대다 관계
     @OneToMany(mappedBy = "upcycling")
     private List<FundingUpcycling> fundingUpcyclings = new ArrayList<>();
 

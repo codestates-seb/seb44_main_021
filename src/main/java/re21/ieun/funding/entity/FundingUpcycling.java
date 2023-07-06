@@ -18,14 +18,16 @@ public class FundingUpcycling extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long FundingUpcyclingId;
 
+    // 펀딩할 수량
     @Column(nullable = false)
     private int quantity;
 
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "FUNDING_ID", referencedColumnName = "fundingId")
     private Funding funding;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "UPCYCLING_ID")
     private Upcycling upcycling;
 

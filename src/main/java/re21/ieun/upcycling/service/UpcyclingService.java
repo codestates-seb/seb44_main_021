@@ -61,7 +61,6 @@ public class UpcyclingService {
         upcyclingRepository.delete(findUpcycling);
     }
 
-
     // member 가 존재하는지 확인
     public void verifyUpcycling(Upcycling upcycling) {
 
@@ -69,8 +68,6 @@ public class UpcyclingService {
         upcycling.setMember(member);
 
     }
-
-
 
     // Upcycling를 수정하기 위해선 Upcycling가 있는지 검증
     public Upcycling findVerifyUpcycling(long upcyclingId) {

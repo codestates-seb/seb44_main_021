@@ -32,6 +32,7 @@ public interface FundingMapper {
                     fundingUpcycling.addFunding(funding);
                     fundingUpcycling.addUpcycling(upcycling);
                     fundingUpcycling.setQuantity(fundingUpcyclingDto.getQuantity());
+                    //upcycling.updateQuantity(fundingUpcyclingDto.getQuantity());       // 추가
                     return fundingUpcycling;
                 }).collect(Collectors.toList());
         funding.setMember(member);
@@ -48,6 +49,7 @@ public interface FundingMapper {
         fundingResponseDto.setMember(funding.getMember());
         fundingResponseDto.setFundingStatus(funding.getFundingStatus());
         fundingResponseDto.setCreatedAt(funding.getCreatedAt());
+        //fundingResponseDto.setCurrentQuantity(funding.getCurrentQuantity());        // 추가
         fundingResponseDto.setFundingUpcyclings(
                 fundingUpcyclingsToFundingUpcyclingResponseDtos(fundingUpcyclings)
         );
