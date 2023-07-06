@@ -6,12 +6,14 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import re21.ieun.exception.BusinessLogicException;
 import re21.ieun.exception.ExceptionCode;
+import re21.ieun.funding.dto.FundingResponseDto;
 import re21.ieun.funding.entity.Funding;
 import re21.ieun.funding.mapper.FundingMapper;
 import re21.ieun.funding.repository.FundingRepository;
 import re21.ieun.member.service.MemberService;
 import re21.ieun.upcycling.service.UpcyclingService;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -70,7 +72,6 @@ public class FundingService {
         return findVerifiedFunding(fundingId);
     }
 
-    /*
     // 모든 Funding 을 확인
     public List<FundingResponseDto> findFundings() {
 
@@ -78,12 +79,14 @@ public class FundingService {
 
         return fundingMapper.fundingToFundingResponseDtos(fundings);
     }
-     */
 
+    /*
+    // 페이지네이션
     public Page<Funding> findFundings(int page, int size) {
         return fundingRepository.findAll(PageRequest.of(page, size,
                 Sort.by("fundingId").descending()));
     }
+     */
     
     private Funding findVerifiedFunding(long fundingId) {
         Optional<Funding> optionalFunding = fundingRepository.findById(fundingId);

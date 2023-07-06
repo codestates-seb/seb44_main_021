@@ -9,6 +9,7 @@ import re21.ieun.dto.MultiResponseDto;
 import re21.ieun.dto.SingleResponseDto;
 import re21.ieun.funding.dto.FundingPatchDto;
 import re21.ieun.funding.dto.FundingPostDto;
+import re21.ieun.funding.dto.FundingResponseDto;
 import re21.ieun.funding.entity.Funding;
 import re21.ieun.funding.mapper.FundingMapper;
 import re21.ieun.funding.service.FundingService;
@@ -47,7 +48,7 @@ public class FundingController {
     }
 
     @PatchMapping("/{funding-id}")
-    public ResponseEntity<?> patchOrder(@PathVariable("funding-id") @Positive long fundingId,
+    public ResponseEntity<?> patchFunding(@PathVariable("funding-id") @Positive long fundingId,
                                      @Valid @RequestBody FundingPatchDto fundingPatchDto) {
 
         fundingPatchDto.setFundingId(fundingId);
@@ -62,7 +63,7 @@ public class FundingController {
     }
 
     @GetMapping("/{funding-id}")        // ("/{member-id}") 로 바꿀 생각
-    public ResponseEntity<?> getOrder(@PathVariable("funding-id") @Positive long fundingId) {
+    public ResponseEntity<?> getFunding(@PathVariable("funding-id") @Positive long fundingId) {
 
         Funding funding = fundingService.findFunding(fundingId);
 
@@ -71,6 +72,17 @@ public class FundingController {
                 HttpStatus.OK);
     }
 
+    @GetMapping
+    public ResponseEntity<?> getFundings() {
+
+        List<FundingResponseDto> fundings = fundingService.findFundings();
+
+        return new ResponseEntity<>(fundings, HttpStatus.OK);
+    }
+
+
+    /*
+    // 페이지네이션
     @GetMapping
     public ResponseEntity<?> getFundings(@Positive @RequestParam int page,
                                          @Positive @RequestParam int size) {
@@ -82,6 +94,7 @@ public class FundingController {
                 HttpStatus.OK);
 
     }
+     */
 
     @DeleteMapping("/{funding-id}")
     public ResponseEntity cancelOrder(@PathVariable("funding-id") @Positive long fundingId) {
