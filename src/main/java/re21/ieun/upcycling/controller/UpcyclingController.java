@@ -25,7 +25,7 @@ import java.util.List;
 @Validated
 public class UpcyclingController {
 
-    private final static String ANSWER_DEFAULT_URL = "/upcyclings";
+    private final static String UPCYCLING_DEFAULT_URL = "/upcyclings";
 
     private final UpcyclingService upcyclingService;
     private final UpcyclingMapper upcyclingMapper;
@@ -43,7 +43,7 @@ public class UpcyclingController {
         memberService.findMember(upcyclingPostDto.getMemberId());
 
         Upcycling upcycling = upcyclingService.createUpcycling(upcyclingMapper.upcyclingPostDtoToUpcycling(upcyclingPostDto));
-        URI location = UriCreator.createUri(ANSWER_DEFAULT_URL, upcycling.getUpcyclingId());
+        URI location = UriCreator.createUri(UPCYCLING_DEFAULT_URL, upcycling.getUpcyclingId());
 
         return ResponseEntity.created(location).build();
     }
