@@ -19,8 +19,6 @@ public class UpcyclingPatchDto {
 
     @NotBlank(message = "내용을 작성해주세요.")
     private String content;
-    @NotBlank
-    private Category category;
 
     // 이미지가 구축이되면
     //private String contentImg;

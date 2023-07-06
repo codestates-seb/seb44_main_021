@@ -40,9 +40,6 @@ public class Upcycling extends Auditable {
     @Column(columnDefinition = "long default 0", nullable = false)
     private Long viewCount;
 
-
-
-
     // like(좋아요)
 
 
