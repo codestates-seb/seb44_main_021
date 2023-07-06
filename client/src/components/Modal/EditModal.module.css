@@ -13,7 +13,7 @@
     border-radius: 10px;
     background: #ffffff;
     box-shadow:  1px 1px 3px #95959540, -1px -1px 3px #95959540;
-    padding:20px 50px;
+    padding:30px 50px;
     background:#fff;
     display: flex;
     flex-direction: column;
@@ -30,7 +30,7 @@
     box-shadow: 3px 3px 5px rgba(68, 68, 68, 0.288);
     border-radius: 5px;
     border: none;
-    margin: 10px;
+    margin: 20px;
 }
 
 .editButton:active {
@@ -54,7 +54,7 @@
 }
 
 label{
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 .imgUpload{
@@ -82,11 +82,17 @@ label{
 }
 
 input{
-  width: 250px;
-  height: 25px;
+  width: 240px;
+  height: 30px;
+  padding: 0 10px;
+  /* margin-bottom: 20px; */
+  border: solid 1px #c3c3c3;
   border-radius: 5px;
-  border: solid 1px #cdcdcd;
 }
+input:focus { 
+  outline: none !important; border-color: #6E934D;
+}
+
 p{
   margin-top: 5px;
 }
