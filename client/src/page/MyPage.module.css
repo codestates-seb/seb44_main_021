@@ -8,9 +8,9 @@
     align-items: center ;
 }
 
-h2 {
+h1 {
     width:70%;
-    color: #6E934D;
+    color: #ffffff;
     display: flex;
 }
 
@@ -19,7 +19,6 @@ h2 {
     justify-content: center;
     align-items: center;
     height: 100%;
-    width:100%;
 }
 
 #MyPageWrapper{
@@ -30,10 +29,9 @@ h2 {
 
 /* UserProfile */
 .profileContainer{
-    width: 300px;
-    height: 90vh;
+    width: 280px;
     border-radius: 10px;
-    background: #ffffff;
+    background: #6E934D;
     box-shadow:  1px 1px 3px #95959540, -1px -1px 3px #95959540;
     margin-right: 15px;
 }
@@ -42,6 +40,7 @@ h2 {
     width: 100px;
     height: 100px;
     border-radius: 50%;
+    border: solid 4px #f8f8f8;
 }
 
 .userInfo{
@@ -49,6 +48,10 @@ h2 {
     flex-direction: column;
     align-items: center;
     padding: 40px;
+}
+
+.userInfo{
+    color: #f8f8f8;
 }
 
 .userName{
@@ -59,16 +62,16 @@ h2 {
 
 .userEmail{
     font-size: 14px;
-    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .editButton {
     height: 30px;
     width: 130px;
     letter-spacing: 3.5px;
-    color: #6E934D;
-    background: #ffffff;
-    box-shadow: 3px 3px 5px rgba(107, 107, 107, 0.288);
+    color: #ffffff;
+    background: #98ae83;
+    box-shadow: 3px 3px 5px rgba(68, 68, 68, 0.288);
     border-radius: 5px;
     border: none;
 }
@@ -80,7 +83,7 @@ h2 {
 
   /* History */
 .historyContainer{
-    width:800px;
+    width:900px;
     height: 90vh;
     border-radius: 10px;
     background: #ffffff;
@@ -88,17 +91,42 @@ h2 {
     overflow-y: scroll;
 }
 
+.historyContainer::-webkit-scrollbar {
+    width: 8px;
+}
+
+.historyContainer::-webkit-scrollbar-thumb {
+    background-color: #cacaca;
+    border-radius: 4px;
+}
+
+.historyContainer::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+
+
 .historyWrapper{
     display: flex;
     flex-direction: column;
-    padding: 40px;
+    padding: 30px;
 }
 .historyTitle{
-    align-self: flex-start;
+    margin-left: 15px;
+    display: flex;
+    align-items: center;
+}
+.historyTitle p{
+    /* align-self: flex-start; */
     color: #6E934D;
     font-size: 20px;
     font-weight: 700;
-    margin: 10px;
+
+}
+
+.historyTitleIcon{
+    width: 30px;
+    height: 30px;
 }
 
 table {

@@ -17,7 +17,6 @@ const MyPage = () => {
 
   return (
     <div id={Style.MyPageContainer1}>
-      <h2>My Page</h2>
       <div id={Style.MyPageContainer}>
         <div id={Style.MyPageWrapper}>
           <Profile />
@@ -36,11 +35,11 @@ const Profile = () => {
       <div className={Style.userInfo}>
         <img
           className={Style.userImg}
-          src={`${process.env.PUBLIC_URL}/img/profile-img.jpeg`}
+          src={`${process.env.PUBLIC_URL}/image/profile.jpeg`}
           alt="profile-img"
         />
         <p className={Style.userName}>나예진 님</p>
-        <p className={Style.userEmail}>yejin123@gmail.com</p>{" "}
+        <p className={Style.userEmail}>yejin123@gmail.com</p>
         <button className={Style.editButton}>Edit Profile</button>
       </div>
     </div>
@@ -53,7 +52,14 @@ const History = ({ historyTitle, historyData }) => {
       <div className={Style.historyWrapper}>
         {Object.entries(historyData).map(([key, texts], index) => (
           <>
-            <p className={Style.historyTitle}>{historyTitle[index]}</p>
+            <div className={Style.historyTitle}>
+              <img
+                className={Style.historyTitleIcon}
+                src={`${process.env.PUBLIC_URL}/image/logo1.png`}
+                alt="history-title-icon"
+              />
+              <p>{historyTitle[index]}</p>
+            </div>
             <table>
               <thead>
                 <tr key={key}>
