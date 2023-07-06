@@ -22,13 +22,10 @@ public class UpcyclingResponseDto {
     private String title;
 
     private String content;
-
-
     // 이미지가 구축이되면
     //private String contentImg;
-
-
-    private Category category;
+    private long categoryId;
+    private String categoryName;
 
     // view(조회수)
     private long viewCount;

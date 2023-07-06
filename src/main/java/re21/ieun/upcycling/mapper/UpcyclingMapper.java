@@ -14,11 +14,14 @@ import java.util.List;
 public interface UpcyclingMapper {
 
     @Mapping(source = "memberId", target = "member.memberId")
+    @Mapping(source = "categoryId", target = "category.categoryId")
     Upcycling upcyclingPostDtoToUpcycling(UpcyclingPostDto upcyclingPostDto);
 
     Upcycling upcyclingPatchDtoToUpcycling(UpcyclingPatchDto upcyclingPatchDto);
 
     @Mapping(source = "member.memberId", target = "memberId")
+    @Mapping(source = "category.categoryId", target = "categoryId")
+    @Mapping(source = "category.categoryName", target = "categoryName")
     UpcyclingResponseDto upcyclingToUpcyclingResponseDto(Upcycling upcycling);
 
     List<UpcyclingResponseDto> upcyclingToUpcyclingResponseDtos(List<Upcycling> upcyclings);

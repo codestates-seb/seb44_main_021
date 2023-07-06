@@ -93,4 +93,12 @@ public class UpcyclingController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    // 카테고리 ID를 통해 UPCYCLING 게시글 조회
+    @GetMapping("/categories/{category-id}") //질문 조회
+    public ResponseEntity getUpcyclingByCategoryId(@PathVariable("category-id") long categoryId) {
+        List<UpcyclingResponseDto> response = upcyclingService.findUpcyclingsByCategoryId(categoryId);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 }

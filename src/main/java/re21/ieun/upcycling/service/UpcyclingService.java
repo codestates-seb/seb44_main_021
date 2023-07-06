@@ -13,6 +13,7 @@ import re21.ieun.upcycling.repository.UpcyclingRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UpcyclingService {
@@ -105,5 +106,10 @@ public class UpcyclingService {
         List<Upcycling> upcyclings = upcyclingRepository.findByTitleContaining(searchKeyword);
 
         return upcyclingMapper.upcyclingToUpcyclingResponseDtos(upcyclings);
+    }
+    //category로 검색
+    public List<UpcyclingResponseDto> findUpcyclingsByCategoryId(long categoryId) {
+        List<UpcyclingResponseDto> Dto = findUpcyclings();
+        return Dto.stream().filter(d -> d.getCategoryId() == categoryId).collect(Collectors.toList());
     }
 }

@@ -20,11 +20,7 @@ public class Category {
     private Long categoryId;
 
     @Column(nullable = false)
-    private String name;
-
-    @OneToMany(mappedBy = "category")
-    private List<Upcycling> upcyclings;
-
+    private String categoryName;
 
     //
 //    @OneToMany(mappedBy = "category")
