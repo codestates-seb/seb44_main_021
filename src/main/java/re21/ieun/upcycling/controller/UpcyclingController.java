@@ -93,4 +93,12 @@ public class UpcyclingController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @DeleteMapping("/{upcycling-id}")
+    public ResponseEntity<?> deleteUpcycling(@PathVariable("upcycling-id") @Positive long upcyclingId) {
+
+        upcyclingService.deleteUpcycling(upcyclingId);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }

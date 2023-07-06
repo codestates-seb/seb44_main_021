@@ -50,14 +50,13 @@ public class UpcyclingService {
     }
 
     // 업사이클링 펀딩 게시글 삭제
-    public Upcycling deleteUpcycling(long upcyclingId) {
+    public void deleteUpcycling(long upcyclingId) {
 
         Upcycling findUpcycling = findVerifyUpcycling(upcyclingId);
 
         findUpcycling.setUpcyclingStatus(Upcycling.UpcyclingStatus.UPCYCLING_DELETE);
 
-        return upcyclingRepository.save(findUpcycling);
-
+        upcyclingRepository.delete(findUpcycling);
     }
 
 
