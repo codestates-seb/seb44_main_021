@@ -20,25 +20,29 @@ img{
     height: 100px;
     margin-bottom: 30px;
 }
-h1{
-    width: 300px;
-    color: #6E934D;
-    text-align: center;
-}
-.userRoleForm > p{
-    margin-top: 20px;
-    margin-bottom: 8px;
-}
-.userRoleButton{
-    display: flex;
-    align-items: center;
-    width: 300px;
+
+input{
+    width: 240px;
     height: 30px;
-    border: solid 1px #d2d2d2;
+    padding: 0 10px;
+    margin-bottom: 20px;
+    border: solid 1px #c3c3c3;
     border-radius: 5px;
 }
-.icon{
-    font-size: 20px;
-    color: #6E934D;
-    margin: 0 5px;
+input:focus { outline: none !important; border-color: #6E934D; }
+
+.submitButton {
+    height: 30px;
+    width: 100%;
+    letter-spacing: 3.5px;
+    color: #ffffff;
+    background: #6E934D;
+    box-shadow: 3px 3px 5px rgba(107, 107, 107, 0.288);
+    border-radius: 5px;
+    border: none;
+    margin-top: 20px;
+}
+
+.submitButton:active {
+    box-shadow:  1px 1px 3px rgba(107, 107, 107, 0.288);
 }
