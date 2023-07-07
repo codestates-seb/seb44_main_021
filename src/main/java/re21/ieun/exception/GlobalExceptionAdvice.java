@@ -10,7 +10,10 @@ public class GlobalExceptionAdvice {
 
     @ExceptionHandler
     public ResponseEntity handleBusinessLogicException(BusinessLogicException e) {
+        int statusCode = e.getExceptionCode().getStatus();
+        String errorMessage = e.getMessage();
 
-        return new ResponseEntity<>(HttpStatus.valueOf(e.getExceptionCode().getStatus()));
+        return ResponseEntity.status(statusCode).body(errorMessage);
     }
+
 }
