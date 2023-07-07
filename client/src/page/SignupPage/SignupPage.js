@@ -2,6 +2,7 @@ import React from "react";
 import Style from "./SignupPage.module.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SignupPage = () => {
   const NAME_REGEX = /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]{2,10}$/;
@@ -27,6 +28,7 @@ const SignupPage = () => {
   const [isPassword, setIsPassword] = useState(false);
   const [isName, setIsName] = useState(false);
 
+  const navigate = useNavigate();
   const storedUserName = sessionStorage.getItem("userName");
 
   /* 공백시 버튼 비활성화 */
@@ -91,7 +93,10 @@ const SignupPage = () => {
         )
         .then((res) => {
           console.log(res);
-          alert("회원가입이 완료 되었습니다.");
+          if (res.status === 201) {
+            alert("회원가입이 완료 되었습니다.");
+            navigate("/login");
+          }
         })
         .catch((err) => {
           if (err.response.data === "DisplayName exists") {
