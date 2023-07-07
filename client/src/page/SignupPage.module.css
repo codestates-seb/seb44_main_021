@@ -5,11 +5,7 @@
     justify-content: center;
     align-items: center;
 }
-.formWrapper{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+form{
     border-radius: 20px;
     background: #ffffff;
     box-shadow:  1px 1px 3px #95959540, -1px -1px 3px #95959540;
@@ -21,11 +17,18 @@ img{
     margin-bottom: 30px;
 }
 
+label{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center;
+    align-items: center; */
+    margin-bottom: 20px;
+}
+
 input{
     width: 240px;
     height: 30px;
     padding: 0 10px;
-    margin-bottom: 20px;
     border: solid 1px #c3c3c3;
     border-radius: 5px;
 }
@@ -45,4 +48,26 @@ input:focus { outline: none !important; border-color: #6E934D; }
 
 .submitButton:active {
     box-shadow:  1px 1px 3px rgba(107, 107, 107, 0.288);
+}
+.submitButton:hover{
+    cursor: pointer;
+}
+
+
+.disabledButton{
+    height: 30px;
+    width: 100%;
+    letter-spacing: 3.5px;
+    color: #ffffff;
+    background: #afafaf;
+    border-radius: 5px;
+    border: none;
+    margin-top: 20px;
+}
+
+/* error Messege */
+.errMsg{
+    margin-top: 5px;
+    font-size: 14px;
+    color: rgb(221, 106, 106);
 }
