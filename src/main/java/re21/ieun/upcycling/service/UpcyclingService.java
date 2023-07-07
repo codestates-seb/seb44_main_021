@@ -71,7 +71,6 @@ public class UpcyclingService {
     }
 
 
-
     // Upcycling를 수정하기 위해선 Upcycling가 있는지 검증
     public Upcycling findVerifyUpcycling(long upcyclingId) {
 
@@ -107,9 +106,11 @@ public class UpcyclingService {
 
         return upcyclingMapper.upcyclingToUpcyclingResponseDtos(upcyclings);
     }
+
     //category로 검색
     public List<UpcyclingResponseDto> findUpcyclingsByCategoryId(long categoryId) {
         List<UpcyclingResponseDto> Dto = findUpcyclings();
         return Dto.stream().filter(d -> d.getCategoryId() == categoryId).collect(Collectors.toList());
     }
+
 }

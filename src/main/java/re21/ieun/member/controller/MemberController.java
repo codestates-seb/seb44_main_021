@@ -34,12 +34,14 @@ public class MemberController {
         this.memberMapper = memberMapper;
     }
 
+
+    // todo: /members/upcycler 와 /members/users -> 하나의 url로 합치기 (POST axios localhost:8080/members/users data:{ role 이라는 필드를 받아서 -> 'user', 'upcycler' })
+
     // 사용자로 회원가입
     @PostMapping("/users")
     public ResponseEntity postMember(@Valid @RequestBody MemberDto.Post requestBody) {
         Member member = memberService.createMember(memberMapper.memberPostDtotoMember(requestBody));
         URI location = UriCreator.createUri(MEMBER_DEFAULT_URL, member.getMemberId());
-
         return ResponseEntity.created(location).build();
     }
 

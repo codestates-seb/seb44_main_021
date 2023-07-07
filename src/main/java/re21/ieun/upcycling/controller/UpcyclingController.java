@@ -1,10 +1,12 @@
 package re21.ieun.upcycling.controller;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import re21.ieun.dto.MultiResponseDto;
 import re21.ieun.member.entity.Member;
 import re21.ieun.member.service.MemberService;
 import re21.ieun.upcycling.dto.UpcyclingPatchDto;
@@ -94,9 +96,31 @@ public class UpcyclingController {
     }
 
     // 카테고리 ID를 통해 UPCYCLING 게시글 조회
+    @GetMapping("/categories/{category-id}")
+    public ResponseEntity getUpcyclingByCategoryId(@PathVariable("category-id") long categoryId,
+                                                   @RequestParam int page,
+                                                   @RequestParam int size) {
+        List<UpcyclingResponseDto> response = upcyclingService.findUpcyclingsByCategoryId(categoryId, page, size);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
     @GetMapping("/categories/{category-id}") //질문 조회
     public ResponseEntity getUpcyclingByCategoryId(@PathVariable("category-id") long categoryId) {
         List<UpcyclingResponseDto> response = upcyclingService.findUpcyclingsByCategoryId(categoryId);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    //업사이클 전체글 조회 ->
+
+    @GetMapping("/ascending/categories/{category-id}")
+    public ResponseEntity getUpcyclingByCategoryId1(@PathVariable("category-id") long categoryId,
+                                                   @RequestParam int page,
+                                                   @RequestParam int size) {
+        List<UpcyclingResponseDto> response = upcyclingService.findUpcyclingsByCategoryId(categoryId);
+
+        Page<Member> pageMembers = memberService.findMembers(page-1,size);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
