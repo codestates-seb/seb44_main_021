@@ -3,8 +3,10 @@ package re21.ieun.upcycling.dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -28,5 +30,9 @@ public class UpcyclingPatchDto {
 
     // category 만들어지면 생성
     //private String category;
+
+    // Upcycling 마감일
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime deadline;
 
 }

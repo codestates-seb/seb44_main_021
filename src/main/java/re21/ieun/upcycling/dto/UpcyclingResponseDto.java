@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.Positive;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -30,6 +31,9 @@ public class UpcyclingResponseDto {
 
     // category 만들어지면 생성
     //private String category;
+
+    // Upcycling 마감일
+    private LocalDateTime deadline;
 
     // view(조회수)
     private long viewCount;

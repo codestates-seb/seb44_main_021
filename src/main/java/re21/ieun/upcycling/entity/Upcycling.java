@@ -3,12 +3,14 @@ package re21.ieun.upcycling.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 import re21.ieun.audit.Auditable;
 import re21.ieun.funding.entity.Funding;
 import re21.ieun.funding.entity.FundingUpcycling;
 import re21.ieun.member.entity.Member;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +49,10 @@ public class Upcycling extends Auditable {
 
     // like(좋아요)
 
+
+    // 업사이클링 마감일
+    @Column(nullable = false)
+    private LocalDateTime deadline;
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")

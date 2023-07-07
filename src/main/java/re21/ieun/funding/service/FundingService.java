@@ -41,6 +41,7 @@ public class FundingService {
     public Funding createFunding(Funding funding) {
 
         verifyFunding(funding);
+
         funding.setFundingStatus(Funding.FundingStatus.FUNDING_APPLICATION_COMPLETE);
 
         //updateLike(savedFunding);
@@ -120,7 +121,7 @@ public class FundingService {
         memberService.findMember(funding.getMember().getMemberId());
 
         // 업사이클링이 존재하는지 확인
-        funding.getFundingUpcyclings().stream()
+        funding.getFundingUpcyclings()
                 .forEach(fundingUpcycling -> upcyclingService.
                         findVerifyUpcycling(fundingUpcycling.getUpcycling().getUpcyclingId()));
     }
