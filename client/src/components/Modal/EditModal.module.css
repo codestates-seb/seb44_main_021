@@ -10,6 +10,7 @@
 }
 
 .modalWrapper{ 
+    position: relative;
     border-radius: 10px;
     background: #ffffff;
     box-shadow:  1px 1px 3px #95959540, -1px -1px 3px #95959540;
@@ -19,6 +20,17 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.closeIcon{
+  position: absolute;
+  top: 10px;
+  right: 10px; 
+  color: #6b6b6b;
+}
+
+.closeIcon:hover {
+  cursor: pointer;
 }
 
 .editButton {
@@ -36,6 +48,11 @@
 .editButton:active {
     box-shadow:  1px 1px 3px rgba(107, 107, 107, 0.288);
 }
+
+.editButton:hover {
+  background:  #4d742b;
+  cursor: pointer;
+}
 .modalLayer{
     position:fixed;
     top:0;
@@ -50,7 +67,7 @@
 .modalContent{
   display: flex;
   flex-direction: column;
-  justify-content: left;
+  /* justify-content: left; */
 }
 
 label{
@@ -96,3 +113,4 @@ input:focus {
 p{
   margin-top: 5px;
 }
+

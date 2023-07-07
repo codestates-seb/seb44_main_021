@@ -79,7 +79,9 @@ h1 {
 .editButton:active {
     box-shadow:  1px 1px 3px rgba(107, 107, 107, 0.288);
 }
-
+.editButton:hover {
+    cursor: pointer;
+  }
 
   /* History */
 .historyContainer{
