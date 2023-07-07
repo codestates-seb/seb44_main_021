@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Style from "./MyPage.module.css";
-import EditModal from "../components/Modal/EditModal";
+import EditModal from "../../components/Modal/EditModal";
 
 const MyPage = () => {
   const historyTitle = [
@@ -24,10 +24,6 @@ const MyPage = () => {
   const handleCloseModal = () => {
     setIsOpenModal(!isOpenModal);
   };
-
-  // const handleInputChange = (e) => {
-  //   // 입력 값 처리 로직
-  // };
 
   return (
     <div id={Style.MyPageContainer1}>
