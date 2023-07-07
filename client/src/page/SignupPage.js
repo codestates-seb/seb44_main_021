@@ -3,11 +3,12 @@ import Style from "./SignupPage.module.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-const SignupPage = ({ userName }) => {
+const SignupPage = () => {
   const NAME_REGEX = /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]{2,10}$/;
   const EMAIL_REGEX = /^[A-Za-z0-9.\-_]+@([A-Za-z0-9-]+\.)+[A-Za-z]{2,6}$/;
   const PWD_REGEX = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
+  /* 유저 데이터 */
   const [userData, setUserData] = useState({
     displayName: "",
     email: "",
@@ -15,12 +16,20 @@ const SignupPage = ({ userName }) => {
     verifyPwd: "",
   });
 
+  /* 에러메세지 */
   const [emailErrMsg, setEmailErrMsg] = useState("");
   const [pwdErrMsg, setPwdErrMsg] = useState("");
   const [nameErrMsg, setNameErrMsg] = useState("");
-  const [disabled, setDisabled] = useState(false);
 
-  // 공백시 버튼 비활성화
+  /* 입력란 공백 및 유효성 통과 여부 */
+  const [disabled, setDisabled] = useState(false);
+  const [isEmail, setIsEmail] = useState(false);
+  const [isPassword, setIsPassword] = useState(false);
+  const [isName, setIsName] = useState(false);
+
+  const storedUserName = sessionStorage.getItem("userName");
+
+  /* 공백시 버튼 비활성화 */
   useEffect(() => {
     const blankData =
       userData.displayName &&
@@ -34,57 +43,67 @@ const SignupPage = ({ userName }) => {
     setUserData({ ...userData, [key]: e.target.value });
   };
 
-  // 유효성 검사 함수
+  /* 유효성 함수 */
   const IsValidName = () => {
     if (!NAME_REGEX.test(userData.displayName)) {
       setNameErrMsg("특수 문자 제외 2자 ~ 10자를 입력하세요.");
+      setIsName(false);
     } else {
       setNameErrMsg("");
+      setIsName(true);
     }
   };
 
   const IsValidEmail = () => {
     if (!EMAIL_REGEX.test(userData.email)) {
       setEmailErrMsg("이메일 형식에 맞지 않습니다.");
+      setIsEmail(false);
     } else {
       setEmailErrMsg("");
+      setIsEmail(true);
     }
   };
 
   const IsValidPwd = () => {
     if (!PWD_REGEX.test(userData.password)) {
       setPwdErrMsg("숫자 ,문자, 특수문자 포함 8자 이상 입력하세요.");
+      setIsPassword(false);
     } else if (userData.password !== userData.verifyPwd) {
       setPwdErrMsg("비밀번호가 일치하지 않습니다.");
+      setIsPassword(false);
     } else {
       setPwdErrMsg("");
+      setIsPassword(true);
     }
   };
 
-  //axios post 요청 함수
+  /* post 요청 함수 */
   const AxiosPost = (e) => {
     e.preventDefault();
 
     const { displayName, email, password } = userData;
 
-    if (!(pwdErrMsg && emailErrMsg && nameErrMsg)) {
+    if (isPassword && isEmail && isName) {
       axios
         .post(
-          `http://ec2-43-201-105-214.ap-northeast-2.compute.amazonaws.com:8080/members/${userName}`,
+          `http://ec2-43-201-105-214.ap-northeast-2.compute.amazonaws.com:8080/members/${storedUserName}`,
           { displayName, email, password }
         )
         .then((res) => {
           console.log(res);
+          alert("회원가입이 완료 되었습니다.");
         })
         .catch((err) => {
           if (err.response.data === "DisplayName exists") {
             console.log(err);
-            setNameErrMsg("닉네임 중복");
+            setNameErrMsg("중복된 닉네임입니다.");
+            setIsName(false);
           }
 
           if (err.response.data === "Email exists") {
             console.log(err);
-            setEmailErrMsg("이메일 중복");
+            setEmailErrMsg("중복된 이메일입니다.");
+            setIsEmail(false);
           }
         });
     }
@@ -106,7 +125,7 @@ const SignupPage = ({ userName }) => {
           {emailErrMsg !== "" && <p className={Style.errMsg}>{emailErrMsg}</p>}
         </label>
 
-        {userName === "users" && (
+        {storedUserName === "users" && (
           <>
             <label>
               닉네임
@@ -123,7 +142,7 @@ const SignupPage = ({ userName }) => {
           </>
         )}
 
-        {userName === "upcycler" && (
+        {storedUserName === "upcycler" && (
           <>
             <label>
               업사이클러명
