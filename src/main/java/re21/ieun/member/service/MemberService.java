@@ -74,12 +74,12 @@ public class MemberService {
 
     private void verifyExistsEmail(String email) {
         Optional<Member> member = memberRepository.findByEmail(email);
-        if (member.isPresent()) throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
+        if (member.isPresent()) throw new BusinessLogicException(ExceptionCode.EMAIL_EXISTS);
     }
 
     private void verifyExistsDisplayName(String displayName) {
         Optional<Member> member = memberRepository.findByDisplayName(displayName);
-        if (member.isPresent()) throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
+        if (member.isPresent()) throw new BusinessLogicException(ExceptionCode.DISPLAYNAME_EXISTS);
     }
 
 }
