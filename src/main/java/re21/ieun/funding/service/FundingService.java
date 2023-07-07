@@ -37,6 +37,7 @@ public class FundingService {
         this.memberService = memberService;
     }
 
+    // 펀딩하기
     public Funding createFunding(Funding funding) {
 
         verifyFunding(funding);
@@ -45,19 +46,30 @@ public class FundingService {
         //updateLike(savedFunding);
         //updateFollower(savedFunding);
 
+        // FundingUpcycling에 Funding 정보 설정
+        for (FundingUpcycling fundingUpcycling : funding.getFundingUpcyclings()) {
+            fundingUpcycling.addFunding(funding);
+        }
+
+        funding.setTotalReceivedQuantity(calculateTotalReceivedQuantity(funding)); // 총 펀딩 받은 수량 계산 및 설정
+
+
         return fundingRepository.save(funding);
     }
 
+    // 펀딩 수정하기
     public Funding updateFunding(Funding funding) {
         Funding findFunding = findVerifiedFunding(funding.getFundingId());
 
         Optional.ofNullable(funding.getFundingStatus())
                 .ifPresent(fundingStatus -> findFunding.setFundingStatus(fundingStatus));
 
+        funding.setTotalReceivedQuantity(calculateTotalReceivedQuantity(findFunding)); // 총 펀딩 받은 수량 계산 및 설정
+
         return fundingRepository.save(findFunding);
     }
 
-    // Delete
+    // 펀딩 취소하기
     public void cancelFunding(long fundingId, int quantity) {
         Funding findFunding = findVerifiedFunding(fundingId);
         int step = findFunding.getFundingStatus().getStepNumber();
@@ -77,7 +89,7 @@ public class FundingService {
         return findVerifiedFunding(fundingId);
     }
 
-    // 모든 Funding 을 확인, 임시
+    // 모든 Funding 을 확인
     public List<FundingResponseDto> findFundings() {
 
         List<Funding> fundings = fundingRepository.findAll();
@@ -92,7 +104,8 @@ public class FundingService {
                 Sort.by("fundingId").descending()));
     }
      */
-    
+
+    // Funding를 수정하기 위해선 Funding이 있는지 검증
     private Funding findVerifiedFunding(long fundingId) {
         Optional<Funding> optionalFunding = fundingRepository.findById(fundingId);
         Funding findFunding =
@@ -100,12 +113,6 @@ public class FundingService {
                         new BusinessLogicException(ExceptionCode.FUNDING_NOT_FOUND));
         return findFunding;
     }
-
-    /*
-    private Funding saveFunding(Funding funding) {
-        return fundingRepository.save(funding);
-    }
-     */
 
     private void verifyFunding(Funding funding) {
 
@@ -116,6 +123,15 @@ public class FundingService {
         funding.getFundingUpcyclings().stream()
                 .forEach(fundingUpcycling -> upcyclingService.
                         findVerifyUpcycling(fundingUpcycling.getUpcycling().getUpcyclingId()));
+    }
+
+    // 총 펀딩 받은 수량 계산
+    private int calculateTotalReceivedQuantity(Funding funding) {
+        int totalReceivedQuantity = 0;
+        for (FundingUpcycling fundingUpcycling : funding.getFundingUpcyclings()) {
+            totalReceivedQuantity += fundingUpcycling.getQuantity();
+        }
+        return totalReceivedQuantity;
     }
 
 }

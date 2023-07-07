@@ -24,6 +24,8 @@ public class FundingResponseDto {
 
     private List<FundingUpcyclingResponseDto> fundingUpcyclings;
 
+    private int totalReceivedQuantity;
+
     private LocalDateTime createdAt;
 
     public void setMember(Member member) {

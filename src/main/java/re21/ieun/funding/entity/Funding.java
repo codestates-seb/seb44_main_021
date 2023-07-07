@@ -28,6 +28,11 @@ public class Funding extends Auditable {
     @OneToMany(mappedBy = "funding", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FundingUpcycling> fundingUpcyclings = new ArrayList<>();
 
+
+    // 총 펀딩 받은 수량
+    @Column(nullable = false)
+    private int totalReceivedQuantity;
+
     @Enumerated(EnumType.STRING)
     private FundingStatus fundingStatus = FundingStatus.FUNDING_REQUEST;
 

@@ -87,7 +87,6 @@ public class UpcyclingService {
         return upcyclingMapper.upcyclingToUpcyclingResponseDtos(upcyclings);
     }
 
-
     // Upcycling View(조회수) Counting
     public Upcycling increaseViewCount(long upcyclingId) {
 

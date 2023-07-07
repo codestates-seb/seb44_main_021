@@ -37,6 +37,7 @@ public class FundingUpcycling extends Auditable {
         this.funding = funding;
         if (!this.funding.getFundingUpcyclings().contains(this)) {
             this.funding.getFundingUpcyclings().add(this);
+            this.funding.setTotalReceivedQuantity(this.funding.getTotalReceivedQuantity() + this.quantity); // totalReceivedQuantity 갱신
         }
     }
 
