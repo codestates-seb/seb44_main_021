@@ -70,7 +70,7 @@
   /* justify-content: left; */
 }
 
-label{
+.modalContent > label{
   margin-top: 15px;
 }
 
@@ -98,7 +98,7 @@ label{
   z-index: 2;
 }
 
-input{
+.modalContent > input{
   width: 240px;
   height: 30px;
   padding: 0 10px;
@@ -106,11 +106,11 @@ input{
   border: solid 1px #c3c3c3;
   border-radius: 5px;
 }
-input:focus { 
+.modalContent > input:focus { 
   outline: none !important; border-color: #6E934D;
 }
 
-p{
+.modalContent > p{
   margin-top: 5px;
 }
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Style from "./MyPage.module.css";
 import EditModal from "../../components/Modal/EditModal";
-
+import Header from "../../components/Header/Header";
 const MyPage = () => {
   const historyTitle = [
     "나의 펀딩 내역",
@@ -26,12 +26,11 @@ const MyPage = () => {
   };
 
   return (
-    <div id={Style.MyPageContainer1}>
-      <div id={Style.MyPageContainer}>
-        <div id={Style.MyPageWrapper}>
-          <Profile onClick={handleOpenModal} />
-          <History historyTitle={historyTitle} historyData={historyData} />
-        </div>
+    <div className={Style.MyPageContainer}>
+      <Header />
+      <div className={Style.MyPageWrapper}>
+        <Profile onClick={handleOpenModal} />
+        <History historyTitle={historyTitle} historyData={historyData} />
       </div>
       {isOpenModal && <EditModal onClose={handleCloseModal} />}
     </div>
