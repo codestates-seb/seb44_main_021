@@ -14,6 +14,7 @@ const SignupPage = () => {
     displayName: "",
     email: "",
     password: "",
+    role: "",
     verifyPwd: "",
   });
 
@@ -30,6 +31,11 @@ const SignupPage = () => {
 
   const navigate = useNavigate();
   const storedUserName = sessionStorage.getItem("userName");
+
+  /* 첫 마운트시 유저 가입 유형 데이터에 업데이트 */
+  useEffect(() => {
+    setUserData({ ...userData, role: storedUserName });
+  }, []);
 
   /* 공백시 버튼 비활성화 */
   useEffect(() => {
@@ -83,13 +89,13 @@ const SignupPage = () => {
   const AxiosPost = (e) => {
     e.preventDefault();
 
-    const { displayName, email, password } = userData;
+    const { displayName, email, password, role } = userData;
 
     if (isPassword && isEmail && isName) {
       axios
         .post(
-          `http://ec2-43-201-105-214.ap-northeast-2.compute.amazonaws.com:8080/members/${storedUserName}`,
-          { displayName, email, password }
+          `http://ec2-43-201-105-214.ap-northeast-2.compute.amazonaws.com:8080/members/signup`,
+          { displayName, email, password, role }
         )
         .then((res) => {
           console.log(res);
