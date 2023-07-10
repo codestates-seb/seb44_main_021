@@ -20,8 +20,8 @@ public class MemberDto {
         private String password;
         @NotBlank
         private String displayName;
-        private LocalDateTime modifiedAt;
-        private LocalDateTime createdAt;
+        @NotBlank
+        private String role;
     }
 
     @Getter
