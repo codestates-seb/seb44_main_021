@@ -39,7 +39,7 @@ public class FundingService {
     // 펀딩하기
     public Funding createFunding(Funding funding) {
 
-        //verifyFunding(funding);
+        verifyFunding(funding);
         funding.setFundingStatus(Funding.FundingStatus.FUNDING_APPLICATION_COMPLETE);
 
 
