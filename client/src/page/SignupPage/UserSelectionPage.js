@@ -2,6 +2,7 @@ import React from "react";
 import Style from "./UserSelectionPage.module.css";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { useNavigate } from "react-router-dom";
+import Logo from "../../components/Logo/Logo";
 
 const UserSelectionPage = () => {
   const navigate = useNavigate();
@@ -14,11 +15,7 @@ const UserSelectionPage = () => {
   return (
     <div className={Style.formContainer}>
       <div className={Style.formWrapper}>
-        <img
-          className={Style.userImg}
-          src={`${process.env.PUBLIC_URL}/image/logo2.png`}
-          alt="logo"
-        />
+        <Logo />
         <h1>어떤 서비스를 이용하고 싶으신가요?</h1>
 
         <div className={Style.userRoleForm}>

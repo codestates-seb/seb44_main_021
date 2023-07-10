@@ -4,8 +4,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 14px;
+    color: #454545;
 }
 .SignupForm{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
     border-radius: 20px;
     background: #ffffff;
     box-shadow:  1px 1px 3px #95959540, -1px -1px 3px #95959540;
@@ -20,8 +25,6 @@
 .label{
     display: flex;
     flex-direction: column;
-    /* justify-content: center;
-    align-items: center; */
     margin-bottom: 20px;
 }
 

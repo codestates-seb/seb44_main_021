@@ -4,6 +4,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 14px;
+    color: #454545;
 }
 .formWrapper{
     display: flex;
@@ -15,15 +17,12 @@
     box-shadow:  1px 1px 3px #95959540, -1px -1px 3px #95959540;
     padding: 80px;
 }
-.userImg{
-    width: 100px;
-    height: 100px;
-    margin-bottom: 30px;
-}
-h1{
+
+.formWrapper h1{
     width: 300px;
     color: #6E934D;
     text-align: center;
+    margin-top: 20px;
 }
 .userRoleForm > p{
     margin-top: 20px;

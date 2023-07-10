@@ -3,6 +3,7 @@ import Style from "./SignupPage.module.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Logo from "../../components/Logo/Logo";
 
 const SignupPage = () => {
   const NAME_REGEX = /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]{2,10}$/;
@@ -93,10 +94,7 @@ const SignupPage = () => {
 
     if (isPassword && isEmail && isName) {
       axios
-        .post(
-          `http://ec2-43-201-105-214.ap-northeast-2.compute.amazonaws.com:8080/members/signup`,
-          { displayName, email, password, role }
-        )
+        .post("/members/signup", { displayName, email, password, role })
         .then((res) => {
           console.log(res);
           if (res.status === 201) {
@@ -123,11 +121,7 @@ const SignupPage = () => {
   return (
     <div className={Style.SignupformContainer}>
       <form className={Style.SignupForm} onSubmit={AxiosPost}>
-        <img
-          className={Style.userImg}
-          src={`${process.env.PUBLIC_URL}/image/logo2.png`}
-          alt="logo"
-        />
+        <Logo />
 
         <label className={Style.label}>
           이메일
