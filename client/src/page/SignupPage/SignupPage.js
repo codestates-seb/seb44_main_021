@@ -121,13 +121,18 @@ const SignupPage = () => {
   };
 
   return (
-    <div className={Style.formContainer}>
-      <form onSubmit={AxiosPost}>
-        <img src={`${process.env.PUBLIC_URL}/image/logo2.png`} alt="logo" />
+    <div className={Style.SignupformContainer}>
+      <form className={Style.SignupForm} onSubmit={AxiosPost}>
+        <img
+          className={Style.userImg}
+          src={`${process.env.PUBLIC_URL}/image/logo2.png`}
+          alt="logo"
+        />
 
-        <label>
+        <label className={Style.label}>
           이메일
           <input
+            className={Style.input}
             type="email"
             placeholder="이메일을 입력하세요."
             onChange={handleInputValue("email")}
@@ -138,9 +143,10 @@ const SignupPage = () => {
 
         {storedUserName === "users" && (
           <>
-            <label>
+            <label className={Style.label}>
               닉네임
               <input
+                className={Style.input}
                 type="text"
                 placeholder="닉네임을 입력하세요."
                 onChange={handleInputValue("displayName")}
@@ -155,9 +161,10 @@ const SignupPage = () => {
 
         {storedUserName === "upcycler" && (
           <>
-            <label>
+            <label className={Style.label}>
               업사이클러명
               <input
+                className={Style.input}
                 type="text"
                 placeholder="업사이클러명을 입력하세요."
                 onChange={handleInputValue("displayName")}
@@ -170,9 +177,10 @@ const SignupPage = () => {
           </>
         )}
 
-        <label>
+        <label className={Style.label}>
           비밀번호
           <input
+            className={Style.input}
             type="password"
             placeholder="비밀번호를 입력하세요."
             onChange={handleInputValue("password")}
@@ -180,9 +188,10 @@ const SignupPage = () => {
           />
         </label>
 
-        <label>
+        <label className={Style.label}>
           비밀번호 확인
           <input
+            className={Style.input}
             type="password"
             placeholder="비밀번호를 한번 더 입력하세요."
             onChange={handleInputValue("verifyPwd")}
