@@ -23,15 +23,16 @@ public class FundingUpcycling extends Auditable {
     private int quantity;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "FUNDING_ID", referencedColumnName = "fundingId")
+    @ManyToOne //(fetch = FetchType.LAZY)
+    @JoinColumn(name = "FUNDING_ID")    // referencedColumnName = "fundingId"
     private Funding funding;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne      //(fetch = FetchType.LAZY)
     @JoinColumn(name = "UPCYCLING_ID")
     private Upcycling upcycling;
 
 
+    /*
     // 양방향 관계 설정
     public void addFunding(Funding funding) {
         this.funding = funding;
@@ -47,4 +48,6 @@ public class FundingUpcycling extends Auditable {
             this.upcycling.addFundingUpcycling(this);
         }
     }
+
+     */
 }

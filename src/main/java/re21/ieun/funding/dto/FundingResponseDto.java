@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import re21.ieun.funding.entity.Funding;
 import re21.ieun.member.entity.Member;
+import re21.ieun.upcycling.entity.Upcycling;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,16 +21,30 @@ public class FundingResponseDto {
     @Setter(AccessLevel.NONE)       // AccessLevel : 접근권한
     private long memberId;
 
+    @Setter(AccessLevel.NONE)
+    private long upcyclingId;
+
+    @Setter(AccessLevel.NONE)
+    private String title;
+    private int quantity;
+
     private Funding.FundingStatus fundingStatus;
 
-    private List<FundingUpcyclingResponseDto> fundingUpcyclings;
+    //private List<FundingUpcyclingResponseDto> fundingUpcyclings;
 
     private int totalReceivedQuantity;
 
-    private LocalDateTime createdAt;
+    private LocalDateTime fundingDate;      // createAt
 
     public void setMember(Member member) {
         this.memberId = member.getMemberId();
     }
 
+    public void setUpcycling(Upcycling upcycling) {
+        this.upcyclingId = upcycling.getUpcyclingId();
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 }

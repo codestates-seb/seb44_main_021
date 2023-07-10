@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import re21.ieun.member.entity.Member;
+import re21.ieun.upcycling.entity.Upcycling;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -18,13 +19,25 @@ public class FundingPostDto {
     @Positive
     private long memberId;
 
+    @Positive
+    private long upcyclingId;
+
     //@Valid
-    @NotNull(message = "펀딩할 업사이클링 정보는 필수입니다.")
-    private List<FundingUpcyclingDto> fundingUpcyclings;
+    //@NotNull(message = "펀딩할 업사이클링 정보는 필수입니다.")
+    //private List<FundingUpcyclingDto> fundingUpcyclings;
+
+    @Positive
+    private int quantity;
 
     public Member getMember() {
         Member member = new Member();
         member.setMemberId(memberId);
         return member;
+    }
+
+    public Upcycling getUpcycling() {
+        Upcycling upcycling = new Upcycling();
+        upcycling.setUpcyclingId(upcyclingId);
+        return upcycling;
     }
 }

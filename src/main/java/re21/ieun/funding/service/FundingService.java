@@ -1,8 +1,5 @@
 package re21.ieun.funding.service;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import re21.ieun.exception.BusinessLogicException;
 import re21.ieun.exception.ExceptionCode;
@@ -12,10 +9,11 @@ import re21.ieun.funding.entity.FundingUpcycling;
 import re21.ieun.funding.mapper.FundingMapper;
 import re21.ieun.funding.repository.FundingRepository;
 import re21.ieun.member.service.MemberService;
-import re21.ieun.upcycling.entity.Upcycling;
 import re21.ieun.upcycling.repository.UpcyclingRepository;
 import re21.ieun.upcycling.service.UpcyclingService;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,35 +35,45 @@ public class FundingService {
         this.memberService = memberService;
     }
 
+
     // 펀딩하기
     public Funding createFunding(Funding funding) {
 
         verifyFunding(funding);
-
         funding.setFundingStatus(Funding.FundingStatus.FUNDING_APPLICATION_COMPLETE);
 
-        //updateLike(savedFunding);
-        //updateFollower(savedFunding);
 
-        // FundingUpcycling에 Funding 정보 설정
-        for (FundingUpcycling fundingUpcycling : funding.getFundingUpcyclings()) {
-            fundingUpcycling.addFunding(funding);
+        Optional<Funding> existingFundingOptional = fundingRepository.findByMemberAndUpcycling(funding.getMember(), funding.getUpcycling());
+        if (existingFundingOptional.isPresent()) {
+            // 기존의 Funding 객체가 존재할 경우 업데이트
+            Funding existingFunding = existingFundingOptional.get();
+            existingFunding.addFundingQuantity(funding.getQuantity()); // 펀딩 수량 추가
+            existingFunding.setFundingStatus(funding.getFundingStatus());
+            existingFunding.setFundingDate(funding.getFundingDate());
+
+            return fundingRepository.save(existingFunding);
+        } else {
+            // 기존의 Funding 객체가 없을 경우 새로 생성
+            funding.addFundingQuantity(funding.getQuantity()); // 펀딩 수량 추가
+            return fundingRepository.save(funding);
         }
 
-        funding.setTotalReceivedQuantity(calculateTotalReceivedQuantity(funding)); // 총 펀딩 받은 수량 계산 및 설정
 
+        // 결제한 날짜 설정
+        //funding.setFundingDate(LocalDateTime.now());
 
-        return fundingRepository.save(funding);
+        //return fundingRepository.save(funding);
     }
 
     // 펀딩 수정하기
     public Funding updateFunding(Funding funding) {
         Funding findFunding = findVerifiedFunding(funding.getFundingId());
 
+        Optional.ofNullable(funding.getQuantity())
+                .ifPresent(quantity -> findFunding.setQuantity(quantity));
+
         Optional.ofNullable(funding.getFundingStatus())
                 .ifPresent(fundingStatus -> findFunding.setFundingStatus(fundingStatus));
-
-        funding.setTotalReceivedQuantity(calculateTotalReceivedQuantity(findFunding)); // 총 펀딩 받은 수량 계산 및 설정
 
         return fundingRepository.save(findFunding);
     }
@@ -121,18 +129,7 @@ public class FundingService {
         memberService.findMember(funding.getMember().getMemberId());
 
         // 업사이클링이 존재하는지 확인
-        funding.getFundingUpcyclings()
-                .forEach(fundingUpcycling -> upcyclingService.
-                        findVerifyUpcycling(fundingUpcycling.getUpcycling().getUpcyclingId()));
-    }
-
-    // 총 펀딩 받은 수량 계산
-    private int calculateTotalReceivedQuantity(Funding funding) {
-        int totalReceivedQuantity = 0;
-        for (FundingUpcycling fundingUpcycling : funding.getFundingUpcyclings()) {
-            totalReceivedQuantity += fundingUpcycling.getQuantity();
-        }
-        return totalReceivedQuantity;
+        upcyclingService.findVerifyUpcycling(funding.getUpcycling().getUpcyclingId());
     }
 
 }

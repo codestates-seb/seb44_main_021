@@ -58,7 +58,7 @@ public class Upcycling extends Auditable {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-
+    /*
     // FundingUpcycling 과 일대다 관계
     @OneToMany(mappedBy = "upcycling")
     private List<FundingUpcycling> fundingUpcyclings = new ArrayList<>();
@@ -69,6 +69,8 @@ public class Upcycling extends Auditable {
             fundingUpcycling.addUpcycling(this);
         }
     }
+
+     */
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

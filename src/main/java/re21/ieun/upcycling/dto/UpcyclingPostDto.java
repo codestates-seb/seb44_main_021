@@ -35,7 +35,7 @@ public class UpcyclingPostDto {
     //private String category;
 
     // Upcycling 마감일
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")  // "yyyy-MM-dd'T'HH:mm:ss"
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime deadline;
 
     // view(조회수)

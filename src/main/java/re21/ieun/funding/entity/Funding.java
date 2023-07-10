@@ -4,10 +4,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import re21.ieun.audit.Auditable;
+import re21.ieun.fundingHistory.entity.FundingHistory;
 import re21.ieun.member.entity.Member;
 import re21.ieun.upcycling.entity.Upcycling;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,13 +27,32 @@ public class Funding extends Auditable {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-    @OneToMany(mappedBy = "funding", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<FundingUpcycling> fundingUpcyclings = new ArrayList<>();
+    //@OneToMany(mappedBy = "funding", cascade = CascadeType.PERSIST)
+    //private List<FundingUpcycling> fundingUpcyclings = new ArrayList<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "UPCYCLING_ID")
+    private Upcycling upcycling;
+
+    @OneToOne(mappedBy = "funding", cascade = CascadeType.ALL)
+    private FundingHistory fundingHistory;
+
+    // 펀딩 수량
+    @Column(nullable = false)
+    private int quantity;
 
     // 총 펀딩 받은 수량
     @Column(nullable = false)
     private int totalReceivedQuantity;
+
+    // 펀딩 수량 추가
+    public void addFundingQuantity(int quantity) {
+        totalReceivedQuantity += quantity;
+    }
+
+    // 펀딩한 날짜
+    @Column(nullable = false)
+    private LocalDateTime fundingDate = LocalDateTime.now();        // 현재 시간을 펀딩한 날짜로 설정
 
     @Enumerated(EnumType.STRING)
     private FundingStatus fundingStatus = FundingStatus.FUNDING_REQUEST;
