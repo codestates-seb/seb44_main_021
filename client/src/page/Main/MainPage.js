@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import Lenis from "@studio-freight/lenis";
 import style from "./MainPage.module.css";
 import { gsap } from "gsap";
@@ -95,9 +96,15 @@ const MainPage = () => {
                   <CloseIcon sx={{ fontSize: 50 }} />
                 </button>
                 <div id={style.sidelist}>
-                  <div className={style.sidelistText}>펀딩 페이지</div>
-                  <div className={style.sidelistText}>상품 페이지</div>
-                  <div className={style.sidelistText}>About 페이지</div>
+                  <Link to="/store" className={style.link}>
+                    <div className={style.sidelistText}>펀딩 페이지</div>
+                  </Link>
+                  <Link to="/funding" className={style.link}>
+                    <div className={style.sidelistText}>상품 페이지</div>
+                  </Link>
+                  <Link to="/about" className={style.link}>
+                    <div className={style.sidelistText}>About 페이지</div>
+                  </Link>
                 </div>
               </div>
             </div>
