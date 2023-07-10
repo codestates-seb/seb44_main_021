@@ -6,9 +6,10 @@ import re21.ieun.funding.entity.Funding;
 import re21.ieun.member.entity.Member;
 import re21.ieun.upcycling.entity.Upcycling;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface FundingRepository extends JpaRepository<Funding, Long> {
-    Optional<Funding> findByMemberAndUpcycling(Member member, Upcycling upcycling);
+    List<Funding> findByUpcycling(Upcycling upcycling);
 }

@@ -39,24 +39,22 @@ public class FundingService {
     // 펀딩하기
     public Funding createFunding(Funding funding) {
 
-        verifyFunding(funding);
+        //verifyFunding(funding);
         funding.setFundingStatus(Funding.FundingStatus.FUNDING_APPLICATION_COMPLETE);
 
 
-        Optional<Funding> existingFundingOptional = fundingRepository.findByMemberAndUpcycling(funding.getMember(), funding.getUpcycling());
-        if (existingFundingOptional.isPresent()) {
-            // 기존의 Funding 객체가 존재할 경우 업데이트
-            Funding existingFunding = existingFundingOptional.get();
-            existingFunding.addFundingQuantity(funding.getQuantity()); // 펀딩 수량 추가
-            existingFunding.setFundingStatus(funding.getFundingStatus());
-            existingFunding.setFundingDate(funding.getFundingDate());
+        List<Funding> existingFundingList = fundingRepository.findByUpcycling(funding.getUpcycling());
 
-            return fundingRepository.save(existingFunding);
-        } else {
-            // 기존의 Funding 객체가 없을 경우 새로 생성
-            funding.addFundingQuantity(funding.getQuantity()); // 펀딩 수량 추가
-            return fundingRepository.save(funding);
-        }
+        int totalReceivedQuantity = existingFundingList.stream()
+                .mapToInt(Funding::getQuantity)
+                .sum();
+
+        funding.setTotalReceivedQuantity(totalReceivedQuantity + funding.getQuantity());
+
+        // 결제한 날짜 설정
+        funding.setFundingDate(LocalDateTime.now());
+
+        return fundingRepository.save(funding);
 
 
         // 결제한 날짜 설정
