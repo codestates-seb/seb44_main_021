@@ -97,9 +97,9 @@ public class FundingController {
      */
 
     @DeleteMapping("/{funding-id}")
-    public ResponseEntity<?> cancelFunding(@PathVariable("funding-id") @Positive long fundingId, int quantity) {
+    public ResponseEntity<?> cancelFunding(@PathVariable("funding-id") @Positive long fundingId) {
 
-        fundingService.cancelFunding(fundingId, quantity);
+        fundingService.cancelFunding(fundingId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

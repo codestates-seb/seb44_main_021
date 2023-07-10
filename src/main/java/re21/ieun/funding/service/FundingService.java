@@ -56,11 +56,6 @@ public class FundingService {
 
         return fundingRepository.save(funding);
 
-
-        // 결제한 날짜 설정
-        //funding.setFundingDate(LocalDateTime.now());
-
-        //return fundingRepository.save(funding);
     }
 
     // 펀딩 수정하기
@@ -77,7 +72,7 @@ public class FundingService {
     }
 
     // 펀딩 취소하기
-    public void cancelFunding(long fundingId, int quantity) {
+    public void cancelFunding(long fundingId) {
         Funding findFunding = findVerifiedFunding(fundingId);
         int step = findFunding.getFundingStatus().getStepNumber();
 
@@ -87,7 +82,7 @@ public class FundingService {
         }
 
         findFunding.setFundingStatus(Funding.FundingStatus.FUNDING_CANCEL);
-        fundingRepository.save(findFunding);
+        fundingRepository.delete(findFunding);
     }
 
     // 하나의 Funding 확인

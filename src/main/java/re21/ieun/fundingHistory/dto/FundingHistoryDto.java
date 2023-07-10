@@ -4,12 +4,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
 public class FundingHistoryDto {
 
     private long upcyclingId;
+
+    private LocalDateTime fundingDate;
 
     private String title;
 

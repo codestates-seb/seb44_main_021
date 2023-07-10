@@ -27,9 +27,6 @@ public class Funding extends Auditable {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-    //@OneToMany(mappedBy = "funding", cascade = CascadeType.PERSIST)
-    //private List<FundingUpcycling> fundingUpcyclings = new ArrayList<>();
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "UPCYCLING_ID")
     private Upcycling upcycling;
@@ -44,11 +41,6 @@ public class Funding extends Auditable {
     // 총 펀딩 받은 수량
     @Column(nullable = false)
     private int totalReceivedQuantity;
-
-    // 펀딩 수량 추가
-    public void addFundingQuantity(int quantity) {
-        totalReceivedQuantity += quantity;
-    }
 
     // 펀딩한 날짜
     @Column(nullable = false)
