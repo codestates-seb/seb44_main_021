@@ -137,3 +137,9 @@
   height: 500px;
   background-color: #9affa3;
 }
+
+.link {
+  outline: none;
+  text-decoration: none;
+  color: black;
+}
