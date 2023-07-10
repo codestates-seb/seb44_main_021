@@ -22,9 +22,11 @@
 }
 
 .modalContent {
+  display: flex;
+  flex-direction: column;
   background-color: #bad7ad;
   height: 100%;
-  width: 30%;
+  width: 20%;
 }
 
 #sidelist {
@@ -102,12 +104,19 @@
   margin: 50px 0;
 }
 
+.contentslist > a {
+  outline: none;
+  text-decoration: none;
+  color: black;
+  font-size: 17px;
+  font-weight: 600;
+}
+
 .contentsbox {
   width: 300px;
   height: 300px;
   border: 1px solid black;
   border-radius: 20px;
-  padding: 10px;
 }
 
 #footer {

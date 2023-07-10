@@ -155,17 +155,89 @@ const MainPage = () => {
             <div id={style.contents}>
               <h1>뉴스</h1>
               <div className={style.contentslist}>
-                <div className={style.contentsbox}>box</div>
-                <div className={style.contentsbox}>box</div>
-                <div className={style.contentsbox}>box</div>
-                <div className={style.contentsbox}>box</div>
+                <a
+                  href="https://www.insehub.or.kr/bbs/board.php?bo_table=bbs_030403&wr_id=88"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <div className={style.contentsbox}>
+                    <img
+                      src={process.env.PUBLIC_URL + "/image/news1.jpg"}
+                      alt="test"
+                      style={{
+                        width: "100%",
+                        height: "80%",
+                        borderTopLeftRadius: "20px",
+                        borderTopRightRadius: "20px",
+                      }}
+                    />
+                    쓰레기의 재탄생! 업사이클링 제품이 뭐야?
+                  </div>
+                </a>
+                <a
+                  href="https://www.tinnews.co.kr/23616"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <div className={style.contentsbox}>
+                    <img
+                      src={process.env.PUBLIC_URL + "/image/news2.png"}
+                      alt="test"
+                      style={{
+                        width: "100%",
+                        height: "80%",
+                        borderTopLeftRadius: "20px",
+                        borderTopRightRadius: "20px",
+                      }}
+                    />
+                    업사이클링의 완성은 자원 순환
+                  </div>
+                </a>
+                <a
+                  href="https://dream.kotra.or.kr/kotranews/cms/news/actionKotraBoardDetail.do?SITE_NO=3&MENU_ID=180&CONTENTS_NO=1&bbsGbn=243&bbsSn=243&pNttSn=194909"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <div className={style.contentsbox}>
+                    <img
+                      src={process.env.PUBLIC_URL + "/image/news3.jpg"}
+                      alt="test"
+                      style={{
+                        width: "100%",
+                        height: "80%",
+                        borderTopLeftRadius: "20px",
+                        borderTopRightRadius: "20px",
+                      }}
+                    />
+                    미국 시장이 열광하는 '업사이클링' 트렌드
+                  </div>
+                </a>
+                <a
+                  href="https://news.sbs.co.kr/news/endPage.do?news_id=N1002461263&plink=COPYPASTE&cooper=SBSNEWSEND"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <div className={style.contentsbox}>
+                    <img
+                      src={process.env.PUBLIC_URL + "/image/news4.jpg"}
+                      alt="test"
+                      style={{
+                        width: "100%",
+                        height: "80%",
+                        borderTopLeftRadius: "20px",
+                        borderTopRightRadius: "20px",
+                      }}
+                    />
+                    "폐품이 아니라 명품"…'업사이클링'의 진화
+                  </div>
+                </a>
               </div>
               <h1>광고</h1>
               <div className={style.contentslist}>
-                <div className={style.contentsbox}>box</div>
-                <div className={style.contentsbox}>box</div>
-                <div className={style.contentsbox}>box</div>
-                <div className={style.contentsbox}>box</div>
+                <div className={style.contentsbox}></div>
+                <div className={style.contentsbox}></div>
+                <div className={style.contentsbox}></div>
+                <div className={style.contentsbox}></div>
               </div>
             </div>
             <div id={style.footer}>
