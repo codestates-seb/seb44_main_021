@@ -35,22 +35,22 @@ public class MemberController {
     }
 
     // 사용자로 회원가입
-    @PostMapping("/users")
+    @PostMapping("/signup")
     public ResponseEntity postMember(@Valid @RequestBody MemberDto.Post requestBody) {
         Member member = memberService.createMember(memberMapper.memberPostDtotoMember(requestBody));
         URI location = UriCreator.createUri(MEMBER_DEFAULT_URL, member.getMemberId());
 
         return ResponseEntity.created(location).build();
     }
-
-    // 업사이클러로 회원가입
-    @PostMapping("/upcycler")
-    public ResponseEntity postMember1(@Valid @RequestBody MemberDto.Post requestBody) {
-        Member member = memberService.createMember(memberMapper.memberPostDtotoMember1(requestBody));
-        URI location = UriCreator.createUri(MEMBER_DEFAULT_URL, member.getMemberId());
-
-        return ResponseEntity.created(location).build();
-    }
+//
+//    // 업사이클러로 회원가입
+//    @PostMapping("/upcycler")
+//    public ResponseEntity postMember1(@Valid @RequestBody MemberDto.Post requestBody) {
+//        Member member = memberService.createMember(memberMapper.memberPostDtotoMember1(requestBody));
+//        URI location = UriCreator.createUri(MEMBER_DEFAULT_URL, member.getMemberId());
+//
+//        return ResponseEntity.created(location).build();
+//    }
 
     @GetMapping
     public ResponseEntity getMembers(@RequestParam int page, @RequestParam int size){
