@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import Lenis from "@studio-freight/lenis";
 import style from "./MainPage.module.css";
 import { gsap } from "gsap";
@@ -13,6 +14,7 @@ const MainPage = () => {
   const [logoSize, setLogoSize] = useState(70);
   const [nowloding, setNowloding] = useState(false);
   const [open, setOpen] = useState(false);
+  const [data, setData] = useState([]);
   const horwrapRef = useRef(null);
 
   // const handleScroll = () => {
@@ -32,23 +34,16 @@ const MainPage = () => {
   //   };
   // }, []);
 
-  gsap.registerPlugin(ScrollTrigger);
+  useEffect(() => {
+    axios({
+      url: "http://ec2-43-201-105-214.ap-northeast-2.compute.amazonaws.com:8080/",
+      method: "get",
+    })
+      .then((response) => setData(response.data))
+      .catch((err) => console.log(err));
+  }, []);
 
-  // useEffect(() => {
-  //   gsap.to(".horwrap", {
-  //     x: -1000,
-  //     duration: 5,
-  //     scrollTrigger: {
-  //       trigger: ".horwrap",
-  //       start: "top 255px",
-  //       end: "bottom top",
-  //       scrub: true,
-  //       pin: ".horwrap",
-  //       markers: true,
-  //     },
-  //   });
-  //   setNowloding(true);
-  // }, [nowloding]);
+  gsap.registerPlugin(ScrollTrigger);
 
   useEffect(() => {
     if (horwrapRef.current) {
@@ -96,10 +91,10 @@ const MainPage = () => {
                   <CloseIcon sx={{ fontSize: 50 }} />
                 </button>
                 <div id={style.sidelist}>
-                  <Link to="/store" className={style.link}>
+                  <Link to="/funding" className={style.link}>
                     <div className={style.sidelistText}>펀딩 페이지</div>
                   </Link>
-                  <Link to="/funding" className={style.link}>
+                  <Link to="/store" className={style.link}>
                     <div className={style.sidelistText}>상품 페이지</div>
                   </Link>
                   <Link to="/about" className={style.link}>
