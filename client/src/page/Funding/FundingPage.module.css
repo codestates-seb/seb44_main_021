@@ -1,0 +1,55 @@
+#containerh {
+  display: flex;
+  justify-content: center;
+  border: 1px solid black;
+}
+
+#container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+#aside {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 12%;
+  height: 400px;
+  position: sticky;
+  top: 72px;
+  margin-left: 15%;
+  margin-top: 50px;
+}
+
+#kategorie {
+  font-size: 30px;
+  padding-bottom: 20px;
+  border-bottom: 3px solid #6e934d;
+}
+
+.button {
+  background-color: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+#funding {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 73%;
+  padding-right: 15%;
+}
+
+#list {
+  width: 250px;
+  height: 300px;
+  border: 1px solid black;
+  margin-left: 10px;
+  margin-top: 50px;
+}
