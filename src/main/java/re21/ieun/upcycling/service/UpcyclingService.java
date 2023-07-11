@@ -1,5 +1,8 @@
 package re21.ieun.upcycling.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import re21.ieun.exception.BusinessLogicException;
 import re21.ieun.exception.ExceptionCode;
@@ -79,12 +82,19 @@ public class UpcyclingService {
         return findUpcycling;
     }
 
+    /*
     // 모든 Upcycling 을 확인
     public List<UpcyclingResponseDto> findUpcyclings() {
 
         List<Upcycling> upcyclings = upcyclingRepository.findAll();
 
         return upcyclingMapper.upcyclingToUpcyclingResponseDtos(upcyclings);
+    }
+     */
+
+    // 모든 Upcycling 을 확인, 페이지네이션
+    public Page<Upcycling> findUpcyclings(int page, int size) {
+        return upcyclingRepository.findAll(PageRequest.of(page, size, Sort.by("upcyclingId").descending()));
     }
 
     // Upcycling View(조회수) Counting
