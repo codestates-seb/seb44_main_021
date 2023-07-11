@@ -40,13 +40,13 @@ public class CategoryController {
         return ResponseEntity.created(location).build();
     }
 
-    @GetMapping
-    public ResponseEntity getCategories() {
-        List<CategoryDto.Response> response = categoryService.findCategories();
-
-
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
+//    @GetMapping
+//    public ResponseEntity getCategories() {
+//        List<CategoryDto.Response> response = categoryService.findCategories();
+//
+//
+//        return new ResponseEntity<>(response, HttpStatus.OK);
+//    }
 
     //카테고리 메뉴를 불러오는거면 카테고리 전체 getmapping
 

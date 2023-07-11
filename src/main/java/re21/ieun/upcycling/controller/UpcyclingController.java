@@ -95,34 +95,29 @@ public class UpcyclingController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    // 카테고리 ID를 통해 UPCYCLING 게시글 조회
-    @GetMapping("/categories/{category-id}")
-    public ResponseEntity getUpcyclingByCategoryId(@PathVariable("category-id") long categoryId,
-                                                   @RequestParam int page,
-                                                   @RequestParam int size) {
-        List<UpcyclingResponseDto> response = upcyclingService.findUpcyclingsByCategoryId(categoryId, page, size);
+    //카테고리 id 기준으로 upcycling 글 최신순으로 정렬 + 페이지네이션
+    @GetMapping("/descending/categories/{category-id}")
+    public ResponseEntity getDescendingUpcyclingsByCategoryId(@PathVariable("category-id") long categoryId,
+                                                   @Positive @RequestParam int page,
+                                                   @Positive @RequestParam int size) {
+        Page<Upcycling> pageUpcyclings = upcyclingService.findUpcyclingsByCategoryId(categoryId,page - 1, size);
+        List<Upcycling> upcyclings = pageUpcyclings.getContent();
 
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(upcyclingMapper.upcyclingToUpcyclingResponseDtos(upcyclings), pageUpcyclings),
+                HttpStatus.OK);
     }
 
-    @GetMapping("/categories/{category-id}") //질문 조회
-    public ResponseEntity getUpcyclingByCategoryId(@PathVariable("category-id") long categoryId) {
-        List<UpcyclingResponseDto> response = upcyclingService.findUpcyclingsByCategoryId(categoryId);
-
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
-
-    //업사이클 전체글 조회 ->
-
+    //카테고리 id 기준으로 upcycling 글 오래된 순으로 정렬 + 페이지네이션
     @GetMapping("/ascending/categories/{category-id}")
-    public ResponseEntity getUpcyclingByCategoryId1(@PathVariable("category-id") long categoryId,
-                                                   @RequestParam int page,
-                                                   @RequestParam int size) {
-        List<UpcyclingResponseDto> response = upcyclingService.findUpcyclingsByCategoryId(categoryId);
+    public ResponseEntity getAscendingUpcyclingByCategoryId(@PathVariable("category-id") long categoryId,
+                                                   @Positive @RequestParam int page,
+                                                   @Positive @RequestParam int size) {
+        Page<Upcycling> pageUpcyclings = upcyclingService.findUpcyclingsByCategoryId1(categoryId,page - 1, size);
+        List<Upcycling> upcyclings = pageUpcyclings.getContent();
 
-        Page<Member> pageMembers = memberService.findMembers(page-1,size);
-
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(upcyclingMapper.upcyclingToUpcyclingResponseDtos(upcyclings), pageUpcyclings),
+                HttpStatus.OK);
     }
-
 }

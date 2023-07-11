@@ -6,6 +6,9 @@ import re21.ieun.category.dto.CategoryDto;
 import re21.ieun.category.entity.Category;
 import re21.ieun.category.mapper.CategoryMapper;
 import re21.ieun.category.repository.CategoryRepository;
+import re21.ieun.exception.BusinessLogicException;
+import re21.ieun.exception.ExceptionCode;
+import re21.ieun.member.entity.Member;
 
 import java.util.List;
 
@@ -25,8 +28,14 @@ public class CategoryService {
         return categoryRepository.save(category);
     }
 
-    public List<CategoryDto.Response> findCategories() {
-        List<Category> categories = categoryRepository.findAll(Sort.by(Sort.Direction.ASC, "categoryId"));
-        return categoryMapper.categoryToCategoryResponseDtos(categories);
+    public Category findcategory(long categoryId) {
+        Category findCategory = categoryRepository.findById(categoryId).orElseThrow(() ->
+                new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        return findCategory;
+
+//    public List<CategoryDto.Response> findCategories() {
+//        List<Category> categories = categoryRepository.findAll(Sort.by(Sort.Direction.ASC, "categoryId"));
+//        return categoryMapper.categoryToCategoryResponseDtos(categories);
+//    }
     }
 }
