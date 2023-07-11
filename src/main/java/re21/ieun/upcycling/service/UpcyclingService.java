@@ -10,6 +10,7 @@ import re21.ieun.category.entity.Category;
 import re21.ieun.category.service.CategoryService;
 import re21.ieun.exception.BusinessLogicException;
 import re21.ieun.exception.ExceptionCode;
+import re21.ieun.funding.entity.Funding;
 import re21.ieun.member.entity.Member;
 import re21.ieun.member.service.MemberService;
 import re21.ieun.upcycling.dto.UpcyclingResponseDto;
@@ -55,20 +56,21 @@ public class UpcyclingService {
         Optional.ofNullable(upcycling.getContent())
                 .ifPresent(content -> findUpcycling.setContent(content));
 
+        Optional.ofNullable(upcycling.getTotalQuantity())
+                .ifPresent(quantity -> findUpcycling.setTotalQuantity(quantity));
+
         return upcyclingRepository.save(findUpcycling);
     }
 
     // 업사이클링 펀딩 게시글 삭제
-    public Upcycling deleteUpcycling(long upcyclingId) {
+    public void deleteUpcycling(long upcyclingId) {
 
         Upcycling findUpcycling = findVerifyUpcycling(upcyclingId);
 
         findUpcycling.setUpcyclingStatus(Upcycling.UpcyclingStatus.UPCYCLING_DELETE);
 
-        return upcyclingRepository.save(findUpcycling);
-
+        upcyclingRepository.delete(findUpcycling);
     }
-
 
     // member 가 존재하는지 확인
     public void verifyUpcycling(Upcycling upcycling) {
@@ -89,6 +91,7 @@ public class UpcyclingService {
         return findUpcycling;
     }
 
+    /*
     // 모든 Upcycling 을 확인
     public List<UpcyclingResponseDto> findUpcyclings() {
 
@@ -96,7 +99,12 @@ public class UpcyclingService {
 
         return upcyclingMapper.upcyclingToUpcyclingResponseDtos(upcyclings);
     }
+     */
 
+    // 모든 Upcycling 을 확인, 페이지네이션
+    public Page<Upcycling> findUpcyclings(int page, int size) {
+        return upcyclingRepository.findAll(PageRequest.of(page, size, Sort.by("upcyclingId").descending()));
+    }
 
     // Upcycling View(조회수) Counting
     public Upcycling increaseViewCount(long upcyclingId) {
@@ -131,4 +139,12 @@ public class UpcyclingService {
         Pageable pageable = PageRequest.of(page, size, Sort.by("upcyclingId").ascending());
         return upcyclingRepository.findByCategory(category, pageable);
     }
+
+    // 특정 member 업사이클링 펀딩 등록 내역, 페이지네이션
+    public Page<Upcycling> getMyUpcyclingHistoryByMemberId(Long memberId, int page, int size) {
+        Member member = memberService.findMember(memberId);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("upcyclingId").descending());
+        return upcyclingRepository.findByMember(member, pageable);
+    }
+
 }

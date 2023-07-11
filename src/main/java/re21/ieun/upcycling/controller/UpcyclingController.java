@@ -7,6 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import re21.ieun.dto.MultiResponseDto;
+import re21.ieun.funding.entity.Funding;
+import re21.ieun.dto.MultiResponseDto;
 import re21.ieun.member.entity.Member;
 import re21.ieun.member.service.MemberService;
 import re21.ieun.upcycling.dto.UpcyclingPatchDto;
@@ -22,12 +24,12 @@ import javax.validation.constraints.Positive;
 import java.net.URI;
 import java.util.List;
 
-@RestController         // @Controller 랑 @RestController 랑 무슨 차이인지 알아보기
+@RestController
 @RequestMapping("/upcyclings")
 @Validated
 public class UpcyclingController {
 
-    private final static String ANSWER_DEFAULT_URL = "/upcyclings";
+    private final static String UPCYCLING_DEFAULT_URL = "/upcyclings";
 
     private final UpcyclingService upcyclingService;
     private final UpcyclingMapper upcyclingMapper;
@@ -39,17 +41,19 @@ public class UpcyclingController {
         this.memberService = memberService;
     }
 
+    // 업사이클링 펀딩 게시글 생성
     @PostMapping
     public ResponseEntity<?> postUpcycling(@Valid @RequestBody UpcyclingPostDto upcyclingPostDto) {
 
         memberService.findMember(upcyclingPostDto.getMemberId());
 
         Upcycling upcycling = upcyclingService.createUpcycling(upcyclingMapper.upcyclingPostDtoToUpcycling(upcyclingPostDto));
-        URI location = UriCreator.createUri(ANSWER_DEFAULT_URL, upcycling.getUpcyclingId());
+        URI location = UriCreator.createUri(UPCYCLING_DEFAULT_URL, upcycling.getUpcyclingId());
 
         return ResponseEntity.created(location).build();
     }
 
+    // 업사이클링 펀딩 게시글 수정
     @PatchMapping("/{upcycling-id}")
     public ResponseEntity<?> patchUpcycling(@PathVariable("upcycling-id") @Positive long upcyclingId,
                                          @Valid @RequestBody UpcyclingPatchDto upcyclingPatchDto) {
@@ -60,6 +64,7 @@ public class UpcyclingController {
         return new ResponseEntity<>(upcyclingMapper.upcyclingToUpcyclingResponseDto(upcycling), HttpStatus.OK);
     }
 
+    // 한 업사이클링 펀딩 게시글 조회
     @GetMapping("/{upcycling-id}")
     public ResponseEntity<?> getUpcycling(@PathVariable("upcycling-id") @Positive long upcyclingId) {
 
@@ -68,12 +73,37 @@ public class UpcyclingController {
         return new ResponseEntity<>(upcyclingMapper.upcyclingToUpcyclingResponseDto(upcycling), HttpStatus.OK);
     }
 
+    // 업사이클링 펀딩 게시글 삭제
+    @DeleteMapping("/{upcycling-id}")
+    public ResponseEntity<?> deleteUpcycling(@PathVariable("upcycling-id") @Positive long upcyclingId) {
+
+        upcyclingService.deleteUpcycling(upcyclingId);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    /*
+    // 업사이클링 전체 조회
     @GetMapping
     public ResponseEntity<?> getUpcyclings() {
 
         List<UpcyclingResponseDto> upcyclings = upcyclingService.findUpcyclings();
 
         return new ResponseEntity<>(upcyclings, HttpStatus.OK);
+    }
+     */
+
+    // 업사이클링 전체 조회, 페이지네이션
+    @GetMapping
+    public ResponseEntity<?> getUpcyclings(@Positive @RequestParam int page,
+                                         @Positive @RequestParam int size) {
+        Page<Upcycling> pageUpcyclings = upcyclingService.findUpcyclings(page - 1, size);
+        List<Upcycling> upcyclings = pageUpcyclings.getContent();
+
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(upcyclingMapper.upcyclingToUpcyclingResponseDtos(upcyclings), pageUpcyclings),
+                HttpStatus.OK);
+
     }
 
     // Upcycling View(조회수)
@@ -86,9 +116,9 @@ public class UpcyclingController {
         return new ResponseEntity<>(upcyclingMapper.upcyclingToUpcyclingResponseDto(upcycling), HttpStatus.OK);
     }
 
-    // Upcycling 검색 기능
-    @GetMapping("/search/{searchKeyword}")
-    public ResponseEntity<?> getUpcyclingsByTitleContaining(@PathVariable("searchKeyword") String searchKeyword) {
+    // Upcycling 검색 기능, @PathVariable -> @RequestParam 로 바꿈
+    @GetMapping("/search")
+    public ResponseEntity<?> getUpcyclingsByTitleContaining(@RequestParam("searchKeyword") String searchKeyword) {
 
         List<UpcyclingResponseDto> response = upcyclingService.upcyclingSearchList(searchKeyword);
 
@@ -119,5 +149,18 @@ public class UpcyclingController {
         return new ResponseEntity<>(
                 new MultiResponseDto<>(upcyclingMapper.upcyclingToUpcyclingResponseDtos(upcyclings), pageUpcyclings),
                 HttpStatus.OK);
+    }
+    // 특정 member 업사이클링 펀딩 등록 내역, 페이지네이션
+    @GetMapping("/member/{member-id}")
+    public ResponseEntity<?> getMyUpcyclingHistory(@PathVariable("member-id") @Positive long memberId,
+                                                 @Positive @RequestParam int page,
+                                                 @Positive @RequestParam int size) {
+        Page<Upcycling> pageUpcyclings = upcyclingService.getMyUpcyclingHistoryByMemberId(memberId,page - 1, size);
+        List<Upcycling> upcyclings = pageUpcyclings.getContent();
+
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(upcyclingMapper.upcyclingToUpcyclingResponseDtos(upcyclings), pageUpcyclings),
+                HttpStatus.OK);
+
     }
 }

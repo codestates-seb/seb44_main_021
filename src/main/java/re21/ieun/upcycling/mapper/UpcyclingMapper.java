@@ -22,6 +22,7 @@ public interface UpcyclingMapper {
     @Mapping(source = "member.memberId", target = "memberId")
     @Mapping(source = "category.categoryId", target = "categoryId")
     @Mapping(source = "category.categoryName", target = "categoryName")
+    @Mapping(source = "member.displayName", target = "displayName")
     UpcyclingResponseDto upcyclingToUpcyclingResponseDto(Upcycling upcycling);
 
     List<UpcyclingResponseDto> upcyclingToUpcyclingResponseDtos(List<Upcycling> upcyclings);

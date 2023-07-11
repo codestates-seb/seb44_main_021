@@ -8,6 +8,7 @@ import re21.ieun.category.entity.Category;
 import re21.ieun.member.entity.Member;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter
@@ -25,8 +26,9 @@ public class Upcycling extends Auditable {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    //@Column(nullable = false)
-    //private Long quantity;              // 사용자가 펀딩할 수량
+    // 총 펀딩 수량
+    @Column(nullable = false)
+    private int totalQuantity;
 
 
     // contentImg 만들어지면 생성
@@ -43,10 +45,13 @@ public class Upcycling extends Auditable {
     // like(좋아요)
 
 
+    // 업사이클링 마감일
+    @Column(nullable = false)
+    private LocalDateTime deadline;
+
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
-
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
