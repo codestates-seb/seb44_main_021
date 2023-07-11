@@ -44,11 +44,13 @@ const LoginPage = () => {
             "Authorization"
           ] = `Bearer ${localStorage.getItem("token")}`;
 
-          console.log(accessToken);
+          // console.log(accessToken);
           // console.log(cookies.refreshToken);
+          navigate("/");
         }
       })
       .catch((err) => {
+        console.log(err);
         console.log(err.response.data);
         console.log("실패");
       });
