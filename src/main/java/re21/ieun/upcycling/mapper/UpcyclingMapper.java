@@ -19,6 +19,7 @@ public interface UpcyclingMapper {
 
     @Mapping(source = "member.memberId", target = "memberId")
     @Mapping(source = "member.displayName", target = "displayName")
+    //@Mapping(source = "funding.totalReceivedQuantity", target = "totalReceivedQuantity")
     UpcyclingResponseDto upcyclingToUpcyclingResponseDto(Upcycling upcycling);
 
     List<UpcyclingResponseDto> upcyclingToUpcyclingResponseDtos(List<Upcycling> upcyclings);

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 
@@ -23,7 +24,11 @@ public class UpcyclingResponseDto {
 
     private String content;
 
+    // 총 펀딩 수량
     private int totalQuantity;
+
+    // 총 펀딩 받은 수량
+    private int totalReceivedQuantity;
 
 
     // 이미지가 구축이되면

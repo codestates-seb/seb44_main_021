@@ -58,20 +58,6 @@ public class Upcycling extends Auditable {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-    /*
-    // FundingUpcycling 과 일대다 관계
-    @OneToMany(mappedBy = "upcycling")
-    private List<FundingUpcycling> fundingUpcyclings = new ArrayList<>();
-
-    public void addFundingUpcycling(FundingUpcycling fundingUpcycling) {
-        this.fundingUpcyclings.add(fundingUpcycling);
-        if (fundingUpcycling.getUpcycling() != this) {
-            fundingUpcycling.addUpcycling(this);
-        }
-    }
-
-     */
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private UpcyclingStatus upcyclingStatus = UpcyclingStatus.UPCYCLING_REGISTRATION;
