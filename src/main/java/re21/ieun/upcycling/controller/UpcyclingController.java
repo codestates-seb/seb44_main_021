@@ -1,10 +1,12 @@
 package re21.ieun.upcycling.controller;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import re21.ieun.dto.MultiResponseDto;
 import re21.ieun.member.entity.Member;
 import re21.ieun.member.service.MemberService;
 import re21.ieun.upcycling.dto.UpcyclingPatchDto;
@@ -93,4 +95,29 @@ public class UpcyclingController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    //카테고리 id 기준으로 upcycling 글 최신순으로 정렬 + 페이지네이션
+    @GetMapping("/descending/categories/{category-id}")
+    public ResponseEntity getDescendingUpcyclingsByCategoryId(@PathVariable("category-id") long categoryId,
+                                                   @Positive @RequestParam int page,
+                                                   @Positive @RequestParam int size) {
+        Page<Upcycling> pageUpcyclings = upcyclingService.findUpcyclingsByCategoryId(categoryId,page - 1, size);
+        List<Upcycling> upcyclings = pageUpcyclings.getContent();
+
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(upcyclingMapper.upcyclingToUpcyclingResponseDtos(upcyclings), pageUpcyclings),
+                HttpStatus.OK);
+    }
+
+    //카테고리 id 기준으로 upcycling 글 오래된 순으로 정렬 + 페이지네이션
+    @GetMapping("/ascending/categories/{category-id}")
+    public ResponseEntity getAscendingUpcyclingByCategoryId(@PathVariable("category-id") long categoryId,
+                                                   @Positive @RequestParam int page,
+                                                   @Positive @RequestParam int size) {
+        Page<Upcycling> pageUpcyclings = upcyclingService.findUpcyclingsByCategoryId1(categoryId,page - 1, size);
+        List<Upcycling> upcyclings = pageUpcyclings.getContent();
+
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(upcyclingMapper.upcyclingToUpcyclingResponseDtos(upcyclings), pageUpcyclings),
+                HttpStatus.OK);
+    }
 }
