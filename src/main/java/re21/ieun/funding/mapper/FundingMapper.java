@@ -4,13 +4,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import re21.ieun.funding.dto.*;
 import re21.ieun.funding.entity.Funding;
-import re21.ieun.funding.entity.FundingUpcycling;
-import re21.ieun.funding.dto.FundingUpcyclingResponseDto;
-import re21.ieun.member.entity.Member;
-import re21.ieun.upcycling.entity.Upcycling;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface FundingMapper {

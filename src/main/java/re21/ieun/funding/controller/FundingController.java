@@ -13,7 +13,6 @@ import re21.ieun.funding.dto.FundingResponseDto;
 import re21.ieun.funding.entity.Funding;
 import re21.ieun.funding.mapper.FundingMapper;
 import re21.ieun.funding.service.FundingService;
-import re21.ieun.member.service.MemberService;
 import re21.ieun.utils.UriCreator;
 
 import javax.validation.Valid;
@@ -30,12 +29,10 @@ public class FundingController {
 
     private final FundingService fundingService;
     private final FundingMapper fundingMapper;
-    private final MemberService memberService;
 
-    public FundingController(FundingService fundingService, FundingMapper fundingMapper, MemberService memberService) {
+    public FundingController(FundingService fundingService, FundingMapper fundingMapper) {
         this.fundingService = fundingService;
         this.fundingMapper = fundingMapper;
-        this.memberService = memberService;
     }
 
     @PostMapping

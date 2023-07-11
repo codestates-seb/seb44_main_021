@@ -6,10 +6,7 @@ import lombok.Setter;
 import re21.ieun.member.entity.Member;
 import re21.ieun.upcycling.entity.Upcycling;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
-import java.util.List;
 
 @Getter
 @Setter
@@ -21,10 +18,6 @@ public class FundingPostDto {
 
     @Positive
     private long upcyclingId;
-
-    //@Valid
-    //@NotNull(message = "펀딩할 업사이클링 정보는 필수입니다.")
-    //private List<FundingUpcyclingDto> fundingUpcyclings;
 
     @Positive
     private int quantity;

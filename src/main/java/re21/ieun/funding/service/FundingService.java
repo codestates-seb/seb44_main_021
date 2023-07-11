@@ -9,19 +9,15 @@ import re21.ieun.exception.BusinessLogicException;
 import re21.ieun.exception.ExceptionCode;
 import re21.ieun.funding.dto.FundingResponseDto;
 import re21.ieun.funding.entity.Funding;
-import re21.ieun.funding.entity.FundingUpcycling;
 import re21.ieun.funding.mapper.FundingMapper;
 import re21.ieun.funding.repository.FundingRepository;
 import re21.ieun.member.entity.Member;
 import re21.ieun.member.service.MemberService;
-import re21.ieun.upcycling.repository.UpcyclingRepository;
 import re21.ieun.upcycling.service.UpcyclingService;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class FundingService {
@@ -117,7 +113,7 @@ public class FundingService {
     }
 
     /*
-    // 페이지네이션
+    // 모든 Funding 을 확인, 페이지네이션
     public Page<Funding> findFundings(int page, int size) {
         return fundingRepository.findAll(PageRequest.of(page, size,
                 Sort.by("fundingId").descending()));
@@ -142,18 +138,7 @@ public class FundingService {
         upcyclingService.findVerifyUpcycling(funding.getUpcycling().getUpcyclingId());
     }
 
-    // 펀딩 내역
-    /*
-    public List<FundingResponseDto> getMyFundingHistoryByMemberId(Long memberId) {
-        List<Funding> fundings = fundingRepository.findAll();
-        return fundings.stream()
-                .filter(funding -> funding.getMember().getMemberId().equals(memberId))
-                .map(funding -> fundingMapper.fundingToFundingResponseDto(funding))
-                .collect(Collectors.toList());
-    }
-
-     */
-
+    // 특정 member 펀딩 내역 페이지네이션
     public Page<Funding> getMyFundingHistoryByMemberId(Long memberId, int page, int size) {
         Member member = memberService.findMember(memberId);
         Pageable pageable = PageRequest.of(page, size, Sort.by("fundingId").descending());

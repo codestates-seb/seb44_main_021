@@ -9,7 +9,6 @@ import re21.ieun.member.entity.Member;
 import re21.ieun.upcycling.entity.Upcycling;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Setter
@@ -26,11 +25,10 @@ public class FundingResponseDto {
 
     @Setter(AccessLevel.NONE)
     private String title;
+
     private int quantity;
 
     private Funding.FundingStatus fundingStatus;
-
-    //private List<FundingUpcyclingResponseDto> fundingUpcyclings;
 
     private int totalReceivedQuantity;
 
