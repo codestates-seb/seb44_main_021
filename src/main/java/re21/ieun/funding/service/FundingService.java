@@ -138,7 +138,7 @@ public class FundingService {
         upcyclingService.findVerifyUpcycling(funding.getUpcycling().getUpcyclingId());
     }
 
-    // 특정 member 펀딩 내역 페이지네이션
+    // 특정 member 펀딩 내역, 페이지네이션
     public Page<Funding> getMyFundingHistoryByMemberId(Long memberId, int page, int size) {
         Member member = memberService.findMember(memberId);
         Pageable pageable = PageRequest.of(page, size, Sort.by("fundingId").descending());

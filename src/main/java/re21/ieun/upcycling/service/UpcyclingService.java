@@ -2,10 +2,12 @@ package re21.ieun.upcycling.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import re21.ieun.exception.BusinessLogicException;
 import re21.ieun.exception.ExceptionCode;
+import re21.ieun.funding.entity.Funding;
 import re21.ieun.member.entity.Member;
 import re21.ieun.member.service.MemberService;
 import re21.ieun.upcycling.dto.UpcyclingResponseDto;
@@ -113,4 +115,12 @@ public class UpcyclingService {
 
         return upcyclingMapper.upcyclingToUpcyclingResponseDtos(upcyclings);
     }
+
+    // 특정 member 업사이클링 펀딩 등록 내역, 페이지네이션
+    public Page<Upcycling> getMyUpcyclingHistoryByMemberId(Long memberId, int page, int size) {
+        Member member = memberService.findMember(memberId);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("upcyclingId").descending());
+        return upcyclingRepository.findByMember(member, pageable);
+    }
+
 }

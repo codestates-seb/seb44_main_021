@@ -101,7 +101,7 @@ public class FundingController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    // 특정 member 펀딩 페이지네이션, 나의 펀딩 내역
+    // 특정 member 펀딩 내역, 페이지네이션
     @GetMapping("/member/{member-id}")
     public ResponseEntity<?> getMyFundingHistory(@PathVariable("member-id") @Positive long memberId,
                                                  @Positive @RequestParam int page,

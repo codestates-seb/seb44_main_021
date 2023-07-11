@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import re21.ieun.dto.MultiResponseDto;
+import re21.ieun.funding.entity.Funding;
 import re21.ieun.member.entity.Member;
 import re21.ieun.member.service.MemberService;
 import re21.ieun.upcycling.dto.UpcyclingPatchDto;
@@ -72,6 +73,15 @@ public class UpcyclingController {
         return new ResponseEntity<>(upcyclingMapper.upcyclingToUpcyclingResponseDto(upcycling), HttpStatus.OK);
     }
 
+    // 업사이클링 펀딩 게시글 삭제
+    @DeleteMapping("/{upcycling-id}")
+    public ResponseEntity<?> deleteUpcycling(@PathVariable("upcycling-id") @Positive long upcyclingId) {
+
+        upcyclingService.deleteUpcycling(upcyclingId);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
     /*
     // 업사이클링 전체 조회
     @GetMapping
@@ -115,12 +125,17 @@ public class UpcyclingController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    // 업사이클링 펀딩 게시글 삭제
-    @DeleteMapping("/{upcycling-id}")
-    public ResponseEntity<?> deleteUpcycling(@PathVariable("upcycling-id") @Positive long upcyclingId) {
+    // 특정 member 업사이클링 펀딩 등록 내역, 페이지네이션
+    @GetMapping("/member/{member-id}")
+    public ResponseEntity<?> getMyUpcyclingHistory(@PathVariable("member-id") @Positive long memberId,
+                                                 @Positive @RequestParam int page,
+                                                 @Positive @RequestParam int size) {
+        Page<Upcycling> pageUpcyclings = upcyclingService.getMyUpcyclingHistoryByMemberId(memberId,page - 1, size);
+        List<Upcycling> upcyclings = pageUpcyclings.getContent();
 
-        upcyclingService.deleteUpcycling(upcyclingId);
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(upcyclingMapper.upcyclingToUpcyclingResponseDtos(upcyclings), pageUpcyclings),
+                HttpStatus.OK);
 
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
