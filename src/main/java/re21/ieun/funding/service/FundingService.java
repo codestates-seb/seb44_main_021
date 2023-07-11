@@ -1,5 +1,9 @@
 package re21.ieun.funding.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import re21.ieun.exception.BusinessLogicException;
 import re21.ieun.exception.ExceptionCode;
@@ -8,6 +12,7 @@ import re21.ieun.funding.entity.Funding;
 import re21.ieun.funding.entity.FundingUpcycling;
 import re21.ieun.funding.mapper.FundingMapper;
 import re21.ieun.funding.repository.FundingRepository;
+import re21.ieun.member.entity.Member;
 import re21.ieun.member.service.MemberService;
 import re21.ieun.upcycling.repository.UpcyclingRepository;
 import re21.ieun.upcycling.service.UpcyclingService;
@@ -16,6 +21,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class FundingService {
@@ -23,18 +29,15 @@ public class FundingService {
     private final FundingRepository fundingRepository;
     private final FundingMapper fundingMapper;
     private final UpcyclingService upcyclingService;
-    private final UpcyclingRepository upcyclingRepository;
     private final MemberService memberService;
 
     public FundingService(FundingRepository fundingRepository, FundingMapper fundingMapper,
-                          UpcyclingService upcyclingService, UpcyclingRepository upcyclingRepository, MemberService memberService) {
+                          UpcyclingService upcyclingService, MemberService memberService) {
         this.fundingRepository = fundingRepository;
         this.fundingMapper = fundingMapper;
         this.upcyclingService = upcyclingService;
-        this.upcyclingRepository = upcyclingRepository;
         this.memberService = memberService;
     }
-
 
     // 펀딩하기
     public Funding createFunding(Funding funding) {
@@ -62,8 +65,10 @@ public class FundingService {
     public Funding updateFunding(Funding funding) {
         Funding findFunding = findVerifiedFunding(funding.getFundingId());
 
+        /*
         Optional.ofNullable(funding.getQuantity())
                 .ifPresent(quantity -> findFunding.setQuantity(quantity));
+         */
 
         Optional.ofNullable(funding.getFundingStatus())
                 .ifPresent(fundingStatus -> findFunding.setFundingStatus(fundingStatus));
@@ -81,8 +86,20 @@ public class FundingService {
             throw new BusinessLogicException(ExceptionCode.CANNOT_CHANGE_FUNDING);
         }
 
+        int quantityToCancel = findFunding.getQuantity();
+
         findFunding.setFundingStatus(Funding.FundingStatus.FUNDING_CANCEL);
-        fundingRepository.delete(findFunding);
+
+        List<Funding> existingFundingList = fundingRepository.findByUpcycling(findFunding.getUpcycling());
+
+        for (Funding funding : existingFundingList) {
+            if (funding.getFundingStatus() == Funding.FundingStatus.FUNDING_APPLICATION_COMPLETE) {
+                funding.setTotalReceivedQuantity(funding.getTotalReceivedQuantity() - quantityToCancel);
+            }
+        }
+
+        fundingRepository.save(findFunding);        // 상태 확인용, 취소한 내역도 보고싶으면 사용
+        //fundingRepository.delete(findFunding);
     }
 
     // 하나의 Funding 확인
@@ -125,4 +142,21 @@ public class FundingService {
         upcyclingService.findVerifyUpcycling(funding.getUpcycling().getUpcyclingId());
     }
 
+    // 펀딩 내역
+    /*
+    public List<FundingResponseDto> getMyFundingHistoryByMemberId(Long memberId) {
+        List<Funding> fundings = fundingRepository.findAll();
+        return fundings.stream()
+                .filter(funding -> funding.getMember().getMemberId().equals(memberId))
+                .map(funding -> fundingMapper.fundingToFundingResponseDto(funding))
+                .collect(Collectors.toList());
+    }
+
+     */
+
+    public Page<Funding> getMyFundingHistoryByMemberId(Long memberId, int page, int size) {
+        Member member = memberService.findMember(memberId);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("fundingId").descending());
+        return fundingRepository.findByMember(member, pageable);
+    }
 }

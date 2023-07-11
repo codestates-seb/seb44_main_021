@@ -62,7 +62,7 @@ public class FundingController {
 
     }
 
-    @GetMapping("/{funding-id}")        // ("/{member-id}") 로 바꿀 생각
+    @GetMapping("/{funding-id}")
     public ResponseEntity<?> getFunding(@PathVariable("funding-id") @Positive long fundingId) {
 
         Funding funding = fundingService.findFunding(fundingId);
@@ -81,8 +81,8 @@ public class FundingController {
     }
 
 
-    /*
-    // 페이지네이션
+    /*      
+    // 페이지네이션 -> 굳이 필요하진 않을 것 같음
     @GetMapping
     public ResponseEntity<?> getFundings(@Positive @RequestParam int page,
                                          @Positive @RequestParam int size) {
@@ -102,6 +102,20 @@ public class FundingController {
         fundingService.cancelFunding(fundingId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    // 특정 member 펀딩 페이지네이션, 나의 펀딩 내역
+    @GetMapping("/member/{member-id}")
+    public ResponseEntity<?> getMyFundingHistory(@PathVariable("member-id") @Positive long memberId,
+                                                 @Positive @RequestParam int page,
+                                                 @Positive @RequestParam int size) {
+        Page<Funding> pageFundings = fundingService.getMyFundingHistoryByMemberId(memberId,page - 1, size);
+        List<Funding> fundings = pageFundings.getContent();
+
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(fundingMapper.fundingToFundingResponseDtos(fundings), pageFundings),
+                HttpStatus.OK);
+
     }
 
 }

@@ -4,14 +4,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import re21.ieun.audit.Auditable;
-import re21.ieun.fundingHistory.entity.FundingHistory;
 import re21.ieun.member.entity.Member;
 import re21.ieun.upcycling.entity.Upcycling;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -31,8 +28,6 @@ public class Funding extends Auditable {
     @JoinColumn(name = "UPCYCLING_ID")
     private Upcycling upcycling;
 
-    @OneToOne(mappedBy = "funding", cascade = CascadeType.ALL)
-    private FundingHistory fundingHistory;
 
     // 펀딩 수량
     @Column(nullable = false)
@@ -53,8 +48,7 @@ public class Funding extends Auditable {
         FUNDING_REQUEST(1, "펀딩 요청"),
         FUNDING_APPLICATION_COMPLETE(2, "펀딩 신청 완료"),
         FUNDING_SENDING(3, "펀딩 물품 보내는 중"),
-        FUNDING_CANCEL(4, "펀딩 취소"),
-        FUNDING_END(5, "펀딩 종료");
+        FUNDING_CANCEL(4, "펀딩 취소");
 
         @Getter
         private int stepNumber;

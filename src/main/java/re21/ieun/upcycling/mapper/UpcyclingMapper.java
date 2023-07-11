@@ -13,7 +13,6 @@ import java.util.List;
 public interface UpcyclingMapper {
 
     @Mapping(source = "memberId", target = "member.memberId")
-
     Upcycling upcyclingPostDtoToUpcycling(UpcyclingPostDto upcyclingPostDto);
 
     Upcycling upcyclingPatchDtoToUpcycling(UpcyclingPatchDto upcyclingPatchDto);
