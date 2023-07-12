@@ -84,7 +84,7 @@ public class FundingService {
 
         // FundingStatus의 step이 3 이상일 경우(FUNDING_SENDING)에는 주문 취소가 되지 않도록한다.
         if (step >= 3) {
-            throw new BusinessLogicException(ExceptionCode.CANNOT_CHANGE_FUNDING);
+            throw new BusinessLogicException(ExceptionCode.CANNOT_CANCELED_FUNDING);
         }
 
         Funding.FundingStatus fundingStatus = Funding.FundingStatus.FUNDING_APPLICATION_COMPLETE;
