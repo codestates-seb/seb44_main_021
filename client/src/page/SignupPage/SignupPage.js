@@ -3,6 +3,7 @@ import Style from "./SignupPage.module.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Logo from "../../components/Logo/Logo";
 
 const SignupPage = () => {
   const NAME_REGEX = /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]{2,10}$/;
@@ -30,11 +31,11 @@ const SignupPage = () => {
   const [isName, setIsName] = useState(false);
 
   const navigate = useNavigate();
-  const storedUserName = sessionStorage.getItem("userName");
+  const storedUserRole = sessionStorage.getItem("userRole");
 
   /* 첫 마운트시 유저 가입 유형 데이터에 업데이트 */
   useEffect(() => {
-    setUserData({ ...userData, role: storedUserName });
+    setUserData({ ...userData, role: storedUserRole });
   }, []);
 
   /* 공백시 버튼 비활성화 */
@@ -93,10 +94,7 @@ const SignupPage = () => {
 
     if (isPassword && isEmail && isName) {
       axios
-        .post(
-          `http://ec2-43-201-105-214.ap-northeast-2.compute.amazonaws.com:8080/members/signup`,
-          { displayName, email, password, role }
-        )
+        .post("/members/signup", { displayName, email, password, role })
         .then((res) => {
           console.log(res);
           if (res.status === 201) {
@@ -123,11 +121,7 @@ const SignupPage = () => {
   return (
     <div className={Style.SignupformContainer}>
       <form className={Style.SignupForm} onSubmit={AxiosPost}>
-        <img
-          className={Style.userImg}
-          src={`${process.env.PUBLIC_URL}/image/logo2.png`}
-          alt="logo"
-        />
+        <Logo />
 
         <label className={Style.label}>
           이메일
@@ -141,7 +135,7 @@ const SignupPage = () => {
           {emailErrMsg !== "" && <p className={Style.errMsg}>{emailErrMsg}</p>}
         </label>
 
-        {storedUserName === "users" && (
+        {storedUserRole === "users" && (
           <>
             <label className={Style.label}>
               닉네임
@@ -159,7 +153,7 @@ const SignupPage = () => {
           </>
         )}
 
-        {storedUserName === "upcycler" && (
+        {storedUserRole === "upcycler" && (
           <>
             <label className={Style.label}>
               업사이클러명
@@ -205,7 +199,7 @@ const SignupPage = () => {
           className={disabled ? Style.disabledButton : Style.submitButton}
           disabled={disabled}
         >
-          Sign Up
+          sign up
         </button>
       </form>
     </div>
