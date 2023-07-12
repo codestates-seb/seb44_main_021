@@ -15,9 +15,6 @@ public class FundingPatchDto {
     @Positive
     private long fundingId;
 
-    @Positive
-    private int quantity;
-
     private Funding.FundingStatus fundingStatus;
 
 }
