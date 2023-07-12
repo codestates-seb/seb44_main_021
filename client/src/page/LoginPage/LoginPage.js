@@ -39,7 +39,6 @@ const LoginPage = () => {
             "Authorization"
           ] = `Bearer ${localStorage.getItem("token")}`;
 
-          // navigate("/");
           axios.get(`/members/${memberId}`).then((res) => {
             const user = res.data.data;
             setUserData({
@@ -52,6 +51,7 @@ const LoginPage = () => {
               modifiedAt: user.modifiedAt,
             });
           });
+          navigate("/");
         }
       })
       .catch((err) => {
