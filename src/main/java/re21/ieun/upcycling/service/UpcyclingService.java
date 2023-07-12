@@ -50,7 +50,8 @@ public class UpcyclingService {
 
         Upcycling findUpcycling = findVerifyUpcycling(upcycling.getUpcyclingId());
 
-        Optional.ofNullable(upcycling.getTitle())                        // ofNullable : 일반 객체뿐만 아니라 null 값까지 받을 수 있다.
+        // ofNullable : 일반 객체뿐만 아니라 null 값까지 받을 수 있다
+        Optional.ofNullable(upcycling.getTitle())
                 .ifPresent(title -> findUpcycling.setTitle(title));
 
         Optional.ofNullable(upcycling.getContent())
@@ -58,6 +59,9 @@ public class UpcyclingService {
 
         Optional.ofNullable(upcycling.getTotalQuantity())
                 .ifPresent(quantity -> findUpcycling.setTotalQuantity(quantity));
+
+        Optional.ofNullable(upcycling.getDeadline())
+                .ifPresent(deadline -> findUpcycling.setDeadline(deadline));
 
         return upcyclingRepository.save(findUpcycling);
     }
@@ -84,7 +88,8 @@ public class UpcyclingService {
     // Upcycling를 수정하기 위해선 Upcycling가 있는지 검증
     public Upcycling findVerifyUpcycling(long upcyclingId) {
 
-        Optional<Upcycling> optionalUpcycling = upcyclingRepository.findById(upcyclingId);     // Optional : Null값 허용
+        // Optional : Null값 허용
+        Optional<Upcycling> optionalUpcycling = upcyclingRepository.findById(upcyclingId);
         Upcycling findUpcycling = optionalUpcycling.orElseThrow(() ->
                 new BusinessLogicException(ExceptionCode.UPCYCLING_NOT_FOUND));
 
