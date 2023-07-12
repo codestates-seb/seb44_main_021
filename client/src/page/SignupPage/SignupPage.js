@@ -31,11 +31,11 @@ const SignupPage = () => {
   const [isName, setIsName] = useState(false);
 
   const navigate = useNavigate();
-  const storedUserName = sessionStorage.getItem("userName");
+  const storedUserRole = sessionStorage.getItem("userRole");
 
   /* 첫 마운트시 유저 가입 유형 데이터에 업데이트 */
   useEffect(() => {
-    setUserData({ ...userData, role: storedUserName });
+    setUserData({ ...userData, role: storedUserRole });
   }, []);
 
   /* 공백시 버튼 비활성화 */
@@ -135,7 +135,7 @@ const SignupPage = () => {
           {emailErrMsg !== "" && <p className={Style.errMsg}>{emailErrMsg}</p>}
         </label>
 
-        {storedUserName === "users" && (
+        {storedUserRole === "users" && (
           <>
             <label className={Style.label}>
               닉네임
@@ -153,7 +153,7 @@ const SignupPage = () => {
           </>
         )}
 
-        {storedUserName === "upcycler" && (
+        {storedUserRole === "upcycler" && (
           <>
             <label className={Style.label}>
               업사이클러명

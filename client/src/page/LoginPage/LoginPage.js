@@ -1,17 +1,17 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Style from "./LoginPage.module.css";
 import axios from "axios";
-// import { useCookies } from "react-cookie";
 import Logo from "../../components/Logo/Logo";
 import { useNavigate } from "react-router-dom";
+import { UserDataContext } from "../../contexts/UserDataContext";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+  const { userData, setUserData } = useContext(UserDataContext);
   const [loginInfo, setLoginInfo] = useState({
     username: "",
     password: "",
   });
-  // const [cookies, setCookie] = useCookies();
-  const navigate = useNavigate();
 
   const handleInputValue = (key) => (e) => {
     setLoginInfo({ ...loginInfo, [key]: e.target.value });
@@ -19,40 +19,43 @@ const LoginPage = () => {
   };
 
   const handleButtonClick = () => {
-    // 페이지 이동 로직을 여기에 작성
-    navigate("/signup"); // 원하는 경로로 이동
+    navigate("/signup");
   };
 
   const AxiosLogin = (e) => {
     e.preventDefault();
     axios
       .post("/auth/login", loginInfo)
-
       .then((res) => {
         console.log(res);
-
         if (res.status === 200) {
           // 엑세스 토큰 저장
+          const memberId = res.headers.memberid;
           const authHeader = res.headers.authorization;
           const accessToken = authHeader.split(" ")[1];
           localStorage.setItem("token", accessToken);
-          // 쿠키에 리프레시 토큰 저장
-          // const refreshToken = res.headers.refresh;
-          // setCookie("refreshToken", refreshToken, { path: "/" });
 
           axios.defaults.headers.common[
             "Authorization"
           ] = `Bearer ${localStorage.getItem("token")}`;
 
-          // console.log(accessToken);
-          // console.log(cookies.refreshToken);
-          navigate("/");
+          // navigate("/");
+          axios.get(`/members/${memberId}`).then((res) => {
+            const user = res.data.data;
+            setUserData({
+              ...userData,
+              createdAt: user.createdAt,
+              displayName: user.displayName,
+              email: user.email,
+              memberId: user.memberId,
+              memberRole: user.memberRole,
+              modifiedAt: user.modifiedAt,
+            });
+          });
         }
       })
       .catch((err) => {
         console.log(err);
-        console.log(err.response.data);
-        console.log("실패");
       });
   };
 

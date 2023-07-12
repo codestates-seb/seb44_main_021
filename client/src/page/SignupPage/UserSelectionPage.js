@@ -1,14 +1,16 @@
-import React from "react";
+import { useContext } from "react";
 import Style from "./UserSelectionPage.module.css";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../components/Logo/Logo";
+import { UserDataContext } from "../../contexts/UserDataContext";
 
 const UserSelectionPage = () => {
+  const { userData } = useContext(UserDataContext);
   const navigate = useNavigate();
-
+  console.log(userData);
   const handleClickButton = (el) => {
-    sessionStorage.setItem("userName", el);
+    sessionStorage.setItem("userRole", el);
     navigate(`/signup/${el}`);
   };
 
