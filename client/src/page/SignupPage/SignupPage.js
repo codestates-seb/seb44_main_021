@@ -199,7 +199,7 @@ const SignupPage = () => {
           className={disabled ? Style.disabledButton : Style.submitButton}
           disabled={disabled}
         >
-          Sign Up
+          sign up
         </button>
       </form>
     </div>

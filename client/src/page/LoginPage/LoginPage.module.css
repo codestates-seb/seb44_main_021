@@ -52,6 +52,17 @@
     cursor: pointer;
 }
 
+.disabledButton{
+    height: 30px;
+    width: 100%;
+    letter-spacing: 3.5px;
+    color: #ffffff;
+    background: #afafaf;
+    border-radius: 5px;
+    border: none;
+    margin-top: 20px;
+    text-transform: uppercase;
+}
 
 /* signup button */
 
@@ -76,4 +87,11 @@
 }
 .signupButton:hover{
     cursor: pointer;
+}
+
+.errMsg{
+    text-align: left;
+    margin-top: 5px;
+    font-size: 14px;
+    color: rgb(221, 106, 106);
 }

@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import Style from "./LoginPage.module.css";
 import axios from "axios";
 import Logo from "../../components/Logo/Logo";
@@ -8,6 +8,8 @@ import { UserDataContext } from "../../contexts/UserDataContext";
 const LoginPage = () => {
   const navigate = useNavigate();
   const { userData, setUserData } = useContext(UserDataContext);
+
+  const [disabled, setDisabled] = useState(false);
   const [loginInfo, setLoginInfo] = useState({
     username: "",
     password: "",
@@ -21,6 +23,11 @@ const LoginPage = () => {
   const handleButtonClick = () => {
     navigate("/signup");
   };
+
+  useEffect(() => {
+    const blankData = loginInfo.username && loginInfo.password;
+    setDisabled(!blankData);
+  }, [loginInfo]);
 
   const AxiosLogin = (e) => {
     e.preventDefault();
@@ -55,7 +62,9 @@ const LoginPage = () => {
         }
       })
       .catch((err) => {
-        console.log(err);
+        if (err.response.data === "Member not found") {
+          alert("이메일 또는 비밀번호를 확인하세요.");
+        }
       });
   };
 
@@ -79,7 +88,12 @@ const LoginPage = () => {
             onChange={handleInputValue("password")}
           ></input>
         </label>
-        <button type="submit" className={Style.loginButton}>
+
+        <button
+          type="submit"
+          className={disabled ? Style.disabledButton : Style.loginButton}
+          disabled={disabled}
+        >
           login
         </button>
         <p>아직 이은의 회원이 아니라면,</p>
