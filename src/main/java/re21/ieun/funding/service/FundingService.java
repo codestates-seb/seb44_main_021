@@ -35,12 +35,11 @@ public class FundingService {
         this.memberService = memberService;
     }
 
+
     // 펀딩하기
     public Funding createFunding(Funding funding) {
-
         verifyFunding(funding);
         funding.setFundingStatus(Funding.FundingStatus.FUNDING_APPLICATION_COMPLETE);
-
 
         List<Funding> existingFundingList = fundingRepository.findByUpcycling(funding.getUpcycling());
 
@@ -48,23 +47,29 @@ public class FundingService {
                 .mapToInt(Funding::getQuantity)
                 .sum();
 
-        funding.setTotalReceivedQuantity(totalReceivedQuantity + funding.getQuantity());
+        // 새로운 funding 객체의 quantity도 totalReceivedQuantity에 포함하여 계산
+        totalReceivedQuantity += funding.getQuantity();
+
+        // 모든 펀딩 객체들의 totalReceivedQuantity 값을 수정함
+        for (Funding existingFunding : existingFundingList) {
+            existingFunding.setTotalReceivedQuantity(totalReceivedQuantity);
+        }
+
+        // 새로운 funding 객체의 totalReceivedQuantity 값을 설정함
+        funding.setTotalReceivedQuantity(totalReceivedQuantity);
 
         // 결제한 날짜 설정
         funding.setFundingDate(LocalDateTime.now());
 
+        // 기존 펀딩과 새로운 펀딩 모두 저장
+        fundingRepository.saveAll(existingFundingList);
         return fundingRepository.save(funding);
-
     }
+
 
     // 펀딩 수정하기
     public Funding updateFunding(Funding funding) {
         Funding findFunding = findVerifiedFunding(funding.getFundingId());
-
-        /*
-        Optional.ofNullable(funding.getQuantity())
-                .ifPresent(quantity -> findFunding.setQuantity(quantity));
-         */
 
         Optional.ofNullable(funding.getFundingStatus())
                 .ifPresent(fundingStatus -> findFunding.setFundingStatus(fundingStatus));
@@ -82,20 +87,33 @@ public class FundingService {
             throw new BusinessLogicException(ExceptionCode.CANNOT_CHANGE_FUNDING);
         }
 
-        int quantityToCancel = findFunding.getQuantity();
+        Funding.FundingStatus fundingStatus = Funding.FundingStatus.FUNDING_APPLICATION_COMPLETE;
 
         findFunding.setFundingStatus(Funding.FundingStatus.FUNDING_CANCEL);
 
         List<Funding> existingFundingList = fundingRepository.findByUpcycling(findFunding.getUpcycling());
 
+        int updatedTotalReceivedQuantity = 0;
+
         for (Funding funding : existingFundingList) {
-            if (funding.getFundingStatus() == Funding.FundingStatus.FUNDING_APPLICATION_COMPLETE) {
-                funding.setTotalReceivedQuantity(funding.getTotalReceivedQuantity() - quantityToCancel);
+            if (funding.getFundingStatus() == fundingStatus) {
+                if (funding.getFundingId() != fundingId) {
+                    updatedTotalReceivedQuantity += funding.getQuantity();
+                }
             }
         }
 
-        fundingRepository.save(findFunding);        // 상태 확인용, 취소한 내역도 보고싶으면 사용
-        //fundingRepository.delete(findFunding);
+        for (Funding funding : existingFundingList) {
+            if (funding.getFundingStatus() == fundingStatus) {
+                if (funding.getFundingId() != fundingId) {
+                    funding.setTotalReceivedQuantity(updatedTotalReceivedQuantity);
+                    fundingRepository.save(funding);
+                }
+            }
+        }
+
+        //fundingRepository.save(findFunding);        // 상태 확인용, 취소한 내역도 보고싶으면 사용
+        fundingRepository.delete(findFunding);
     }
 
     // 하나의 Funding 확인
