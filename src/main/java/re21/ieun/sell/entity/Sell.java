@@ -5,8 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import re21.ieun.audit.Auditable;
-import re21.ieun.category.entity.Category;
 import re21.ieun.member.entity.Member;
+import re21.ieun.sellcategory.entity.SellCategory;
 
 import javax.persistence.*;
 
@@ -33,8 +33,8 @@ public class Sell extends Auditable {
     private Long viewCount;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @JoinColumn(name = "sellCategory_id")
+    private SellCategory sellCategory;
 
 
     // like(좋아요)

@@ -1,6 +1,11 @@
 package re21.ieun.sell.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import re21.ieun.category.entity.Category;
 import re21.ieun.exception.BusinessLogicException;
 import re21.ieun.exception.ExceptionCode;
 import re21.ieun.member.service.MemberService;
@@ -10,6 +15,10 @@ import re21.ieun.sell.mapper.SellMapper;
 import re21.ieun.sell.repository.SellRepository;
 
 import re21.ieun.member.entity.Member;
+import re21.ieun.sellcategory.entity.SellCategory;
+import re21.ieun.sellcategory.service.SellCategoryService;
+import re21.ieun.upcycling.entity.Upcycling;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -21,14 +30,15 @@ public class SellService {
     private final SellMapper sellMapper;
 
     private final MemberService memberService;
+    private final SellCategoryService sellCategoryService;
 
 
-    public SellService(SellRepository sellRepository, SellMapper sellMapper, MemberService memberService) {
+    public SellService(SellRepository sellRepository, SellMapper sellMapper, MemberService memberService, SellCategoryService sellCategoryService) {
         this.sellRepository = sellRepository;
         this.sellMapper = sellMapper;
         this.memberService = memberService;
+        this.sellCategoryService = sellCategoryService;
     }
-
 
     public Sell createSell(Sell sell) {
 
@@ -83,10 +93,14 @@ public class SellService {
 
     // 모든 Sell 확인
 
-    public List<SellResponseDto> findSells() {
-        List<Sell> sells = sellRepository.findAll();
+//    public List<SellResponseDto> findSells() {
+//        List<Sell> sells = sellRepository.findAll();
+//
+//        return sellMapper.sellToSellResponseDtos(sells);
+//    }
 
-        return sellMapper.sellToSellResponseDtos(sells);
+    public Page<Sell> findSells(int page, int size) {
+        return sellRepository.findAll(PageRequest.of(page, size, Sort.by("sellId").descending()));
     }
 
 
@@ -107,6 +121,17 @@ public class SellService {
         List<Sell> sells = sellRepository.findByTitleContaining(searchKeyword);
 
         return sellMapper.sellToSellResponseDtos(sells);
+    }
+
+    public Page<Sell> findSellsBySellCategoryId(Long sellcategoryId, int page, int size) {
+        SellCategory sellcategory = sellCategoryService.findsellcategory(sellcategoryId);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("sellId").descending());
+        return sellRepository.findBySellCategory(sellcategory, pageable);
+    }
+    public Page<Sell> findSellsBySellCategoryId1(Long sellcategoryId, int page, int size) {
+        SellCategory sellcategory = sellCategoryService.findsellcategory(sellcategoryId);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("sellId").ascending());
+        return sellRepository.findBySellCategory(sellcategory, pageable);
     }
 
 
