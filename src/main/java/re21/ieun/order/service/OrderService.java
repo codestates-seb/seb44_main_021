@@ -1,22 +1,19 @@
 package re21.ieun.order.service;
 
-import gohome.dailydaily.domain.cart.service.CartService;
-import gohome.dailydaily.domain.member.entity.Member;
-import gohome.dailydaily.domain.member.service.MemberService;
-import gohome.dailydaily.domain.order.entity.Order;
-import gohome.dailydaily.domain.order.entity.OrderProduct;
-import gohome.dailydaily.domain.order.entity.OrderStatus;
-import gohome.dailydaily.domain.order.repository.OrderRepository;
-import gohome.dailydaily.domain.product.entity.Option;
-import gohome.dailydaily.domain.product.entity.Product;
-import gohome.dailydaily.domain.product.service.ProductService;
-import gohome.dailydaily.global.error.BusinessLogicException;
-import gohome.dailydaily.global.error.ExceptionCode;
+import re21.ieun.exception.BusinessLogicException;
+import re21.ieun.exception.ExceptionCode;
+import re21.ieun.order.entity.Order;
+import re21.ieun.order.entity.OrderStatus;
+import re21.ieun.member.entity.Member;
+import re21.ieun.order.repository.OrderRepository;
+import re21.ieun.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import re21.ieun.sell.entity.Sell;
+import re21.ieun.sell.service.SellService;
 
 import java.util.Optional;
 
@@ -25,9 +22,8 @@ import java.util.Optional;
 @Transactional
 public class OrderService {
     private final OrderRepository orderRepository;
-    private final ProductService productService;
+    private final SellService sellService;
     private final MemberService memberService;
-    private final CartService cartService;
 
     public Order createOrder(Order order) {
         verifyOrder(order);
@@ -42,35 +38,37 @@ public class OrderService {
         Order order = orderRepository.findById(orderId).orElseThrow(() ->
                 new BusinessLogicException(ExceptionCode.ORDER_NOT_FOUND));
 
-        if (!order.getMember().getId().equals(memberId)) {
+        if (!order.getMember().getMemberId().equals(memberId)) {
             throw new BusinessLogicException(ExceptionCode.ORDER_DOES_NOT_MATCH);
         }
 
         return order;
     }
 
+
     private void verifyOrder(Order order) {
-        Member member = memberService.findVerifiedMember(order.getMember().getId());
+        Member member = memberService.findMember(order.getMember().getMemberId());
         order.setMember(member);
 
-        order.getOrderProducts()
-                .forEach(orderProduct -> {
-                    Product product = productService.getProduct(orderProduct.getProduct().getId());
+        order.getOrderSells()
+                .forEach(orderSell -> {
+                    Sell sell = sellService.findVerifySell(orderSell.getSell().getSellId());
 
-                    Option findOption = product.getOptions().stream()
+                  /*  Option findOption = product.getOptions().stream()
                             .filter(option -> option.getId().equals(orderProduct.getOption().getId()))
                             .findAny()
                             .orElseThrow(() -> new BusinessLogicException(ExceptionCode.OPTION_NOT_FOUND));
 
-                    orderProduct.addProduct(product);
-                    orderProduct.addOption(findOption);
-                    orderProduct.addOrder(order);
+                   */
 
-                    Optional.ofNullable(orderProduct.getProductCartId())
-                            .ifPresent(productCartId -> cartService.cancelCart(productCartId, member.getId()));
-                    updateSaleAndStock(orderProduct);
+                    orderSell.addSell(sell);
+                    orderSell.addOrder(order);
                 });
+
     }
+
+
+    /*
 
     private void updateSaleAndStock(OrderProduct orderProduct) {
         if (orderProduct.getOption().getStock() < orderProduct.getCount()) {
@@ -80,10 +78,12 @@ public class OrderService {
         orderProduct.getOption().updateStock(orderProduct.getCount());
     }
 
-    @Transactional(readOnly = true)
-    public Page<Order> findByMember_Id(Long memberId, Pageable pageable) {
+     */
 
-        return orderRepository.findOrderByMember_Id(memberId, pageable);
+    @Transactional(readOnly = true)
+    public Page<Order> findByMemberId(Long memberId, Pageable pageable) {
+
+        return orderRepository.findOrderByMemberId(memberId, pageable);
     }
 
     public void cancelOrder(Long memberId, Long orderId) {
