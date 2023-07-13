@@ -19,6 +19,9 @@ public class OrderSell extends Auditable {
     @Column(name = "order_id")
     private Long orderSellId;
 
+    @Column(nullable = false)
+    private Integer quantity;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sell_id")
