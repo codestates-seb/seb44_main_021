@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Style from "./MyPage.module.css";
 import EditModal from "../../components/Modal/EditModal";
 import Header from "../../components/Header/Header";
+import { UserDataContext } from "../../contexts/UserDataContext";
+import axios from "axios";
+
 const MyPage = () => {
   const historyTitle = [
     "나의 펀딩 내역",
@@ -15,6 +18,8 @@ const MyPage = () => {
     Fregistration: ["날짜", "펀딩명", "펀딩기한", "펀딩률"],
     Oregistration: ["날짜", "제품명", "금액"],
   };
+  const { userData } = useContext(UserDataContext);
+
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const handleOpenModal = () => {
@@ -29,17 +34,23 @@ const MyPage = () => {
     <div className={Style.MyPageContainer}>
       <Header />
       <div className={Style.MyPageWrapper}>
-        <Profile onClick={handleOpenModal} />
-        <History historyTitle={historyTitle} historyData={historyData} />
+        <Profile onClick={handleOpenModal} userData={userData} />
+        <History
+          historyTitle={historyTitle}
+          historyData={historyData}
+          userData={userData}
+        />
       </div>
-      {isOpenModal && <EditModal onClose={handleCloseModal} />}
+      {isOpenModal && (
+        <EditModal onClose={handleCloseModal} userData={userData} />
+      )}
     </div>
   );
 };
 
 export default MyPage;
 
-const Profile = ({ onClick }) => {
+const Profile = ({ onClick, userData }) => {
   return (
     <div className={Style.profileContainer}>
       <div className={Style.userInfo}>
@@ -48,8 +59,8 @@ const Profile = ({ onClick }) => {
           src={`${process.env.PUBLIC_URL}/image/profile.jpeg`}
           alt="profile-img"
         />
-        <p className={Style.userName}>나예진 님</p>
-        <p className={Style.userEmail}>yejin123@gmail.com</p>
+        <p className={Style.userName}>{userData.displayName} 님</p>
+        <p className={Style.userEmail}>{userData.email}</p>
         <button className={Style.editButton} onClick={onClick}>
           Edit Profile
         </button>
@@ -58,32 +69,58 @@ const Profile = ({ onClick }) => {
   );
 };
 
-const History = ({ historyTitle, historyData }) => {
+const History = ({ historyTitle, historyData, userData }) => {
   return (
     <div className={Style.historyContainer}>
       <div className={Style.historyWrapper}>
-        {Object.entries(historyData).map(([key, texts], index) => (
-          <>
-            <div className={Style.historyTitle}>
-              <img
-                className={Style.historyTitleIcon}
-                src={`${process.env.PUBLIC_URL}/image/logo1.png`}
-                alt="history-title-icon"
-              />
-              <p>{historyTitle[index]}</p>
-            </div>
-            <table>
-              <thead>
-                <tr key={key}>
-                  {texts.map((text, index) => (
-                    <th key={index}>{text}</th>
-                  ))}
-                </tr>
-              </thead>
-            </table>
-            <p className={Style.emptyText}> 내역이 없습니다.</p>
-          </>
-        ))}
+        {userData.memberRole === "MEMBER_USER" &&
+          Object.entries(historyData)
+            .slice(0, 2)
+            .map(([key, texts], index) => (
+              <>
+                <div className={Style.historyTitle}>
+                  <img
+                    className={Style.historyTitleIcon}
+                    src={`${process.env.PUBLIC_URL}/image/logo1.png`}
+                    alt="history-title-icon"
+                  />
+                  <p>{historyTitle[index]}</p>
+                </div>
+                <table>
+                  <thead>
+                    <tr key={key}>
+                      {texts.map((text, index) => (
+                        <th key={index}>{text}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                </table>
+                <p className={Style.emptyText}> 내역이 없습니다.</p>
+              </>
+            ))}
+        {userData.memberRole === "MEMBER_UPCYCLER" &&
+          Object.entries(historyData).map(([key, texts], index) => (
+            <>
+              <div className={Style.historyTitle}>
+                <img
+                  className={Style.historyTitleIcon}
+                  src={`${process.env.PUBLIC_URL}/image/logo1.png`}
+                  alt="history-title-icon"
+                />
+                <p>{historyTitle[index]}</p>
+              </div>
+              <table>
+                <thead>
+                  <tr key={key}>
+                    {texts.map((text, index) => (
+                      <th key={index}>{text}</th>
+                    ))}
+                  </tr>
+                </thead>
+              </table>
+              <p className={Style.emptyText}> 내역이 없습니다.</p>
+            </>
+          ))}
       </div>
     </div>
   );

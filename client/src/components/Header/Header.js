@@ -43,7 +43,7 @@ const Header = () => {
       });
     }
   }, []);
-  console.log(userData);
+  //   console.log(userData);
 
   return (
     <div id={style.HeaderContainer}>
