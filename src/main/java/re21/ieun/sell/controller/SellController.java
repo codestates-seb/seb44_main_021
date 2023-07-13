@@ -137,18 +137,4 @@ public class SellController {
                 new MultiResponseDto<>(sellMapper.sellToSellResponseDtos(sells), pageSells),
                 HttpStatus.OK);
     }
-
-//    //카테고리 id 기준으로 upcycling 글 오래된 순으로 정렬 + 페이지네이션
-//    @GetMapping("/ascending/categories/{category-id}")
-//    public ResponseEntity getAscendingUpcyclingByCategoryId(@PathVariable("category-id") long categoryId,
-//                                                            @Positive @RequestParam int page,
-//                                                            @Positive @RequestParam int size) {
-//        Page<Upcycling> pageUpcyclings = upcyclingService.findUpcyclingsByCategoryId1(categoryId,page - 1, size);
-//        List<Upcycling> upcyclings = pageUpcyclings.getContent();
-//
-//        return new ResponseEntity<>(
-//                new MultiResponseDto<>(upcyclingMapper.upcyclingToUpcyclingResponseDtos(upcyclings), pageUpcyclings),
-//                HttpStatus.OK);
-//    }
-
 }
