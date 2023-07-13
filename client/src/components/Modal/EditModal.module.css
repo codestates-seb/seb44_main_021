@@ -1,0 +1,121 @@
+/* edit modal */
+#modalContainer{
+    position:absolute;
+    width:100%;
+    height:100%;
+    z-index:1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modalWrapper{ 
+    position: relative;
+    border-radius: 10px;
+    background: #ffffff;
+    box-shadow:  1px 1px 3px #95959540, -1px -1px 3px #95959540;
+    padding:30px 50px;
+    background:#fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.closeIcon{
+  position: absolute;
+  top: 10px;
+  right: 10px; 
+  color: #6b6b6b;
+}
+
+.closeIcon:hover {
+  cursor: pointer;
+}
+
+.editButton {
+    height: 30px;
+    width: 100%;
+    letter-spacing: 3.5px;
+    color: #ffffff;
+    background: #6E934D;
+    box-shadow: 3px 3px 5px rgba(68, 68, 68, 0.288);
+    border-radius: 5px;
+    border: none;
+    margin: 20px;
+}
+
+.editButton:active {
+    box-shadow:  1px 1px 3px rgba(107, 107, 107, 0.288);
+}
+
+.editButton:hover {
+  background:  #4d742b;
+  cursor: pointer;
+}
+.modalLayer{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0, 0, 0, 0.5);
+    z-index:-1;
+}
+
+/* edit modal content */
+.modalContent{
+  display: flex;
+  flex-direction: column;
+  /* justify-content: left; */
+}
+
+.modalContent > label{
+  margin-top: 15px;
+}
+
+.imgUpload{
+  position: relative;
+}
+
+.userImg{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: solid 4px #6E934D;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.uploadIcon{
+  width: 30px;
+  height: 30pxuploadIconuploadIcona;
+  color: rgb(95, 148, 49);
+  position: absolute;
+  top: 80px;
+  left: 75px;
+  z-index: 2;
+}
+
+.modalContent > input{
+  width: 240px;
+  height: 30px;
+  padding: 0 10px;
+  /* margin-bottom: 20px; */
+  border: solid 1px #c3c3c3;
+  border-radius: 5px;
+}
+.modalContent > input:focus { 
+  outline: none !important; border-color: #6E934D;
+}
+
+.modalContent > p{
+  margin-top: 5px;
+}
+
+.errMsg{
+  margin-top: 5px;
+  font-size: 14px;
+  color: rgb(221, 106, 106);
+}
