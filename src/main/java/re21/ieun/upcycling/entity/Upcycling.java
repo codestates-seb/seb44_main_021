@@ -39,7 +39,7 @@ public class Upcycling extends Auditable {
 
 
     // Upcycling View(조회수)
-    @Column(columnDefinition = "long default 0", nullable = false)
+    @Column(columnDefinition = "bigint default 0", nullable = false)
     private Long viewCount;
 
     // like(좋아요)
