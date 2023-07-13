@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import Style from "./MyPage.module.css";
 import EditModal from "../../components/Modal/EditModal";
 import Header from "../../components/Header/Header";
@@ -29,6 +29,19 @@ const MyPage = () => {
   const handleCloseModal = () => {
     setIsOpenModal(!isOpenModal);
   };
+
+  // console.log(userData.memberId);
+  useEffect(() => {
+    console.log(userData.memberId);
+    axios
+      .get(`/funding/member/${userData.memberId}`)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [userData.memberId]);
 
   return (
     <div className={Style.MyPageContainer}>
