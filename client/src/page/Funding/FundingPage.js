@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Lenis from "@studio-freight/lenis";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
@@ -11,19 +12,21 @@ import style from "./FundingPage.module.css";
 const List = (props) => {
   return (
     <div id={style.list} key={props.index}>
-      <img
-        src={process.env.PUBLIC_URL + "/image/test1.jpg"}
-        alt="로고"
-        style={{
-          width: "250px",
-          height: "60%",
-          borderRadius: "20px",
-        }}
-      />
-      <div id={style.listText}>
-        <div>펀딩명</div>
-        <div>펀딩 자재</div>
-      </div>
+      <Link to="/fundingdetail" className={style.link}>
+        <img
+          src={process.env.PUBLIC_URL + "/image/test1.jpg"}
+          alt="로고"
+          style={{
+            width: "250px",
+            height: "60%",
+            borderRadius: "20px",
+          }}
+        />
+        <div id={style.listText}>
+          <div>펀딩명</div>
+          <div>펀딩 자재</div>
+        </div>
+      </Link>
     </div>
   );
 };
@@ -162,7 +165,9 @@ const FundingPage = () => {
               </Select>
             </FormControl>
           </Box>
-          <button id={style.fundingButton}>펀딩 제품 등록</button>
+          <Link to="/fundingcreate">
+            <button id={style.fundingButton}>펀딩 제품 등록</button>
+          </Link>
         </div>
       </div>
       <div id={style.container}>
