@@ -1,12 +1,12 @@
 package re21.ieun.order.mapper;
 
-import gohome.dailydaily.domain.member.entity.Member;
-import gohome.dailydaily.domain.order.dto.OrderDto;
-import gohome.dailydaily.domain.order.entity.Order;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
+import re21.ieun.member.entity.Member;
+import re21.ieun.order.dto.OrderDto;
+import re21.ieun.order.entity.Order;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE,
         uses = OrderSellMapper.class, imports = Member.class,
@@ -17,7 +17,7 @@ public interface OrderMapper {
     Order toOrder(OrderDto.Post post, Long memberId);
 
     @Mapping(target = "orderId", source = "id")
-    @Mapping(target = "orderNumber", expression = "java(order.getId() + 215637)")
+    //@Mapping(target = "orderNumber", expression = "java(order.getId() + 215637)")
     @Mapping(target = "status", expression = "java(order.getStatus().getMessage())")
     OrderDto.Response toResponse(Order order);
 }
