@@ -1,8 +1,8 @@
 package re21.ieun.order.entity;
 
-import gohome.dailydaily.domain.member.entity.Member;
-import gohome.dailydaily.global.common.BaseTime;
 import lombok.*;
+import re21.ieun.audit.Auditable;
+import re21.ieun.member.entity.Member;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Table(name = "orders")
-public class Order extends BaseTime {
+public class Order extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,18 +29,18 @@ public class Order extends BaseTime {
     private Member member;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST)
-    private final List<OrderProduct> orderProducts = new ArrayList<>();
+    private final List<OrderSell> orderSells = new ArrayList<>();
 
     public void setMember(Member member) {
         this.member = member;
     }
 
-    public void addOrderProduct(OrderProduct... orderProducts) {
-        this.orderProducts.addAll(List.of(orderProducts));
+    public void addOrderSell(OrderSell orderSells) {
+        this.orderSells.addAll(List.of(orderSells));
     }
 
-    public void addOrderProduct(List<OrderProduct> orderProducts) {
-        this.orderProducts.addAll(orderProducts);
+    public void addOrderSell(List<OrderSell> orderSells) {
+        this.orderSells.addAll(orderSells);
     }
 
     public void updateOrderStatus(OrderStatus orderStatus) {
