@@ -9,7 +9,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        uses = OrderProductMapper.class, imports = Member.class,
+        uses = OrderSellMapper.class, imports = Member.class,
         builder = @Builder(disableBuilder = true))
 public interface OrderMapper {
 

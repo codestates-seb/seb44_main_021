@@ -13,7 +13,7 @@ public class OrderDto {
     @Getter
     public static class Post {
         @NotEmpty
-        private List<OrderProductDto.Post> orderProducts;
+        private List<OrderSellDto.Post> orderProducts;
 
     }
 
@@ -23,7 +23,7 @@ public class OrderDto {
         private Long orderId;
         private Long orderNumber;
         private String status;
-        private List<OrderProductDto.Response> orderProducts;
+        private List<OrderSellDto.Response> orderProducts;
         private LocalDateTime createdAt;
     }
 }
