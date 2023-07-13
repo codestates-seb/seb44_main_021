@@ -11,5 +11,5 @@ import re21.ieun.order.entity.Order;
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
     //@EntityGraph(attributePaths = {"orderSells", "orderSells.sell", "orderProducts.option", "orderProducts.product.seller.member"})
-    Page<Order> findOrderByMemberId(Long memberId, Pageable pageable);
+    //Page<Order> findOrderByMemberId(Long memberId, Pageable pageable);
 }

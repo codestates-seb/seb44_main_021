@@ -16,11 +16,11 @@ public class OrderSellDto {
     @Getter
     public static class Post {
 
-
-        @NotNull
         @Positive
-        private Long orderSellId;
+        private long sellId;
 
+        @Positive
+        private int quantity;
 
     }
 
@@ -31,13 +31,16 @@ public class OrderSellDto {
     @Getter
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @Builder
-    public static class Response implements Serializable {
+    public static class Response {
 
-        private Long orderSellId;
+        private long sellId;
 
         private String title;
 
         private String content;
+
+        private int quantity;
+
         private Integer price;
 
     }

@@ -8,33 +8,31 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@NoArgsConstructor
 @Getter
-@Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
-@Builder
-@Table(name = "orders")
+@Setter
+@Entity(name = "ORDERS")
 public class Order extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_id")
-    private Long id;
+    private Long orderId;
 
     @Enumerated(EnumType.STRING)
-    private OrderStatus status;
+    private OrderStatus orderStatus;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
+    @ManyToOne  // (fetch = FetchType.LAZY)
+    @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST)
-    private final List<OrderSell> orderSells = new ArrayList<>();
+    private List<OrderSell> orderSells = new ArrayList<>();
 
     public void setMember(Member member) {
         this.member = member;
     }
 
+    /*
     public void addOrderSell(OrderSell orderSells) {
         this.orderSells.addAll(List.of(orderSells));
     }
@@ -43,7 +41,9 @@ public class Order extends Auditable {
         this.orderSells.addAll(orderSells);
     }
 
+     */
+
     public void updateOrderStatus(OrderStatus orderStatus) {
-        this.status = orderStatus;
+        this.orderStatus = orderStatus;
     }
 }

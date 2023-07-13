@@ -18,12 +18,16 @@ import re21.ieun.sell.service.SellService;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
-@Transactional
 public class OrderService {
     private final OrderRepository orderRepository;
     private final SellService sellService;
     private final MemberService memberService;
+
+    public OrderService(OrderRepository orderRepository, SellService sellService, MemberService memberService) {
+        this.orderRepository = orderRepository;
+        this.sellService = sellService;
+        this.memberService = memberService;
+    }
 
     public Order createOrder(Order order) {
         verifyOrder(order);
@@ -33,6 +37,7 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
+    /*
     @Transactional(readOnly = true)
     public Order findVerifiedOrder(Long memberId, Long orderId) {
         Order order = orderRepository.findById(orderId).orElseThrow(() ->
@@ -44,8 +49,21 @@ public class OrderService {
 
         return order;
     }
+     */
 
+    private Order findVerifiedOrder(long orderId) {
+        Optional<Order> optionalOrder = orderRepository.findById(orderId);
+        Order findOrder =
+                optionalOrder.orElseThrow(() ->
+                        new BusinessLogicException(ExceptionCode.ORDER_NOT_FOUND));
+        return findOrder;
+    }
 
+    public Order findOrder(long orderId) {
+        return findVerifiedOrder(orderId);
+    }
+
+    /*
     private void verifyOrder(Order order) {
         Member member = memberService.findMember(order.getMember().getMemberId());
         order.setMember(member);
@@ -54,17 +72,28 @@ public class OrderService {
                 .forEach(orderSell -> {
                     Sell sell = sellService.findVerifySell(orderSell.getSell().getSellId());
 
-                  /*  Option findOption = product.getOptions().stream()
+                    Option findOption = product.getOptions().stream()
                             .filter(option -> option.getId().equals(orderProduct.getOption().getId()))
                             .findAny()
                             .orElseThrow(() -> new BusinessLogicException(ExceptionCode.OPTION_NOT_FOUND));
 
-                   */
+
 
                     orderSell.addSell(sell);
                     orderSell.addOrder(order);
                 });
 
+    }
+     */
+
+    private void verifyOrder(Order order) {
+        // 회원이 존재하는지 확인
+        memberService.findMember(order.getMember().getMemberId());
+
+        // 커피가 존재하는지 확인
+        order.getOrderSells().stream()
+                .forEach(orderSell -> sellService.
+                        findVerifySell(orderSell.getSell().getSellId()));
     }
 
 
@@ -80,12 +109,16 @@ public class OrderService {
 
      */
 
+    /*
     @Transactional(readOnly = true)
     public Page<Order> findByMemberId(Long memberId, Pageable pageable) {
 
         return orderRepository.findOrderByMemberId(memberId, pageable);
     }
 
+     */
+
+    /*
     public void cancelOrder(Long memberId, Long orderId) {
 
         Order order = findVerifiedOrder(memberId, orderId);
@@ -97,5 +130,19 @@ public class OrderService {
         order.updateOrderStatus(OrderStatus.ORDER_CANCELED);
 
         orderRepository.delete(order); // 추가
+    }
+
+     */
+    public void cancelOrder(long orderId) {
+        Order findOrder = findVerifiedOrder(orderId);
+
+        int step = findOrder.getOrderStatus().getStepNumber();
+
+        // OrderStatus의 step이 2 이상일 경우(ORDER_CONFIRM)에는 주문 취소가 되지 않도록한다.
+        if (step >= 2) {
+            throw new BusinessLogicException(ExceptionCode.CANNOT_CHANGE_ORDER);
+        }
+        findOrder.setOrderStatus(OrderStatus.ORDER_CANCELED);
+        orderRepository.save(findOrder);
     }
 }

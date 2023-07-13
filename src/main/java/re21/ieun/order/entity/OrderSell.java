@@ -7,29 +7,27 @@ import re21.ieun.sell.entity.Sell;
 
 import javax.persistence.*;
 
+@NoArgsConstructor
 @Getter
+@Setter
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-@Builder
 public class OrderSell extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_id")
     private Long orderSellId;
 
     @Column(nullable = false)
     private Integer quantity;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sell_id")
+    @ManyToOne  //(fetch = FetchType.LAZY)
+    @JoinColumn(name = "SELL_ID")
     private Sell sell;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id")
+    @ManyToOne  //(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ORDER_ID")
     private Order order;
 
 
