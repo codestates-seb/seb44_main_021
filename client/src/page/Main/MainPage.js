@@ -96,10 +96,10 @@ const MainPage = () => {
                   <CloseIcon sx={{ fontSize: 50 }} />
                 </button>
                 <div id={style.sidelist}>
-                  <Link to="/store" className={style.link}>
+                  <Link to="/funding" className={style.link}>
                     <div className={style.sidelistText}>펀딩 페이지</div>
                   </Link>
-                  <Link to="/funding" className={style.link}>
+                  <Link to="/store" className={style.link}>
                     <div className={style.sidelistText}>상품 페이지</div>
                   </Link>
                   <Link to="/about" className={style.link}>
