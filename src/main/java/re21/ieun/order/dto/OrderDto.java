@@ -13,17 +13,17 @@ public class OrderDto {
     @Getter
     public static class Post {
         @NotEmpty
-        private List<OrderSellDto.Post> orderProducts;
+        private List<OrderSellDto.Post> orderSells;
 
     }
 
     @Getter
     @AllArgsConstructor
-    public static class Response implements Serializable {
+    public static class Response {
         private Long orderId;
-        private Long orderNumber;
+        //private Long orderNumber;
         private String status;
-        private List<OrderSellDto.Response> orderProducts;
+        private List<OrderSellDto.Response> orderSells;
         private LocalDateTime createdAt;
     }
 }
