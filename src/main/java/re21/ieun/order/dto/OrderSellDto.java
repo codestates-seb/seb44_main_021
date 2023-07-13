@@ -9,7 +9,6 @@ import lombok.Getter;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
-import java.io.Serializable;
 
 public class OrderSellDto {
 
