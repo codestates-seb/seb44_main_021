@@ -8,6 +8,10 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import re21.ieun.order.dto.OrderDto;
+import re21.ieun.order.entity.Order;
+import re21.ieun.order.mapper.OrderMapper;
+import re21.ieun.order.service.OrderService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
@@ -18,20 +22,21 @@ import javax.validation.constraints.Positive;
 @RequiredArgsConstructor
 public class OrderController {
     private final OrderService orderService;
-    private final OrderMapper mapper;
+    private final OrderMapper orderMapper;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public OrderDto.Response postOrder(@MemberId Long memberId,
+    public OrderDto.Response postOrder(@Positive Long memberId,
                                        @Valid @RequestBody OrderDto.Post post) {
         // post => productCartId 추출해서 cart 에서 해당 Id 삭제
-        Order saveOrder = orderService.createOrder(mapper.toOrder(post, memberId));
+        Order saveOrder = orderService.createOrder(orderMapper.toOrder(post, memberId));
 
-        return mapper.toResponse(saveOrder);
+        return orderMapper.toResponse(saveOrder);
     }
 
+    /*
     @GetMapping
-    public PageResponseDto<OrderDto.Response> getOrders(@MemberId Long memberId,
+    public PageResponseDto<OrderDto.Response> getOrders(@Positive Long memberId,
                                                         @PageableDefault(size = 20, sort = "createdAt",
                                                                 direction = Sort.Direction.DESC) Pageable pageable) {
         Page<Order> orders = orderService.findByMember_Id(memberId, pageable);
@@ -39,17 +44,19 @@ public class OrderController {
         return PageResponseDto.of(orders.map(mapper::toResponse));
     }
 
+     */
+
     @GetMapping("/{order-id}")
-    public OrderDto.Response getOrder(@MemberId Long memberId,
+    public OrderDto.Response getOrder(@Positive Long memberId,
                                       @Positive @PathVariable("order-id") Long orderId) {
         Order order = orderService.findVerifiedOrder(memberId, orderId);
 
-        return mapper.toResponse(order);
+        return orderMapper.toResponse(order);
     }
 
     @DeleteMapping("/{order-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public String cancelOrder(@MemberId Long memberId,
+    public String cancelOrder(@Positive Long memberId,
                               @Positive @PathVariable("order-id") Long orderId) {
         orderService.cancelOrder(memberId, orderId);
         return "Cancel order";

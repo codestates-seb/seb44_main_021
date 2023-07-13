@@ -95,5 +95,7 @@ public class OrderService {
         }
 
         order.updateOrderStatus(OrderStatus.ORDER_CANCELED);
+
+        orderRepository.delete(order); // 추가
     }
 }
