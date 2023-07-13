@@ -9,6 +9,7 @@
 
 .MyPageWrapper{
     height: 100%;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,7 +18,7 @@
 
 /* UserProfile */
 .profileContainer{
-    width: 280px;
+    width: 17%;
     height: 85vh;
     border-radius: 10px;
     background: #6E934D;
@@ -74,7 +75,7 @@
 
   /* History */
 .historyContainer{
-    width:900px;
+    width:53%;
     height: 85vh;
     border-radius: 10px;
     background: #ffffff;
