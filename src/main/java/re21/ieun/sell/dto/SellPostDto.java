@@ -17,6 +17,8 @@ public class SellPostDto {
     @Positive
     private long memberId;
 
+    @Positive
+    private long categoryId;
 
     @NotBlank(message = "제목을 작성해주세요.")
     private String title;

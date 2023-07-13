@@ -29,8 +29,8 @@ public class Member extends Auditable {
     @Column(nullable = false)
     private String password;
 
-    @Column
-    private String profileImg;
+    //@Column
+    //private String profileImg;
 
     @Enumerated(EnumType.STRING)
     @Column

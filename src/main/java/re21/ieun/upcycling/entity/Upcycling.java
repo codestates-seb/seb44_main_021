@@ -4,9 +4,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import re21.ieun.audit.Auditable;
+import re21.ieun.category.entity.Category;
 import re21.ieun.member.entity.Member;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter
@@ -18,38 +20,38 @@ public class Upcycling extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long upcyclingId;
 
-    @Column(length = 100, nullable = false, unique = true)
-    private String displayName;
-
     @Column(length = 100, nullable = false)
     private String title;
 
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    //@Column(nullable = false)
-    //private Long quantity;              // 사용자가 펀딩할 수량
+    // 총 펀딩 수량
+    @Column(nullable = false)
+    private int totalQuantity;
 
 
     // contentImg 만들어지면 생성
     //private String contentImg;
-
-    // category 만들어지면 생성
-    //private String category;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
 
     // Upcycling View(조회수)
-    @Column(columnDefinition = "long default 0", nullable = false)
+    @Column(columnDefinition = "bigint default 0", nullable = false)
     private Long viewCount;
-
 
     // like(좋아요)
 
 
+    // 업사이클링 마감일
+    @Column(nullable = false)
+    private LocalDateTime deadline;
+
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
-
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
