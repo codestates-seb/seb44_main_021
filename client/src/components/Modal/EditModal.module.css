@@ -114,3 +114,8 @@
   margin-top: 5px;
 }
 
+.errMsg{
+  margin-top: 5px;
+  font-size: 14px;
+  color: rgb(221, 106, 106);
+}
