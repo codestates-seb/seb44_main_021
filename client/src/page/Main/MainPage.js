@@ -80,6 +80,7 @@ const MainPage = () => {
   const closeModal = () => {
     setOpen(false);
   };
+
   return (
     <>
       {nowloding ? (
@@ -124,9 +125,14 @@ const MainPage = () => {
                 style={{ width: `${logoSize}px`, height: `${logoSize}px` }}
               />
             </div>
-            <button className={style.button}>
-              <AccountBoxIcon className={style.button} sx={{ fontSize: 50 }} />
-            </button>
+            <Link to="/login">
+              <button className={style.button}>
+                <AccountBoxIcon
+                  className={style.button}
+                  sx={{ fontSize: 50 }}
+                />
+              </button>
+            </Link>
           </div>
           <div id={style.main}>
             <div className="horwrap" ref={horwrapRef}>
