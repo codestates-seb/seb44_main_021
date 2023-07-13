@@ -7,6 +7,7 @@ import FundingPage from "./page/Funding/FundingPage";
 import AboutPage from "./page/About/AboutPage";
 import LoginPage from "./page/LoginPage/LoginPage";
 import { UserDataProvider } from "./contexts/UserDataContext";
+import FundingCreatePage from "./page/Funding/FundingCreatePage";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route element={<AboutPage />} path="/about" />
           <Route element={<UserSelectionPage />} path="/signup" />
           <Route element={<SignupPage />} path="/signup/*" />
+          <Route element={<FundingCreatePage/>} path="/fundingcreate" />
         </Routes>
       </div>
     </UserDataProvider>
