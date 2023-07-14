@@ -23,6 +23,15 @@ public class MemberDto {
         @NotBlank
         private String role;
     }
+    @Getter
+    @AllArgsConstructor
+    public static class Post1 {
+        @NotBlank
+        @Email
+        private long memberId;
+        @NotBlank
+        private String password;
+    }
 
     @Getter
     @Setter

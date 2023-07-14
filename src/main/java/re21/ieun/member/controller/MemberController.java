@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import re21.ieun.dto.MultiResponseDto;
@@ -11,6 +12,7 @@ import re21.ieun.dto.SingleResponseDto;
 import re21.ieun.member.dto.MemberDto;
 import re21.ieun.member.mapper.MemberMapper;
 import re21.ieun.member.entity.Member;
+import re21.ieun.member.repository.MemberRepository;
 import re21.ieun.member.service.MemberService;
 import re21.ieun.utils.UriCreator;
 
@@ -28,10 +30,14 @@ public class MemberController {
     private final static String MEMBER_DEFAULT_URL = "/members";
     private final MemberService memberService;
     private final MemberMapper memberMapper;
+    private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public MemberController(MemberService memberService, MemberMapper memberMapper) {
+    public MemberController(MemberService memberService, MemberMapper memberMapper, MemberRepository memberRepository, PasswordEncoder passwordEncoder) {
         this.memberService = memberService;
         this.memberMapper = memberMapper;
+        this.memberRepository = memberRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     // 사용자로 회원가입
@@ -40,6 +46,28 @@ public class MemberController {
         Member member = memberService.createMember(memberMapper.memberPostDtotoMember(requestBody));
         URI location = UriCreator.createUri(MEMBER_DEFAULT_URL, member.getMemberId());
         return ResponseEntity.created(location).build();
+    }
+
+    @PostMapping("/verifiedpassword")
+    public ResponseEntity<String> verifyPassword(@Valid @RequestBody MemberDto.Post1 requestBody) {
+        // memberId와 password를 requestBody에서 가져온다
+        long memberId = requestBody.getMemberId();
+        String password = requestBody.getPassword();
+
+        Member member = memberRepository.findById(memberId).orElse(null);
+
+        if (member == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("실패");
+        }
+
+        // 입력된 비밀번호를 암호화하여 저장된 암호화된 비밀번호와 비교
+        if (passwordEncoder.matches(password, member.getPassword())) {
+            // password가 일치할 경우 "성공" 응답을 보낸다
+            return ResponseEntity.ok("성공");
+        } else {
+            // password가 일치하지 않을 경우 "실패" 응답을 보낸다
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("실패");
+        }
     }
 //
 //    // 업사이클러로 회원가입
