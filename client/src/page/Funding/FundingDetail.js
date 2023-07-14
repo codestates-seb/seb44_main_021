@@ -2,8 +2,41 @@ import React from "react";
 import Header from "../../components/Header/Header";
 import style from "./FundingDetail.module.css";
 import { useState } from "react";
+import CloseIcon from "@mui/icons-material/Close";
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import { Link } from "react-router-dom";
 
 const FundingDetail = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [quantity, setQuantity] = useState("");
+  const [funding, setFunding] = useState(false);
+
+  const handleChange = (event) => {
+    setQuantity(event.target.value);
+  };
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setFunding(false);
+    setQuantity("");
+  };
+
+  const clickFunding = () => {
+    if (quantity) {
+      setFunding(true);
+      console.log(funding);
+      setQuantity("");
+    }
+  };
+
   return (
     <div id={style.AllContainer}>
       <Header />
@@ -111,47 +144,76 @@ const FundingDetail = () => {
               <h2>00%</h2>
             </div>
           </div>
-          <button id={style.CreateButton}>펀딩하기</button>
+          <button id={style.CreateButton} onClick={handleOpenModal}>
+            펀딩하기
+          </button>
         </div>
       </div>
+      {isModalOpen && (
+        <div className={style.modalOverlay}>
+          <div className={style.modalContent}>
+            <button className={style.closeButton} onClick={handleCloseModal}>
+              <CloseIcon />
+            </button>
+            <div className={style.modalBody}>
+              <h3>펀딩해 주셔서 감사합니다!!</h3>
+              {funding ? (
+                <div>
+                  <div className={style.modaltext}>
+                    주소 : 서울특별시 강남구 58 - 2
+                  </div>
+                  <div className={`${style.modaltext} ${style.red}`}>
+                    택배는 위의 주소로 착불로 보내주시면 됩니다!
+                  </div>
+                  <div className={style.modaltext}>달성률</div>
+                  <div className={`${style.modaltext} ${style.rate}`}>
+                    00% -{">"} 00%
+                  </div>
+                  <Link to="/funding">
+                    <button id={style.fundingButton}>
+                      다른 펀딩 더 보러가기
+                    </button>
+                  </Link>
+                </div>
+              ) : (
+                <>
+                  <div className={style.modaltext}>펀딩명 : title</div>
+                  <div className={style.modaltext}>자재 : xxx</div>
+                  <div className={style.modaltext}>보내실 수량 :</div>
+                  <Box sx={{ minWidth: 120 }}>
+                    <FormControl fullWidth>
+                      <InputLabel id="demo-simple-select-label">
+                        수량
+                      </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={quantity}
+                        label="quantity"
+                        onChange={handleChange}
+                      >
+                        <MenuItem value={1}>1개</MenuItem>
+                        <MenuItem value={2}>2개</MenuItem>
+                        <MenuItem value={3}>3개</MenuItem>
+                        <MenuItem value={4}>4개</MenuItem>
+                        <MenuItem value={5}>5개</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Box>
+                  <div className={`${style.modaltext} ${style.red}`}>
+                    * 반드시 수량을 선택해 주세요!
+                  </div>
+                  <button id={style.fundingButton} onClick={clickFunding}>
+                    펀딩하기
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
 export default FundingDetail;
-
-// const Preview = () => {
-//   const [imageSrc, setImageSrc] = useState(null);
-
-//   const onUpload = (e) => {
-//     const file = e.target.files[0];
-//     const reader = new FileReader();
-//     reader.readAsDataURL(file);
-
-//     return new Promise((resolve) => {
-//       reader.onload = () => {
-//         setImageSrc(reader.result || null); // 파일의 컨텐츠
-//         resolve();
-//       };
-//     });
-//   };
-
-//   return (
-//     <div id={style.imgContainer}>
-//       <div id={style.imgWrapper}>
-//         <img id={style.FundingImg} src={imageSrc} alt="펀딩 이미지 미리보기" />
-//       </div>
-//       <div className={style.CommonMent}>
-//         Step1. 만드려고 하는 업사이클링 제품을 대표할 수 있는 이미지를
-//         넣어주세요!
-//       </div>
-//       <input
-//         accept="image/*"
-//         multiple
-//         type="file"
-//         onChange={(e) => onUpload(e)}
-//         id={style.imgInput}
-//       />
-//     </div>
-//   );
-// };
