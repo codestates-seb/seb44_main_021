@@ -57,7 +57,7 @@ public class UpcyclingService {
                 .ifPresent(content -> findUpcycling.setContent(content));
 
         Optional.ofNullable(upcycling.getTotalQuantity())
-                .ifPresent(quantity -> findUpcycling.setTotalQuantity(quantity));
+                .ifPresent(quantity -> findUpcycling.setTotalQuantity(quantity));       // 삭제
 
         return upcyclingRepository.save(findUpcycling);
     }

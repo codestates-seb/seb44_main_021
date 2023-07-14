@@ -94,7 +94,6 @@ public class OrderService {
     public void cancelOrder(long orderId) {
         Order findOrder = findVerifiedOrder(orderId);
 
-
         int step = findOrder.getOrderStatus().getStepNumber();
 
         // OrderStatus의 step이 2 이상일 경우(ORDER_CONFIRM)에는 주문 취소가 되지 않도록한다.
