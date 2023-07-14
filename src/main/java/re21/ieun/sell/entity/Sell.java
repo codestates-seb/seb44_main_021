@@ -26,6 +26,7 @@ public class Sell extends Auditable {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
+    // 상품 가격
     @Column(nullable = false)
     private int price;
 
@@ -36,8 +37,6 @@ public class Sell extends Auditable {
     @JoinColumn(name = "category_id")
     private Category category;
 
-
-    // like(좋아요)
 
     public enum SellStatus {
 

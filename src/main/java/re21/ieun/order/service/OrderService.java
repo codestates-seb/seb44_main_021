@@ -3,16 +3,11 @@ package re21.ieun.order.service;
 import re21.ieun.exception.BusinessLogicException;
 import re21.ieun.exception.ExceptionCode;
 import re21.ieun.order.entity.Order;
+import re21.ieun.order.entity.OrderSell;
 import re21.ieun.order.entity.OrderStatus;
-import re21.ieun.member.entity.Member;
 import re21.ieun.order.repository.OrderRepository;
 import re21.ieun.member.service.MemberService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import re21.ieun.sell.entity.Sell;
 import re21.ieun.sell.service.SellService;
 
 import java.util.Optional;
@@ -33,6 +28,8 @@ public class OrderService {
         verifyOrder(order);
         order.updateOrderStatus(OrderStatus.ORDER_RECEPTION);
         // 상품 옵션 재고 감소 + 상품 판매수 증가
+
+        totalPrice(order);
 
         return orderRepository.save(order);
     }
@@ -144,5 +141,15 @@ public class OrderService {
         }
         findOrder.setOrderStatus(OrderStatus.ORDER_CANCELED);
         orderRepository.save(findOrder);
+    }
+
+    private void totalPrice(Order order) {
+        int totalPrice = 0;
+        for (OrderSell orderSell : order.getOrderSells()) {
+            totalPrice += orderSell.getSell().getPrice() * orderSell.getQuantity();
+        }
+
+        order.setTotalPrice(totalPrice);
+        orderRepository.save(order);
     }
 }

@@ -25,7 +25,6 @@ public class OrderSell extends Auditable {
     @JoinColumn(name = "SELL_ID")
     private Sell sell;
 
-
     @ManyToOne  //(fetch = FetchType.LAZY)
     @JoinColumn(name = "ORDER_ID")
     private Order order;
@@ -38,7 +37,5 @@ public class OrderSell extends Auditable {
     public void addSell(Sell sell) {
         this.sell = sell;
     }
-
-
 
 }

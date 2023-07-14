@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
@@ -41,6 +42,8 @@ public class OrderSellDto {
         private int quantity;
 
         private Integer price;
+
+        //private Integer totalPrice;
 
     }
 }

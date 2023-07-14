@@ -42,6 +42,8 @@ public class OrderDto {
         private long memberId;
         private OrderStatus orderStatus;
         private List<OrderSellDto.Response> orderSells;
+
+        private Integer totalPrice;
         private LocalDateTime createdAt;
 
         public void setMember(Member member) {

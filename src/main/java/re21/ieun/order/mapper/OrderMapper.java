@@ -62,6 +62,7 @@ public interface OrderMapper {
         orderResponseDto.setOrderId(order.getOrderId());
         orderResponseDto.setMember(order.getMember());
         orderResponseDto.setOrderStatus(order.getOrderStatus());
+        orderResponseDto.setTotalPrice(order.getTotalPrice());
         orderResponseDto.setCreatedAt(order.getCreatedAt());
         orderResponseDto.setOrderSells(
                 orderSellsToOrderSellResponseDtos(orderSells)
@@ -77,8 +78,11 @@ public interface OrderMapper {
                 .map(orderSell -> OrderSellDto.Response
                         .builder()
                         .sellId(orderSell.getSell().getSellId())
+                        .title(orderSell.getSell().getTitle())
+                        .content(orderSell.getSell().getContent())
                         .quantity(orderSell.getQuantity())
                         .price(orderSell.getSell().getPrice())
+                        //.totalPrice(orderSell.getTotalPrice())
                         .build())
                 .collect(Collectors.toList());
     }

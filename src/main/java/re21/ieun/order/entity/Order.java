@@ -28,6 +28,11 @@ public class Order extends Auditable {
     @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST)
     private List<OrderSell> orderSells = new ArrayList<>();
 
+    // 총 가격
+    @Column(nullable = false)
+    private Integer totalPrice;
+
+
     public void setMember(Member member) {
         this.member = member;
     }
@@ -45,5 +50,15 @@ public class Order extends Auditable {
 
     public void updateOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
+    }
+
+    public void addOrderSell(OrderSell orderSell) {
+        orderSells.add(orderSell);
+        orderSell.setOrder(this);
+    }
+
+    public void removeOrderSell(OrderSell orderSell) {
+        orderSells.remove(orderSell);
+        orderSell.setOrder(null);
     }
 }

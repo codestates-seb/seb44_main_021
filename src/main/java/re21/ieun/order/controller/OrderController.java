@@ -83,7 +83,7 @@ public class OrderController {
     }
 
     @GetMapping("/{order-id}")
-    public ResponseEntity getOrder(@PathVariable("order-id") @Positive long orderId) {
+    public ResponseEntity<?> getOrder(@PathVariable("order-id") @Positive long orderId) {
         Order order = orderService.findOrder(orderId);
 
         return new ResponseEntity<>(
@@ -92,7 +92,7 @@ public class OrderController {
     }
 
     @DeleteMapping("/{order-id}")
-    public ResponseEntity cancelOrder(@PathVariable("order-id") @Positive long orderId) {
+    public ResponseEntity<?> cancelOrder(@PathVariable("order-id") @Positive long orderId) {
         orderService.cancelOrder(orderId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
