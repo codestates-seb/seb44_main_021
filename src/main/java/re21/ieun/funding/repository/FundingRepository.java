@@ -18,4 +18,6 @@ public interface FundingRepository extends JpaRepository<Funding, Long> {
 
     // 특정 member 펀딩 리스트
     Page<Funding> findByMember(Member member, Pageable pageable);
+
+    //List<Funding> findByUpcyclingId(uId: Long);
 }

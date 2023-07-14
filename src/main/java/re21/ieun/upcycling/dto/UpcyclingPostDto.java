@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -32,15 +33,14 @@ public class UpcyclingPostDto {
     @NotBlank(message = "수량을 작성해주세요.")
     private int totalQuantity;
 
-    // 이미지가 구축이되면
-    //private String contentImg;
+    private String thumbNailImage;
 
     // category 만들어지면 생성
     //private String category;
 
     // Upcycling 마감일
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime deadline;
+    @DateTimeFormat(pattern = "yyyy-MM-dd") //'T'HH:mm:ss
+    private LocalDate deadline;
 
     // view(조회수)
     @Positive

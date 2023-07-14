@@ -7,6 +7,7 @@ import re21.ieun.category.entity.Category;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -32,11 +33,9 @@ public class UpcyclingPatchDto {
     // category 만들어지면 생성
     //private String category;
 
-    // category 만들어지면 생성
-    //private String category;
 
     // Upcycling 마감일
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime deadline;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate deadline;
 
 }
