@@ -16,11 +16,13 @@ const FundingCreatePage = () => {
     const [material, setmaterial] = useState("");
     const [materialMsg, setmaterialMsg] = useState("");
     const [ddate, setddate] = useState("");
+    const [ddateMsg, setddateMsg] = useState("");
+    const [imgurl, setimgurl] = useState("");
 
     const titleRef = useRef(null);
     const contentRef = useRef(null);
     const totalQuantityRef = useRef(null);
-    const materialRef = useRef(null);
+    const ddateRef = useRef(null);
     const navigate = useNavigate();
 
     const handleInputChange = (event) => {
@@ -80,8 +82,18 @@ const FundingCreatePage = () => {
         }
     }
 
-    const DDate = (radioBtnName) => {
-        
+    const DDate = () => {
+        let ddateValue = ddateRef.current.value;
+        setddate(ddateValue);
+        console.log(ddate);
+
+        if (ddate === "") {
+            setddateMsg("펀딩 마감일을 선택해주세요!");
+            console.log("gg")
+        } else {
+            setddate(ddateValue);
+            setddateMsg("");
+        }
     }
 
     const Create = () => {
@@ -89,7 +101,8 @@ const FundingCreatePage = () => {
         Content();
         TotalQuantity();
         Material();
-        if (title.length >= 5 && content.length >= 10 && totalQuantity.length > 0  && material !== "") {
+        DDate();
+        if (title.length >= 5 && content.length >= 10 && totalQuantity.length > 0  && material !== "" && ddate !== "") {
           axios({
             url: "http://ec2-43-201-105-214.ap-northeast-2.compute.amazonaws.com:8080/upcyclings",
             method: "post",
@@ -99,7 +112,8 @@ const FundingCreatePage = () => {
                 title: title,
                 content: content,
                 totalQuantity:totalQuantity,
-                deadline: "2023-07-15T00:00:00"
+                deadline: ddate,
+                thumbNailImage: imgurl
             },
           })
             .then((res) => {
@@ -121,19 +135,19 @@ const FundingCreatePage = () => {
             <div id={style.SubTitle}>만드실 업사이클링 제품을 소개해주세요.</div>
             <div id={style.AllWrapper}>
                 <div id={style.leftWrapper}>
-                    <SettingUserThumbnail/>
+                    <SettingUserThumbnail setimgurl = {setimgurl}/>
                     <div id={style.MaterierBox}>
                         <div className={style.CommonMent}>
                             Step2. 펀딩 받고 싶은 자재를 골라주세요!
                             <div className={style.CautionMent}>(하나로 제한)</div>
                         </div>
                         <div className={style.radioGroup}>
-                            <input className={style.radio} type="radio" value="1" name="materials" style={{ backgroundImage: 'url(/image/IconCloth.png)', backgroundSize:'cover'}} onClick={() => Material('1')} ref={materialRef}/>
-                            <input className={style.radio} type="radio" value="2" name="materials" style={{ backgroundImage: 'url(/image/IconSteel.png)', backgroundSize:'cover'}} onClick={() => Material('2')} ref={materialRef}/>
-                            <input className={style.radio} type="radio" value="3" name="materials" style={{ backgroundImage: 'url(/image/IconPlastic.png)', backgroundSize:'cover'}} onClick={() => Material('3')} ref={materialRef}/>
-                            <input className={style.radio} type="radio" value="4" name="materials" style={{ backgroundImage: 'url(/image/IconWood.png)', backgroundSize:'cover'}} onClick={() => Material('4')} ref={materialRef}/>
-                            <input className={style.radio} type="radio" value="5" name="materials" style={{ backgroundImage: 'url(/image/IconGlass.png)', backgroundSize:'cover'}} onClick={() => Material('5')} ref={materialRef}/>
-                            <input className={style.radio} type="radio" value="6" name="materials" style={{ backgroundImage: 'url(/image/IconEtc.png)', backgroundSize:'cover'}} onClick={() => Material('6')} ref={materialRef}/>
+                            <input className={style.radio} type="radio" value="1" name="materials" style={{ backgroundImage: 'url(/image/IconCloth.png)', backgroundSize:'cover'}} onClick={() => Material('1')} />
+                            <input className={style.radio} type="radio" value="2" name="materials" style={{ backgroundImage: 'url(/image/IconSteel.png)', backgroundSize:'cover'}} onClick={() => Material('2')} />
+                            <input className={style.radio} type="radio" value="3" name="materials" style={{ backgroundImage: 'url(/image/IconPlastic.png)', backgroundSize:'cover'}} onClick={() => Material('3')} />
+                            <input className={style.radio} type="radio" value="4" name="materials" style={{ backgroundImage: 'url(/image/IconWood.png)', backgroundSize:'cover'}} onClick={() => Material('4')} />
+                            <input className={style.radio} type="radio" value="5" name="materials" style={{ backgroundImage: 'url(/image/IconGlass.png)', backgroundSize:'cover'}} onClick={() => Material('5')}/>
+                            <input className={style.radio} type="radio" value="6" name="materials" style={{ backgroundImage: 'url(/image/IconEtc.png)', backgroundSize:'cover'}} onClick={() => Material('6')} />
                         </div>
                         <p className={style.errMsg}>{materialMsg}</p>
                     </div>
@@ -164,7 +178,8 @@ const FundingCreatePage = () => {
                             <div className={style.CautionMent}>*나중에 수정이 안되니 신중하게 선택해주세요*</div>
                         </div>
                         <div>
-                            <input type='date' id={style.DateInput} onChange={DDate}/>        
+                            <input type='date' id={style.DateInput} onChange={DDate} ref={ddateRef}/>  
+                            <p className={style.errMsg}>{ddateMsg}</p>      
                         </div>
                     </div>
                     <button id={style.CreateButton}  onClick={Create}>등록하기</button>
@@ -176,7 +191,7 @@ const FundingCreatePage = () => {
 
 export default FundingCreatePage;
 
-const SettingUserThumbnail = () => {
+const SettingUserThumbnail = ({setimgurl}) => {
     const [imageSrc, setImageSrc] = useState(null);
     const inputRef = useRef(null);
 
@@ -212,6 +227,7 @@ const SettingUserThumbnail = () => {
           })
             .then(response => {
               console.log(response.data);
+              setimgurl(response.data.s3ObjectUrl);
             })
             .catch(error => {
               console.error(error);
