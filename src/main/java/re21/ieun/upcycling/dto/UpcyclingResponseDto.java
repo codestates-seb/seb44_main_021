@@ -42,4 +42,7 @@ public class UpcyclingResponseDto {
     // view(조회수)
     private long viewCount;
 
+    // 등록 날짜
+    private LocalDateTime createdAt;
+
 }
