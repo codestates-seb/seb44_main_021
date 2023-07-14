@@ -10,6 +10,7 @@ import re21.ieun.order.dto.OrderSellDto;
 import re21.ieun.order.entity.Order;
 import re21.ieun.order.entity.OrderSell;
 import re21.ieun.order.entity.OrderStatus;
+import re21.ieun.order.entity.TotalPriceCalculator;
 import re21.ieun.sell.entity.Sell;
 
 import java.util.List;
@@ -17,20 +18,6 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface OrderMapper {
-
-    /*
-    @Mapping(source = "memberId", target = "member.memberId")
-    //@Mapping(source = "categoryId", target = "category.categoryId")
-    Order orderPostDtoToOrder(OrderDto.Post orderPostDto);
-
-    @Mapping(source = "member.memberId", target = "memberId")
-    //@Mapping(source = "category.categoryId", target = "categoryId")
-    //@Mapping(source = "category.categoryName", target = "categoryName")
-    @Mapping(source = "member.displayName", target = "displayName")
-    @Mapping(source = "member.displayName", target = "displayName")
-    OrderDto.Response orderToOrderResponseDto(Order order);
-
-     */
 
     List<OrderDto.Response> ordersToOrderResponseDtos(List<Order> orders);
 
@@ -58,6 +45,17 @@ public interface OrderMapper {
     default OrderDto.Response orderToOrderResponseDto(Order order){
         List<OrderSell> orderSells = order.getOrderSells();
 
+        /*
+        // Calculate totalPrice
+        int totalPrice = 0;
+        for (OrderSell orderSell : orderSells) {
+            totalPrice += orderSell.getSell().getPrice() * orderSell.getQuantity();
+        }
+         */
+
+        // Calculate totalPrice using TotalPriceCalculator
+        int totalPrice = TotalPriceCalculator.calculateTotalPrice(orderSells);
+
         OrderDto.Response orderResponseDto = new OrderDto.Response();
         orderResponseDto.setOrderId(order.getOrderId());
         orderResponseDto.setMember(order.getMember());
@@ -67,6 +65,9 @@ public interface OrderMapper {
         orderResponseDto.setOrderSells(
                 orderSellsToOrderSellResponseDtos(orderSells)
         );
+
+        // Set calculated totalPrice
+        orderResponseDto.setTotalPrice(totalPrice);
 
         return orderResponseDto;
     }
@@ -82,7 +83,6 @@ public interface OrderMapper {
                         .content(orderSell.getSell().getContent())
                         .quantity(orderSell.getQuantity())
                         .price(orderSell.getSell().getPrice())
-                        //.totalPrice(orderSell.getTotalPrice())
                         .build())
                 .collect(Collectors.toList());
     }

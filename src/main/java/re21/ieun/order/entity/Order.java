@@ -37,28 +37,8 @@ public class Order extends Auditable {
         this.member = member;
     }
 
-    /*
-    public void addOrderSell(OrderSell orderSells) {
-        this.orderSells.addAll(List.of(orderSells));
-    }
-
-    public void addOrderSell(List<OrderSell> orderSells) {
-        this.orderSells.addAll(orderSells);
-    }
-
-     */
-
     public void updateOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
     }
 
-    public void addOrderSell(OrderSell orderSell) {
-        orderSells.add(orderSell);
-        orderSell.setOrder(this);
-    }
-
-    public void removeOrderSell(OrderSell orderSell) {
-        orderSells.remove(orderSell);
-        orderSell.setOrder(null);
-    }
 }

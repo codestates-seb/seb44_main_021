@@ -33,47 +33,6 @@ public class OrderController {
         this.orderMapper = orderMapper;
     }
 
-    /*
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public OrderDto.Response postOrder(@Positive Long memberId,
-                                       @Valid @RequestBody OrderDto.Post post) {
-        // post => productCartId 추출해서 cart 에서 해당 Id 삭제
-        Order saveOrder = orderService.createOrder(orderMapper.toOrder(post, memberId));
-
-        return orderMapper.toResponse(saveOrder);
-    }
-
-
-    @GetMapping
-    public PageResponseDto<OrderDto.Response> getOrders(@Positive Long memberId,
-                                                        @PageableDefault(size = 20, sort = "createdAt",
-                                                                direction = Sort.Direction.DESC) Pageable pageable) {
-        Page<Order> orders = orderService.findByMember_Id(memberId, pageable);
-
-        return PageResponseDto.of(orders.map(mapper::toResponse));
-    }
-
-
-
-    @GetMapping("/{order-id}")
-    public OrderDto.Response getOrder(@Positive Long memberId,
-                                      @Positive @PathVariable("order-id") Long orderId) {
-        Order order = orderService.findVerifiedOrder(memberId, orderId);
-
-        return orderMapper.toResponse(order);
-    }
-
-    @DeleteMapping("/{order-id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public String cancelOrder(@Positive Long memberId,
-                              @Positive @PathVariable("order-id") Long orderId) {
-        orderService.cancelOrder(memberId, orderId);
-        return "Cancel order";
-    }
-
-     */
-
     @PostMapping
     public ResponseEntity<?> postOrder(@Valid @RequestBody OrderDto.Post orderPostDto) {
         Order order = orderService.createOrder(orderMapper.orderPostDtoToOrder(orderPostDto));
