@@ -41,7 +41,6 @@ public interface OrderMapper {
     Order orderPatchDtoToOrder(OrderDto.Patch orderPatchDto);
 
 
-
     default OrderDto.Response orderToOrderResponseDto(Order order){
         List<OrderSell> orderSells = order.getOrderSells();
 
