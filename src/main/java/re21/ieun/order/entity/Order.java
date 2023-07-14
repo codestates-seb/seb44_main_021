@@ -21,7 +21,7 @@ public class Order extends Auditable {
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
-    @ManyToOne  // (fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
@@ -41,4 +41,8 @@ public class Order extends Auditable {
         this.orderStatus = orderStatus;
     }
 
+    public void addOrderSell(OrderSell orderSell) {
+        orderSells.add(orderSell);
+        orderSell.setOrder(this);
+    }
 }
