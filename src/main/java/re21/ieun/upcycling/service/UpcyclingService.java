@@ -58,10 +58,10 @@ public class UpcyclingService {
                 .ifPresent(content -> findUpcycling.setContent(content));
 
         Optional.ofNullable(upcycling.getTotalQuantity())
-                .ifPresent(quantity -> findUpcycling.setTotalQuantity(quantity));
+                .ifPresent(quantity -> findUpcycling.setTotalQuantity(quantity));       // 수량 수정 불가
 
         Optional.ofNullable(upcycling.getDeadline())
-                .ifPresent(deadline -> findUpcycling.setDeadline(deadline));
+                .ifPresent(deadline -> findUpcycling.setDeadline(deadline));            // 마감일 수정 불가
 
         return upcyclingRepository.save(findUpcycling);
     }
@@ -152,4 +152,12 @@ public class UpcyclingService {
         return upcyclingRepository.findByMember(member, pageable);
     }
 
+    /*
+    // Funding totalReceivedQuantity 가져오기
+    fun(uId: long){
+        List<> list = fundingRepository.findByUid(uid)
+    }
+
+
+     */
 }
