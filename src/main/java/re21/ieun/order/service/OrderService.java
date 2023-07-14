@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.transaction.annotation.Transactional;
 import re21.ieun.exception.BusinessLogicException;
 import re21.ieun.exception.ExceptionCode;
 import re21.ieun.member.entity.Member;
@@ -16,6 +17,7 @@ import re21.ieun.order.mapper.OrderMapper;
 import re21.ieun.order.repository.OrderRepository;
 import re21.ieun.member.service.MemberService;
 import org.springframework.stereotype.Service;
+import re21.ieun.order.repository.OrderSellRepository;
 import re21.ieun.sell.service.SellService;
 
 import java.util.List;
@@ -28,13 +30,15 @@ public class OrderService {
     private final MemberService memberService;
 
     private final OrderMapper orderMapper;
+    private final OrderSellRepository orderSellRepository;
 
-    public OrderService(OrderRepository orderRepository, SellService sellService, MemberService memberService
-    , OrderMapper orderMapper) {
+    public OrderService(OrderRepository orderRepository, SellService sellService,
+                        MemberService memberService, OrderMapper orderMapper, OrderSellRepository orderSellRepository) {
         this.orderRepository = orderRepository;
         this.sellService = sellService;
         this.memberService = memberService;
         this.orderMapper = orderMapper;
+        this.orderSellRepository = orderSellRepository;
     }
 
     public Order createOrder(Order order) {
@@ -91,6 +95,7 @@ public class OrderService {
         return orderMapper.ordersToOrderResponseDtos(orders);
     }
 
+    @Transactional
     public void cancelOrder(long orderId) {
         Order findOrder = findVerifiedOrder(orderId);
 
@@ -100,6 +105,14 @@ public class OrderService {
         if (step >= 2) {
             throw new BusinessLogicException(ExceptionCode.CANNOT_CHANGE_ORDER);
         }
+
+        // OrderSell 삭제
+        List<OrderSell> orderSells = findOrder.getOrderSells();
+        for (OrderSell orderSell : orderSells) {
+            // OrderSell 삭제 로직 추가
+            orderSellRepository.delete(orderSell);
+        }
+
         findOrder.setOrderStatus(OrderStatus.ORDER_CANCELED);
         orderRepository.delete(findOrder);
     }
