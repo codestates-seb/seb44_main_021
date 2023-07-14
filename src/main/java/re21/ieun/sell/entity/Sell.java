@@ -29,7 +29,7 @@ public class Sell extends Auditable {
     @Column(nullable = false)
     private int price;
 
-    @Column(columnDefinition = "long default 0", nullable = false)
+    @Column(columnDefinition = "bigint default 0", nullable = false)
     private Long viewCount;
 
     @ManyToOne

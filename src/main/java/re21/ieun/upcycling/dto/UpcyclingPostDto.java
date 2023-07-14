@@ -33,8 +33,7 @@ public class UpcyclingPostDto {
     @NotBlank(message = "수량을 작성해주세요.")
     private int totalQuantity;
 
-    // 이미지가 구축이되면
-    //private String contentImg;
+    private String thumbNailImage;
 
     // category 만들어지면 생성
     //private String category;

@@ -29,6 +29,7 @@ public class UpcyclingResponseDto {
     // 총 펀딩 수량
     private int totalQuantity;
 
+    private String thumbNailImage;
 
     // 이미지가 구축이되면
     //private String contentImg;
