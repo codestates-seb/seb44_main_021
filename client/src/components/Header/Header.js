@@ -3,11 +3,47 @@ import style from "./Header.module.css";
 import Logo from "../Logo/Logo";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
+import { UserDataContext } from "../../contexts/UserDataContext";
+import axios from "axios";
 
 const Header = () => {
-  const [isLogin] = useState(true);
+  const { userData, setUserData } = useContext(UserDataContext);
+  const [isLogin, setIsLogin] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      setIsLogin(true);
+      const token = localStorage.getItem("token");
+      const payload = token.substring(
+        token.indexOf(".") + 1,
+        token.lastIndexOf(".")
+      );
+      const decodedPayload = decodeURIComponent(
+        atob(payload)
+          .split("")
+          .map(function (c) {
+            return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+          })
+          .join("")
+      );
+      const dec = JSON.parse(decodedPayload);
+
+      axios.get(`/members/${dec.memberId}`).then((res) => {
+        const user = res.data.data;
+
+        setUserData({
+          ...userData,
+          displayName: user.displayName,
+          email: user.email,
+          memberId: user.memberId,
+          memberRole: user.memberRole,
+        });
+      });
+    }
+  }, []);
+  //   console.log(userData);
 
   return (
     <div id={style.HeaderContainer}>
@@ -16,18 +52,18 @@ const Header = () => {
           <Logo />
         </div>
         <div className={style.LinkWrapper}>
-          <Link to="/funding" className={style.LinkStyle}>
+          <Link to="/fundinglist" className={style.LinkStyle}>
             <div className={style.LinkContent}>펀딩+</div>
           </Link>
         </div>
         <div className={style.LinkWrapper}>
-          <Link to="/store" className={style.LinkStyle}>
+          <Link to="/storelist" className={style.LinkStyle}>
             <div className={style.LinkContent}>스토어</div>
           </Link>
         </div>
         <div id={style.SearchWrapper}>
-          {(window.location.pathname === "/funding" ||
-            window.location.pathname === "/store") && (
+          {(window.location.pathname === "/fundinglist" ||
+            window.location.pathname === "/storelist") && (
             <div id={style.SeachContent}>
               <SearchIcon
                 sx={{
@@ -44,7 +80,11 @@ const Header = () => {
             </div>
           )}
         </div>
-        {isLogin ? <ProfileDropdown /> : <ProfileLogin />}
+        {isLogin ? (
+          <ProfileDropdown setIsLogin={setIsLogin} />
+        ) : (
+          <ProfileLogin />
+        )}
       </div>
     </div>
   );
@@ -52,7 +92,7 @@ const Header = () => {
 
 export default Header;
 
-const ProfileDropdown = () => {
+const ProfileDropdown = ({ setIsLogin }) => {
   const [menuView, setMenuView] = useState(false);
   const Dropdown = () => {
     setMenuView(!menuView);
@@ -65,7 +105,7 @@ const ProfileDropdown = () => {
         sx={{ width: "35px", height: "100%", color: "#6E934D" }}
       />
       <div className={style.Dropdowncontainer}>
-        {menuView && <DropdownBox />}
+        {menuView && <DropdownBox setIsLogin={setIsLogin} />}
       </div>
     </div>
   );
@@ -83,8 +123,11 @@ const ProfileLogin = () => {
   );
 };
 
-const DropdownBox = () => {
-  const handleLogout = () => {};
+const DropdownBox = ({ setIsLogin }) => {
+  const handleLogout = () => {
+    setIsLogin(false);
+    localStorage.removeItem("token");
+  };
 
   return (
     <div>
