@@ -1,6 +1,7 @@
 package re21.ieun.sell.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import re21.ieun.exception.BusinessLogicException;
 import re21.ieun.exception.ExceptionCode;
 import re21.ieun.member.service.MemberService;
@@ -108,9 +109,5 @@ public class SellService {
 
         return sellMapper.sellToSellResponseDtos(sells);
     }
-
-
-
-
 
 }

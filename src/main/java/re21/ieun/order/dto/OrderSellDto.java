@@ -26,6 +26,8 @@ public class OrderSellDto {
 
     @Getter
     public static class Patch {
+        @Positive
+        private int quantity;
     }
 
     @Getter

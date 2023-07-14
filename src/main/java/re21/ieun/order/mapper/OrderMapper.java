@@ -1,15 +1,11 @@
 package re21.ieun.order.mapper;
 
-import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.ReportingPolicy;
 import re21.ieun.member.entity.Member;
 import re21.ieun.order.dto.OrderDto;
 import re21.ieun.order.dto.OrderSellDto;
 import re21.ieun.order.entity.Order;
 import re21.ieun.order.entity.OrderSell;
-import re21.ieun.order.entity.OrderStatus;
 import re21.ieun.order.entity.TotalPriceCalculator;
 import re21.ieun.sell.entity.Sell;
 
@@ -41,6 +37,10 @@ public interface OrderMapper {
 
         return order;
     }
+
+    Order orderPatchDtoToOrder(OrderDto.Patch orderPatchDto);
+
+
 
     default OrderDto.Response orderToOrderResponseDto(Order order){
         List<OrderSell> orderSells = order.getOrderSells();

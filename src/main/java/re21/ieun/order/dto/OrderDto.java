@@ -31,6 +31,19 @@ public class OrderDto {
         }
 
     }
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public  static class Patch {
+        @Positive
+        private long orderId;
+
+        @Valid
+        @NotNull(message = "주문할 상품 정보를 입력해주세요.")
+        private List<OrderSellDto.Patch> orderSells;
+
+        private OrderStatus orderStatus;
+    }
 
     @Getter
     @Setter
