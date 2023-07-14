@@ -8,6 +8,7 @@ import re21.ieun.category.entity.Category;
 import re21.ieun.member.entity.Member;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -47,7 +48,7 @@ public class Upcycling extends Auditable {
 
     // 업사이클링 마감일
     @Column(nullable = false)
-    private LocalDateTime deadline;
+    private LocalDate deadline;
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")

@@ -7,6 +7,7 @@ import re21.ieun.category.entity.Category;
 
 import javax.persistence.Column;
 import javax.validation.constraints.Positive;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -35,7 +36,7 @@ public class UpcyclingResponseDto {
     private String categoryName;
 
     // Upcycling 마감일
-    private LocalDateTime deadline;
+    private LocalDate deadline;
 
     // view(조회수)
     private long viewCount;
