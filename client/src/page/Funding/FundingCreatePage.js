@@ -22,6 +22,7 @@ const FundingCreatePage = () => {
     const titleRef = useRef(null);
     const contentRef = useRef(null);
     const totalQuantityRef = useRef(null);
+    const materialRef = useRef(null);
     const ddateRef = useRef(null);
     const navigate = useNavigate();
 
@@ -101,8 +102,7 @@ const FundingCreatePage = () => {
         Content();
         TotalQuantity();
         Material();
-        DDate();
-        if (title.length >= 5 && content.length >= 10 && totalQuantity.length > 0  && material !== "" && ddate !== "") {
+        if (title.length >= 5 && content.length >= 10 && totalQuantity.length > 0  && material !== "") {
           axios({
             url: "http://ec2-43-201-105-214.ap-northeast-2.compute.amazonaws.com:8080/upcyclings",
             method: "post",
@@ -142,12 +142,12 @@ const FundingCreatePage = () => {
                             <div className={style.CautionMent}>(하나로 제한)</div>
                         </div>
                         <div className={style.radioGroup}>
-                            <input className={style.radio} type="radio" value="1" name="materials" style={{ backgroundImage: 'url(/image/IconCloth.png)', backgroundSize:'cover'}} onClick={() => Material('1')} />
-                            <input className={style.radio} type="radio" value="2" name="materials" style={{ backgroundImage: 'url(/image/IconSteel.png)', backgroundSize:'cover'}} onClick={() => Material('2')} />
-                            <input className={style.radio} type="radio" value="3" name="materials" style={{ backgroundImage: 'url(/image/IconPlastic.png)', backgroundSize:'cover'}} onClick={() => Material('3')} />
-                            <input className={style.radio} type="radio" value="4" name="materials" style={{ backgroundImage: 'url(/image/IconWood.png)', backgroundSize:'cover'}} onClick={() => Material('4')} />
-                            <input className={style.radio} type="radio" value="5" name="materials" style={{ backgroundImage: 'url(/image/IconGlass.png)', backgroundSize:'cover'}} onClick={() => Material('5')}/>
-                            <input className={style.radio} type="radio" value="6" name="materials" style={{ backgroundImage: 'url(/image/IconEtc.png)', backgroundSize:'cover'}} onClick={() => Material('6')} />
+                            <input className={style.radio} type="radio" value="1" name="materials" style={{ backgroundImage: 'url(/image/IconCloth.png)', backgroundSize:'cover'}} onClick={() => Material('1')} ref={materialRef}/>
+                            <input className={style.radio} type="radio" value="2" name="materials" style={{ backgroundImage: 'url(/image/IconSteel.png)', backgroundSize:'cover'}} onClick={() => Material('2')} ref={materialRef}/>
+                            <input className={style.radio} type="radio" value="3" name="materials" style={{ backgroundImage: 'url(/image/IconPlastic.png)', backgroundSize:'cover'}} onClick={() => Material('3')} ref={materialRef}/>
+                            <input className={style.radio} type="radio" value="4" name="materials" style={{ backgroundImage: 'url(/image/IconWood.png)', backgroundSize:'cover'}} onClick={() => Material('4')} ref={materialRef}/>
+                            <input className={style.radio} type="radio" value="5" name="materials" style={{ backgroundImage: 'url(/image/IconGlass.png)', backgroundSize:'cover'}} onClick={() => Material('5')} ref={materialRef}/>
+                            <input className={style.radio} type="radio" value="6" name="materials" style={{ backgroundImage: 'url(/image/IconEtc.png)', backgroundSize:'cover'}} onClick={() => Material('6')} ref={materialRef}/>
                         </div>
                         <p className={style.errMsg}>{materialMsg}</p>
                     </div>
@@ -178,8 +178,7 @@ const FundingCreatePage = () => {
                             <div className={style.CautionMent}>*나중에 수정이 안되니 신중하게 선택해주세요*</div>
                         </div>
                         <div>
-                            <input type='date' id={style.DateInput} onChange={DDate} ref={ddateRef}/>  
-                            <p className={style.errMsg}>{ddateMsg}</p>      
+                            <input type='date' id={style.DateInput} onChange={DDate}/>        
                         </div>
                     </div>
                     <button id={style.CreateButton}  onClick={Create}>등록하기</button>
@@ -194,61 +193,68 @@ export default FundingCreatePage;
 const SettingUserThumbnail = ({setimgurl}) => {
     const [imageSrc, setImageSrc] = useState(null);
     const inputRef = useRef(null);
-
+  
     const onUpload = (e) => {
-        if (!e.target.files) {  // 파일이 선택되지 않았을 경우 함수 종료
-          return;
-        }
-      
-        const file = e.target.files[0];  // 선택된 파일
-        const reader = new FileReader();  // 파일을 읽기 위한 FileReader 객체 생성
-        const formData = new FormData();  // 파일 데이터를 담을 FormData 객체 생성
-      
-        reader.readAsDataURL(file);  // 파일을 읽어 base64 형식의 데이터로 변환
-        formData.append('image', file);  // FormData에 파일 추가
-      
-        return new Promise((resolve, reject) => {
-          reader.onload = () => {  // 파일 읽기가 완료되면 실행될 함수
-            setImageSrc(reader.result || null);  // 이미지 컨텐츠를 설정합니다.
-            resolve();
-          };
-      
-          reader.onerror = () => {  // 파일 읽기 중에 오류가 발생한 경우 실행될 함수
-            reject(new Error('파일을 읽는 도중 오류가 발생했습니다.'));
-          };
-      
-          axios({  // 파일을 서버에 업로드하기 위해 axios를 사용합니다.
-            url: 'https://0fkfr0fqqg.execute-api.ap-northeast-2.amazonaws.com/2023-07-14/file-upload',
-            method: 'POST',
-            data: formData,
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
+      if (!e.target.files) {
+        return;
+      }
+  
+      const file = e.target.files[0]; // 선택된 파일
+      const reader = new FileReader(); // 파일을 읽기 위한 FileReader 객체 생성
+      const formData = new FormData(); // 파일 데이터를 담을 FormData 객체 생성
+  
+      reader.readAsDataURL(file);
+      formData.append('file', file); // FormData에 파일 추가
+  
+      return new Promise((resolve, reject) => {
+        reader.onload = () => {
+          // 파일 읽기가 완료되면 실행될 함수
+          setImageSrc(reader.result || null); // 이미지 컨텐츠를 설정합니다.
+          resolve();
+        };
+  
+        reader.onerror = () => {
+          // 파일 읽기 중에 오류가 발생한 경우 실행될 함수
+          reject(new Error('파일을 읽는 도중 오류가 발생했습니다.'));
+        };
+        
+  
+        axios({
+          url: 'http://localhost:8080/upload',
+          method: 'POST',
+          data: formData,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+          .then((response) => {
+            setimgurl(response.data);
+            console.log(response.data);
+            console.log(formData);
           })
-            .then(response => {
-              console.log(response.data);
-              setimgurl(response.data.s3ObjectUrl);
-            })
-            .catch(error => {
-              console.error(error);
-            });
-        });
+          .catch((error) => {
+            console.error(error);
+          });
+      });
     };
-
+  
     return (
-        <div id={style.imgContainer}>
-            <div id={style.imgWrapper}>
-                <img id={style.FundingImg} src={imageSrc} alt="펀딩 이미지 미리보기"/>
-            </div>
-            <div className={style.CommonMent}>Step1. 만드려고 하는 업사이클링 제품을 대표할 수 있는 이미지를 넣어주세요!</div>
-            <input
-                type="file"
-                accept="image/*"
-                name="thumbnail"
-                ref={inputRef}
-                onChange={onUpload}
-                id={style.imgInput}
-            />
+      <div id={style.imgContainer}>
+        <div id={style.imgWrapper}>
+          <img id={style.FundingImg} src={imageSrc} alt="펀딩 이미지 미리보기" />
         </div>
+        <div className={style.CommonMent}>
+          Step1. 만드려고 하는 업사이클링 제품을 대표할 수 있는 이미지를 넣어주세요!
+        </div>
+        <input
+          type="file"
+          accept="image/*"
+          name="file"
+          ref={inputRef}
+          onChange={onUpload}
+          id={style.imgInput}
+        />
+      </div>
     );
-};
+  };
+  
