@@ -37,4 +37,3 @@ jwt:
 aws:
   accessKey: ${aws_accessKey}
   secretKey: ${aws_secretKey}
-  region: ap-northeast-2
