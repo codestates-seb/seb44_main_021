@@ -8,15 +8,18 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.GetUrlRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import java.io.IOException;
+import java.time.Duration;
 
 @RestController
 public class imageController {
 
     @Autowired
     private S3Client s3Client;
+
 
     private static final String BUCKET_NAME = "s3forimage";
 
@@ -35,15 +38,27 @@ public class imageController {
                     .bucket(BUCKET_NAME)
                     .key(objectKey)
                     .build(), RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
+//            String objectUrl = "https://s3" + BUCKET_NAME + ".s3.ap-northeast-2.amazonaws.com" + "/" + objectKey;
+//            System.out.println("Object URL: " + objectUrl);
 
-            String objectUrl = "https://s3.amazonaws.com/" + BUCKET_NAME + "/" + objectKey;
+            String objectUrl = getObjectUrl(BUCKET_NAME,objectKey);
             System.out.println("Object URL: " + objectUrl);
-
             // 업로드 완료 후 추가 처리
             return objectUrl;
         } catch (IOException e) {
             // 업로드 중 에러 발생 시 처리
             return "파일 업로드 중 에러가 발생했습니다.";
         }
+    }
+
+    public String getObjectUrl(String bucketName, String objectKey) {
+        GetUrlRequest request = GetUrlRequest.builder()
+                .bucket(bucketName)
+                .key(objectKey)
+                .build();
+
+        String url = s3Client.utilities().getUrl(request).toString();
+
+        return url;
     }
 }
