@@ -31,6 +31,8 @@ public class UpcyclingResponseDto {
 
     private String thumbNailImage;
 
+    private int totalReceivedQuantity;
+
     // 이미지가 구축이되면
     //private String contentImg;
     private long categoryId;
