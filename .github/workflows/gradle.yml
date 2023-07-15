@@ -36,10 +36,10 @@ jobs:
       with:
         files: ${{ env.RESOURCE_PATH }}
       env:
-        jwt.key: ${{ secrets.JWT_KEY }}
-        aws_accessKey: ${{ secrets.MY_ACCESSKEY }}
-        aws_secretKey: ${{ secrets.MY_SECRETKEY }}
-        aws_region: ${{ secrets.MY_REGION }}
+        JWT_KEY: ${{ secrets.JWT_KEY }}
+        MY_ACCESSKEY: ${{ secrets.MY_ACCESSKEY }}
+        MY_SECRETKEY: ${{ secrets.MY_SECRETKEY }}
+        MY_REGION: ${{ secrets.MY_REGION }}
     - name: Add permission
       run: chmod +x gradlew
     - name: Build with Gradle
