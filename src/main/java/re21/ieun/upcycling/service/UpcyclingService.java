@@ -152,12 +152,4 @@ public class UpcyclingService {
         return upcyclingRepository.findByMember(member, pageable);
     }
 
-    /*
-    // Funding totalReceivedQuantity 가져오기
-    fun(uId: long){
-        List<> list = fundingRepository.findByUid(uid)
-    }
-
-
-     */
 }
