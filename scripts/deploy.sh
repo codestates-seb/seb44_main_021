@@ -23,6 +23,7 @@ else
 fi
 
 source ~/.bashrc
+echo $jwt_token
 
 DEPLOY_JAR=$DEPLOY_PATH$JAR_NAME
 echo "> DEPLOY_JAR 배포"    >> /home/ubuntu/action/deploy.log

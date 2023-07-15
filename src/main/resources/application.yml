@@ -30,10 +30,10 @@ server:
 mail:
   address:
     admin: admin@gmail.com
+JWT_KEY: ${JWT_KEY}
 jwt:
-  key: ${jwt_key}
   access-token-expiration-minutes: 30
   refresh-token-expiration-minutes: 240
-aws_accessKey: ${aws_accessKey}
-aws_secretKey: ${aws_secretKey}
-aws_region: ${aws_region}
+MY_ACCESSKEY: ${MY_ACCESSKEY}
+MY_SECRETKEY: ${MY_SECRETKEY}
+MY_REGION: ${MY_REGION}
