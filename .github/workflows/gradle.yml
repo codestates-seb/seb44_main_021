@@ -7,6 +7,9 @@
 
 name: Java CI with Gradle
 
+env:
+  RESOURCE_PATH: ./src/main/resources/application.yml
+
 on:
   push:
     branches: [ "master" ]
@@ -28,6 +31,15 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
+    - name: Set yml file
+      uses: microsoft/variable-substitution@v1
+      with:
+        files: ${{ env.RESOURCE_PATH }}
+      env:
+        jwt.key: ${{ secrets.JWT_KEY }}
+        aws_accessKey: ${{ secrets.AWS_ACCESSKEY }}
+        aws_secretKey: ${{ secrets.AWS_SECRETKEY }}
+        aws_region: ${{ secrets.AWS_REGION }}
     - name: Add permission
       run: chmod +x gradlew
     - name: Build with Gradle
