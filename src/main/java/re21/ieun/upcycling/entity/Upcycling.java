@@ -38,6 +38,17 @@ public class Upcycling extends Auditable {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @Column
+    private int totalReceivedQuantity;
+
+    public int getTotalReceivedQuantity() {
+        return totalReceivedQuantity;
+    }
+
+    public void setTotalReceivedQuantity(int totalReceivedQuantity) {
+        this.totalReceivedQuantity = totalReceivedQuantity;
+    }
+
 
     // Upcycling View(조회수)
     @Column(columnDefinition = "bigint default 0", nullable = false)
@@ -45,6 +56,7 @@ public class Upcycling extends Auditable {
 
     @Column
     private String thumbNailImage;
+
 
     // 업사이클링 마감일
     @Column(nullable = false)

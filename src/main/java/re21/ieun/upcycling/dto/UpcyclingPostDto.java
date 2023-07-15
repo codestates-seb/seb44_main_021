@@ -35,6 +35,7 @@ public class UpcyclingPostDto {
 
     private String thumbNailImage;
 
+
     // category 만들어지면 생성
     //private String category;
 

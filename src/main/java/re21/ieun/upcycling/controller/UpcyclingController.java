@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import re21.ieun.dto.MultiResponseDto;
 import re21.ieun.funding.entity.Funding;
 import re21.ieun.dto.MultiResponseDto;
+import re21.ieun.funding.repository.FundingRepository;
 import re21.ieun.member.entity.Member;
 import re21.ieun.member.service.MemberService;
 import re21.ieun.upcycling.dto.UpcyclingPatchDto;
@@ -34,11 +35,13 @@ public class UpcyclingController {
     private final UpcyclingService upcyclingService;
     private final UpcyclingMapper upcyclingMapper;
     private final MemberService memberService;
+    private final FundingRepository fundingRepository;
 
-    public UpcyclingController(UpcyclingService upcyclingService, UpcyclingMapper upcyclingMapper, MemberService memberService) {
+    public UpcyclingController(UpcyclingService upcyclingService, UpcyclingMapper upcyclingMapper, MemberService memberService, FundingRepository fundingRepository) {
         this.upcyclingService = upcyclingService;
         this.upcyclingMapper = upcyclingMapper;
         this.memberService = memberService;
+        this.fundingRepository = fundingRepository;
     }
 
     // 업사이클링 펀딩 게시글 생성
@@ -69,6 +72,8 @@ public class UpcyclingController {
     public ResponseEntity<?> getUpcycling(@PathVariable("upcycling-id") @Positive long upcyclingId) {
 
         Upcycling upcycling = upcyclingService.findVerifyUpcycling(upcyclingId);
+
+
 
         return new ResponseEntity<>(upcyclingMapper.upcyclingToUpcyclingResponseDto(upcycling), HttpStatus.OK);
     }
@@ -112,6 +117,13 @@ public class UpcyclingController {
 
         // 조회수 증가 처리
         Upcycling upcycling = upcyclingService.increaseViewCount(upcyclingId);
+
+        List<Funding> fundingList = fundingRepository.findByUpcyclingUpcyclingId(upcyclingId);
+        if (!fundingList.isEmpty()) {
+            Funding firstFunding = fundingList.get(0);
+            int totalReceivedQuantity = firstFunding.getTotalReceivedQuantity();
+            upcycling.setTotalReceivedQuantity(totalReceivedQuantity);
+        }
 
         return new ResponseEntity<>(upcyclingMapper.upcyclingToUpcyclingResponseDto(upcycling), HttpStatus.OK);
     }

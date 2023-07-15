@@ -10,7 +10,9 @@ import re21.ieun.category.entity.Category;
 import re21.ieun.category.service.CategoryService;
 import re21.ieun.exception.BusinessLogicException;
 import re21.ieun.exception.ExceptionCode;
+import re21.ieun.funding.dto.FundingResponseDto;
 import re21.ieun.funding.entity.Funding;
+import re21.ieun.funding.repository.FundingRepository;
 import re21.ieun.member.entity.Member;
 import re21.ieun.member.service.MemberService;
 import re21.ieun.upcycling.dto.UpcyclingResponseDto;
@@ -18,6 +20,7 @@ import re21.ieun.upcycling.entity.Upcycling;
 import re21.ieun.upcycling.mapper.UpcyclingMapper;
 import re21.ieun.upcycling.repository.UpcyclingRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,12 +32,14 @@ public class UpcyclingService {
     private final UpcyclingMapper upcyclingMapper;
     private final MemberService memberService;
     private final CategoryService categoryService;
+    private final FundingRepository fundingRepository;
 
-    public UpcyclingService(UpcyclingRepository upcyclingRepository, UpcyclingMapper upcyclingMapper, MemberService memberService, CategoryService categoryService) {
+    public UpcyclingService(UpcyclingRepository upcyclingRepository, UpcyclingMapper upcyclingMapper, MemberService memberService, CategoryService categoryService, FundingRepository fundingRepository) {
         this.upcyclingRepository = upcyclingRepository;
         this.upcyclingMapper = upcyclingMapper;
         this.memberService = memberService;
         this.categoryService = categoryService;
+        this.fundingRepository = fundingRepository;
     }
 
     // 업사이클링 펀딩 게시글 생성
@@ -152,4 +157,7 @@ public class UpcyclingService {
         return upcyclingRepository.findByMember(member, pageable);
     }
 
+
+
 }
+
