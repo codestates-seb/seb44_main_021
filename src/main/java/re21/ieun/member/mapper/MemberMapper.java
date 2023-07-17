@@ -17,25 +17,27 @@ public interface MemberMapper {
         member.setDisplayName( requestBody.getDisplayName() );
         member.setEmail( requestBody.getEmail() );
         member.setPassword( requestBody.getPassword() );
-        member.setMemberRole(Member.MemberRole.MEMBER_USER);
-
-        return member;
-    }
-
-    default Member memberPostDtotoMember1(MemberDto.Post requestBody) {
-        if ( requestBody == null ) {
-            return null;
+        if(requestBody.getRole().equals("users")) {
+            member.setMemberRole(Member.MemberRole.MEMBER_USER);
         }
-
-        Member member = new Member();
-
-        member.setDisplayName( requestBody.getDisplayName() );
-        member.setEmail( requestBody.getEmail() );
-        member.setPassword( requestBody.getPassword() );
-        member.setMemberRole(Member.MemberRole.MEMBER_UPCYCLER);
-
+        else member.setMemberRole(Member.MemberRole.MEMBER_UPCYCLER);
         return member;
     }
+//
+//    default Member memberPostDtotoMember1(MemberDto.Post requestBody) {
+//        if ( requestBody == null ) {
+//            return null;
+//        }
+//
+//        Member member = new Member();
+//
+//        member.setDisplayName( requestBody.getDisplayName() );
+//        member.setEmail( requestBody.getEmail() );
+//        member.setPassword( requestBody.getPassword() );
+//        member.setMemberRole(Member.MemberRole.MEMBER_UPCYCLER);
+//
+//        return member;
+//    }
 
     Member memberPatchDtotoMember(MemberDto.Patch requestBody);
 
