@@ -178,7 +178,8 @@ const FundingCreatePage = () => {
                             <div className={style.CautionMent}>*나중에 수정이 안되니 신중하게 선택해주세요*</div>
                         </div>
                         <div>
-                            <input type='date' id={style.DateInput} onChange={DDate}/>        
+                            <input type='date' id={style.DateInput} onChange={DDate}/>
+                            <p className={style.errMsg}>{ddateMsg}</p>        
                         </div>
                     </div>
                     <button id={style.CreateButton}  onClick={Create}>등록하기</button>
