@@ -40,32 +40,37 @@ const FundingPage = () => {
   const [isLoding, setIsLoding] = useState(false);
 
   useEffect(() => {
-    // 초기 데이터 로드
-    fetchData();
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   useEffect(() => {
-    // 카테고리 변경 시 초기화
-    setFundingList([]);
-    setPage(1);
-    fetchData();
-  }, [kategorie, sort]);
-
-  const fetchData = () => {
-    setIsLoding(false);
-    // API 호출 또는 데이터 가져오는 로직
-
     axios({
-      url: `/upcyclings?page=${page}&size=8`,
+      url: "/upcyclings?page=1&size=8",
       method: "get",
     })
       .then((response) => {
-        setFundingList((prevList) => [...prevList, ...response.data.data]);
-        setPage((prevPage) => prevPage + 1);
+        setFundingList(response.data.data);
         setIsLoding(true);
       })
       .catch((err) => console.log(err));
-  };
+  }, []);
+
+  useEffect(() => {
+    setIsLoding(false);
+    setPage(1);
+    axios({
+      url: "/upcyclings?page=1&size=8",
+      method: "get",
+    })
+      .then((response) => {
+        setFundingList(response.data.data);
+        setIsLoding(true);
+      })
+      .catch((err) => console.log(err));
+  }, [sort, kategorie]);
 
   const handleScroll = () => {
     // 스크롤 이벤트 핸들러
@@ -73,16 +78,20 @@ const FundingPage = () => {
 
     if (scrollHeight - scrollTop === clientHeight) {
       // 스크롤이 하단에 도달했을 때 추가 데이터 로드
-      fetchData();
+      setPage((prevPage) => prevPage + 1);
     }
   };
-
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+    console.log(page);
+    axios({
+      url: `/upcyclings?page=${page}&size=8`,
+      method: "get",
+    })
+      .then((response) => {
+        setFundingList((prev) => [...prev, ...response.data.data]);
+      })
+      .catch((err) => console.log(err));
+  }, [page]);
 
   const handleChange = (event) => {
     setSort(event.target.value);
