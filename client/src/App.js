@@ -28,7 +28,7 @@ function App() {
           <Route element={<FundingCreatePage />} path="/fundingcreate" />
           <Route element={<LoginPage />} path="/login" />
           <Route element={<MyPage />} path="/mypage" />
-          <Route element={<FundingEditPage/>} path="/fundingedit" />
+          <Route element={<FundingEditPage/>} path="/fundingedit/*" />
         </Routes>
       </UserDataProvider>
     </div>

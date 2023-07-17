@@ -1,10 +1,39 @@
 import React from 'react';
 import Header from '../../components/Header/Header';
 import style from './FundingCreatePage.module.css';
-import { useState, useRef} from 'react';
+import { useState, useRef, useEffect} from 'react';
 import axios from "axios";
 
 const FundingEditPage = () => {
+
+    const [title, setTitle] = useState("");
+    const [content, setcontent] = useState("");
+    const [totalQuantity, settotalQuantity] = useState("");
+    const [material, setmaterial] = useState("");
+    const [ddate, setddate] = useState("");
+    const [imgurl, setimgurl] = useState("");
+
+    // 현재 url에서 id 가져오기
+    const url = window.location.href;
+    const parts = url.split("/");
+    const upcyclingId = parts[parts.length - 1];
+
+    useEffect(() => {
+        axios({
+          url: `http://ec2-43-201-105-214.ap-northeast-2.compute.amazonaws.com:8080/upcyclings/${upcyclingId}`,
+          method: "get",
+        })
+          .then((response) => {
+            console.log(response);
+            setTitle(response.data.title);
+            setcontent(response.data.content);
+            settotalQuantity(response.data.totalQuantity);
+            setmaterial(response.data.categoryId);
+            setddate(response.data.deadline);
+            setimgurl(response.data.thumbNailImage);
+          })
+          .catch((err) => console.log(err));
+    });
 
     return (
         <div id={style.AllContainer}>

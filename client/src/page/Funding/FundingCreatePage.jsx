@@ -243,6 +243,12 @@ const SettingUserThumbnail = ({setimgurl , Imgurl}) => {
       const file = e.target.files[0]; // 선택된 파일
       const reader = new FileReader(); // 파일을 읽기 위한 FileReader 객체 생성
       const formData = new FormData(); // 파일 데이터를 담을 FormData 객체 생성
+
+      //이미지 크기 제한
+      if (file.size > 1 * 1024 * 1024) {
+        alert('이미지 크기가 1MB를 초과합니다. 다시 선택해주세요!!');
+        return;
+      }
   
       reader.readAsDataURL(file);
       formData.append('file', file); // FormData에 파일 추가
