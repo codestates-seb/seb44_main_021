@@ -3,12 +3,9 @@ import Style from "./LoginPage.module.css";
 import axios from "axios";
 import Logo from "../../components/Logo/Logo";
 import { useNavigate } from "react-router-dom";
-import { UserDataContext } from "../../contexts/UserDataContext";
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const { userData, setUserData } = useContext(UserDataContext);
-
   const [disabled, setDisabled] = useState(false);
   const [loginInfo, setLoginInfo] = useState({
     username: "",
@@ -37,7 +34,6 @@ const LoginPage = () => {
         console.log(res);
         if (res.status === 200) {
           // 엑세스 토큰 저장
-          const memberId = res.headers.memberid;
           const authHeader = res.headers.authorization;
           const accessToken = authHeader.split(" ")[1];
           localStorage.setItem("token", accessToken);
@@ -46,18 +42,6 @@ const LoginPage = () => {
             "Authorization"
           ] = `Bearer ${localStorage.getItem("token")}`;
 
-          axios.get(`/members/${memberId}`).then((res) => {
-            const user = res.data.data;
-            setUserData({
-              ...userData,
-              createdAt: user.createdAt,
-              displayName: user.displayName,
-              email: user.email,
-              memberId: user.memberId,
-              memberRole: user.memberRole,
-              modifiedAt: user.modifiedAt,
-            });
-          });
           navigate("/");
         }
       })
