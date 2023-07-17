@@ -1,24 +1,23 @@
-import React from "react";
+import { useContext } from "react";
 import Style from "./UserSelectionPage.module.css";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { useNavigate } from "react-router-dom";
+import Logo from "../../components/Logo/Logo";
+import { UserDataContext } from "../../contexts/UserDataContext";
 
 const UserSelectionPage = () => {
+  const { userData } = useContext(UserDataContext);
   const navigate = useNavigate();
-
+  console.log(userData);
   const handleClickButton = (el) => {
-    sessionStorage.setItem("userName", el);
+    sessionStorage.setItem("userRole", el);
     navigate(`/signup/${el}`);
   };
 
   return (
     <div className={Style.formContainer}>
       <div className={Style.formWrapper}>
-        <img
-          className={Style.userImg}
-          src={`${process.env.PUBLIC_URL}/image/logo2.png`}
-          alt="logo"
-        />
+        <Logo />
         <h1>어떤 서비스를 이용하고 싶으신가요?</h1>
 
         <div className={Style.userRoleForm}>

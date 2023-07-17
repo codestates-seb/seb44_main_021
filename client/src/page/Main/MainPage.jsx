@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import Lenis from "@studio-freight/lenis";
 import style from "./MainPage.module.css";
 import { gsap } from "gsap";
@@ -13,6 +14,7 @@ const MainPage = () => {
   const [logoSize, setLogoSize] = useState(70);
   const [nowloding, setNowloding] = useState(false);
   const [open, setOpen] = useState(false);
+  const [data, setData] = useState([]);
   const horwrapRef = useRef(null);
 
   // const handleScroll = () => {
@@ -32,23 +34,19 @@ const MainPage = () => {
   //   };
   // }, []);
 
-  gsap.registerPlugin(ScrollTrigger);
+  useEffect(() => {
+    axios({
+      url: "/upcyclings?page=1&size=4",
+      method: "get",
+    })
+      .then((response) => {
+        setData(response.data.data);
+        console.log(data[0]);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
-  // useEffect(() => {
-  //   gsap.to(".horwrap", {
-  //     x: -1000,
-  //     duration: 5,
-  //     scrollTrigger: {
-  //       trigger: ".horwrap",
-  //       start: "top 255px",
-  //       end: "bottom top",
-  //       scrub: true,
-  //       pin: ".horwrap",
-  //       markers: true,
-  //     },
-  //   });
-  //   setNowloding(true);
-  // }, [nowloding]);
+  gsap.registerPlugin(ScrollTrigger);
 
   useEffect(() => {
     if (horwrapRef.current) {
@@ -85,6 +83,7 @@ const MainPage = () => {
   const closeModal = () => {
     setOpen(false);
   };
+
   return (
     <>
       {nowloding ? (
@@ -129,9 +128,14 @@ const MainPage = () => {
                 style={{ width: `${logoSize}px`, height: `${logoSize}px` }}
               />
             </div>
-            <button className={style.button}>
-              <AccountBoxIcon className={style.button} sx={{ fontSize: 50 }} />
-            </button>
+            <Link to="/login">
+              <button className={style.button}>
+                <AccountBoxIcon
+                  className={style.button}
+                  sx={{ fontSize: 50 }}
+                />
+              </button>
+            </Link>
           </div>
           <div id={style.main}>
             <div className="horwrap" ref={horwrapRef}>
@@ -160,7 +164,7 @@ const MainPage = () => {
               </div>
             </div>
             <div id={style.contents}>
-              <h1>뉴스</h1>
+              <h1 className={style.h1}>뉴스</h1>
               <div className={style.contentslist}>
                 <a
                   href="https://www.insehub.or.kr/bbs/board.php?bo_table=bbs_030403&wr_id=88"
@@ -239,13 +243,74 @@ const MainPage = () => {
                   </div>
                 </a>
               </div>
-              <h1>광고</h1>
-              <div className={style.contentslist}>
-                <div className={style.contentsbox}></div>
-                <div className={style.contentsbox}></div>
-                <div className={style.contentsbox}></div>
-                <div className={style.contentsbox}></div>
-              </div>
+              <h1 className={style.h1}>펀딩</h1>
+              {data.length > 0 ? (
+                <div className={style.contentslist}>
+                  <Link to="/fundingdetail" className={style.link}>
+                    <div className={style.contentsbox}>
+                      <img
+                        src={data[0].thumbNailImage}
+                        alt="img"
+                        style={{
+                          width: "100%",
+                          height: "80%",
+                          borderTopLeftRadius: "20px",
+                          borderTopRightRadius: "20px",
+                        }}
+                      />
+                      {data[0].title}
+                    </div>
+                  </Link>
+
+                  <Link to="/fundingdetail" className={style.link}>
+                    <div className={style.contentsbox}>
+                      <img
+                        src={data[1].thumbNailImage}
+                        alt="img"
+                        style={{
+                          width: "100%",
+                          height: "80%",
+                          borderTopLeftRadius: "20px",
+                          borderTopRightRadius: "20px",
+                        }}
+                      />
+                      {data[1].title}
+                    </div>
+                  </Link>
+
+                  <Link to="/fundingdetail" className={style.link}>
+                    <div className={style.contentsbox}>
+                      <img
+                        src={data[2].thumbNailImage}
+                        alt="img"
+                        style={{
+                          width: "100%",
+                          height: "80%",
+                          borderTopLeftRadius: "20px",
+                          borderTopRightRadius: "20px",
+                        }}
+                      />
+                      {data[2].title}
+                    </div>
+                  </Link>
+
+                  <Link to="/fundingdetail" className={style.link}>
+                    <div className={style.contentsbox}>
+                      <img
+                        src={data[3].thumbNailImage}
+                        alt="img"
+                        style={{
+                          width: "100%",
+                          height: "80%",
+                          borderTopLeftRadius: "20px",
+                          borderTopRightRadius: "20px",
+                        }}
+                      />
+                      {data[3].title}
+                    </div>
+                  </Link>
+                </div>
+              ) : null}
             </div>
             <div id={style.footer}>
               <div id={style.footercontents}></div>
