@@ -22,7 +22,7 @@
     flex-direction: column;
 }
 .loginWrapper  input{
-    width: 240px;
+    width: 270px;
     height: 30px;
     padding: 0 10px;
     border: solid 1px #c3c3c3;
@@ -68,6 +68,7 @@
 
 .loginWrapper >p{
     margin-top: 20px;
+    margin-bottom: 7px;
 }
 
 .signupButton{
