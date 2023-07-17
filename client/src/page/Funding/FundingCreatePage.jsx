@@ -1,9 +1,10 @@
 import React from 'react';
 import Header from '../../components/Header/Header';
 import style from './FundingCreatePage.module.css';
-import { useState, useRef } from 'react';
+import { useState, useRef, useContext, useEffect} from 'react';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { UserDataContext } from "../../contexts/UserDataContext";
 
 const FundingCreatePage = () => {
 
@@ -18,17 +19,28 @@ const FundingCreatePage = () => {
     const [ddate, setddate] = useState("");
     const [ddateMsg, setddateMsg] = useState("");
     const [imgurl, setimgurl] = useState("");
+    const [imgurlMsg, setimgurlMsg] = useState("");
 
     const titleRef = useRef(null);
     const contentRef = useRef(null);
     const totalQuantityRef = useRef(null);
-    const materialRef = useRef(null);
+    const materialRef = useRef("");
     const ddateRef = useRef(null);
     const navigate = useNavigate();
+
+    const { userData } = useContext(UserDataContext);
 
     const handleInputChange = (event) => {
         event.target.value = event.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
     };
+
+    const Imgurl = () => {
+      if(imgurl === ""){
+        setimgurlMsg("이미지를 넣어주세요!");
+      }else{
+        setimgurlMsg("");
+      }
+    }
 
     const Title = () => {
         let titleValue = titleRef.current.value;
@@ -55,59 +67,85 @@ const FundingCreatePage = () => {
     };
 
     const TotalQuantity = () => {
-        let TQValue = totalQuantityRef.current.value;
-        settotalQuantity(TQValue);
-    
-        if (totalQuantity.length <= 0) {
-            settotalQuantityMsg("수량을 입력해주세요!");
-        }
-        else if(totalQuantity.indexOf("0")===0){
-            settotalQuantityMsg("수량 첫번째 자리에 0이 입력되면 안됩니다.");
-        }
-         else {
-            settotalQuantity(TQValue);
-            settotalQuantityMsg("");
-        }
+      let TQValue = totalQuantityRef.current.value;
+      settotalQuantity(TQValue);
+  
+      if (TQValue === "") {
+        settotalQuantityMsg("수량을 입력해주세요!");
+      } else if (TQValue.indexOf("0") === 0) {
+        settotalQuantityMsg("수량 첫번째 자리에 0이 입력되면 안됩니다.");
+      } else {
+        settotalQuantityMsg("");
+      }
     };
 
-    const Material = (radioBtnName) => {
-        setmaterial(radioBtnName)
-        console.log(material);
+    const Material = () => {
+        let materialValue = materialRef.current;
+        setmaterial(materialValue)
 
-        if(material===""){
+        if(materialValue === ""){
             setmaterialMsg("자재를 하나 선택해주세요!");
         }
         else {
-            setmaterial(radioBtnName);
             setmaterialMsg("");
         }
+    };
+
+    const handleMateriel1 = () => {
+      materialRef.current = '1';
+      Material();
     }
 
-    const DDate = () => {
-        let ddateValue = ddateRef.current.value;
-        setddate(ddateValue);
-        console.log(ddate);
-
-        if (ddate === "") {
-            setddateMsg("펀딩 마감일을 선택해주세요!");
-            console.log("gg")
-        } else {
-            setddate(ddateValue);
-            setddateMsg("");
-        }
+    const handleMateriel2 = () => {
+      materialRef.current = '2';
+      Material();
     }
+
+    const handleMateriel3 = () => {
+      materialRef.current = '3';
+      Material();
+    }
+
+    const handleMateriel4 = () => {
+      materialRef.current = '4';
+      Material();
+    }
+
+    const handleMateriel5 = () => {
+      materialRef.current = '5';
+      Material();
+    }
+
+    const handleMateriel6 = () => {
+      materialRef.current = '6';
+      Material();
+    }
+
+
+    const Ddate = () => {
+      let ddateValue = ddateRef.current.value;
+      setddate(ddateValue);
+  
+      if (ddateValue === "") {
+        setddateMsg("펀딩 마감일을 선택해주세요!");
+      } else {
+        setddateMsg("");
+      }
+    };
 
     const Create = () => {
+        Imgurl();
         Title();
         Content();
-        TotalQuantity();
         Material();
-        if (title.length >= 5 && content.length >= 10 && totalQuantity.length > 0  && material !== "") {
+        TotalQuantity();
+        Ddate();
+        if (imgurl !== "" && title.length >= 5 && content.length >= 10 && totalQuantity.length > 0  && material !== "" & ddate !== "") {
           axios({
             url: "http://ec2-43-201-105-214.ap-northeast-2.compute.amazonaws.com:8080/upcyclings",
             method: "post",
             data: {
-                memberId: "1",
+                memberId: userData.memberId,
                 categoryId: material,
                 title: title,
                 content: content,
@@ -135,19 +173,20 @@ const FundingCreatePage = () => {
             <div id={style.SubTitle}>만드실 업사이클링 제품을 소개해주세요.</div>
             <div id={style.AllWrapper}>
                 <div id={style.leftWrapper}>
-                    <SettingUserThumbnail setimgurl = {setimgurl}/>
+                    <SettingUserThumbnail setimgurl = {setimgurl} Imgurl = {Imgurl}/>
+                    <p className={style.errMsg}>{imgurlMsg}</p>
                     <div id={style.MaterierBox}>
                         <div className={style.CommonMent}>
                             Step2. 펀딩 받고 싶은 자재를 골라주세요!
                             <div className={style.CautionMent}>(하나로 제한)</div>
                         </div>
                         <div className={style.radioGroup}>
-                            <input className={style.radio} type="radio" value="1" name="materials" style={{ backgroundImage: 'url(/image/IconCloth.png)', backgroundSize:'cover'}} onClick={() => Material('1')} ref={materialRef}/>
-                            <input className={style.radio} type="radio" value="2" name="materials" style={{ backgroundImage: 'url(/image/IconSteel.png)', backgroundSize:'cover'}} onClick={() => Material('2')} ref={materialRef}/>
-                            <input className={style.radio} type="radio" value="3" name="materials" style={{ backgroundImage: 'url(/image/IconPlastic.png)', backgroundSize:'cover'}} onClick={() => Material('3')} ref={materialRef}/>
-                            <input className={style.radio} type="radio" value="4" name="materials" style={{ backgroundImage: 'url(/image/IconWood.png)', backgroundSize:'cover'}} onClick={() => Material('4')} ref={materialRef}/>
-                            <input className={style.radio} type="radio" value="5" name="materials" style={{ backgroundImage: 'url(/image/IconGlass.png)', backgroundSize:'cover'}} onClick={() => Material('5')} ref={materialRef}/>
-                            <input className={style.radio} type="radio" value="6" name="materials" style={{ backgroundImage: 'url(/image/IconEtc.png)', backgroundSize:'cover'}} onClick={() => Material('6')} ref={materialRef}/>
+                            <input className={style.radio} type="radio" value="1" name="materials" style={{ backgroundImage: 'url(/image/IconCloth.png)', backgroundSize:'cover'}} onClick={handleMateriel1} />
+                            <input className={style.radio} type="radio" value="2" name="materials" style={{ backgroundImage: 'url(/image/IconSteel.png)', backgroundSize:'cover'}} onClick={handleMateriel2} />
+                            <input className={style.radio} type="radio" value="3" name="materials" style={{ backgroundImage: 'url(/image/IconPlastic.png)', backgroundSize:'cover'}} onClick={handleMateriel3} />
+                            <input className={style.radio} type="radio" value="4" name="materials" style={{ backgroundImage: 'url(/image/IconWood.png)', backgroundSize:'cover'}} onClick={handleMateriel4} />
+                            <input className={style.radio} type="radio" value="5" name="materials" style={{ backgroundImage: 'url(/image/IconGlass.png)', backgroundSize:'cover'}} onClick={handleMateriel5} />
+                            <input className={style.radio} type="radio" value="6" name="materials" style={{ backgroundImage: 'url(/image/IconEtc.png)', backgroundSize:'cover'}} onClick={handleMateriel6} />
                         </div>
                         <p className={style.errMsg}>{materialMsg}</p>
                     </div>
@@ -178,7 +217,7 @@ const FundingCreatePage = () => {
                             <div className={style.CautionMent}>*나중에 수정이 안되니 신중하게 선택해주세요*</div>
                         </div>
                         <div>
-                            <input type='date' id={style.DateInput} onChange={DDate}/>
+                            <input type='date' id={style.DateInput} onChange={Ddate} ref={ddateRef}/>
                             <p className={style.errMsg}>{ddateMsg}</p>        
                         </div>
                     </div>
@@ -191,15 +230,16 @@ const FundingCreatePage = () => {
 
 export default FundingCreatePage;
 
-const SettingUserThumbnail = ({setimgurl}) => {
+const SettingUserThumbnail = ({setimgurl , Imgurl}) => {
     const [imageSrc, setImageSrc] = useState(null);
     const inputRef = useRef(null);
   
     const onUpload = (e) => {
+
       if (!e.target.files) {
         return;
       }
-  
+      
       const file = e.target.files[0]; // 선택된 파일
       const reader = new FileReader(); // 파일을 읽기 위한 FileReader 객체 생성
       const formData = new FormData(); // 파일 데이터를 담을 FormData 객체 생성
@@ -221,7 +261,7 @@ const SettingUserThumbnail = ({setimgurl}) => {
         
   
         axios({
-          url: 'http://localhost:8080/upload',
+          url: 'http://ec2-43-201-105-214.ap-northeast-2.compute.amazonaws.com:8080/upload',
           method: 'POST',
           data: formData,
           headers: {
