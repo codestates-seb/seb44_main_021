@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import Lenis from "@studio-freight/lenis";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
@@ -14,7 +15,7 @@ const List = (props) => {
     <div id={style.list} key={props.index}>
       <Link to="/fundingdetail" className={style.link}>
         <img
-          src={process.env.PUBLIC_URL + "/image/test1.jpg"}
+          src={props.thumbNailImage}
           alt="로고"
           style={{
             width: "250px",
@@ -36,7 +37,7 @@ const FundingPage = () => {
   const [kategorie, setKategorie] = useState(0);
   const [fundingList, setFundingList] = useState([]);
   const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
+  const [isLoding, setIsLoding] = useState(false);
 
   useEffect(() => {
     // 초기 데이터 로드
@@ -51,21 +52,19 @@ const FundingPage = () => {
   }, [kategorie, sort]);
 
   const fetchData = () => {
-    setLoading(true);
-
+    setIsLoding(false);
     // API 호출 또는 데이터 가져오는 로직
-    setTimeout(() => {
-      const newFundingList = generateFundingList(page, kategorie);
-      setFundingList((prevList) => [...prevList, ...newFundingList]);
-      setPage((prevPage) => prevPage + 1);
-      setLoading(false);
-    }, 100);
-  };
 
-  const generateFundingList = (page, kategorie) => {
-    // 가상의 데이터 생성
-
-    return new Array(8).fill(0);
+    axios({
+      url: `/upcyclings?page=${page}&size=8`,
+      method: "get",
+    })
+      .then((response) => {
+        setFundingList((prevList) => [...prevList, ...response.data.data]);
+        setPage((prevPage) => prevPage + 1);
+        setIsLoding(true);
+      })
+      .catch((err) => console.log(err));
   };
 
   const handleScroll = () => {
@@ -224,7 +223,7 @@ const FundingPage = () => {
           </button>
         </div>
         <div id={style.funding}>
-          {fundingList.map((obj, index) => List(index))}
+          {isLoding ? fundingList.map((obj, index) => List(obj, index)) : null}
         </div>
       </div>
     </div>
