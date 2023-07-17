@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../../components/Header/Header';
 import style from './FundingCreatePage.module.css';
-import { useState, useRef, useContext, useEffect} from 'react';
+import { useState, useRef, useContext} from 'react';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { UserDataContext } from "../../contexts/UserDataContext";

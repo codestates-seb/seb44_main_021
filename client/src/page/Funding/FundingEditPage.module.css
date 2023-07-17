@@ -1,0 +1,183 @@
+#TitleName{
+    color: #6E934D;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+#SubTitle{
+    color: #6E934D;
+    text-align: center;
+    margin-top: 3px;
+    font-size: 15px;
+}
+
+#AllWrapper{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+#leftWrapper{
+    width: 35%;
+    margin-right: 10px;
+}
+
+#rightWrapper{
+    width: 35%;
+    margin-left: 10px;
+}
+
+#imgContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #6E934D;
+}
+
+#imgWrapper{
+    width: 450px;
+    height: 350px;
+    border: 2px dotted #6E934D;
+    margin: 20px 0px 0px 0px;
+}
+
+#imgInput{
+    margin: 5px 0px 10px 0px;
+}
+
+#FundingImg{
+    width: 100%;
+    height: 100%;
+}
+
+.CommonMent{
+    margin-top: 10px;
+}
+
+.CautionMent{
+    color: red;
+    font-size: 13px;
+}
+
+.radioGroup {
+    display: flex;
+    border: 3px solid #6E934D;
+    justify-content: center;
+  }
+  .radio {
+    display: block;
+    appearance: none;
+    width: 55px;
+    height: 55px;
+    padding: 0;
+    margin: 5px 15px;
+    border: 2px solid transparent;
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    background-position: center center;
+    &:focus {
+      outline: none;
+    }
+    &:checked {
+      border-color: #6E934D;
+      border-radius: 50%;
+    }
+  }
+
+.AmountBox{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#AmountInput{
+    border: 3px solid #6E934D;
+    width: 235px;
+    padding-left: 5px;    
+    font-size: 15px;
+    height: 30px;
+    &:focus{
+        outline: none;
+    }
+}
+
+#AmountInput::-webkit-outer-spin-button,
+#AmountInput::-webkit-inner-spin-button {
+    margin: 0;
+}
+
+#imgInput::file-selector-button {
+    width: 100px;
+    height: 30px;
+    background: #6E934D;
+    border: 1px solid #6E934D;
+    color: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#NameInput{
+    width: 488px;
+    height: 42px;
+    font-size: 17px;
+    padding-left: 5px;
+    border: 3px solid #6E934D;
+    margin-top: 5px;
+    resize: none;
+    font-family: Arial, Helvetica, sans-serif ;
+    &:focus{
+        outline: none;
+    }
+}
+
+#IntroduceBox{
+    width: 488px;
+    height: 260px;
+    font-size: 15px;
+    padding-left: 5px;
+    border: 3px solid #6E934D;
+    margin-top: 5px;
+    font-family: Arial, Helvetica, sans-serif ;
+    resize: none;
+    &:focus{
+        outline: none;
+    }
+}
+
+#DateInput{
+    width: 200px;
+    font-size: 15px;
+    border: 3px solid #6E934D;
+    padding: 5px;
+    &:focus{
+        outline: none;
+    }
+}
+
+#CreateButton{
+    width: 100%;
+    margin-top: 15px;
+    border: 3px solid #6E934D;
+    background-color: #6E934D;
+    border-radius: 5px;
+    color: #fff;
+    padding: 5px;
+    font-size: 15px;
+}
+
+.errMsg{
+    font-size: 15px;
+    background-color: red;
+    color: #fff;   
+    margin-top: 2px;
+}
+
+#imgeButton{
+    width: 100px;
+}
