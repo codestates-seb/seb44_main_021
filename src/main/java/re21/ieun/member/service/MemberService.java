@@ -53,7 +53,9 @@ public class MemberService {
     public Member updateMember(Member member) {
         Member findMember = findMember(member.getMemberId());
         findMember.setDisplayName(member.getDisplayName());
-        findMember.setPassword(member.getPassword());
+        String encryptedPassword = passwordEncoder.encode(member.getPassword());
+        findMember.setPassword(encryptedPassword);
+        findMember.setThumbNailImage(member.getThumbNailImage());
         return memberRepository.save(findMember);
     }
 
@@ -81,5 +83,4 @@ public class MemberService {
         Optional<Member> member = memberRepository.findByDisplayName(displayName);
         if (member.isPresent()) throw new BusinessLogicException(ExceptionCode.DISPLAYNAME_EXISTS);
     }
-
 }
