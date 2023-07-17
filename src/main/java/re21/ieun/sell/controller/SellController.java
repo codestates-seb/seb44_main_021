@@ -65,6 +65,15 @@ public class SellController {
 
     }
 
+    @GetMapping("/{sell-id}")
+    public ResponseEntity<?> getSell(@PathVariable("sell-id") @Positive long sellId) {
+
+        //조회수 증가 처리
+        Sell sell = sellService.increaseViewCount(sellId);
+
+        return new ResponseEntity<>(sellMapper.sellToSellResponseDto(sell), HttpStatus.OK);
+    }
+
 //    @GetMapping
 //    public ResponseEntity<?> getSells() {
 //
@@ -84,17 +93,18 @@ public class SellController {
                 HttpStatus.OK);
     }
 
-
+    /*
     // Sell view
     @GetMapping("/{sell-id}")
     public ResponseEntity<?> viewSell(@PathVariable("sell-id") @Positive long sellId) {
 
         //조회수 증가 처리
-        Sell sell = sellService.increaseViewCount(sellId);
+        Sell sell =sellService.increaseViewCount(sellId);
 
         return new ResponseEntity<>(sellMapper.sellToSellResponseDto(sell), HttpStatus.OK);
 
     }
+     */
 
     // Sell search
     @GetMapping("/search/{searchKeyword}")
