@@ -106,6 +106,18 @@ public class UpcyclingController {
 
     }
 
+    @GetMapping("/ascending")
+    public ResponseEntity<?> ascendingGetUpcyclings(@Positive @RequestParam int page,
+                                           @Positive @RequestParam int size) {
+        Page<Upcycling> pageUpcyclings = upcyclingService.findUpcyclings1(page - 1, size);
+        List<Upcycling> upcyclings = pageUpcyclings.getContent();
+
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(upcyclingMapper.upcyclingToUpcyclingResponseDtos(upcyclings), pageUpcyclings),
+                HttpStatus.OK);
+
+    }
+
     // Upcycling View(조회수)
     @GetMapping("/view/{upcycling-id}")
     public ResponseEntity<?> viewUpcycling(@PathVariable("upcycling-id") @Positive long upcyclingId) {

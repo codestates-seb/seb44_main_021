@@ -106,6 +106,10 @@ public class UpcyclingService {
         return upcyclingRepository.findAll(PageRequest.of(page, size, Sort.by("upcyclingId").descending()));
     }
 
+    public Page<Upcycling> findUpcyclings1(int page, int size) {
+        return upcyclingRepository.findAll(PageRequest.of(page, size, Sort.by("upcyclingId").ascending()));
+    }
+
     // Upcycling View(조회수) Counting
     public Upcycling increaseViewCount(long upcyclingId) {
 
