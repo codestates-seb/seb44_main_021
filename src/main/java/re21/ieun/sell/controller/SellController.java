@@ -1,10 +1,12 @@
 package re21.ieun.sell.controller;
 
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import re21.ieun.dto.MultiResponseDto;
 import re21.ieun.member.dto.MemberDto;
 import re21.ieun.member.service.MemberService;
 import re21.ieun.sell.dto.SellPatchDto;
@@ -13,6 +15,7 @@ import re21.ieun.sell.dto.SellResponseDto;
 import re21.ieun.sell.entity.Sell;
 import re21.ieun.sell.mapper.SellMapper;
 import re21.ieun.sell.service.SellService;
+import re21.ieun.upcycling.entity.Upcycling;
 import re21.ieun.utils.UriCreator;
 
 import javax.swing.plaf.LabelUI;
@@ -70,12 +73,23 @@ public class SellController {
         return new ResponseEntity<>(sellMapper.sellToSellResponseDto(sell), HttpStatus.OK);
     }
 
+//    @GetMapping
+//    public ResponseEntity<?> getSells() {
+//
+//        List<SellResponseDto> sells = sellService.findSells();
+//
+//        return new ResponseEntity<>(sells, HttpStatus.OK);
+//    }
+
     @GetMapping
-    public ResponseEntity<?> getSells() {
+    public ResponseEntity<?> getSells(@Positive @RequestParam int page,
+                                           @Positive @RequestParam int size) {
+        Page<Sell> pageSells = sellService.findSells(page - 1, size);
+        List<Sell> sells = pageSells.getContent();
 
-        List<SellResponseDto> sells = sellService.findSells();
-
-        return new ResponseEntity<>(sells, HttpStatus.OK);
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(sellMapper.sellToSellResponseDtos(sells), pageSells),
+                HttpStatus.OK);
     }
 
 
@@ -97,5 +111,30 @@ public class SellController {
         List<SellResponseDto> response = sellService.sellSearchList(searchKeyword);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    //카테고리 id 기준으로 upcycling 글 최신순으로 정렬 + 페이지네이션
+    @GetMapping("/descending/sellcategories/{sellcategory-id}")
+    public ResponseEntity getDescendingSellsBySellCategoryId(@PathVariable("sellcategory-id") long sellcategoryId,
+                                                              @Positive @RequestParam int page,
+                                                              @Positive @RequestParam int size) {
+        Page<Sell> pageSells = sellService.findSellsBySellCategoryId(sellcategoryId,page - 1, size);
+        List<Sell> sells = pageSells.getContent();
+
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(sellMapper.sellToSellResponseDtos(sells), pageSells),
+                HttpStatus.OK);
+    }
+
+    @GetMapping("/ascending/sellcategories/{sellcategory-id}")
+    public ResponseEntity getAscendingSellsBySellCategoryId(@PathVariable("sellcategory-id") long sellcategoryId,
+                                                             @Positive @RequestParam int page,
+                                                             @Positive @RequestParam int size) {
+        Page<Sell> pageSells = sellService.findSellsBySellCategoryId1(sellcategoryId,page - 1, size);
+        List<Sell> sells = pageSells.getContent();
+
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(sellMapper.sellToSellResponseDtos(sells), pageSells),
+                HttpStatus.OK);
     }
 }

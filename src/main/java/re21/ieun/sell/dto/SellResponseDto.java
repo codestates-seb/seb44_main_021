@@ -25,9 +25,9 @@ public class SellResponseDto {
 
     private int price;
 
-    private long categoryId;
+    private long sellCategoryId;
 
-    private String categoryName;
+    private String sellCategoryName;
 
 
     private long viewCount;
