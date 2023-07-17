@@ -4,12 +4,10 @@ const UserDataContext = createContext();
 
 const UserDataProvider = ({ children }) => {
   const [userData, setUserData] = useState({
-    createdAt: "",
     displayName: "",
     email: "",
     memberId: "",
     memberRole: "",
-    modifiedAt: "",
   });
 
   return (
