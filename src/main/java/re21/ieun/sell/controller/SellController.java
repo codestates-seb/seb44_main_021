@@ -126,6 +126,20 @@ public class SellController {
                 HttpStatus.OK);
     }
 
+    // 특정 member 제품 판매 등록 내역, 페이지네이션
+    @GetMapping("/member/{member-id}")
+    public ResponseEntity<?> getMySellHistory(@PathVariable("member-id") @Positive long memberId,
+                                                   @Positive @RequestParam int page,
+                                                   @Positive @RequestParam int size) {
+        Page<Sell> pageSells = sellService.getMySellHistoryByMemberId(memberId,page - 1, size);
+        List<Sell> sells = pageSells.getContent();
+
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(sellMapper.sellToSellResponseDtos(sells), pageSells),
+                HttpStatus.OK);
+
+    }
+
     @GetMapping("/ascending/sellcategories/{sellcategory-id}")
     public ResponseEntity getAscendingSellsBySellCategoryId(@PathVariable("sellcategory-id") long sellcategoryId,
                                                              @Positive @RequestParam int page,
