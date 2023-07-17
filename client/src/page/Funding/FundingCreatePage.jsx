@@ -34,8 +34,8 @@ const FundingCreatePage = () => {
         event.target.value = event.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
     };
 
-    const Imgurl = () => {
-      if(imgurl === ""){
+    const Imgurl = (url) => {
+      if(url === ""){
         setimgurlMsg("이미지를 넣어주세요!");
       }else{
         setimgurlMsg("");
@@ -134,7 +134,7 @@ const FundingCreatePage = () => {
     };
 
     const Create = () => {
-        Imgurl();
+        Imgurl(imgurl);
         Title();
         Content();
         Material();
@@ -272,10 +272,13 @@ const SettingUserThumbnail = ({setimgurl , Imgurl}) => {
             setimgurl(response.data);
             console.log(response.data);
             console.log(formData);
+            Imgurl(response.data);
           })
           .catch((error) => {
             console.error(error);
           });
+
+
       });
     };
   
