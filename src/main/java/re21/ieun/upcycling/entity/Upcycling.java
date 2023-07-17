@@ -32,8 +32,6 @@ public class Upcycling extends Auditable {
     private int totalQuantity;
 
 
-    // contentImg 만들어지면 생성
-    //private String contentImg;
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
