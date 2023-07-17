@@ -11,6 +11,10 @@
   padding: 30px 30px;
 }
 
+.h1 {
+  color: #639443;
+}
+
 .modalOverlay {
   position: fixed;
   z-index: 95;
@@ -115,8 +119,9 @@
 .contentsbox {
   width: 300px;
   height: 300px;
-  border: 1px solid black;
   border-radius: 20px;
+  background-color: #c7ffcc;
+  color: rgb(43, 43, 43);
 }
 
 #footer {

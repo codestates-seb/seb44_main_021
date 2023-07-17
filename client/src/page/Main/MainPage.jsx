@@ -36,10 +36,13 @@ const MainPage = () => {
 
   useEffect(() => {
     axios({
-      url: "http://ec2-43-201-105-214.ap-northeast-2.compute.amazonaws.com:8080/",
+      url: "/upcyclings?page=1&size=4",
       method: "get",
     })
-      .then((response) => setData(response.data))
+      .then((response) => {
+        setData(response.data.data);
+        console.log(data[0]);
+      })
       .catch((err) => console.log(err));
   }, []);
 
@@ -161,7 +164,7 @@ const MainPage = () => {
               </div>
             </div>
             <div id={style.contents}>
-              <h1>뉴스</h1>
+              <h1 className={style.h1}>뉴스</h1>
               <div className={style.contentslist}>
                 <a
                   href="https://www.insehub.or.kr/bbs/board.php?bo_table=bbs_030403&wr_id=88"
@@ -240,13 +243,74 @@ const MainPage = () => {
                   </div>
                 </a>
               </div>
-              <h1>광고</h1>
-              <div className={style.contentslist}>
-                <div className={style.contentsbox}></div>
-                <div className={style.contentsbox}></div>
-                <div className={style.contentsbox}></div>
-                <div className={style.contentsbox}></div>
-              </div>
+              <h1 className={style.h1}>펀딩</h1>
+              {data.length > 0 ? (
+                <div className={style.contentslist}>
+                  <Link to="/fundingdetail" className={style.link}>
+                    <div className={style.contentsbox}>
+                      <img
+                        src={data[0].thumbNailImage}
+                        alt="img"
+                        style={{
+                          width: "100%",
+                          height: "80%",
+                          borderTopLeftRadius: "20px",
+                          borderTopRightRadius: "20px",
+                        }}
+                      />
+                      {data[0].title}
+                    </div>
+                  </Link>
+
+                  <Link to="/fundingdetail" className={style.link}>
+                    <div className={style.contentsbox}>
+                      <img
+                        src={data[1].thumbNailImage}
+                        alt="img"
+                        style={{
+                          width: "100%",
+                          height: "80%",
+                          borderTopLeftRadius: "20px",
+                          borderTopRightRadius: "20px",
+                        }}
+                      />
+                      {data[1].title}
+                    </div>
+                  </Link>
+
+                  <Link to="/fundingdetail" className={style.link}>
+                    <div className={style.contentsbox}>
+                      <img
+                        src={data[2].thumbNailImage}
+                        alt="img"
+                        style={{
+                          width: "100%",
+                          height: "80%",
+                          borderTopLeftRadius: "20px",
+                          borderTopRightRadius: "20px",
+                        }}
+                      />
+                      {data[2].title}
+                    </div>
+                  </Link>
+
+                  <Link to="/fundingdetail" className={style.link}>
+                    <div className={style.contentsbox}>
+                      <img
+                        src={data[3].thumbNailImage}
+                        alt="img"
+                        style={{
+                          width: "100%",
+                          height: "80%",
+                          borderTopLeftRadius: "20px",
+                          borderTopRightRadius: "20px",
+                        }}
+                      />
+                      {data[3].title}
+                    </div>
+                  </Link>
+                </div>
+              ) : null}
             </div>
             <div id={style.footer}>
               <div id={style.footercontents}></div>
