@@ -47,10 +47,11 @@
   &:focus {
     outline: none;
   }
-  &:checked {
-    border-color: #6e934d;
-    border-radius: 50%;
-  }
+}
+
+.checked {
+  border-color: #6e934d;
+  border-radius: 50%;
 }
 
 .AmountBox {
@@ -103,8 +104,12 @@
 }
 
 #upcycler {
+  display: flex;
+  align-items: center;
   height: 70px;
   border: 3px solid #6e934d;
+  padding-left: 10px;
+  font-size: larger;
 }
 
 .h3 {

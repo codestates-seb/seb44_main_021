@@ -26,7 +26,7 @@ const MainPage = () => {
     })
       .then((response) => {
         setData(response.data.data);
-        console.log(data[0]);
+        console.log(response.data.data);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -381,8 +381,9 @@ const MainPage = () => {
                   </div>
                 </a>
               </div>
-              <h1 className={style.h1}>Funding</h1>
-              {data.length > 0 ? (
+              <h1 className={style.h1}>펀딩</h1>
+              {data.length > 3 ? (
+
                 <div className={style.contentslist}>
                   <Link
                     to={`/fundingdetail/${data[0].upcyclingId}`}
