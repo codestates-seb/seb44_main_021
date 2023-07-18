@@ -11,7 +11,7 @@ import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import CloseIcon from "@mui/icons-material/Close";
 
 const MainPage = () => {
-  const [logoSize, setLogoSize] = useState(70);
+  const [logoSize, setLogoSize] = useState(60);
   const [nowloding, setNowloding] = useState(false);
   const [open, setOpen] = useState(false);
   const [data, setData] = useState([]);
@@ -92,7 +92,7 @@ const MainPage = () => {
             <div className={style.modalOverlay}>
               <div className={style.modalContent}>
                 <button onClick={closeModal} id={style.closebutton}>
-                  <CloseIcon sx={{ fontSize: 50 }} />
+                  <CloseIcon sx={{ fontSize: 40 }} />
                 </button>
                 <div id={style.sidelist}>
                   <Link to="/funding" className={style.link}>
@@ -110,7 +110,7 @@ const MainPage = () => {
           ) : null}
           <div id={style.header}>
             <button className={style.button} onClick={openModal}>
-              <MenuIcon sx={{ fontSize: 50, color: "#6E934D" }} />
+              <MenuIcon sx={{ fontSize: 40, color: "#6E934D" }} />
             </button>
             <div id={style.logo}>
               <img
@@ -132,7 +132,7 @@ const MainPage = () => {
               <Link to="/login">
                 <AccountBoxIcon
                   className={style.button}
-                  sx={{ fontSize: 50, color: "#6E934D" }}
+                  sx={{ fontSize: 40, color: "#6E934D" }}
                 />
               </Link>
             </button>
