@@ -58,7 +58,9 @@ public class MemberService {
             String encryptedPassword = passwordEncoder.encode(member.getPassword());
             findMember.setPassword(encryptedPassword);
         }
-        findMember.setThumbNailImage(member.getThumbNailImage());
+        if(!StringUtils.isEmpty(member.getThumbNailImage())) {
+            findMember.setThumbNailImage(member.getThumbNailImage());
+        }
         return memberRepository.save(findMember);
     }
 
