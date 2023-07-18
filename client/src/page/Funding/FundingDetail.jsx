@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Header from "../../components/Header/Header";
 import style from "./FundingDetail.module.css";
-import { useState } from "react";
+import axios from "axios";
 import CloseIcon from "@mui/icons-material/Close";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
@@ -9,11 +9,37 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { UserDataContext } from "../../contexts/UserDataContext";
 
 const FundingDetail = () => {
+  const { id } = useParams();
+  const [data, setData] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [quantity, setQuantity] = useState("");
+  const [quantity, setQuantity] = useState(0);
   const [funding, setFunding] = useState(false);
+  const [fundingRate, setFundingRate] = useState();
+  const { userData } = useContext(UserDataContext);
+
+  useEffect(() => {
+    axios({
+      url: `/upcyclings/${id}`,
+      method: "get",
+    })
+      .then((response) => {
+        setData(response.data.data);
+        console.log(response.data.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  useEffect(() => {
+    if (data.totalQuantity && data.totalReceivedQuantity) {
+      setFundingRate(
+        ((data.totalReceivedQuantity / data.totalQuantity) * 100).toFixed(1)
+      );
+    }
+  }, [data.totalQuantity, data.totalReceivedQuantity]);
 
   const handleChange = (event) => {
     setQuantity(event.target.value);
@@ -26,14 +52,26 @@ const FundingDetail = () => {
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setFunding(false);
-    setQuantity("");
+    setQuantity(0);
   };
 
   const clickFunding = () => {
     if (quantity) {
+      axios({
+        url: `/funding`,
+        method: "post",
+        data: {
+          memberId: userData.memberId,
+          upcyclingId: id,
+          quantity: quantity,
+        },
+      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((err) => console.log(err));
       setFunding(true);
       console.log(funding);
-      setQuantity("");
     }
   };
 
@@ -45,10 +83,10 @@ const FundingDetail = () => {
         <div id={style.leftWrapper}>
           <div id={style.imgContainer}>
             <img
-              src={process.env.PUBLIC_URL + "/image/test1.jpg"}
+              src={data.thumbNailImage}
               alt="img"
               style={{
-                width: "100%",
+                width: "35vw",
                 height: "100%",
                 objectFit: "cover",
                 borderRadius: "20px",
@@ -59,7 +97,9 @@ const FundingDetail = () => {
             <h3 className={style.h3}>펀딩 자재</h3>
             <div className={style.radioGroup}>
               <input
-                className={style.radio}
+                className={`${style.radio} ${
+                  data.categoryId !== 1 ? "" : style.checked
+                }`}
                 type="radio"
                 value="1"
                 name="materials"
@@ -69,17 +109,21 @@ const FundingDetail = () => {
                 }}
               />
               <input
-                className={style.radio}
+                className={`${style.radio} ${
+                  data.categoryId !== 2 ? "" : style.checked
+                }`}
                 type="radio"
                 value="2"
                 name="materials"
                 style={{
-                  backgroundImage: "url(/image/IconSteel.png)",
+                  backgroundImage: "url(/image/IconWood.png)",
                   backgroundSize: "cover",
                 }}
               />
               <input
-                className={style.radio}
+                className={`${style.radio} ${
+                  data.categoryId !== 3 ? "" : style.checked
+                }`}
                 type="radio"
                 value="3"
                 name="materials"
@@ -89,17 +133,21 @@ const FundingDetail = () => {
                 }}
               />
               <input
-                className={style.radio}
+                className={`${style.radio} ${
+                  data.categoryId !== 4 ? "" : style.checked
+                }`}
                 type="radio"
                 value="4"
                 name="materials"
                 style={{
-                  backgroundImage: "url(/image/IconWood.png)",
+                  backgroundImage: "url(/image/IconSteel.png)",
                   backgroundSize: "cover",
                 }}
               />
               <input
-                className={style.radio}
+                className={`${style.radio} ${
+                  data.categoryId !== 5 ? "" : style.checked
+                }`}
                 type="radio"
                 value="5"
                 name="materials"
@@ -109,7 +157,9 @@ const FundingDetail = () => {
                 }}
               />
               <input
-                className={style.radio}
+                className={`${style.radio} ${
+                  data.categoryId !== 6 ? "" : style.checked
+                }`}
                 type="radio"
                 value="6"
                 name="materials"
@@ -119,21 +169,21 @@ const FundingDetail = () => {
                 }}
               />
             </div>
-            <h3 className={style.h3}>업사이클러 정보</h3>
-            <div id={style.upcycler}></div>
+            <h3 className={style.h3}>업사이클러</h3>
+            <div id={style.upcycler}>{data.displayName}</div>
           </div>
         </div>
         <div id={style.rightWrapper}>
           <div id={style.NameInput}>
-            <h3>제목</h3>
+            <h3>{data.title}</h3>
           </div>
-          <div id={style.IntroduceBox}>내용</div>
+          <div id={style.IntroduceBox}>{data.content}</div>
           <div className={style.AmountBox}>
             <div>
               <h2>펀딩 완료일</h2>
             </div>
             <div>
-              <h2>2023-07-13</h2>
+              <h2>{data.deadline}</h2>
             </div>
           </div>
           <div className={style.AmountBox}>
@@ -141,12 +191,22 @@ const FundingDetail = () => {
               <h2>펀딩률</h2>
             </div>
             <div>
-              <h2>00%</h2>
+              <h2>
+                {data.totalReceivedQuantity <= 0 ? "00%" : `${fundingRate}%`}
+              </h2>
             </div>
           </div>
-          <button id={style.CreateButton} onClick={handleOpenModal}>
-            펀딩하기
-          </button>
+          {localStorage.getItem("token") ? (
+            <button id={style.CreateButton} onClick={handleOpenModal}>
+              펀딩하기
+            </button>
+          ) : (
+            <Link to="/login">
+              <button id={style.CreateButton}>
+                로그인 이후 펀딩 가능합니다
+              </button>
+            </Link>
+          )}
         </div>
       </div>
       {isModalOpen && (
@@ -167,7 +227,13 @@ const FundingDetail = () => {
                   </div>
                   <div className={style.modaltext}>달성률</div>
                   <div className={`${style.modaltext} ${style.rate}`}>
-                    00% -{">"} 00%
+                    {fundingRate}% -{">"}{" "}
+                    {(
+                      ((data.totalReceivedQuantity + quantity) /
+                        data.totalQuantity) *
+                      100
+                    ).toFixed(1)}
+                    %
                   </div>
                   <Link to="/funding">
                     <button id={style.fundingButton}>
