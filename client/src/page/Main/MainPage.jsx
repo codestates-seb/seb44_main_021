@@ -9,9 +9,10 @@ import Loading from "../../loading";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import CloseIcon from "@mui/icons-material/Close";
+import NorthEastSharpIcon from "@mui/icons-material/NorthEastSharp";
 
 const MainPage = () => {
-  const [logoSize, setLogoSize] = useState(70);
+  const [logoSize, setLogoSize] = useState(60);
   const [nowloding, setNowloding] = useState(false);
   const [open, setOpen] = useState(false);
   const [data, setData] = useState([]);
@@ -91,9 +92,19 @@ const MainPage = () => {
           {open ? (
             <div className={style.modalOverlay}>
               <div className={style.modalContent}>
-                <button onClick={closeModal} id={style.closebutton}>
-                  <CloseIcon sx={{ fontSize: 50 }} />
-                </button>
+                <div className={style.modalLogo}>
+                  <img
+                    src={process.env.PUBLIC_URL + "/image/logo4.png"}
+                    alt="로고"
+                    style={{
+                      width: "60px",
+                      height: "60px",
+                    }}
+                  />
+                  <button onClick={closeModal} id={style.closebutton}>
+                    <CloseIcon sx={{ fontSize: 30, color: "#FFFFFF" }} />
+                  </button>
+                </div>
                 <div id={style.sidelist}>
                   <Link to="/funding" className={style.link}>
                     <div className={style.sidelistText}>펀딩 페이지</div>
@@ -102,7 +113,7 @@ const MainPage = () => {
                     <div className={style.sidelistText}>상품 페이지</div>
                   </Link>
                   <Link to="/about" className={style.link}>
-                    <div className={style.sidelistText}>About 페이지</div>
+                    <div className={style.sidelistText}>About</div>
                   </Link>
                 </div>
               </div>
@@ -110,7 +121,7 @@ const MainPage = () => {
           ) : null}
           <div id={style.header}>
             <button className={style.button} onClick={openModal}>
-              <MenuIcon sx={{ fontSize: 50 }} />
+              <MenuIcon sx={{ fontSize: 40, color: "#6E934D" }} />
             </button>
             <div id={style.logo}>
               <img
@@ -128,35 +139,35 @@ const MainPage = () => {
                 style={{ width: `${logoSize}px`, height: `${logoSize}px` }}
               />
             </div>
-            <Link to="/login">
-              <button className={style.button}>
+            <button className={style.button}>
+              <Link to="/login">
                 <AccountBoxIcon
                   className={style.button}
-                  sx={{ fontSize: 50 }}
+                  sx={{ fontSize: 40, color: "#6E934D" }}
                 />
-              </button>
-            </Link>
+              </Link>
+            </button>
           </div>
           <div id={style.main}>
             <div className="horwrap" ref={horwrapRef}>
               <div className={style.horwrap}>
                 <div className={style.hor}>
                   <img
-                    src={process.env.PUBLIC_URL + "/image/test1.jpg"}
+                    src={process.env.PUBLIC_URL + "/image/test4.jpg"}
                     alt="test"
                     style={{ width: "100%", height: "100%" }}
                   />
                 </div>
                 <div className={style.hor}>
                   <img
-                    src={process.env.PUBLIC_URL + "/image/test2.jpg"}
+                    src={process.env.PUBLIC_URL + "/image/test6.jpg"}
                     alt="test"
                     style={{ width: "100%", height: "100%" }}
                   />
                 </div>
                 <div className={style.hor}>
                   <img
-                    src={process.env.PUBLIC_URL + "/image/test3.jpg"}
+                    src={process.env.PUBLIC_URL + "/image/test7.jpg"}
                     alt="test"
                     style={{ width: "100%", height: "100%" }}
                   />
@@ -164,7 +175,7 @@ const MainPage = () => {
               </div>
             </div>
             <div id={style.contents}>
-              <h1 className={style.h1}>뉴스</h1>
+              <h1 className={style.h1}>Magazine</h1>
               <div className={style.contentslist}>
                 <a
                   href="https://www.insehub.or.kr/bbs/board.php?bo_table=bbs_030403&wr_id=88"
@@ -182,7 +193,40 @@ const MainPage = () => {
                         borderTopRightRadius: "20px",
                       }}
                     />
-                    쓰레기의 재탄생! 업사이클링 제품이 뭐야?
+                    <hr
+                      style={{
+                        border: "none",
+                        backgroundColor: "#4d4d4d",
+                        height: "1px",
+                        marginTop: "5px",
+                      }}
+                    />
+                    <p
+                      style={{
+                        fontSize: "14px",
+                        fontWeight: "bold",
+                        marginBottom: "5px",
+                      }}
+                    >
+                      Connect Magazine
+                      <NorthEastSharpIcon sx={{ fontSize: 15 }} />
+                    </p>
+                    <p
+                      style={{
+                        fontSize: "20px",
+                        fontWeight: "bold",
+                        marginBottom: "8px",
+                      }}
+                    >
+                      친환경에 앞장서는 솟솟리버스
+                    </p>
+                    <p
+                      style={{
+                        fontSize: "14px",
+                      }}
+                    >
+                      쓰레기의 재탄생! 업사이클링 제품이 뭐야?
+                    </p>
                   </div>
                 </a>
                 <a
@@ -201,7 +245,40 @@ const MainPage = () => {
                         borderTopRightRadius: "20px",
                       }}
                     />
-                    업사이클링의 완성은 자원 순환
+                    <hr
+                      style={{
+                        border: "none",
+                        backgroundColor: "#4d4d4d",
+                        height: "1px",
+                        marginTop: "5px",
+                      }}
+                    />
+                    <p
+                      style={{
+                        fontSize: "14px",
+                        fontWeight: "bold",
+                        marginBottom: "5px",
+                      }}
+                    >
+                      Connect Magazine
+                      <NorthEastSharpIcon sx={{ fontSize: 15 }} />
+                    </p>
+                    <p
+                      style={{
+                        fontSize: "20px",
+                        fontWeight: "bold",
+                        marginBottom: "8px",
+                      }}
+                    >
+                      친환경에 앞장서는 솟솟리버스
+                    </p>
+                    <p
+                      style={{
+                        fontSize: "14px",
+                      }}
+                    >
+                      업사이클링의 완성은 자원 순환
+                    </p>
                   </div>
                 </a>
                 <a
@@ -220,7 +297,41 @@ const MainPage = () => {
                         borderTopRightRadius: "20px",
                       }}
                     />
-                    미국 시장이 열광하는 '업사이클링' 트렌드
+
+                    <hr
+                      style={{
+                        border: "none",
+                        backgroundColor: "#4d4d4d",
+                        height: "1px",
+                        marginTop: "5px",
+                      }}
+                    />
+                    <p
+                      style={{
+                        fontSize: "14px",
+                        fontWeight: "bold",
+                        marginBottom: "5px",
+                      }}
+                    >
+                      Connect Magazine
+                      <NorthEastSharpIcon sx={{ fontSize: 15 }} />
+                    </p>
+                    <p
+                      style={{
+                        fontSize: "20px",
+                        fontWeight: "bold",
+                        marginBottom: "8px",
+                      }}
+                    >
+                      친환경에 앞장서는 솟솟리버스
+                    </p>
+                    <p
+                      style={{
+                        fontSize: "14px",
+                      }}
+                    >
+                      미국 시장이 열광하는 '업사이클링' 트렌드
+                    </p>
                   </div>
                 </a>
                 <a
@@ -239,11 +350,44 @@ const MainPage = () => {
                         borderTopRightRadius: "20px",
                       }}
                     />
-                    "폐품이 아니라 명품"…'업사이클링'의 진화
+                    <hr
+                      style={{
+                        border: "none",
+                        backgroundColor: "#4d4d4d",
+                        height: "1px",
+                        marginTop: "5px",
+                      }}
+                    />
+                    <p
+                      style={{
+                        fontSize: "14px",
+                        fontWeight: "bold",
+                        marginBottom: "5px",
+                      }}
+                    >
+                      Connect Magazine
+                      <NorthEastSharpIcon sx={{ fontSize: 15 }} />
+                    </p>
+                    <p
+                      style={{
+                        fontSize: "20px",
+                        fontWeight: "bold",
+                        marginBottom: "8px",
+                      }}
+                    >
+                      친환경에 앞장서는 솟솟리버스
+                    </p>
+                    <p
+                      style={{
+                        fontSize: "14px",
+                      }}
+                    >
+                      "폐품이 아니라 명품"…'업사이클링'의 진화
+                    </p>
                   </div>
                 </a>
               </div>
-              <h1 className={style.h1}>펀딩</h1>
+              <h1 className={style.h1}>Funding</h1>
               {data.length > 0 ? (
                 <div className={style.contentslist}>
                   <Link to="/fundingdetail" className={style.link}>
@@ -313,7 +457,12 @@ const MainPage = () => {
               ) : null}
             </div>
             <div id={style.footer}>
-              <div id={style.footercontents}></div>
+              <img
+                src={process.env.PUBLIC_URL + "/image/test8.jpg"}
+                alt="test"
+                style={{ width: "100%", height: "100%" }}
+              />
+              
             </div>
           </div>
         </div>
