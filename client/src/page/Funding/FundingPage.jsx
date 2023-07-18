@@ -13,7 +13,7 @@ import style from "./FundingPage.module.css";
 const List = (props) => {
   return (
     <div id={style.list} key={props.index}>
-      <Link to="/fundingdetail" className={style.link}>
+      <Link to={`/fundingdetail/${props.upcyclingId}`} className={style.link}>
         <img
           src={props.thumbNailImage}
           alt="로고"
@@ -24,8 +24,8 @@ const List = (props) => {
           }}
         />
         <div id={style.listText}>
-          <div>펀딩명</div>
-          <div>펀딩 자재</div>
+          <h3>{props.title}</h3>
+          <div>펀딩 자재 : {props.categoryName}</div>
         </div>
       </Link>
     </div>
@@ -33,7 +33,7 @@ const List = (props) => {
 };
 
 const FundingPage = () => {
-  const [sort, setSort] = useState("");
+  const [sort, setSort] = useState("descending");
   const [kategorie, setKategorie] = useState(0);
   const [fundingList, setFundingList] = useState([]);
   const [page, setPage] = useState(1);
@@ -48,11 +48,12 @@ const FundingPage = () => {
 
   useEffect(() => {
     axios({
-      url: "/upcyclings?page=1&size=8",
+      url: "/upcyclings/descending?page=1&size=8",
       method: "get",
     })
       .then((response) => {
         setFundingList(response.data.data);
+        console.log(response.data.data);
         setIsLoding(true);
       })
       .catch((err) => console.log(err));
@@ -61,15 +62,27 @@ const FundingPage = () => {
   useEffect(() => {
     setIsLoding(false);
     setPage(1);
-    axios({
-      url: "/upcyclings?page=1&size=8",
-      method: "get",
-    })
-      .then((response) => {
-        setFundingList(response.data.data);
-        setIsLoding(true);
+    if (kategorie === 0) {
+      axios({
+        url: `/upcyclings/${sort}?page=1&size=8`,
+        method: "get",
       })
-      .catch((err) => console.log(err));
+        .then((response) => {
+          setFundingList(response.data.data);
+          setIsLoding(true);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      axios({
+        url: `/upcyclings/${sort}/categories/${kategorie}?page=1&size=8`,
+        method: "get",
+      })
+        .then((response) => {
+          setFundingList(response.data.data);
+          setIsLoding(true);
+        })
+        .catch((err) => console.log(err));
+    }
   }, [sort, kategorie]);
 
   const handleScroll = () => {
@@ -81,16 +94,29 @@ const FundingPage = () => {
       setPage((prevPage) => prevPage + 1);
     }
   };
+
   useEffect(() => {
-    console.log(page);
-    axios({
-      url: `/upcyclings?page=${page}&size=8`,
-      method: "get",
-    })
-      .then((response) => {
-        setFundingList((prev) => [...prev, ...response.data.data]);
-      })
-      .catch((err) => console.log(err));
+    if (page > 1) {
+      if (kategorie === 0) {
+        axios({
+          url: `/upcyclings/${sort}?page=${page}&size=8`,
+          method: "get",
+        })
+          .then((response) => {
+            setFundingList((prev) => [...prev, ...response.data.data]);
+          })
+          .catch((err) => console.log(err));
+      } else {
+        axios({
+          url: `/upcyclings/${sort}/categories/${kategorie}?page=${page}&size=8`,
+          method: "get",
+        })
+          .then((response) => {
+            setFundingList((prev) => [...prev, ...response.data.data]);
+          })
+          .catch((err) => console.log(err));
+      }
+    }
   }, [page]);
 
   const handleChange = (event) => {
@@ -168,8 +194,8 @@ const FundingPage = () => {
                 label="Sort"
                 onChange={handleChange}
               >
-                <MenuItem value={10}>최신순</MenuItem>
-                <MenuItem value={20}>오래된 순</MenuItem>
+                <MenuItem value={"descending"}>최신순</MenuItem>
+                <MenuItem value={"ascending"}>오래된 순</MenuItem>
               </Select>
             </FormControl>
           </Box>
