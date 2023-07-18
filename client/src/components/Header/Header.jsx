@@ -52,18 +52,18 @@ const Header = () => {
           <Logo />
         </div>
         <div className={style.LinkWrapper}>
-          <Link to="/funding" className={style.LinkStyle}>
+          <Link to="/fundinglist" className={style.LinkStyle}>
             <div className={style.LinkContent}>펀딩+</div>
           </Link>
         </div>
         <div className={style.LinkWrapper}>
-          <Link to="/store" className={style.LinkStyle}>
+          <Link to="/storelist" className={style.LinkStyle}>
             <div className={style.LinkContent}>스토어</div>
           </Link>
         </div>
         <div id={style.SearchWrapper}>
-          {(window.location.pathname === "/funding" ||
-            window.location.pathname === "/store") && (
+          {(window.location.pathname === "/fundinglist" ||
+            window.location.pathname === "/storelist") && (
             <div id={style.SeachContent}>
               <SearchIcon
                 sx={{
