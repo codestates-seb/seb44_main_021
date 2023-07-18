@@ -149,7 +149,7 @@ const StoreCreatePage = () => {
         Ddate();
         if (thumimgurl !== "" && title.length >= 5 && content.length >= 10 && totalQuantity.length > 0  && material !== "" & ddate !== "") {
           axios({
-            url: "http://ec2-43-201-105-214.ap-northeast-2.compute.amazonaws.com:8080/upcyclings",
+            url: "/upcyclings",
             method: "post",
             data: {
                 memberId: userData.memberId,
@@ -184,8 +184,7 @@ const StoreCreatePage = () => {
                     <p className={style.errMsg}>{thumimgurlMsg}</p>
                     <div id={style.MaterierBox}>
                         <div className={style.CommonMent}>
-                            Step2. 펀딩 받고 싶은 자재를 골라주세요!
-                            <div className={style.CautionMent}>(하나로 제한)</div>
+                            Step2. 제품에 들어간 업사이클링 자재를 자세히 적어주세요!
                         </div>
                         <div className={style.radioGroup}>
                             <input className={style.radio} type="radio" value="1" name="materials" style={{ backgroundImage: 'url(/image/IconCloth.png)', backgroundSize:'cover'}} onClick={handleMateriel1} />
@@ -274,7 +273,7 @@ const SettingUserThumbnail = ({setThumimgurl , ThumImgurl}) => {
         
   
         axios({
-          url: 'http://ec2-43-201-105-214.ap-northeast-2.compute.amazonaws.com:8080/upload',
+          url: '/upload',
           method: 'POST',
           data: formData,
           headers: {

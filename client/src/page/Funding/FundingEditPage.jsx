@@ -24,7 +24,7 @@ const FundingEditPage = () => {
 
     useEffect(() => {
         axios({
-          url: `http://ec2-43-201-105-214.ap-northeast-2.compute.amazonaws.com:8080/upcyclings/${upcyclingId}`,
+          url: `/upcyclings/${upcyclingId}`,
           method: "get",
         })
           .then((response) => {
@@ -61,7 +61,7 @@ const FundingEditPage = () => {
 
     const handleSavaEdit = () => {
         axios({
-            url: `http://ec2-43-201-105-214.ap-northeast-2.compute.amazonaws.com:8080/upcyclings/${upcyclingId}`,
+            url: `/upcyclings/${upcyclingId}`,
             method: "PATCH",
             data: {
                 upcyclingId : upcyclingId,
