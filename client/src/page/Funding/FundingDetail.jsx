@@ -34,7 +34,9 @@ const FundingDetail = () => {
   }, []);
 
   useEffect(() => {
-    if (data.totalQuantity && data.totalReceivedQuantity) {
+    if (data.totalReceivedQuantity === 0) {
+      setFundingRate("00");
+    } else if (data.totalQuantity && data.totalReceivedQuantity) {
       setFundingRate(
         ((data.totalReceivedQuantity / data.totalQuantity) * 100).toFixed(1)
       );
@@ -53,6 +55,7 @@ const FundingDetail = () => {
     setIsModalOpen(false);
     setFunding(false);
     setQuantity(0);
+    window.location.reload();
   };
 
   const clickFunding = () => {
@@ -243,8 +246,10 @@ const FundingDetail = () => {
                 </div>
               ) : (
                 <>
-                  <div className={style.modaltext}>펀딩명 : title</div>
-                  <div className={style.modaltext}>자재 : xxx</div>
+                  <div className={style.modaltext}>펀딩명 : {data.title}</div>
+                  <div className={style.modaltext}>
+                    자재 : {data.categoryName}
+                  </div>
                   <div className={style.modaltext}>보내실 수량 :</div>
                   <Box sx={{ minWidth: 120 }}>
                     <FormControl fullWidth>
