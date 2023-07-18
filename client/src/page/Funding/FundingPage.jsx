@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { UserDataContext } from "../../contexts/UserDataContext";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Lenis from "@studio-freight/lenis";
@@ -33,6 +34,7 @@ const List = (props) => {
 };
 
 const FundingPage = () => {
+  const { userData } = useContext(UserDataContext);
   const [sort, setSort] = useState("descending");
   const [kategorie, setKategorie] = useState(0);
   const [fundingList, setFundingList] = useState([]);
@@ -199,9 +201,11 @@ const FundingPage = () => {
               </Select>
             </FormControl>
           </Box>
-          <Link to="/fundingcreate">
-            <button id={style.fundingButton}>펀딩 제품 등록</button>
-          </Link>
+          {localStorage.getItem("token") ? (
+            <Link to="/fundingcreate">
+              <button id={style.fundingButton}>펀딩 제품 등록</button>
+            </Link>
+          ) : null}
         </div>
       </div>
       <div id={style.container}>
