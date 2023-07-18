@@ -21,14 +21,14 @@ function App() {
           <Route element={<MainPage />} path="/" />
           <Route element={<StorePage />} path="/store" />
           <Route element={<FundingPage />} path="/funding" />
-          <Route element={<FundingDetail />} path="/fundingdetail/*" />
+          <Route element={<FundingDetail />} path="/fundingdetail/:id" />
           <Route element={<AboutPage />} path="/about" />
           <Route element={<UserSelectionPage />} path="/signup" />
           <Route element={<SignupPage />} path="/signup/*" />
           <Route element={<FundingCreatePage />} path="/fundingcreate" />
           <Route element={<LoginPage />} path="/login" />
           <Route element={<MyPage />} path="/mypage" />
-          <Route element={<FundingEditPage/>} path="/fundingedit/*" />
+          <Route element={<FundingEditPage />} path="/fundingedit/*" />
         </Routes>
       </UserDataProvider>
     </div>
