@@ -18,7 +18,7 @@ const FundingDetail = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [quantity, setQuantity] = useState(0);
   const [funding, setFunding] = useState(false);
-  const [fundingRate, setFundingRate] = useState("");
+  const [fundingRate, setFundingRate] = useState();
   const { userData } = useContext(UserDataContext);
 
   useEffect(() => {
@@ -29,12 +29,17 @@ const FundingDetail = () => {
       .then((response) => {
         setData(response.data.data);
         console.log(response.data.data);
-        setFundingRate(
-          ((data.totalReceivedQuantity / data.totalQuantity) * 100).toFixed(1)
-        );
       })
       .catch((err) => console.log(err));
   }, []);
+
+  useEffect(() => {
+    if (data.totalQuantity && data.totalReceivedQuantity) {
+      setFundingRate(
+        ((data.totalReceivedQuantity / data.totalQuantity) * 100).toFixed(1)
+      );
+    }
+  }, [data.totalQuantity, data.totalReceivedQuantity]);
 
   const handleChange = (event) => {
     setQuantity(event.target.value);
@@ -67,7 +72,6 @@ const FundingDetail = () => {
         .catch((err) => console.log(err));
       setFunding(true);
       console.log(funding);
-      setQuantity(0);
     }
   };
 
