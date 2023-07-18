@@ -28,6 +28,14 @@ const FundingCreatePage = () => {
     const ddateRef = useRef(null);
     const navigate = useNavigate();
 
+    //날짜 최소 최대 값 변수
+    const today = new Date();
+    const minDate = today.toISOString().split('T')[0];
+    console.log(minDate);
+    const maxDate = new Date();
+    maxDate.setDate(today.getDate() + 100);
+    const formattedMaxDate = maxDate.toISOString().split('T')[0];
+
     const { userData } = useContext(UserDataContext);
 
     const handleInputChange = (event) => {
@@ -217,7 +225,7 @@ const FundingCreatePage = () => {
                             <div className={style.CautionMent}>*나중에 수정이 안되니 신중하게 선택해주세요*</div>
                         </div>
                         <div>
-                            <input type='date' id={style.DateInput} onChange={Ddate} ref={ddateRef}/>
+                            <input type='date' id={style.DateInput} onChange={Ddate} ref={ddateRef} min={minDate} max={formattedMaxDate}/>
                             <p className={style.errMsg}>{ddateMsg}</p>        
                         </div>
                     </div>
