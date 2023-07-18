@@ -26,6 +26,7 @@
 }
 
 .modalContent {
+  position: relative;
   display: flex;
   flex-direction: column;
   background-color: #6E934D;
@@ -38,14 +39,26 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 70%;
+  height: 60%;
 }
 
 .sidelistText {
-  margin-top: 80px;
-  font-size: 30px;
+  margin-top: 40px;
+  font-size: 25px;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 500;
+  color: #fff;
+}
+
+.modalLogo{
+  /* position: absolute; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalLogo > img{
+  margin-top: 10px;
 }
 
 #closebutton {
@@ -54,7 +67,10 @@
   padding: 0;
   margin: 20px;
   cursor: pointer;
-  float: right;
+  /* float: right; */
+  position: absolute;
+  top: 1px;
+  right: 1px; 
 }
 
 .button {
@@ -120,7 +136,7 @@
   width: 300px;
   height: 300px;
   border-radius: 20px;
-  background-color: #c7ffcc;
+  /* background-color: #c7ffcc; */
   color: rgb(43, 43, 43);
 }
 
