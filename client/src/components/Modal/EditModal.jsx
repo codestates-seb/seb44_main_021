@@ -3,14 +3,18 @@ import Style from "./EditModal.module.css";
 import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
 
-const EditModal = ({ onClose, userData }) => {
+const EditModal = ({ onClose, userData, setProfileImage }) => {
   const [editUserInfo, setEditUserInfo] = useState({
     displayName: userData.displayName,
     password: "",
     verifyPwd: "",
-    thumbNailImage: "",
+    memberId: userData.memberId,
   });
+  const [thumbNailImage, setThumbNailImage] = useState(
+    `${process.env.PUBLIC_URL}/image/profile.jpeg`
+  );
   const [currentPwd, setCurrentPwd] = useState("");
+  const [PwdErrMsg, setPwdErrMsg] = useState("");
   const [newPwdErrMsg, setNewPwdErrMsg] = useState("");
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordVerified, setIsPasswordVerified] = useState(false);
@@ -39,20 +43,28 @@ const EditModal = ({ onClose, userData }) => {
 
   const AxiosPatch = (e) => {
     e.preventDefault();
-    const { displayName, password, thumbNailImage } = editUserInfo;
+    const { displayName, password, memberId } = editUserInfo;
 
     if (isPassword || displayName || thumbNailImage) {
       axios
         .patch(`/members/${userData.memberId}`, {
+          memberId,
           displayName,
           password,
           thumbNailImage,
         })
         .then((res) => {
           console.log(res);
+          setProfileImage(thumbNailImage);
         })
         .catch((err) => {
           console.log(err);
+          console.log({
+            memberId,
+            displayName,
+            password,
+            thumbNailImage,
+          });
         });
       onClose();
     }
@@ -69,12 +81,15 @@ const EditModal = ({ onClose, userData }) => {
         console.log(res.data);
         if (res.data === "성공") {
           setIsPasswordVerified(true);
+          setPwdErrMsg("");
+
+          // onClose();
         }
       })
       .catch((err) => {
-        console.log(err.response.data);
+        if (err.response.data === "실패");
+        setPwdErrMsg("비밀번호가 일치하지 않습니다.");
       });
-    onClose();
   };
 
   return (
@@ -91,9 +106,10 @@ const EditModal = ({ onClose, userData }) => {
                 console.log(currentPwd);
               }}
             />
+            {PwdErrMsg && <p className={Style.errMsg}>{PwdErrMsg}</p>}
           </div>
           <button className={Style.editButton} onClick={AxiosCurrentPwd}>
-            Edit
+            Next
           </button>
         </div>
       )}
@@ -102,7 +118,9 @@ const EditModal = ({ onClose, userData }) => {
           <CloseIcon className={Style.closeIcon} onClick={onClose} />
           <SettingUserThumbnail
             setEditUserInfo={setEditUserInfo}
-            editUserInfo={editUserInfo}
+            setThumbNailImage={setThumbNailImage}
+            thumbNailImage={thumbNailImage}
+            userData={userData}
           />
           <div className={Style.modalContent}>
             <label>
@@ -142,10 +160,12 @@ const EditModal = ({ onClose, userData }) => {
 
 export default EditModal;
 
-const SettingUserThumbnail = ({ setEditUserInfo, editUserInfo }) => {
-  const [imageSrc, setImageSrc] = useState(
-    `${process.env.PUBLIC_URL}/image/profile.jpeg`
-  );
+const SettingUserThumbnail = ({
+  setThumbNailImage,
+  thumbNailImage,
+  userData,
+}) => {
+  const [imageSrc, setImageSrc] = useState(userData.thumbNailImage);
   // const inputRef = useRef(null);
 
   const onUpload = (e) => {
@@ -181,14 +201,11 @@ const SettingUserThumbnail = ({ setEditUserInfo, editUserInfo }) => {
         },
       })
         .then((response) => {
-          const updatedUserInfo = {
-            ...editUserInfo,
-            thumbNailImage: response.data,
-          };
-          setEditUserInfo(updatedUserInfo);
-          console.log(updatedUserInfo);
           console.log(response.data);
-          console.log(formData);
+          setThumbNailImage(response.data);
+          console.log(thumbNailImage);
+          // console.log(formData);
+          // console.log(imageSrc);
         })
         .catch((error) => {
           console.error(error);
