@@ -110,7 +110,7 @@ public class UpcyclingController {
      */
 
     // 업사이클링 전체 조회, 페이지네이션
-    @GetMapping
+    @GetMapping("/descending")      // 최신순
     public ResponseEntity<?> getUpcyclings(@Positive @RequestParam int page,
                                          @Positive @RequestParam int size) {
         Page<Upcycling> pageUpcyclings = upcyclingService.findUpcyclings(page - 1, size);
@@ -122,7 +122,7 @@ public class UpcyclingController {
 
     }
 
-    @GetMapping("/ascending")
+    @GetMapping("/ascending")       // 오래된 순
     public ResponseEntity<?> ascendingGetUpcyclings(@Positive @RequestParam int page,
                                            @Positive @RequestParam int size) {
         Page<Upcycling> pageUpcyclings = upcyclingService.findUpcyclings1(page - 1, size);
