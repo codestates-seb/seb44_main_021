@@ -23,7 +23,7 @@
 
 #leftWrapper{
     width: 35%;
-    margin-right: 10px;
+    margin-right: 15px;
 }
 
 #rightWrapper{
@@ -38,22 +38,13 @@
     justify-content: center;
     border: 3px solid #6E934D;
     background-color: gainsboro;
-}
-
-#imgWrapper{
-    width: 450px;
-    height: 350px;
-    border: 2px dotted #6E934D;
-    margin: 20px 0px 0px 0px;
-}
-
-#imgInput{
-    margin: 5px 0px 10px 0px;
+    width: 100%;
+    height: 400px;
 }
 
 #FundingImg{
     width: 100%;
-    height: 100%;
+    height: 95%;
 }
 
 .CommonMent{
@@ -77,6 +68,7 @@
     border: 3px solid #6E934D;
     justify-content: center;
     background-color: gainsboro;
+    width: 100%;
   }
   .radio {
     display: block;

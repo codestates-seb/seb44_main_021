@@ -87,9 +87,7 @@ const FundingEditPage = () => {
             <div id={style.AllWrapper}>
                 <div id={style.leftWrapper}>
                     <div id={style.imgContainer}>
-                        <div id={style.imgWrapper}>
                         <img id={style.FundingImg} src={data.thumbNailImage} alt="펀딩 이미지 미리보기" />
-                        </div>
                         <div className={style.CommonMent}>대표 이미지</div>
                     </div>
                     <div id={style.MaterierBox}>

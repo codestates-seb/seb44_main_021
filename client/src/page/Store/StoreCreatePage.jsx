@@ -18,8 +18,8 @@ const StoreCreatePage = () => {
     const [materialMsg, setmaterialMsg] = useState("");
     const [ddate, setddate] = useState("");
     const [ddateMsg, setddateMsg] = useState("");
-    const [imgurl, setimgurl] = useState("");
-    const [imgurlMsg, setimgurlMsg] = useState("");
+    const [thumimgurl, setThumimgurl] = useState("");
+    const [thumimgurlMsg, setThumimgurlMsg] = useState("");
 
     const titleRef = useRef(null);
     const contentRef = useRef(null);
@@ -41,11 +41,11 @@ const StoreCreatePage = () => {
         event.target.value = event.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
     };
 
-    const Imgurl = (url) => {
+    const ThumImgurl = (url) => {
       if(url === ""){
-        setimgurlMsg("이미지를 넣어주세요!");
+        setThumimgurlMsg("이미지를 넣어주세요!");
       }else{
-        setimgurlMsg("");
+        setThumimgurlMsg("");
       }
     }
 
@@ -141,13 +141,13 @@ const StoreCreatePage = () => {
     };
 
     const Create = () => {
-        Imgurl(imgurl);
+        ThumImgurl(thumimgurl);
         Title();
         Content();
         Material();
         TotalQuantity();
         Ddate();
-        if (imgurl !== "" && title.length >= 5 && content.length >= 10 && totalQuantity.length > 0  && material !== "" & ddate !== "") {
+        if (thumimgurl !== "" && title.length >= 5 && content.length >= 10 && totalQuantity.length > 0  && material !== "" & ddate !== "") {
           axios({
             url: "http://ec2-43-201-105-214.ap-northeast-2.compute.amazonaws.com:8080/upcyclings",
             method: "post",
@@ -158,7 +158,7 @@ const StoreCreatePage = () => {
                 content: content,
                 totalQuantity:totalQuantity,
                 deadline: ddate,
-                thumbNailImage: imgurl
+                thumbNailImage: thumimgurl
             },
           })
             .then((res) => {
@@ -180,8 +180,8 @@ const StoreCreatePage = () => {
             <div id={style.SubTitle}>판매하실 업사이클링 제품을 소개해주세요.</div>
             <div id={style.AllWrapper}>
                 <div id={style.leftWrapper}>
-                    <SettingUserThumbnail setimgurl = {setimgurl} Imgurl = {Imgurl}/>
-                    <p className={style.errMsg}>{imgurlMsg}</p>
+                    <SettingUserThumbnail setThumimgurl = {setThumimgurl} ThumImgurl = {ThumImgurl}/>
+                    <p className={style.errMsg}>{thumimgurlMsg}</p>
                     <div id={style.MaterierBox}>
                         <div className={style.CommonMent}>
                             Step2. 펀딩 받고 싶은 자재를 골라주세요!
@@ -237,7 +237,7 @@ const StoreCreatePage = () => {
 
 export default StoreCreatePage;
 
-const SettingUserThumbnail = ({setimgurl , Imgurl}) => {
+const SettingUserThumbnail = ({setThumimgurl , ThumImgurl}) => {
     const [imageSrc, setImageSrc] = useState(null);
     const inputRef = useRef(null);
   
@@ -282,10 +282,10 @@ const SettingUserThumbnail = ({setimgurl , Imgurl}) => {
           },
         })
           .then((response) => {
-            setimgurl(response.data);
+            setThumimgurl(response.data);
             console.log(response.data);
             console.log(formData);
-            Imgurl(response.data);
+            ThumImgurl(response.data);
           })
           .catch((error) => {
             console.error(error);
@@ -298,10 +298,10 @@ const SettingUserThumbnail = ({setimgurl , Imgurl}) => {
     return (
       <div id={style.imgContainer}>
         <div id={style.imgWrapper}>
-          <img id={style.FundingImg} src={imageSrc} alt="펀딩 이미지 미리보기" />
+          <img id={style.FundingImg} src={imageSrc} alt="제품 대표 이미지" />
         </div>
         <div className={style.CommonMent}>
-          Step1. 만드려고 하는 업사이클링 제품을 대표할 수 있는 이미지를 넣어주세요!
+          Step1. 판매하려고 하는 업사이클링 제품을 대표할 수 있는 이미지를 넣어주세요!
         </div>
         <input
           type="file"
