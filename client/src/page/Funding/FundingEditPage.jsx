@@ -29,9 +29,9 @@ const FundingEditPage = () => {
         })
           .then((response) => {
             console.log(response);
-            setData(response.data);
-            setContentText(response.data.content);
-            setEditTitle(response.data.title)
+            setData(response.data.data);
+            setContentText(response.data.data.content);
+            setEditTitle(response.data.data.title)
           })
           .catch((err) => console.log(err));
     },[upcyclingId]);
@@ -40,7 +40,6 @@ const FundingEditPage = () => {
     const handleTitleChange = (e) => {
         const editTitleValue = e.target.value;
         setEditTitle(editTitleValue);
-        console.log(editTitleValue);
 
         if(editTitle.length<4){
             setTitleMsg("펀딩명은 5자 이상이여야 합니다!");
@@ -102,7 +101,7 @@ const FundingEditPage = () => {
                             <input className={style.radio} type="radio" value="2" name="materials" style={{ backgroundImage: 'url(/image/IconWood.png)', backgroundSize:'cover'}} checked={data.categoryId === 2} readOnly/>
                             <input className={style.radio} type="radio" value="3" name="materials" style={{ backgroundImage: 'url(/image/IconPlastic.png)', backgroundSize:'cover'}}  checked={data.categoryId === 3} readOnly/>
                             <input className={style.radio} type="radio" value="4" name="materials" style={{ backgroundImage: 'url(/image/IconSteel.png)', backgroundSize:'cover'}} checked={data.categoryId === 4} readOnly />
-x                            <input className={style.radio} type="radio" value="5" name="materials" style={{ backgroundImage: 'url(/image/IconGlass.png)', backgroundSize:'cover'}} checked={data.categoryId === 5} readOnly/>
+                            <input className={style.radio} type="radio" value="5" name="materials" style={{ backgroundImage: 'url(/image/IconGlass.png)', backgroundSize:'cover'}} checked={data.categoryId === 5} readOnly/>
                             <input className={style.radio} type="radio" value="6" name="materials" style={{ backgroundImage: 'url(/image/IconEtc.png)', backgroundSize:'cover'}} checked={data.categoryId === 6} readOnly />
                         </div>
                     </div>
