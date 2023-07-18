@@ -3,16 +3,14 @@ import Style from "./EditModal.module.css";
 import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
 
-const EditModal = ({ onClose, userData, setProfileImage }) => {
+const EditModal = ({ onClose, userData }) => {
   const [editUserInfo, setEditUserInfo] = useState({
     displayName: userData.displayName,
     password: "",
     verifyPwd: "",
     memberId: userData.memberId,
   });
-  const [thumbNailImage, setThumbNailImage] = useState(
-    `${process.env.PUBLIC_URL}/image/profile.jpeg`
-  );
+  const [thumbNailImage, setThumbNailImage] = useState("");
   const [currentPwd, setCurrentPwd] = useState("");
   const [PwdErrMsg, setPwdErrMsg] = useState("");
   const [newPwdErrMsg, setNewPwdErrMsg] = useState("");
@@ -55,7 +53,9 @@ const EditModal = ({ onClose, userData, setProfileImage }) => {
         })
         .then((res) => {
           console.log(res);
-          setProfileImage(thumbNailImage);
+          // console.log(thumbNailImage);
+          onClose();
+          window.location.reload();
         })
         .catch((err) => {
           console.log(err);
@@ -66,7 +66,6 @@ const EditModal = ({ onClose, userData, setProfileImage }) => {
             thumbNailImage,
           });
         });
-      onClose();
     }
   };
 

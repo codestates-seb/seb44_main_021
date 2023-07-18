@@ -8,7 +8,7 @@ const UserDataProvider = ({ children }) => {
     email: "",
     memberId: "",
     memberRole: "",
-    thumbNailImage: "",
+    thumbNailImage: `${process.env.PUBLIC_URL}/image/profile.jpeg`,
   });
 
   return (

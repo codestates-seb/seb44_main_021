@@ -32,10 +32,6 @@ const MyPage = () => {
   ]);
   const [isOpenModal, setIsOpenModal] = useState(false);
 
-  const [profileImage, setProfileImage] = useState(
-    `${process.env.PUBLIC_URL}/image/profile.jpeg`
-  );
-
   const handleOpenModal = () => {
     setIsOpenModal(!isOpenModal);
   };
@@ -114,11 +110,7 @@ const MyPage = () => {
         <History historyData={historyData} userData={userData} />
       </div>
       {isOpenModal && (
-        <EditModal
-          onClose={handleCloseModal}
-          userData={userData}
-          setProfileImage={setProfileImage}
-        />
+        <EditModal onClose={handleCloseModal} userData={userData} />
       )}
     </div>
   );
@@ -127,12 +119,13 @@ const MyPage = () => {
 export default MyPage;
 
 const Profile = ({ onClick, userData }) => {
+  console.log(userData);
   return (
     <div className={Style.profileContainer}>
       <div className={Style.userInfo}>
         <img
           className={Style.userImg}
-          src={userData.thumbNailImage}
+          src={`${userData.thumbNailImage}?${new Date().getTime()}`}
           alt="profile-img"
         />
         <p className={Style.userName}>{userData.displayName} 님</p>
