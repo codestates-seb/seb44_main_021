@@ -62,12 +62,6 @@ public class UpcyclingService {
         Optional.ofNullable(upcycling.getContent())
                 .ifPresent(content -> findUpcycling.setContent(content));
 
-        Optional.ofNullable(upcycling.getTotalQuantity())
-                .ifPresent(quantity -> findUpcycling.setTotalQuantity(quantity));       // 수량 수정 불가
-
-        Optional.ofNullable(upcycling.getDeadline())
-                .ifPresent(deadline -> findUpcycling.setDeadline(deadline));            // 마감일 수정 불가
-
         return upcyclingRepository.save(findUpcycling);
     }
 
@@ -120,7 +114,7 @@ public class UpcyclingService {
         return upcyclingRepository.findAll(PageRequest.of(page, size, Sort.by("upcyclingId").ascending()));
     }
 
-    // Upcycling View(조회수) Counting
+    // UpcyclingId 검증 + Upcycling View(조회수) Counting
     public Upcycling increaseViewCount(long upcyclingId) {
 
         Upcycling findUpcycling = findVerifyUpcycling(upcyclingId);
@@ -160,8 +154,6 @@ public class UpcyclingService {
         Pageable pageable = PageRequest.of(page, size, Sort.by("upcyclingId").descending());
         return upcyclingRepository.findByMember(member, pageable);
     }
-
-
 
 }
 

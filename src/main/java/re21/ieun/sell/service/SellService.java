@@ -135,6 +135,12 @@ public class SellService {
         return sellRepository.findBySellCategory(sellcategory, pageable);
     }
 
+    public Page<Sell> getMySellHistoryByMemberId(Long memberId, int page, int size) {
+        Member member = memberService.findMember(memberId);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("sellId").descending());
+        return sellRepository.findByMember(member, pageable);
+    }
+
 
 
 

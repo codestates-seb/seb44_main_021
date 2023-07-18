@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import re21.ieun.dto.MultiResponseDto;
+import re21.ieun.dto.SingleResponseDto;
 import re21.ieun.funding.entity.Funding;
 import re21.ieun.dto.MultiResponseDto;
 import re21.ieun.funding.repository.FundingRepository;
@@ -64,18 +65,28 @@ public class UpcyclingController {
         upcyclingPatchDto.setUpcyclingId(upcyclingId);
         Upcycling upcycling = upcyclingService.updateUpcycling(upcyclingMapper.upcyclingPatchDtoToUpcycling(upcyclingPatchDto));
 
-        return new ResponseEntity<>(upcyclingMapper.upcyclingToUpcyclingResponseDto(upcycling), HttpStatus.OK);
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(upcyclingMapper.upcyclingToUpcyclingResponseDto(upcycling)), HttpStatus.OK);
     }
 
     // 한 업사이클링 펀딩 게시글 조회
     @GetMapping("/{upcycling-id}")
     public ResponseEntity<?> getUpcycling(@PathVariable("upcycling-id") @Positive long upcyclingId) {
 
-        Upcycling upcycling = upcyclingService.findVerifyUpcycling(upcyclingId);
+        //Upcycling upcycling = upcyclingService.findVerifyUpcycling(upcyclingId);
 
+        // 조회수 증가 처리
+        Upcycling upcycling = upcyclingService.increaseViewCount(upcyclingId);
 
+        List<Funding> fundingList = fundingRepository.findByUpcyclingUpcyclingId(upcyclingId);
+        if (!fundingList.isEmpty()) {
+            Funding firstFunding = fundingList.get(0);
+            int totalReceivedQuantity = firstFunding.getTotalReceivedQuantity();
+            upcycling.setTotalReceivedQuantity(totalReceivedQuantity);
+        }
 
-        return new ResponseEntity<>(upcyclingMapper.upcyclingToUpcyclingResponseDto(upcycling), HttpStatus.OK);
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(upcyclingMapper.upcyclingToUpcyclingResponseDto(upcycling)), HttpStatus.OK);
     }
 
     // 업사이클링 펀딩 게시글 삭제
@@ -99,7 +110,7 @@ public class UpcyclingController {
      */
 
     // 업사이클링 전체 조회, 페이지네이션
-    @GetMapping
+    @GetMapping("/descending")      // 최신순
     public ResponseEntity<?> getUpcyclings(@Positive @RequestParam int page,
                                          @Positive @RequestParam int size) {
         Page<Upcycling> pageUpcyclings = upcyclingService.findUpcyclings(page - 1, size);
@@ -111,7 +122,7 @@ public class UpcyclingController {
 
     }
 
-    @GetMapping("/ascending")
+    @GetMapping("/ascending")       // 오래된 순
     public ResponseEntity<?> ascendingGetUpcyclings(@Positive @RequestParam int page,
                                            @Positive @RequestParam int size) {
         Page<Upcycling> pageUpcyclings = upcyclingService.findUpcyclings1(page - 1, size);
@@ -123,6 +134,7 @@ public class UpcyclingController {
 
     }
 
+    /*
     // Upcycling View(조회수)
     @GetMapping("/view/{upcycling-id}")
     public ResponseEntity<?> viewUpcycling(@PathVariable("upcycling-id") @Positive long upcyclingId) {
@@ -139,6 +151,7 @@ public class UpcyclingController {
 
         return new ResponseEntity<>(upcyclingMapper.upcyclingToUpcyclingResponseDto(upcycling), HttpStatus.OK);
     }
+     */
 
     // Upcycling 검색 기능, @PathVariable -> @RequestParam 로 바꿈
     @GetMapping("/search")

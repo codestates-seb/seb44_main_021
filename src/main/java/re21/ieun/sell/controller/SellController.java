@@ -68,7 +68,8 @@ public class SellController {
     @GetMapping("/{sell-id}")
     public ResponseEntity<?> getSell(@PathVariable("sell-id") @Positive long sellId) {
 
-        Sell sell = sellService.findVerifySell(sellId);
+        //조회수 증가 처리
+        Sell sell = sellService.increaseViewCount(sellId);
 
         return new ResponseEntity<>(sellMapper.sellToSellResponseDto(sell), HttpStatus.OK);
     }
@@ -92,9 +93,9 @@ public class SellController {
                 HttpStatus.OK);
     }
 
-
+    /*
     // Sell view
-    @GetMapping("/view/{sell-id}")
+    @GetMapping("/{sell-id}")
     public ResponseEntity<?> viewSell(@PathVariable("sell-id") @Positive long sellId) {
 
         //조회수 증가 처리
@@ -103,6 +104,7 @@ public class SellController {
         return new ResponseEntity<>(sellMapper.sellToSellResponseDto(sell), HttpStatus.OK);
 
     }
+     */
 
     // Sell search
     @GetMapping("/search/{searchKeyword}")
@@ -124,6 +126,20 @@ public class SellController {
         return new ResponseEntity<>(
                 new MultiResponseDto<>(sellMapper.sellToSellResponseDtos(sells), pageSells),
                 HttpStatus.OK);
+    }
+
+    // 특정 member 제품 판매 등록 내역, 페이지네이션
+    @GetMapping("/member/{member-id}")
+    public ResponseEntity<?> getMySellHistory(@PathVariable("member-id") @Positive long memberId,
+                                                   @Positive @RequestParam int page,
+                                                   @Positive @RequestParam int size) {
+        Page<Sell> pageSells = sellService.getMySellHistoryByMemberId(memberId,page - 1, size);
+        List<Sell> sells = pageSells.getContent();
+
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(sellMapper.sellToSellResponseDtos(sells), pageSells),
+                HttpStatus.OK);
+
     }
 
     @GetMapping("/ascending/sellcategories/{sellcategory-id}")
