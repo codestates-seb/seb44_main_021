@@ -10,6 +10,7 @@ import AboutPage from "./page/About/AboutPage";
 import LoginPage from "./page/LoginPage/LoginPage";
 import MyPage from "./page/MyPage/MyPage";
 import FundingCreatePage from "./page/Funding/FundingCreatePage";
+import FundingEditPage from "./page/Funding/FundingEditPage";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route element={<FundingCreatePage />} path="/fundingcreate" />
           <Route element={<LoginPage />} path="/login" />
           <Route element={<MyPage />} path="/mypage" />
+          <Route element={<FundingEditPage/>} path="/fundingedit/*" />
         </Routes>
       </UserDataProvider>
     </div>
