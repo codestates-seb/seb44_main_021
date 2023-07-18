@@ -55,7 +55,7 @@ const FundingDetail = () => {
     setIsModalOpen(false);
     setFunding(false);
     setQuantity(0);
-    window.location.reload();
+    // window.location.reload();
   };
 
   const clickFunding = () => {
@@ -74,6 +74,12 @@ const FundingDetail = () => {
         })
         .catch((err) => console.log(err));
       setFunding(true);
+      setFundingRate(
+        (
+          ((data.totalReceivedQuantity + quantity) / data.totalQuantity) *
+          100
+        ).toFixed(1)
+      );
       console.log(funding);
     }
   };
@@ -230,13 +236,11 @@ const FundingDetail = () => {
                   </div>
                   <div className={style.modaltext}>달성률</div>
                   <div className={`${style.modaltext} ${style.rate}`}>
-                    {fundingRate}% -{">"}{" "}
                     {(
-                      ((data.totalReceivedQuantity + quantity) /
-                        data.totalQuantity) *
+                      (data.totalReceivedQuantity / data.totalQuantity) *
                       100
                     ).toFixed(1)}
-                    %
+                    % -{">"} {fundingRate}%
                   </div>
                   <Link to="/funding">
                     <button id={style.fundingButton}>
