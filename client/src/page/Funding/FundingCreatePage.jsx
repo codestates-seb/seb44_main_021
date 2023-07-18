@@ -177,7 +177,7 @@ const FundingCreatePage = () => {
     return (
         <div id={style.AllContainer}>
             <Header />
-            <div id={style.TitleName}>업사이클링 정보</div>
+            <div id={style.TitleName}>업사이클링 펀딩 등록</div>
             <div id={style.SubTitle}>만드실 업사이클링 제품을 소개해주세요.</div>
             <div id={style.AllWrapper}>
                 <div id={style.leftWrapper}>
@@ -190,9 +190,9 @@ const FundingCreatePage = () => {
                         </div>
                         <div className={style.radioGroup}>
                             <input className={style.radio} type="radio" value="1" name="materials" style={{ backgroundImage: 'url(/image/IconCloth.png)', backgroundSize:'cover'}} onClick={handleMateriel1} />
-                            <input className={style.radio} type="radio" value="2" name="materials" style={{ backgroundImage: 'url(/image/IconSteel.png)', backgroundSize:'cover'}} onClick={handleMateriel2} />
+                            <input className={style.radio} type="radio" value="2" name="materials" style={{ backgroundImage: 'url(/image/IconWood.png)', backgroundSize:'cover'}} onClick={handleMateriel2} />
                             <input className={style.radio} type="radio" value="3" name="materials" style={{ backgroundImage: 'url(/image/IconPlastic.png)', backgroundSize:'cover'}} onClick={handleMateriel3} />
-                            <input className={style.radio} type="radio" value="4" name="materials" style={{ backgroundImage: 'url(/image/IconWood.png)', backgroundSize:'cover'}} onClick={handleMateriel4} />
+                            <input className={style.radio} type="radio" value="4" name="materials" style={{ backgroundImage: 'url(/image/IconSteel.png)', backgroundSize:'cover'}} onClick={handleMateriel4} />
                             <input className={style.radio} type="radio" value="5" name="materials" style={{ backgroundImage: 'url(/image/IconGlass.png)', backgroundSize:'cover'}} onClick={handleMateriel5} />
                             <input className={style.radio} type="radio" value="6" name="materials" style={{ backgroundImage: 'url(/image/IconEtc.png)', backgroundSize:'cover'}} onClick={handleMateriel6} />
                         </div>

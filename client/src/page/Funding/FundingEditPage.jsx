@@ -83,7 +83,7 @@ const FundingEditPage = () => {
     return (
         <div id={style.AllContainer}>
             <Header />
-            <div id={style.TitleName}>업사이클링 정보 수정</div>
+            <div id={style.TitleName}>업사이클링 펀딩 수정</div>
             <div id={style.SubTitle}>펀딩명과 펀딩 소개글만 수정 가능합니다.</div>
             <div id={style.AllWrapper}>
                 <div id={style.leftWrapper}>
@@ -99,10 +99,10 @@ const FundingEditPage = () => {
                         </div>
                         <div className={style.radioGroup}>
                             <input className={style.radio} type="radio" value="1" name="materials" style={{ backgroundImage: 'url(/image/IconCloth.png)', backgroundSize:'cover'}} checked={data.categoryId === 1} readOnly/>
-                            <input className={style.radio} type="radio" value="2" name="materials" style={{ backgroundImage: 'url(/image/IconSteel.png)', backgroundSize:'cover'}} checked={data.categoryId === 2} readOnly />
+                            <input className={style.radio} type="radio" value="2" name="materials" style={{ backgroundImage: 'url(/image/IconWood.png)', backgroundSize:'cover'}} checked={data.categoryId === 2} readOnly/>
                             <input className={style.radio} type="radio" value="3" name="materials" style={{ backgroundImage: 'url(/image/IconPlastic.png)', backgroundSize:'cover'}}  checked={data.categoryId === 3} readOnly/>
-                            <input className={style.radio} type="radio" value="4" name="materials" style={{ backgroundImage: 'url(/image/IconWood.png)', backgroundSize:'cover'}} checked={data.categoryId === 4} readOnly/>
-                            <input className={style.radio} type="radio" value="5" name="materials" style={{ backgroundImage: 'url(/image/IconGlass.png)', backgroundSize:'cover'}} checked={data.categoryId === 5} readOnly/>
+                            <input className={style.radio} type="radio" value="4" name="materials" style={{ backgroundImage: 'url(/image/IconSteel.png)', backgroundSize:'cover'}} checked={data.categoryId === 4} readOnly />
+x                            <input className={style.radio} type="radio" value="5" name="materials" style={{ backgroundImage: 'url(/image/IconGlass.png)', backgroundSize:'cover'}} checked={data.categoryId === 5} readOnly/>
                             <input className={style.radio} type="radio" value="6" name="materials" style={{ backgroundImage: 'url(/image/IconEtc.png)', backgroundSize:'cover'}} checked={data.categoryId === 6} readOnly />
                         </div>
                     </div>
