@@ -29,6 +29,11 @@ public class SellResponseDto {
 
     private String sellCategoryName;
 
+    private String contentImage;
+
+    private String thumbNailImage;
+
+    private String material;
 
     private long viewCount;
 }
