@@ -110,7 +110,7 @@ const MainPage = () => {
           ) : null}
           <div id={style.header}>
             <button className={style.button} onClick={openModal}>
-              <MenuIcon sx={{ fontSize: 50 }} />
+              <MenuIcon sx={{ fontSize: 50, color: "#6E934D" }} />
             </button>
             <div id={style.logo}>
               <img
@@ -128,14 +128,14 @@ const MainPage = () => {
                 style={{ width: `${logoSize}px`, height: `${logoSize}px` }}
               />
             </div>
-            <Link to="/login">
-              <button className={style.button}>
+            <button className={style.button}>
+              <Link to="/login">
                 <AccountBoxIcon
                   className={style.button}
-                  sx={{ fontSize: 50 }}
+                  sx={{ fontSize: 50, color: "#6E934D" }}
                 />
-              </button>
-            </Link>
+              </Link>
+            </button>
           </div>
           <div id={style.main}>
             <div className="horwrap" ref={horwrapRef}>
