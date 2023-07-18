@@ -10,6 +10,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import CloseIcon from "@mui/icons-material/Close";
 import NorthEastSharpIcon from "@mui/icons-material/NorthEastSharp";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const MainPage = () => {
   const [logoSize, setLogoSize] = useState(60);
@@ -18,26 +19,9 @@ const MainPage = () => {
   const [data, setData] = useState([]);
   const horwrapRef = useRef(null);
 
-  // const handleScroll = () => {
-  //   let scrollPosition = window.scrollY;
-  //   console.log(scrollPosition);
-  //   if (scrollPosition > 750) {
-  //     scrollPosition = 750;
-  //   }
-  //   const newLogoSize = logoSize - scrollPosition / 5;
-  //   setLogoSize(newLogoSize);
-  // };
-
-  // useEffect(() => {
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, []);
-
   useEffect(() => {
     axios({
-      url: "/upcyclings?page=1&size=4",
+      url: "/upcyclings/descending?page=1&size=4",
       method: "get",
     })
       .then((response) => {
@@ -66,7 +50,7 @@ const MainPage = () => {
       });
     }
     setNowloding(true);
-  }, [nowloding, horwrapRef.current]);
+  }, [horwrapRef.current]);
 
   const lenis = new Lenis();
 
@@ -139,14 +123,18 @@ const MainPage = () => {
                 style={{ width: `${logoSize}px`, height: `${logoSize}px` }}
               />
             </div>
-            <button className={style.button}>
-              <Link to="/login">
-                <AccountBoxIcon
-                  className={style.button}
-                  sx={{ fontSize: 40, color: "#6E934D" }}
-                />
-              </Link>
-            </button>
+            {localStorage.getItem("token") ? (
+              <ProfileDropdown />
+            ) : (
+              <button className={style.button}>
+                <Link to="/login">
+                  <AccountBoxIcon
+                    className={style.button}
+                    sx={{ fontSize: 40, color: "#6E934D" }}
+                  />
+                </Link>
+              </button>
+            )}
           </div>
           <div id={style.main}>
             <div className="horwrap" ref={horwrapRef}>
@@ -158,19 +146,25 @@ const MainPage = () => {
                     style={{ width: "100%", height: "100%" }}
                   />
                 </div>
+
                 <div className={style.hor}>
-                  <img
-                    src={process.env.PUBLIC_URL + "/image/test6.jpg"}
-                    alt="test"
-                    style={{ width: "100%", height: "100%" }}
-                  />
+                  <Link to="/funding">
+                    <img
+                      src={process.env.PUBLIC_URL + "/image/test6.jpg"}
+                      alt="test"
+                      style={{ width: "100%", height: "100%" }}
+                    />
+                  </Link>
                 </div>
+
                 <div className={style.hor}>
-                  <img
-                    src={process.env.PUBLIC_URL + "/image/test7.jpg"}
-                    alt="test"
-                    style={{ width: "100%", height: "100%" }}
-                  />
+                  <Link to="/store">
+                    <img
+                      src={process.env.PUBLIC_URL + "/image/test7.jpg"}
+                      alt="test"
+                      style={{ width: "100%", height: "100%" }}
+                    />
+                  </Link>
                 </div>
               </div>
             </div>
@@ -390,7 +384,10 @@ const MainPage = () => {
               <h1 className={style.h1}>Funding</h1>
               {data.length > 0 ? (
                 <div className={style.contentslist}>
-                  <Link to="/fundingdetail" className={style.link}>
+                  <Link
+                    to={`/fundingdetail/${data[0].upcyclingId}`}
+                    className={style.link}
+                  >
                     <div className={style.contentsbox}>
                       <img
                         src={data[0].thumbNailImage}
@@ -406,7 +403,10 @@ const MainPage = () => {
                     </div>
                   </Link>
 
-                  <Link to="/fundingdetail" className={style.link}>
+                  <Link
+                    to={`/fundingdetail/${data[1].upcyclingId}`}
+                    className={style.link}
+                  >
                     <div className={style.contentsbox}>
                       <img
                         src={data[1].thumbNailImage}
@@ -422,7 +422,10 @@ const MainPage = () => {
                     </div>
                   </Link>
 
-                  <Link to="/fundingdetail" className={style.link}>
+                  <Link
+                    to={`/fundingdetail/${data[2].upcyclingId}`}
+                    className={style.link}
+                  >
                     <div className={style.contentsbox}>
                       <img
                         src={data[2].thumbNailImage}
@@ -438,7 +441,10 @@ const MainPage = () => {
                     </div>
                   </Link>
 
-                  <Link to="/fundingdetail" className={style.link}>
+                  <Link
+                    to={`/fundingdetail/${data[3].upcyclingId}`}
+                    className={style.link}
+                  >
                     <div className={style.contentsbox}>
                       <img
                         src={data[3].thumbNailImage}
@@ -462,7 +468,6 @@ const MainPage = () => {
                 alt="test"
                 style={{ width: "100%", height: "100%" }}
               />
-              
             </div>
           </div>
         </div>
@@ -475,60 +480,43 @@ const MainPage = () => {
 
 export default MainPage;
 
-// const handleScroll = () => {
-//   let scrollPosition = window.scrollY;
-//   console.log(scrollPosition);
-//   if (scrollPosition > 750) {
-//     scrollPosition = 750;
-//   }
-//   const newLogoSize = logoSize - scrollPosition / 5;
-//   setLogoSize(newLogoSize);
-// };
+const ProfileDropdown = () => {
+  const [menuView, setMenuView] = useState(false);
+  const Dropdown = () => {
+    setMenuView(!menuView);
+  };
 
-// useEffect(() => {
-//   window.addEventListener("scroll", handleScroll);
-//   return () => {
-//     window.removeEventListener("scroll", handleScroll);
-//   };
-// }, []);
+  return (
+    <div className={style.ProfileWrapper}>
+      <AccountCircleIcon
+        onClick={Dropdown}
+        sx={{ width: "35px", height: "100%", color: "#6E934D" }}
+      />
+      <div className={style.Dropdowncontainer}>
+        {menuView && <DropdownBox />}
+      </div>
+    </div>
+  );
+};
 
-// return (
-//   <div>
-//     <div id={style.header}>
-//       <button>사이드바 햄버거</button>
-//       <div id={style.logo}>
-//         <img
-//           src={process.env.PUBLIC_URL + "/image/logo3.png"}
-//           alt="로고"
-//           style={{
-//             width: `${logoSize}px`,
-//             height: `${logoSize}px`,
-//             borderRadius: "20px",
-//           }}
-//         />
-//         <img
-//           src={process.env.PUBLIC_URL + "/image/logo2.png"}
-//           alt="로고"
-//           style={{ width: `${logoSize}px`, height: `${logoSize}px` }}
-//         />
-//       </div>
-//       <button>로그인 버튼</button>
-//     </div>
+const DropdownBox = () => {
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.reload();
+  };
 
-//     <h2>컨텐츠</h2>
-//     <div id={style.contents}>test</div>
-//   </div>
-
-// gsap.registerPlugin(ScrollTrigger);
-
-// gsap.to(".horwrap", {
-//   scrollTrigger: {
-//     trigger: ".horwrap",
-//     start: "0% 50%",
-//     end: "100% 30%",
-//     scrub: 1,
-//     // pin: ".horwrap",
-//     markers: true,
-//   },
-//   x: -1300,
-// });
+  return (
+    <div>
+      <div className={style.MenuItem}>
+        <Link to="/mypage" className={style.MenuLink}>
+          My page
+        </Link>
+      </div>
+      <div onClick={handleLogout} className={style.MenuItem}>
+        <Link to="/" className={style.MenuLink}>
+          Logout
+        </Link>
+      </div>
+    </div>
+  );
+};

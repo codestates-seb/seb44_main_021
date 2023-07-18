@@ -29,7 +29,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  background-color: #6E934D;
+  background-color: #6e934d;
   height: 100%;
   width: 20%;
 }
@@ -50,14 +50,14 @@
   color: #fff;
 }
 
-.modalLogo{
+.modalLogo {
   /* position: absolute; */
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.modalLogo > img{
+.modalLogo > img {
   margin-top: 10px;
 }
 
@@ -70,7 +70,7 @@
   /* float: right; */
   position: absolute;
   top: 1px;
-  right: 1px; 
+  right: 1px;
 }
 
 .button {
@@ -163,4 +163,36 @@
   outline: none;
   text-decoration: none;
   color: black;
+}
+
+.ProfileWrapper {
+  width: 4%;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+
+.Dropdowncontainer {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 80px;
+  border: 0.3px solid #6e934d;
+  background-color: white;
+}
+
+.MenuItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 45px;
+  font-size: 15px;
+}
+
+.MenuLink {
+  text-decoration: none;
+  color: #6e934d;
+  font-weight: bold;
 }
