@@ -77,23 +77,23 @@ const MyPage = () => {
         console.log(err);
       });
 
-    // axios
-    //   .get(`/orders/member/${userData.memberId}?page=1&size=999`)
-    //   .then((res) => {
-    //     console.log(res.data.data);
-    //     setHistoryData((prevData) => {
-    //       const updatedData = [...prevData];
-    //       updatedData[1].history = res.data.data.map((item) => ({
-    //         createdAt: new Date(item.createdAt).toLocaleDateString("ko-KR"),
-    //         title: item.title,
-    //         deadline: new Date(item.deadline).toLocaleDateString("ko-KR"),
-    //       }));
-    //       return updatedData;
-    //     });
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    axios
+      .get(`/orders/member/${userData.memberId}?page=1&size=999`)
+      .then((res) => {
+        console.log(res.data.data);
+        // setHistoryData((prevData) => {
+        //   const updatedData = [...prevData];
+        //   updatedData[1].history = res.data.data.map((item) => ({
+        //     createdAt: new Date(item.createdAt).toLocaleDateString("ko-KR"),
+        //     title: item.title,
+        //     deadline: new Date(item.deadline).toLocaleDateString("ko-KR"),
+        //   }));
+        //   return updatedData;
+        // });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, [userData.memberId]);
 
   console.log(historyData);
@@ -159,20 +159,19 @@ const History = ({ historyData, userData }) => {
                     ))}
                   </tr>
                 </thead>
-
-                {index === index && item.history.length > 0 ? (
-                  item.history.map((data, dataIndex) => (
-                    <tbody>
+                <tbody>
+                  {index === index && item.history.length > 0 ? (
+                    item.history.map((data, dataIndex) => (
                       <tr key={dataIndex}>
                         {Object.keys(data).map((key, keyIndex) => (
                           <td key={keyIndex}>{data[key]}</td>
                         ))}
                       </tr>
-                    </tbody>
-                  ))
-                ) : (
-                  <p className={Style.emptyText}>내역이 없습니다.</p>
-                )}
+                    ))
+                  ) : (
+                    <p className={Style.emptyText}>내역이 없습니다.</p>
+                  )}
+                </tbody>
               </table>
             </>
           ))}
