@@ -9,10 +9,11 @@ const EditModal = ({ onClose, userData }) => {
     password: "",
     verifyPwd: "",
     thumbNailImage: "",
-    currentPwd: "",
   });
+  const [currentPwd, setCurrentPwd] = useState("");
   const [newPwdErrMsg, setNewPwdErrMsg] = useState("");
   const [isPassword, setIsPassword] = useState(false);
+  const [isPasswordVerified, setIsPasswordVerified] = useState(false);
 
   const EditInputValue = (key) => (e) => {
     setEditUserInfo({ ...editUserInfo, [key]: e.target.value });
@@ -56,23 +57,25 @@ const EditModal = ({ onClose, userData }) => {
       onClose();
     }
   };
+
   const AxiosCurrentPwd = (e) => {
     e.preventDefault();
-    const { currentPwd } = editUserInfo;
     axios
-      .patch(`/members/verifiedpassword`, {
-        currentPwd,
+      .post(`/members/verifiedpassword`, {
+        memberId: userData.memberId,
+        password: currentPwd,
       })
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
+        if (res.data === "성공") {
+          setIsPasswordVerified(true);
+        }
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response.data);
       });
     onClose();
   };
-
-  const [isPasswordVerified, setIsPasswordVerified] = useState(false);
 
   return (
     <div id={Style.modalContainer}>
@@ -81,7 +84,13 @@ const EditModal = ({ onClose, userData }) => {
           <CloseIcon className={Style.closeIcon} onClick={onClose} />
           <div className={Style.modalContent}>
             <label>현재 비밀번호</label>
-            <input type="password" onChange={EditInputValue("currentPwd")} />
+            <input
+              type="password"
+              onChange={(e) => {
+                setCurrentPwd(e.target.value);
+                console.log(currentPwd);
+              }}
+            />
           </div>
           <button className={Style.editButton} onClick={AxiosCurrentPwd}>
             Edit
