@@ -142,21 +142,21 @@ const MainPage = () => {
               <div className={style.horwrap}>
                 <div className={style.hor}>
                   <img
-                    src={process.env.PUBLIC_URL + "/image/test1.jpg"}
+                    src={process.env.PUBLIC_URL + "/image/test4.jpg"}
                     alt="test"
                     style={{ width: "100%", height: "100%" }}
                   />
                 </div>
                 <div className={style.hor}>
                   <img
-                    src={process.env.PUBLIC_URL + "/image/test2.jpg"}
+                    src={process.env.PUBLIC_URL + "/image/test6.jpg"}
                     alt="test"
                     style={{ width: "100%", height: "100%" }}
                   />
                 </div>
                 <div className={style.hor}>
                   <img
-                    src={process.env.PUBLIC_URL + "/image/test3.jpg"}
+                    src={process.env.PUBLIC_URL + "/image/test7.jpg"}
                     alt="test"
                     style={{ width: "100%", height: "100%" }}
                   />
@@ -164,7 +164,7 @@ const MainPage = () => {
               </div>
             </div>
             <div id={style.contents}>
-              <h1 className={style.h1}>뉴스</h1>
+              <h1 className={style.h1}>Magazine</h1>
               <div className={style.contentslist}>
                 <a
                   href="https://www.insehub.or.kr/bbs/board.php?bo_table=bbs_030403&wr_id=88"
@@ -243,7 +243,7 @@ const MainPage = () => {
                   </div>
                 </a>
               </div>
-              <h1 className={style.h1}>펀딩</h1>
+              <h1 className={style.h1}>Funding</h1>
               {data.length > 0 ? (
                 <div className={style.contentslist}>
                   <Link to="/fundingdetail" className={style.link}>
@@ -313,7 +313,12 @@ const MainPage = () => {
               ) : null}
             </div>
             <div id={style.footer}>
-              <div id={style.footercontents}></div>
+              <img
+                src={process.env.PUBLIC_URL + "/image/test8.jpg"}
+                alt="test"
+                style={{ width: "100%", height: "100%" }}
+              />
+              
             </div>
           </div>
         </div>
