@@ -41,7 +41,7 @@ const MainPage = () => {
     })
       .then((response) => {
         setData(response.data.data);
-        console.log(data[0]);
+        console.log(response.data.data);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -244,7 +244,7 @@ const MainPage = () => {
                 </a>
               </div>
               <h1 className={style.h1}>펀딩</h1>
-              {data.length > 0 ? (
+              {data.length > 3 ? (
                 <div className={style.contentslist}>
                   <Link to="/fundingdetail" className={style.link}>
                     <div className={style.contentsbox}>
