@@ -92,7 +92,7 @@ const MainPage = () => {
             <div className={style.modalOverlay}>
               <div className={style.modalContent}>
                 <button onClick={closeModal} id={style.closebutton}>
-                  <CloseIcon sx={{ fontSize: 40 }} />
+                  <CloseIcon sx={{ fontSize: 40 , color: "#FFFFFF"}} />
                 </button>
                 <div id={style.sidelist}>
                   <Link to="/funding" className={style.link}>
