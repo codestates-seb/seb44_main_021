@@ -31,7 +31,6 @@ const FundingCreatePage = () => {
     //날짜 최소 최대 값 변수
     const today = new Date();
     const minDate = today.toISOString().split('T')[0];
-    console.log(minDate);
     const maxDate = new Date();
     maxDate.setDate(today.getDate() + 100);
     const formattedMaxDate = maxDate.toISOString().split('T')[0];
