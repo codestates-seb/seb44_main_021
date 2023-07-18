@@ -39,6 +39,7 @@ const Header = () => {
           email: user.email,
           memberId: user.memberId,
           memberRole: user.memberRole,
+          thumbNailImage: user.thumbNailImage,
         });
       });
     }

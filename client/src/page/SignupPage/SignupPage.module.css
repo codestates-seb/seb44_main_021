@@ -25,15 +25,16 @@
 .label{
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .input{
-    width: 240px;
+    width: 270px;
     height: 30px;
     padding: 0 10px;
     border: solid 1px #c3c3c3;
     border-radius: 5px;
+    margin-top: 10px;
 }
 .input:focus { outline: none !important; border-color: #6E934D; }
 
@@ -73,6 +74,5 @@
 /* error Messege */
 .errMsg{
     margin-top: 5px;
-    font-size: 14px;
     color: rgb(221, 106, 106);
 }

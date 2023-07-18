@@ -71,7 +71,7 @@
 }
 .editButton:hover {
     cursor: pointer;
-  }
+}
 
   /* History */
 .historyContainer{
@@ -107,7 +107,6 @@
     align-items: center;
 }
 .historyTitle p{
-    /* align-self: flex-start; */
     color: #6E934D;
     font-size: 20px;
     font-weight: 700;
@@ -119,13 +118,13 @@
     height: 30px;
 }
 
-table {
+.historyWrapper table {
+    width: 100%;
     border-collapse: collapse;
-    margin: 10px;
-
+    margin-bottom: 20px;
 }
 
-th {
+.historyWrapper table th {
     font-size: 16px;
     font-weight: 400;
     border-top: 2px solid #6E934D;
@@ -133,9 +132,32 @@ th {
     height: 30px;
 }
 
+.historyWrapper table tbody {
+    display: block;
+    height: 150px;
+    overflow: auto;
+    font-size: 14px;
+}
+
+.historyWrapper table tbody::-webkit-scrollbar {
+    display: none;
+}
+
+.historyWrapper table tr{
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    margin: 5px 0;
+}
+/* .historyWrapper tbody tr :hover {
+    background-color: #f0f0f0;
+} */
+.historyWrapper table td {
+    text-align: center;
+}
+
 .emptyText{
     /* width: 100%; */
     color: #767676;
     text-align: center;
-    height: 150px;
 }
