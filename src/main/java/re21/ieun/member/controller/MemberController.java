@@ -43,7 +43,7 @@ public class MemberController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @PostMapping("/members/sendmail")
+    @PostMapping("/sendmail")
     public ResponseEntity sendVerificationEmail(@RequestBody EmailRequestDto emailRequestDto) throws MessagingException {
         String email = emailRequestDto.getEmail();
 
