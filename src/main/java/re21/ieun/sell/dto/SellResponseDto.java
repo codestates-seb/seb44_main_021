@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.Positive;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -29,6 +30,14 @@ public class SellResponseDto {
 
     private String sellCategoryName;
 
+    private String contentImage;
+
+    private String thumbNailImage;
+
+    private String material;
 
     private long viewCount;
+
+    // 등록 날짜
+    private LocalDateTime createdAt;
 }

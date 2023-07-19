@@ -29,9 +29,16 @@ public class Sell extends Auditable {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
+    @Column(nullable = false)
+    private String material;
+
     // 상품 가격
     @Column(nullable = false)
     private int price;
+    @Column
+    private String thumbNailImage;
+    @Column
+    private String contentImage;
 
     @Column(columnDefinition = "bigint default 0", nullable = false)
     private Long viewCount;

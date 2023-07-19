@@ -28,7 +28,12 @@ public class SellPostDto {
 
     @NotBlank(message = "가격을 입력해주세요.")
     private int price;
+    @NotBlank
+    private String material;
 
+    private String thumbNailImage;
+
+    private String contentImage;
     @Positive
     private long viewCount;
 
