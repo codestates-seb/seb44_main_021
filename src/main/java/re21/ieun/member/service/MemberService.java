@@ -9,12 +9,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import re21.ieun.auth.utils.CustomAuthorityUtils;
+import re21.ieun.email.EmailSender;
+import re21.ieun.email.RandomGenerator;
 import re21.ieun.exception.BusinessLogicException;
 import re21.ieun.exception.ExceptionCode;
 import re21.ieun.member.mapper.MemberMapper;
 import re21.ieun.member.repository.MemberRepository;
 import re21.ieun.member.entity.Member;
 
+import javax.mail.AuthenticationFailedException;
+import javax.mail.MessagingException;
+import javax.mail.SendFailedException;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,13 +30,14 @@ public class MemberService {
     private final MemberMapper memberMapper;
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
+    private final EmailSender emailSender;
 
-    public MemberService(MemberRepository memberRepository, MemberMapper memberMapper,
-                         PasswordEncoder passwordEncoder, CustomAuthorityUtils authorityUtils) {
+    public MemberService(MemberRepository memberRepository, MemberMapper memberMapper, PasswordEncoder passwordEncoder, CustomAuthorityUtils authorityUtils, EmailSender emailSender) {
         this.memberRepository = memberRepository;
         this.memberMapper = memberMapper;
         this.passwordEncoder = passwordEncoder;
         this.authorityUtils = authorityUtils;
+        this.emailSender = emailSender;
     }
 
     public Member createMember(Member member) {
@@ -88,4 +94,35 @@ public class MemberService {
         Optional<Member> member = memberRepository.findByDisplayName(displayName);
         if (member.isPresent()) throw new BusinessLogicException(ExceptionCode.DISPLAYNAME_EXISTS);
     }
+
+    public String sendVerificationEmail(String email) throws MessagingException {
+        // Verification Code 생성
+        String verificationCode = RandomGenerator.generateRandomCode(6);
+
+        // 이메일 인증 메일 발송
+        try {
+            emailSender.sendVerificationEmail(email, verificationCode);
+        } catch (AuthenticationFailedException e) {
+            // 메일 발신 계정의 정보가 잘못된 경우 처리
+
+            throw new MessagingException("Authentication failed. Check your username and password.", e);
+        } catch (SendFailedException e) {
+            // 수신자의 이메일 주소가 유효하지 않거나 도달할 수 없는 경우 처리
+
+            throw new MessagingException("Failed to send email to recipient.", e);
+        } catch (MessagingException e) {
+            // SMTP 서버와의 통신 문제나 메일 전송 중에 예기치 않은 오류가 발생할 경우 처리
+
+            throw new MessagingException("Error sending email.", e);
+        }
+
+        return verificationCode;
+    }
+
+    // 이메일 중복 체크
+    @Transactional(readOnly = true)
+    public boolean verifiedMemberEmail(String email) {
+        return memberRepository.existsByEmail(email);
+    }
+
 }

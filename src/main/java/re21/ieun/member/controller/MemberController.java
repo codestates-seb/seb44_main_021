@@ -9,6 +9,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import re21.ieun.dto.MultiResponseDto;
 import re21.ieun.dto.SingleResponseDto;
+import re21.ieun.email.EmailSenderResponse;
+import re21.ieun.member.dto.EmailRequestDto;
 import re21.ieun.member.dto.MemberDto;
 import re21.ieun.member.mapper.MemberMapper;
 import re21.ieun.member.entity.Member;
@@ -16,6 +18,7 @@ import re21.ieun.member.repository.MemberRepository;
 import re21.ieun.member.service.MemberService;
 import re21.ieun.utils.UriCreator;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.net.URI;
@@ -39,6 +42,29 @@ public class MemberController {
         this.memberRepository = memberRepository;
         this.passwordEncoder = passwordEncoder;
     }
+
+    @PostMapping("/members/sendmail")
+    public ResponseEntity sendVerificationEmail(@RequestBody EmailRequestDto emailRequestDto) throws MessagingException {
+        String email = emailRequestDto.getEmail();
+
+        if (memberService.verifiedMemberEmail(email)) {
+            EmailSenderResponse response = new EmailSenderResponse();
+            response.setIsactive(true);
+            response.setMessage("이미 존재하는 이메일입니다.");
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        } else {
+            // 이메일 인증 코드 생성 및 이메일 발송
+            String verificationCode = memberService.sendVerificationEmail(email);
+
+            EmailSenderResponse response = new EmailSenderResponse();
+            response.setIsactive(false);
+            response.setMessage(verificationCode);
+
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        }
+    }
+
 
     // 사용자로 회원가입
     @PostMapping("/signup")
