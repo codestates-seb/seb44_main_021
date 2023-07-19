@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { UserDataContext } from "../../contexts/UserDataContext";
 import axios from "axios";
 
-const Header = ({ onClose }) => {
+const Header = () => {
   const { userData, setUserData } = useContext(UserDataContext);
   const [isLogin, setIsLogin] = useState(false);
 
