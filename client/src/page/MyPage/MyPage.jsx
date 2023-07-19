@@ -60,6 +60,25 @@ const MyPage = () => {
       });
 
     axios
+      .get(`/orders/member/${userData.memberId}?page=1&size=999`)
+      .then((res) => {
+        console.log(res);
+        setHistoryData((prevData) => {
+          const updatedData = [...prevData];
+          updatedData[1].history = res.data.data.map((item) => ({
+            createdAt: new Date(item.createdAt).toLocaleDateString("ko-KR"),
+            content: item.orderSells.map((sell) => sell.content),
+            quantity: item.orderSells.map((sell) => sell.quantity),
+            price: item.orderSells.map((sell) => sell.price),
+          }));
+          return updatedData;
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    axios
       .get(`/upcyclings/member/${userData.memberId}?page=1&size=999`)
       .then((res) => {
         setHistoryData((prevData) => {
@@ -77,18 +96,18 @@ const MyPage = () => {
       });
 
     axios
-      .get(`/orders/member/${userData.memberId}?page=1&size=999`)
+      .get(`/sells/member/${userData.memberId}?page=1&size=999`)
       .then((res) => {
-        console.log(res.data.data);
-        // setHistoryData((prevData) => {
-        //   const updatedData = [...prevData];
-        //   updatedData[1].history = res.data.data.map((item) => ({
-        //     createdAt: new Date(item.createdAt).toLocaleDateString("ko-KR"),
-        //     title: item.title,
-        //     deadline: new Date(item.deadline).toLocaleDateString("ko-KR"),
-        //   }));
-        //   return updatedData;
-        // });
+        console.log(res);
+        setHistoryData((prevData) => {
+          const updatedData = [...prevData];
+          updatedData[3].history = res.data.data.map((item) => ({
+            createdAt: new Date(item.createdAt).toLocaleDateString("ko-KR"),
+            title: item.content,
+            price: item.price,
+          }));
+          return updatedData;
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -171,11 +190,7 @@ const History = ({ historyData, userData }) => {
                       </tr>
                     ))
                   ) : (
-                    <tr>
-                      <td colSpan={item.tableHeader.length}>
-                        <p className={Style.emptyText}>내역이 없습니다.</p>
-                      </td>
-                    </tr>
+                    <p className={Style.emptyText}>내역이 없습니다.</p>
                   )}
                 </tbody>
               </table>
@@ -206,14 +221,19 @@ const History = ({ historyData, userData }) => {
                     item.history.map((data, dataIndex) => (
                       <tr key={dataIndex}>
                         {Object.keys(data).map((key, keyIndex) => (
-                          <td key={keyIndex}>{data[key]}</td>
+                          <td key={keyIndex} className={Style.tableRow}>
+                            {data[key]}
+                          </td>
                         ))}
                       </tr>
                     ))
                   ) : (
                     <tr>
-                      <td colSpan={item.tableHeader.length}>
-                        <p className={Style.emptyText}>내역이 없습니다.</p>
+                      <td
+                        colSpan={item.tableHeader.length}
+                        className={Style.emptyText}
+                      >
+                        내역이 없습니다.
                       </td>
                     </tr>
                   )}
