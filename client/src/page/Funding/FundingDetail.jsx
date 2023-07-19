@@ -88,6 +88,13 @@ const FundingDetail = () => {
     <div id={style.AllContainer}>
       <Header />
       <div id={style.TitleName}>펀딩 상세 정보</div>
+      {userData.memberId === data.memberId ? (
+        <div id={style.buttonContainer}>
+          <Link to={`/fundingedit/${data.upcyclingId}`} className={style.link}>
+            <button id={style.button}>수정</button>
+          </Link>
+        </div>
+      ) : null}
       <div id={style.AllWrapper}>
         <div id={style.leftWrapper}>
           <div id={style.imgContainer}>
