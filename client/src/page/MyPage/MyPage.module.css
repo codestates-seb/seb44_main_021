@@ -45,7 +45,7 @@
 }
 
 .userName{
-    font-size: 30px;
+    font-size: 25px;
     font-weight: 800;
     margin-top: 20px;
 }
@@ -80,7 +80,7 @@
     border-radius: 10px;
     background: #ffffff;
     box-shadow:  1px 1px 3px #95959540, -1px -1px 3px #95959540;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .historyContainer::-webkit-scrollbar {

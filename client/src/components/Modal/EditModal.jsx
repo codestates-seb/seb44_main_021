@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Style from "./EditModal.module.css";
 import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
 
-const EditModal = ({ onClose, userData }) => {
+const EditModal = ({ onClose, userData, setUserData }) => {
   const [editUserInfo, setEditUserInfo] = useState({
     displayName: userData.displayName,
     password: "",
@@ -37,8 +37,6 @@ const EditModal = ({ onClose, userData }) => {
     }
   };
 
-  // console.log(editUserInfo);
-
   const AxiosPatch = (e) => {
     e.preventDefault();
     const { displayName, password, memberId } = editUserInfo;
@@ -53,18 +51,16 @@ const EditModal = ({ onClose, userData }) => {
         })
         .then((res) => {
           console.log(res);
-          // console.log(thumbNailImage);
+          setUserData((prevUserData) => ({
+            ...prevUserData,
+            displayName: res.data.displayName,
+            thumbNailImage: res.data.thumbNailImage,
+          }));
+
           onClose();
-          window.location.reload();
         })
         .catch((err) => {
           console.log(err);
-          console.log({
-            memberId,
-            displayName,
-            password,
-            thumbNailImage,
-          });
         });
     }
   };
@@ -81,8 +77,6 @@ const EditModal = ({ onClose, userData }) => {
         if (res.data === "성공") {
           setIsPasswordVerified(true);
           setPwdErrMsg("");
-
-          // onClose();
         }
       })
       .catch((err) => {
@@ -129,7 +123,7 @@ const EditModal = ({ onClose, userData }) => {
             <input
               type="text"
               defaultValue={userData.displayName}
-              onChange={EditInputValue("username")}
+              onChange={EditInputValue("displayName")}
             />
             <label>이메일</label>
             <p>{userData.email}</p>
@@ -164,8 +158,9 @@ const SettingUserThumbnail = ({
   thumbNailImage,
   userData,
 }) => {
-  const [imageSrc, setImageSrc] = useState(userData.thumbNailImage);
-  // const inputRef = useRef(null);
+  const [imageSrc, setImageSrc] = useState(
+    userData.thumbNailImage || `${process.env.PUBLIC_URL}/image/profile.jpeg`
+  );
 
   const onUpload = (e) => {
     if (!e.target.files) {
@@ -216,12 +211,7 @@ const SettingUserThumbnail = ({
     <div id={Style.imgContainer}>
       <div className={Style.imgUpload}>
         <label htmlFor="fileInput">
-          <img
-            className={Style.userImg}
-            src={imageSrc}
-            // src={`${process.env.PUBLIC_URL}/image/profile.jpeg`}
-            alt="profile-img"
-          />
+          <img className={Style.userImg} src={imageSrc} alt="profile-img" />
           <img
             className={Style.uploadIcon}
             src={`${process.env.PUBLIC_URL}/image/add-img-icon.png`}
