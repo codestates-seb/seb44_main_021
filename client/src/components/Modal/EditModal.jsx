@@ -14,6 +14,8 @@ const EditModal = ({ onClose, userData, setUserData }) => {
   const [currentPwd, setCurrentPwd] = useState("");
   const [PwdErrMsg, setPwdErrMsg] = useState("");
   const [newPwdErrMsg, setNewPwdErrMsg] = useState("");
+  const [nameErrMsg, setNameErrMsg] = useState("");
+  const [isName, setIsName] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordVerified, setIsPasswordVerified] = useState(false);
 
@@ -22,8 +24,20 @@ const EditModal = ({ onClose, userData, setUserData }) => {
     console.log(editUserInfo);
   };
 
-  // 새비밀번호 유효성 검사
+  // 유효성 검사
+  const NAME_REGEX = /^[A-Za-z0-9ㄱ-ㅎㅏ-ㅣ가-힣]{2,6}$/;
   const PWD_REGEX = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+
+  const IsValidName = () => {
+    if (!NAME_REGEX.test(editUserInfo.displayName)) {
+      setNameErrMsg("특수 문자 제외 2자 ~ 6자를 입력하세요.");
+      setIsName(false);
+    } else {
+      setNameErrMsg("");
+      setIsName(true);
+    }
+  };
+
   const IsValidPwd = () => {
     if (!PWD_REGEX.test(editUserInfo.password)) {
       setNewPwdErrMsg("숫자 ,문자, 특수문자 포함 8자 이상 입력하세요.");
@@ -41,7 +55,7 @@ const EditModal = ({ onClose, userData, setUserData }) => {
     e.preventDefault();
     const { displayName, password, memberId } = editUserInfo;
 
-    if (isPassword || displayName || thumbNailImage) {
+    if (isPassword || isName || thumbNailImage) {
       axios
         .patch(`/members/${userData.memberId}`, {
           memberId,
@@ -124,7 +138,9 @@ const EditModal = ({ onClose, userData, setUserData }) => {
               type="text"
               defaultValue={userData.displayName}
               onChange={EditInputValue("displayName")}
+              onBlur={IsValidName}
             />
+            {nameErrMsg && <p className={Style.errMsg}>{nameErrMsg}</p>}
             <label>이메일</label>
             <p>{userData.email}</p>
             <label>새 비밀번호</label>
