@@ -6,7 +6,7 @@ import App from "./App";
 import axios from "axios";
 
 axios.defaults.baseURL =
-  "http://ec2-43-201-105-214.ap-northeast-2.compute.amazonaws.com:8080";
+  "http://ec2-3-37-130-72.ap-northeast-2.compute.amazonaws.com:8080";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
