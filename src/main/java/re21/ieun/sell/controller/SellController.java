@@ -82,7 +82,7 @@ public class SellController {
 //        return new ResponseEntity<>(sells, HttpStatus.OK);
 //    }
 
-    @GetMapping
+    @GetMapping("/descending")
     public ResponseEntity<?> getSells(@Positive @RequestParam int page,
                                            @Positive @RequestParam int size) {
         Page<Sell> pageSells = sellService.findSells(page - 1, size);
@@ -91,6 +91,18 @@ public class SellController {
         return new ResponseEntity<>(
                 new MultiResponseDto<>(sellMapper.sellToSellResponseDtos(sells), pageSells),
                 HttpStatus.OK);
+    }
+
+    @GetMapping("/ascending")       // 오래된 순
+    public ResponseEntity<?> ascendingGetSells(@Positive @RequestParam int page,
+                                                    @Positive @RequestParam int size) {
+        Page<Sell> pageSells = sellService.findSells1(page - 1, size);
+        List<Sell> sells = pageSells.getContent();
+
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(sellMapper.sellToSellResponseDtos(sells), pageSells),
+                HttpStatus.OK);
+
     }
 
     /*
