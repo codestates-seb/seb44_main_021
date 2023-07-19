@@ -27,7 +27,7 @@ public class UpcyclingPostDto {
     private String content;
 
     // 총 펀딩 수량
-    @NotBlank(message = "수량을 작성해주세요.")
+    @Positive(message = "수량은 작성해주세요.")
     private int totalQuantity;
 
     private String thumbNailImage;

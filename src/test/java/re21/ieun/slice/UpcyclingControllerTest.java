@@ -40,7 +40,7 @@ public class UpcyclingControllerTest {
         post.setContent("Test Upcycling Content");
         post.setTotalQuantity(100);
         post.setThumbNailImage("test_thumbnail.jpg");
-        post.setDeadline(LocalDate.of(2023, 12, 31));
+        post.setDeadline(LocalDate.parse("2023-12-31"));
         post.setViewCount(0L);
 
         String content = gson.toJson(post);
