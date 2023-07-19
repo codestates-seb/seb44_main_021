@@ -17,6 +17,22 @@ spring:
   sql:
     init:
       data-locations: classpath*:db/h2/data.sql
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${email}
+    password: ${password}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+email:
+  sender:
+    man: ${email}
+    password: ${password}
 logging:
   level:
     org:
@@ -27,6 +43,7 @@ server:
   servlet:
     encoding:
       force-response: true
+#jwt
 mail:
   address:
     admin: admin@gmail.com
