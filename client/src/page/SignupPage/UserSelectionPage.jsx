@@ -8,7 +8,7 @@ import { UserDataContext } from "../../contexts/UserDataContext";
 const UserSelectionPage = () => {
   const { userData } = useContext(UserDataContext);
   const navigate = useNavigate();
-  console.log(userData);
+
   const handleClickButton = (el) => {
     sessionStorage.setItem("userRole", el);
     navigate(`/signup/${el}`);

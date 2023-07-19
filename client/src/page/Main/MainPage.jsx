@@ -78,7 +78,7 @@ const MainPage = () => {
               <div className={style.modalContent}>
                 <div className={style.modalLogo}>
                   <img
-                    src={process.env.PUBLIC_URL + "/image/logo4.png"}
+                    src={process.env.PUBLIC_URL + "/image/logo5.png"}
                     alt="로고"
                     style={{
                       width: "60px",
@@ -86,7 +86,7 @@ const MainPage = () => {
                     }}
                   />
                   <button onClick={closeModal} id={style.closebutton}>
-                    <CloseIcon sx={{ fontSize: 30, color: "#FFFFFF" }} />
+                    <CloseIcon sx={{ fontSize: 30, color: "#000000" }} />
                   </button>
                 </div>
                 <div id={style.sidelist}>
@@ -99,6 +99,17 @@ const MainPage = () => {
                   <Link to="/about" className={style.link}>
                     <div className={style.sidelistText}>About</div>
                   </Link>
+                  <p
+                    style={{
+                      fontSize: "50px",
+                      color: "#000000",
+                      fontWeight: "bold",
+                      marginTop: "170px"
+                    }}
+                  >
+                    利   隱
+                  </p>
+
                 </div>
               </div>
             </div>
@@ -169,16 +180,18 @@ const MainPage = () => {
               </div>
             </div>
             <div id={style.contents}>
-              <h1 className={style.h1}>Magazine</h1>
+              <div id={style.h1boxMagazine}>
+                <h1 className={style.h1}>Magazine</h1>
+              </div>
               <div className={style.contentslist}>
                 <a
-                  href="https://www.insehub.or.kr/bbs/board.php?bo_table=bbs_030403&wr_id=88"
+                  href="https://eco-fresh.co.kr/article/%EC%97%90%EC%BD%94-%EB%A7%A4%EA%B1%B0%EC%A7%84/1008/168259/"
                   target="_blank"
                   rel="noreferrer"
                 >
                   <div className={style.contentsbox}>
                     <img
-                      src={process.env.PUBLIC_URL + "/image/news1.jpg"}
+                      src={process.env.PUBLIC_URL + "/image/test10.jpg"}
                       alt="test"
                       style={{
                         width: "100%",
@@ -187,50 +200,49 @@ const MainPage = () => {
                         borderTopRightRadius: "20px",
                       }}
                     />
-                    <hr
-                      style={{
-                        border: "none",
-                        backgroundColor: "#4d4d4d",
-                        height: "1px",
-                        marginTop: "5px",
-                      }}
-                    />
                     <p
                       style={{
                         fontSize: "14px",
                         fontWeight: "bold",
-                        marginBottom: "5px",
+                        marginBottom: "15px",
                       }}
                     >
-                      Connect Magazine
-                      <NorthEastSharpIcon sx={{ fontSize: 15 }} />
+
                     </p>
                     <p
                       style={{
                         fontSize: "20px",
                         fontWeight: "bold",
-                        marginBottom: "8px",
+                        marginBottom: "10px",
                       }}
                     >
-                      친환경에 앞장서는 솟솟리버스
+                      이은이 알려주는 친환경 잡지
                     </p>
                     <p
                       style={{
-                        fontSize: "14px",
+                        fontSize: "14px", lineHeight: "1.8", marginBottom: "5px"
                       }}
                     >
-                      쓰레기의 재탄생! 업사이클링 제품이 뭐야?
+                      제로 웨이스트, 리업사이클 등 8개의 키워드 제품을 판매하는 eco fresh를 소개할게요!
+                    </p>
+
+                    <p
+                      style={{
+                        fontSize: "6px", lineHeight: "1.6"
+                      }}
+                    >
+                      @ecomagazine
                     </p>
                   </div>
                 </a>
                 <a
-                  href="https://www.tinnews.co.kr/23616"
+                  href="https://www.eyesmag.com/search?s=%EC%97%85%EC%82%AC%EC%9D%B4%ED%81%B4%EB%A7%81"
                   target="_blank"
                   rel="noreferrer"
                 >
                   <div className={style.contentsbox}>
                     <img
-                      src={process.env.PUBLIC_URL + "/image/news2.png"}
+                      src={process.env.PUBLIC_URL + "/image/test13.png"}
                       alt="test"
                       style={{
                         width: "100%",
@@ -239,50 +251,51 @@ const MainPage = () => {
                         borderTopRightRadius: "20px",
                       }}
                     />
-                    <hr
-                      style={{
-                        border: "none",
-                        backgroundColor: "#4d4d4d",
-                        height: "1px",
-                        marginTop: "5px",
-                      }}
-                    />
+                    
                     <p
                       style={{
                         fontSize: "14px",
                         fontWeight: "bold",
-                        marginBottom: "5px",
+                        marginBottom: "15px",
                       }}
                     >
-                      Connect Magazine
-                      <NorthEastSharpIcon sx={{ fontSize: 15 }} />
+
                     </p>
                     <p
                       style={{
                         fontSize: "20px",
                         fontWeight: "bold",
-                        marginBottom: "8px",
+                        marginBottom: "10px",
                       }}
                     >
-                      친환경에 앞장서는 솟솟리버스
+                      친환경을 주목하는 아이즈매거진
                     </p>
                     <p
                       style={{
-                        fontSize: "14px",
+                        fontSize: "14px", lineHeight: "1.8", marginBottom: "5px"
                       }}
                     >
-                      업사이클링의 완성은 자원 순환
+                      클린뷰티부터 스투시까지, 이은이 소개하는 업사이클링의 최신 트렌트를 읽어보세요 🙂
                     </p>
+
+                    <p
+                      style={{
+                        fontSize: "6px", lineHeight: "1.6"
+                      }}
+                    >
+                      @eyesmagazine
+                    </p>
+
                   </div>
                 </a>
                 <a
-                  href="https://dream.kotra.or.kr/kotranews/cms/news/actionKotraBoardDetail.do?SITE_NO=3&MENU_ID=180&CONTENTS_NO=1&bbsGbn=243&bbsSn=243&pNttSn=194909"
+                  href="https://www.beautifulstore.org/upcycling"
                   target="_blank"
                   rel="noreferrer"
                 >
                   <div className={style.contentsbox}>
                     <img
-                      src={process.env.PUBLIC_URL + "/image/news3.jpg"}
+                      src={process.env.PUBLIC_URL + "/image/test11.jpg"}
                       alt="test"
                       style={{
                         width: "100%",
@@ -292,44 +305,43 @@ const MainPage = () => {
                       }}
                     />
 
-                    <hr
-                      style={{
-                        border: "none",
-                        backgroundColor: "#4d4d4d",
-                        height: "1px",
-                        marginTop: "5px",
-                      }}
-                    />
                     <p
                       style={{
                         fontSize: "14px",
                         fontWeight: "bold",
-                        marginBottom: "5px",
+                        marginBottom: "15px",
                       }}
                     >
-                      Connect Magazine
-                      <NorthEastSharpIcon sx={{ fontSize: 15 }} />
+
                     </p>
                     <p
                       style={{
                         fontSize: "20px",
                         fontWeight: "bold",
-                        marginBottom: "8px",
+                        marginBottom: "10px",
                       }}
                     >
-                      친환경에 앞장서는 솟솟리버스
+                      '에코라이프스타일'의 확산
                     </p>
                     <p
                       style={{
-                        fontSize: "14px",
+                        fontSize: "14px", lineHeight: "1.8", marginBottom: "5px"
                       }}
                     >
-                      미국 시장이 열광하는 '업사이클링' 트렌드
+                      아름다운 가게에서 소개하는 '에코파티메아리'를 확인해보세요 😎
+                    </p>
+
+                    <p
+                      style={{
+                        fontSize: "6px", lineHeight: "1.6"
+                      }}
+                    >
+                      @beautifulstore
                     </p>
                   </div>
                 </a>
                 <a
-                  href="https://news.sbs.co.kr/news/endPage.do?news_id=N1002461263&plink=COPYPASTE&cooper=SBSNEWSEND"
+                  href="https://metropolismag.com/sustainability/"
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -344,46 +356,46 @@ const MainPage = () => {
                         borderTopRightRadius: "20px",
                       }}
                     />
-                    <hr
-                      style={{
-                        border: "none",
-                        backgroundColor: "#4d4d4d",
-                        height: "1px",
-                        marginTop: "5px",
-                      }}
-                    />
                     <p
                       style={{
                         fontSize: "14px",
                         fontWeight: "bold",
-                        marginBottom: "5px",
+                        marginBottom: "15px",
                       }}
                     >
-                      Connect Magazine
-                      <NorthEastSharpIcon sx={{ fontSize: 15 }} />
+
                     </p>
                     <p
                       style={{
                         fontSize: "20px",
                         fontWeight: "bold",
-                        marginBottom: "8px",
+                        marginBottom: "10px",
                       }}
                     >
-                      친환경에 앞장서는 솟솟리버스
+                      지속가능한 업사이클링 인테리어
                     </p>
                     <p
                       style={{
-                        fontSize: "14px",
+                        fontSize: "14px", lineHeight: "1.8", marginBottom: "5px"
                       }}
                     >
-                      "폐품이 아니라 명품"…'업사이클링'의 진화
+                      전세계가 열광하는 지속가능한 인테리어의 세계로 여러분을 초대합니다 📢
+                    </p>
+
+                    <p
+                      style={{
+                        fontSize: "6px", lineHeight: "1.6"
+                      }}
+                    >
+                      @metropolis
                     </p>
                   </div>
                 </a>
               </div>
-              <h1 className={style.h1}>펀딩</h1>
+              <div id={style.h1boxFunding}>
+                <h1 className={style.h1}>Funding</h1>
+              </div>
               {data.length > 3 ? (
-
                 <div className={style.contentslist}>
                   <Link
                     to={`/fundingdetail/${data[0].upcyclingId}`}
