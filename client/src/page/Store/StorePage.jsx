@@ -13,7 +13,7 @@ import style from "./StorePage.module.css";
 
 const List = (props) => {
   return (
-    <div id={style.list} key={props.index}>
+    <div id={style.list} key={props.sellId}>
       <Link to="/storedetail" className={style.link}>
         <img
           src={props.thumbNailImage}
@@ -50,7 +50,7 @@ const StorePage = () => {
 
   useEffect(() => {
     axios({
-      url: "/sells?page=1&size=8",
+      url: "/sells/descending?page=1&size=8",
       method: "get",
     })
       .then((response) => {
@@ -66,7 +66,7 @@ const StorePage = () => {
     setPage(1);
     if (kategorie === 0) {
       axios({
-        url: `/upcyclings/${sort}?page=1&size=8`,
+        url: `/sells/${sort}?page=1&size=8`,
         method: "get",
       })
         .then((response) => {
@@ -76,7 +76,7 @@ const StorePage = () => {
         .catch((err) => console.log(err));
     } else {
       axios({
-        url: `/upcyclings/${sort}/categories/${kategorie}?page=1&size=8`,
+        url: `/sells/${sort}/sellcategories/${kategorie}?page=1&size=8`,
         method: "get",
       })
         .then((response) => {
@@ -101,7 +101,7 @@ const StorePage = () => {
     if (page > 1) {
       if (kategorie === 0) {
         axios({
-          url: `/upcyclings/${sort}?page=${page}&size=8`,
+          url: `/sells/${sort}?page=${page}&size=8`,
           method: "get",
         })
           .then((response) => {
@@ -110,7 +110,7 @@ const StorePage = () => {
           .catch((err) => console.log(err));
       } else {
         axios({
-          url: `/upcyclings/${sort}/categories/${kategorie}?page=${page}&size=8`,
+          url: `/sells/${sort}/categories/${kategorie}?page=${page}&size=8`,
           method: "get",
         })
           .then((response) => {
@@ -195,7 +195,7 @@ const StorePage = () => {
             </FormControl>
           </Box>
           {localStorage.getItem("token") ? (
-            <Link to="/fundingcreate">
+            <Link to="/storecreate">
               <button id={style.fundingButton}>스토어 제품 등록</button>
             </Link>
           ) : null}
