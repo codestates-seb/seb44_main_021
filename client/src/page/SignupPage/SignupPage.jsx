@@ -75,7 +75,7 @@ const SignupPage = () => {
 
   const IsValidPwd = () => {
     if (!PWD_REGEX.test(userData.password)) {
-      setPwdErrMsg("숫자 ,문자, 특수문자 포함 8자 이상 입력하세요.");
+      setPwdErrMsg("숫자, 문자, 특수문자 포함 8자 이상 입력하세요.");
       setIsPassword(false);
     } else if (userData.password !== userData.verifyPwd) {
       setPwdErrMsg("비밀번호가 일치하지 않습니다.");
