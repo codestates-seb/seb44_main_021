@@ -7,6 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import re21.ieun.auth.utils.CustomAuthorityUtils;
 import re21.ieun.exception.BusinessLogicException;
 import re21.ieun.exception.ExceptionCode;
@@ -53,7 +54,13 @@ public class MemberService {
     public Member updateMember(Member member) {
         Member findMember = findMember(member.getMemberId());
         findMember.setDisplayName(member.getDisplayName());
-        findMember.setPassword(member.getPassword());
+        if (!StringUtils.isEmpty(member.getPassword())) {
+            String encryptedPassword = passwordEncoder.encode(member.getPassword());
+            findMember.setPassword(encryptedPassword);
+        }
+        if(!StringUtils.isEmpty(member.getThumbNailImage())) {
+            findMember.setThumbNailImage(member.getThumbNailImage());
+        }
         return memberRepository.save(findMember);
     }
 
@@ -74,12 +81,11 @@ public class MemberService {
 
     private void verifyExistsEmail(String email) {
         Optional<Member> member = memberRepository.findByEmail(email);
-        if (member.isPresent()) throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
+        if (member.isPresent()) throw new BusinessLogicException(ExceptionCode.EMAIL_EXISTS);
     }
 
     private void verifyExistsDisplayName(String displayName) {
         Optional<Member> member = memberRepository.findByDisplayName(displayName);
-        if (member.isPresent()) throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
+        if (member.isPresent()) throw new BusinessLogicException(ExceptionCode.DISPLAYNAME_EXISTS);
     }
-
 }

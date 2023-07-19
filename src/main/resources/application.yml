@@ -13,7 +13,7 @@ spring:
     show-sql: true      # SQL 쿼리 출력
     properties:
       hibernate:
-        format_sql: true  # SQL pretty print
+        format_sql: false  # SQL pretty print
   sql:
     init:
       data-locations: classpath*:db/h2/data.sql
@@ -30,7 +30,10 @@ server:
 mail:
   address:
     admin: admin@gmail.com
+JWT_KEY: ${JWT_SECRET_KEY}
 jwt:
-  key: kevin1234123412341234123412341234
   access-token-expiration-minutes: 30
   refresh-token-expiration-minutes: 240
+MY_ACCESSKEY: ${MY_ACCESSKEY}
+MY_SECRETKEY: ${MY_SECRETKEY}
+MY_REGION: ${MY_REGION}

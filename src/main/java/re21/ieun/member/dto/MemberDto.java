@@ -20,8 +20,18 @@ public class MemberDto {
         private String password;
         @NotBlank
         private String displayName;
-        private LocalDateTime modifiedAt;
-        private LocalDateTime createdAt;
+        @NotBlank
+        private String role;
+    }
+    @Getter
+    @AllArgsConstructor
+    public static class Post1 {
+        @NotBlank
+        @Email
+        private long memberId;
+        @NotBlank
+        private String password;
+
     }
 
     @Getter
@@ -32,7 +42,7 @@ public class MemberDto {
         private long memberId;
         private String displayName;
         private String password;
-        private String profileImg;
+        private String thumbNailImage;
     }
 
     @Getter
@@ -44,6 +54,6 @@ public class MemberDto {
         private String memberRole;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
-        private String profileImg;
+        private String thumbNailImage;
     }
 }
