@@ -104,6 +104,11 @@ public class SellService {
         return sellRepository.findAll(PageRequest.of(page, size, Sort.by("sellId").descending()));
     }
 
+    public Page<Sell> findSells1(int page, int size) {
+        return sellRepository.findAll(PageRequest.of(page, size, Sort.by("sellId").ascending()));
+    }
+
+
 
     // Sell View
 
