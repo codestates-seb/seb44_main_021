@@ -185,7 +185,9 @@ const History = ({ historyData, userData }) => {
                     item.history.map((data, dataIndex) => (
                       <tr key={dataIndex}>
                         {Object.keys(data).map((key, keyIndex) => (
-                          <td key={keyIndex}>{data[key]}</td>
+                          <td key={keyIndex} className={Style.tableRow}>
+                            {data[key]}
+                          </td>
                         ))}
                       </tr>
                     ))
