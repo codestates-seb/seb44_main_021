@@ -149,15 +149,16 @@ const SignupPage = () => {
   };
 
   const CheckAuthNumber = () => {
-    const { authNum } = userData;
+    const { code } = userData;
 
-    if (authNum === isAuthNum) {
-      console.log(authNum);
+    if (code === isAuthNum) {
+      // console.log(code);
       setIsCheckAuthNum(true);
       setAuthNumErrMsg("");
       alert("인증이 완료되었습니다.");
     }
-    if (authNum !== isAuthNum) {
+    if (code !== isAuthNum) {
+      // console.log(code);
       setIsCheckAuthNum(false);
       setAuthNumErrMsg("인증번호를 확인해주세요.");
     }
