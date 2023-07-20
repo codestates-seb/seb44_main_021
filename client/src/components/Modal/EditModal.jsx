@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Style from "./EditModal.module.css";
 import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
 
-const EditModal = ({ onClose, userData }) => {
+const EditModal = ({ onClose, userData, setUserData }) => {
   const [editUserInfo, setEditUserInfo] = useState({
     displayName: userData.displayName,
     password: "",
@@ -14,6 +14,8 @@ const EditModal = ({ onClose, userData }) => {
   const [currentPwd, setCurrentPwd] = useState("");
   const [PwdErrMsg, setPwdErrMsg] = useState("");
   const [newPwdErrMsg, setNewPwdErrMsg] = useState("");
+  const [nameErrMsg, setNameErrMsg] = useState("");
+  const [isName, setIsName] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordVerified, setIsPasswordVerified] = useState(false);
 
@@ -22,8 +24,20 @@ const EditModal = ({ onClose, userData }) => {
     console.log(editUserInfo);
   };
 
-  // 새비밀번호 유효성 검사
+  // 유효성 검사
+  const NAME_REGEX = /^[A-Za-z0-9ㄱ-ㅎㅏ-ㅣ가-힣]{2,6}$/;
   const PWD_REGEX = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+
+  const IsValidName = () => {
+    if (!NAME_REGEX.test(editUserInfo.displayName)) {
+      setNameErrMsg("특수 문자 제외 2자 ~ 6자를 입력하세요.");
+      setIsName(false);
+    } else {
+      setNameErrMsg("");
+      setIsName(true);
+    }
+  };
+
   const IsValidPwd = () => {
     if (!PWD_REGEX.test(editUserInfo.password)) {
       setNewPwdErrMsg("숫자 ,문자, 특수문자 포함 8자 이상 입력하세요.");
@@ -37,13 +51,11 @@ const EditModal = ({ onClose, userData }) => {
     }
   };
 
-  // console.log(editUserInfo);
-
   const AxiosPatch = (e) => {
     e.preventDefault();
     const { displayName, password, memberId } = editUserInfo;
 
-    if (isPassword || displayName || thumbNailImage) {
+    if (isPassword || isName || thumbNailImage) {
       axios
         .patch(`/members/${userData.memberId}`, {
           memberId,
@@ -53,18 +65,16 @@ const EditModal = ({ onClose, userData }) => {
         })
         .then((res) => {
           console.log(res);
-          // console.log(thumbNailImage);
+          setUserData((prevUserData) => ({
+            ...prevUserData,
+            displayName: res.data.displayName,
+            thumbNailImage: res.data.thumbNailImage,
+          }));
+
           onClose();
-          window.location.reload();
         })
         .catch((err) => {
           console.log(err);
-          console.log({
-            memberId,
-            displayName,
-            password,
-            thumbNailImage,
-          });
         });
     }
   };
@@ -81,8 +91,6 @@ const EditModal = ({ onClose, userData }) => {
         if (res.data === "성공") {
           setIsPasswordVerified(true);
           setPwdErrMsg("");
-
-          // onClose();
         }
       })
       .catch((err) => {
@@ -129,8 +137,10 @@ const EditModal = ({ onClose, userData }) => {
             <input
               type="text"
               defaultValue={userData.displayName}
-              onChange={EditInputValue("username")}
+              onChange={EditInputValue("displayName")}
+              onBlur={IsValidName}
             />
+            {nameErrMsg && <p className={Style.errMsg}>{nameErrMsg}</p>}
             <label>이메일</label>
             <p>{userData.email}</p>
             <label>새 비밀번호</label>
@@ -164,8 +174,9 @@ const SettingUserThumbnail = ({
   thumbNailImage,
   userData,
 }) => {
-  const [imageSrc, setImageSrc] = useState(userData.thumbNailImage);
-  // const inputRef = useRef(null);
+  const [imageSrc, setImageSrc] = useState(
+    userData.thumbNailImage || `${process.env.PUBLIC_URL}/image/profile.jpeg`
+  );
 
   const onUpload = (e) => {
     if (!e.target.files) {
@@ -216,12 +227,7 @@ const SettingUserThumbnail = ({
     <div id={Style.imgContainer}>
       <div className={Style.imgUpload}>
         <label htmlFor="fileInput">
-          <img
-            className={Style.userImg}
-            src={imageSrc}
-            // src={`${process.env.PUBLIC_URL}/image/profile.jpeg`}
-            alt="profile-img"
-          />
+          <img className={Style.userImg} src={imageSrc} alt="profile-img" />
           <img
             className={Style.uploadIcon}
             src={`${process.env.PUBLIC_URL}/image/add-img-icon.png`}

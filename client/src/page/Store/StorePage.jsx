@@ -14,7 +14,7 @@ import style from "./StorePage.module.css";
 const List = (props) => {
   return (
     <div id={style.list} key={props.sellId}>
-      <Link to="/storedetail" className={style.link}>
+      <Link to={`/storedetail/${props.sellId}`} className={style.link}>
         <img
           src={props.thumbNailImage}
           alt="로고"
@@ -25,9 +25,9 @@ const List = (props) => {
           }}
         />
         <div id={style.listText}>
-          <div>{props.title}</div>
-          <div>업사이클 자재</div>
-          <div>0000원</div>
+          <h3>{props.title}</h3>
+          <div>업사이클 자재 : {props.material}</div>
+          <div>{props.price}원</div>
         </div>
       </Link>
     </div>
