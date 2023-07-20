@@ -22,6 +22,7 @@ const List = (props) => {
             width: "250px",
             height: "60%",
             borderRadius: "20px",
+            objectFit: "cover",
           }}
         />
         <div id={style.listText}>

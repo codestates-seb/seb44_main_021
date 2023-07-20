@@ -8,7 +8,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { UserDataContext } from "../../contexts/UserDataContext";
 
@@ -84,14 +84,31 @@ const FundingDetail = () => {
     }
   };
 
+  const navigate = useNavigate();
+
+  const deleteFunding = () => {
+    axios({
+      url: `/upcyclings/${id}`,
+      method: "delete",
+    })
+      .then((response) => {
+        console.log(response);
+        navigate("/funding");
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div id={style.AllContainer}>
       <Header />
       <div id={style.TitleName}>펀딩 상세 정보</div>
       {userData.memberId === data.memberId ? (
         <div id={style.buttonContainer}>
+          <button className={style.button} onClick={deleteFunding}>
+            삭제
+          </button>
           <Link to={`/fundingedit/${data.upcyclingId}`} className={style.link}>
-            <button id={style.button}>수정</button>
+            <button className={style.button}>수정</button>
           </Link>
         </div>
       ) : null}
