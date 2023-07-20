@@ -13,9 +13,11 @@ import re21.ieun.email.EmailSender;
 import re21.ieun.email.RandomGenerator;
 import re21.ieun.exception.BusinessLogicException;
 import re21.ieun.exception.ExceptionCode;
+import re21.ieun.member.entity.VerificationCode;
 import re21.ieun.member.mapper.MemberMapper;
 import re21.ieun.member.repository.MemberRepository;
 import re21.ieun.member.entity.Member;
+import re21.ieun.member.repository.VerificationCodeRepository;
 
 import javax.mail.AuthenticationFailedException;
 import javax.mail.MessagingException;
@@ -31,17 +33,30 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
     private final EmailSender emailSender;
+    private final VerificationCodeRepository verificationCodeRepository;
 
-    public MemberService(MemberRepository memberRepository, MemberMapper memberMapper, PasswordEncoder passwordEncoder, CustomAuthorityUtils authorityUtils, EmailSender emailSender) {
+    public MemberService(MemberRepository memberRepository, MemberMapper memberMapper, PasswordEncoder passwordEncoder, CustomAuthorityUtils authorityUtils, EmailSender emailSender, VerificationCodeRepository verificationCodeRepository) {
         this.memberRepository = memberRepository;
         this.memberMapper = memberMapper;
         this.passwordEncoder = passwordEncoder;
         this.authorityUtils = authorityUtils;
         this.emailSender = emailSender;
+        this.verificationCodeRepository = verificationCodeRepository;
     }
 
     public Member createMember(Member member) {
         //todo:보안 비밀번호 암호화는 추후 추가예정
+
+        VerificationCode verificationCode = verificationCodeRepository.findByCode(member.getCode());
+
+        if (verificationCode == null) {
+            throw new BusinessLogicException(ExceptionCode.INVALID_VERIFICATION_CODE);
+        }
+
+        if (!verificationCode.getEmail().equals(member.getEmail())) {
+            throw new BusinessLogicException(ExceptionCode.INVALID_VERIFICATION_CODE);
+        }
+
 
         verifyExistsEmail(member.getEmail());
         verifyExistsDisplayName(member.getDisplayName());
@@ -94,14 +109,36 @@ public class MemberService {
         Optional<Member> member = memberRepository.findByDisplayName(displayName);
         if (member.isPresent()) throw new BusinessLogicException(ExceptionCode.DISPLAYNAME_EXISTS);
     }
+//    public void deleteVerificationCode(long verifiactionId) {
+//
+//        memberRepository.deleteById(verifiactionId);
+//    }
+//    public VerificationCode findVerificationCode(long verificationId) {
+//        VerificationCode findVerificationCode = verificationCodeRepository.findById(verificationId).orElseThrow(() ->
+//                new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+//        return findVerificationCode;
+//    }
+
+
+//
+//    private void verifyCode(String code) {
+//        Optional<VerificationCode> verificationCode = verificationCodeRepository.findByCode(code);
+//        if ( code == verificationCode)
+//
+//    }
 
     public String sendVerificationEmail(String email) throws MessagingException {
         // Verification Code 생성
         String verificationCode = RandomGenerator.generateRandomCode(6);
 
-        // 이메일 인증 메일 발송
-        try {
-            emailSender.sendVerificationEmail(email, verificationCode);
+        VerificationCode codeEntity = new VerificationCode();
+        codeEntity.setEmail(email);
+        codeEntity.setCode(verificationCode);
+        verificationCodeRepository.save(codeEntity);
+
+            // 이메일 인증 메일 발송
+            try {
+                emailSender.sendVerificationEmail(email, verificationCode);
         } catch (AuthenticationFailedException e) {
             // 메일 발신 계정의 정보가 잘못된 경우 처리
 

@@ -15,6 +15,7 @@ import re21.ieun.member.dto.MemberDto;
 import re21.ieun.member.mapper.MemberMapper;
 import re21.ieun.member.entity.Member;
 import re21.ieun.member.repository.MemberRepository;
+import re21.ieun.member.repository.VerificationCodeRepository;
 import re21.ieun.member.service.MemberService;
 import re21.ieun.utils.UriCreator;
 
@@ -35,12 +36,14 @@ public class MemberController {
     private final MemberMapper memberMapper;
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
+    private final VerificationCodeRepository verificationCodeRepository;
 
-    public MemberController(MemberService memberService, MemberMapper memberMapper, MemberRepository memberRepository, PasswordEncoder passwordEncoder) {
+    public MemberController(MemberService memberService, MemberMapper memberMapper, MemberRepository memberRepository, PasswordEncoder passwordEncoder, VerificationCodeRepository verificationCodeRepository) {
         this.memberService = memberService;
         this.memberMapper = memberMapper;
         this.memberRepository = memberRepository;
         this.passwordEncoder = passwordEncoder;
+        this.verificationCodeRepository = verificationCodeRepository;
     }
 
     @PostMapping("/sendmail")
@@ -70,6 +73,7 @@ public class MemberController {
     @PostMapping("/signup")
     public ResponseEntity postMember(@Valid @RequestBody MemberDto.Post requestBody) {
         Member member = memberService.createMember(memberMapper.memberPostDtotoMember(requestBody));
+
         URI location = UriCreator.createUri(MEMBER_DEFAULT_URL, member.getMemberId());
         return ResponseEntity.created(location).build();
     }

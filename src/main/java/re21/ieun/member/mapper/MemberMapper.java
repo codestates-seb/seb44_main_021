@@ -17,6 +17,7 @@ public interface MemberMapper {
         member.setDisplayName( requestBody.getDisplayName() );
         member.setEmail( requestBody.getEmail() );
         member.setPassword( requestBody.getPassword() );
+        member.setCode( requestBody.getCode());
         if(requestBody.getRole().equals("users")) {
             member.setMemberRole(Member.MemberRole.MEMBER_USER);
         }
