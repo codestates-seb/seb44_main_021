@@ -32,18 +32,18 @@ const Header = () => {
 
       axios.get(`/members/${dec.memberId}`).then((res) => {
         const user = res.data.data;
-
-        setUserData({
-          ...userData,
+        setUserData((prevUserData) => ({
+          ...prevUserData,
           displayName: user.displayName,
           email: user.email,
           memberId: user.memberId,
           memberRole: user.memberRole,
-        });
+          thumbNailImage: user.thumbNailImage,
+        }));
       });
     }
-  }, []);
-  //   console.log(userData);
+    console.log(userData);
+  }, [userData.memberId, userData.thumbNailImage, userData.displayName]);
 
   return (
     <div id={style.HeaderContainer}>
@@ -52,18 +52,18 @@ const Header = () => {
           <Logo />
         </div>
         <div className={style.LinkWrapper}>
-          <Link to="/fundinglist" className={style.LinkStyle}>
+          <Link to="/funding" className={style.LinkStyle}>
             <div className={style.LinkContent}>펀딩+</div>
           </Link>
         </div>
         <div className={style.LinkWrapper}>
-          <Link to="/storelist" className={style.LinkStyle}>
+          <Link to="/store" className={style.LinkStyle}>
             <div className={style.LinkContent}>스토어</div>
           </Link>
         </div>
         <div id={style.SearchWrapper}>
-          {(window.location.pathname === "/fundinglist" ||
-            window.location.pathname === "/storelist") && (
+          {(window.location.pathname === "/funding" ||
+            window.location.pathname === "/store") && (
             <div id={style.SeachContent}>
               <SearchIcon
                 sx={{

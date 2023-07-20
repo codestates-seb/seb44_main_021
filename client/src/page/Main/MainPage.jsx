@@ -9,34 +9,19 @@ import Loading from "../../loading";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import CloseIcon from "@mui/icons-material/Close";
+import NorthEastSharpIcon from "@mui/icons-material/NorthEastSharp";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const MainPage = () => {
-  const [logoSize, setLogoSize] = useState(70);
+  const [logoSize, setLogoSize] = useState(60);
   const [nowloding, setNowloding] = useState(false);
   const [open, setOpen] = useState(false);
   const [data, setData] = useState([]);
   const horwrapRef = useRef(null);
 
-  // const handleScroll = () => {
-  //   let scrollPosition = window.scrollY;
-  //   console.log(scrollPosition);
-  //   if (scrollPosition > 750) {
-  //     scrollPosition = 750;
-  //   }
-  //   const newLogoSize = logoSize - scrollPosition / 5;
-  //   setLogoSize(newLogoSize);
-  // };
-
-  // useEffect(() => {
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, []);
-
   useEffect(() => {
     axios({
-      url: "/upcyclings?page=1&size=4",
+      url: "/upcyclings/descending?page=1&size=4",
       method: "get",
     })
       .then((response) => {
@@ -65,7 +50,7 @@ const MainPage = () => {
       });
     }
     setNowloding(true);
-  }, [nowloding, horwrapRef.current]);
+  }, [horwrapRef.current]);
 
   const lenis = new Lenis();
 
@@ -91,9 +76,19 @@ const MainPage = () => {
           {open ? (
             <div className={style.modalOverlay}>
               <div className={style.modalContent}>
-                <button onClick={closeModal} id={style.closebutton}>
-                  <CloseIcon sx={{ fontSize: 50 }} />
-                </button>
+                <div className={style.modalLogo}>
+                  <img
+                    src={process.env.PUBLIC_URL + "/image/logo5.png"}
+                    alt="로고"
+                    style={{
+                      width: "60px",
+                      height: "60px",
+                    }}
+                  />
+                  <button onClick={closeModal} id={style.closebutton}>
+                    <CloseIcon sx={{ fontSize: 30, color: "#000000" }} />
+                  </button>
+                </div>
                 <div id={style.sidelist}>
                   <Link to="/funding" className={style.link}>
                     <div className={style.sidelistText}>펀딩 페이지</div>
@@ -102,15 +97,25 @@ const MainPage = () => {
                     <div className={style.sidelistText}>상품 페이지</div>
                   </Link>
                   <Link to="/about" className={style.link}>
-                    <div className={style.sidelistText}>About 페이지</div>
+                    <div className={style.sidelistText}>About</div>
                   </Link>
+                  <p
+                    style={{
+                      fontSize: "50px",
+                      color: "#000000",
+                      fontWeight: "bold",
+                      marginTop: "170px",
+                    }}
+                  >
+                    利 隱
+                  </p>
                 </div>
               </div>
             </div>
           ) : null}
           <div id={style.header}>
             <button className={style.button} onClick={openModal}>
-              <MenuIcon sx={{ fontSize: 50 }} />
+              <MenuIcon sx={{ fontSize: 40, color: "#6E934D" }} />
             </button>
             <div id={style.logo}>
               <img
@@ -128,103 +133,125 @@ const MainPage = () => {
                 style={{ width: `${logoSize}px`, height: `${logoSize}px` }}
               />
             </div>
-            <Link to="/login">
+            {localStorage.getItem("token") ? (
+              <ProfileDropdown />
+            ) : (
               <button className={style.button}>
-                <AccountBoxIcon
-                  className={style.button}
-                  sx={{ fontSize: 50 }}
-                />
+                <Link to="/login">
+                  <AccountBoxIcon
+                    className={style.button}
+                    sx={{ fontSize: 40, color: "#000000" }}
+                  />
+                </Link>
               </button>
-            </Link>
+            )}
           </div>
           <div id={style.main}>
             <div className="horwrap" ref={horwrapRef}>
               <div className={style.horwrap}>
                 <div className={style.hor}>
                   <img
-                    src={process.env.PUBLIC_URL + "/image/test1.jpg"}
+                    src={process.env.PUBLIC_URL + "/image/test4.jpg"}
                     alt="test"
-                    style={{ width: "100%", height: "100%" }}
+                    className={style.mainImg}
                   />
                 </div>
+
                 <div className={style.hor}>
-                  <img
-                    src={process.env.PUBLIC_URL + "/image/test2.jpg"}
-                    alt="test"
-                    style={{ width: "100%", height: "100%" }}
-                  />
+                  <Link to="/funding">
+                    <img
+                      src={process.env.PUBLIC_URL + "/image/test6.jpg"}
+                      alt="test"
+                      className={style.mainImg}
+                    />
+                  </Link>
                 </div>
+
                 <div className={style.hor}>
-                  <img
-                    src={process.env.PUBLIC_URL + "/image/test3.jpg"}
-                    alt="test"
-                    style={{ width: "100%", height: "100%" }}
-                  />
+                  <Link to="/store">
+                    <img
+                      src={process.env.PUBLIC_URL + "/image/test7.jpg"}
+                      alt="test"
+                      className={style.mainImg}
+                    />
+                  </Link>
                 </div>
               </div>
             </div>
             <div id={style.contents}>
-              <h1 className={style.h1}>뉴스</h1>
+              <div id={style.h1boxMagazine}>
+                <h1 className={style.h1}>Magazine</h1>
+              </div>
               <div className={style.contentslist}>
                 <a
-                  href="https://www.insehub.or.kr/bbs/board.php?bo_table=bbs_030403&wr_id=88"
+                  href="https://eco-fresh.co.kr/article/%EC%97%90%EC%BD%94-%EB%A7%A4%EA%B1%B0%EC%A7%84/1008/168259/"
                   target="_blank"
                   rel="noreferrer"
                 >
                   <div className={style.contentsbox}>
                     <img
-                      src={process.env.PUBLIC_URL + "/image/news1.jpg"}
+                      src={process.env.PUBLIC_URL + "/image/test10.jpg"}
                       alt="test"
-                      style={{
-                        width: "100%",
-                        height: "80%",
-                        borderTopLeftRadius: "20px",
-                        borderTopRightRadius: "20px",
-                      }}
+                      className={style.contentsImg}
                     />
-                    쓰레기의 재탄생! 업사이클링 제품이 뭐야?
+                    <p className={style.contentsText}>
+                      이은이 알려주는 친환경 잡지
+                    </p>
+                    <p className={style.contentsSub}>
+                      제로 웨이스트, 리업사이클 등 8개의 키워드 제품을 판매하는
+                      eco fresh를 소개할게요!
+                    </p>
+
+                    <p className={style.contentsFooter}>@ecomagazine</p>
                   </div>
                 </a>
                 <a
-                  href="https://www.tinnews.co.kr/23616"
+                  href="https://www.eyesmag.com/search?s=%EC%97%85%EC%82%AC%EC%9D%B4%ED%81%B4%EB%A7%81"
                   target="_blank"
                   rel="noreferrer"
                 >
                   <div className={style.contentsbox}>
                     <img
-                      src={process.env.PUBLIC_URL + "/image/news2.png"}
+                      src={process.env.PUBLIC_URL + "/image/test13.png"}
                       alt="test"
-                      style={{
-                        width: "100%",
-                        height: "80%",
-                        borderTopLeftRadius: "20px",
-                        borderTopRightRadius: "20px",
-                      }}
+                      className={style.contentsImg}
                     />
-                    업사이클링의 완성은 자원 순환
+                    <p className={style.contentsText}>
+                      친환경을 주목하는 아이즈매거진
+                    </p>
+                    <p className={style.contentsSub}>
+                      클린뷰티부터 스투시까지, 이은이 소개하는 업사이클링의 최신
+                      트렌트를 읽어보세요 🙂
+                    </p>
+
+                    <p className={style.contentsFooter}>@eyesmagazine</p>
                   </div>
                 </a>
                 <a
-                  href="https://dream.kotra.or.kr/kotranews/cms/news/actionKotraBoardDetail.do?SITE_NO=3&MENU_ID=180&CONTENTS_NO=1&bbsGbn=243&bbsSn=243&pNttSn=194909"
+                  href="https://www.beautifulstore.org/upcycling"
                   target="_blank"
                   rel="noreferrer"
                 >
                   <div className={style.contentsbox}>
                     <img
-                      src={process.env.PUBLIC_URL + "/image/news3.jpg"}
+                      src={process.env.PUBLIC_URL + "/image/test11.jpg"}
                       alt="test"
-                      style={{
-                        width: "100%",
-                        height: "80%",
-                        borderTopLeftRadius: "20px",
-                        borderTopRightRadius: "20px",
-                      }}
+                      className={style.contentsImg}
                     />
-                    미국 시장이 열광하는 '업사이클링' 트렌드
+
+                    <p className={style.contentsText}>
+                      '에코라이프스타일'의 확산
+                    </p>
+                    <p className={style.contentsSub}>
+                      아름다운 가게에서 소개하는 '에코파티메아리'를 확인해보세요
+                      😎
+                    </p>
+
+                    <p className={style.contentsFooter}>@beautifulstore</p>
                   </div>
                 </a>
                 <a
-                  href="https://news.sbs.co.kr/news/endPage.do?news_id=N1002461263&plink=COPYPASTE&cooper=SBSNEWSEND"
+                  href="https://metropolismag.com/sustainability/"
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -232,88 +259,89 @@ const MainPage = () => {
                     <img
                       src={process.env.PUBLIC_URL + "/image/news4.jpg"}
                       alt="test"
-                      style={{
-                        width: "100%",
-                        height: "80%",
-                        borderTopLeftRadius: "20px",
-                        borderTopRightRadius: "20px",
-                      }}
+                      className={style.contentsImg}
                     />
-                    "폐품이 아니라 명품"…'업사이클링'의 진화
+                    <p className={style.contentsText}>
+                      지속가능한 업사이클링 인테리어
+                    </p>
+                    <p className={style.contentsSub}>
+                      전세계가 열광하는 지속가능한 인테리어의 세계로 여러분을
+                      초대합니다 📢
+                    </p>
+
+                    <p className={style.contentsFooter}>@metropolis</p>
                   </div>
                 </a>
               </div>
-              <h1 className={style.h1}>펀딩</h1>
+              <div id={style.h1boxFunding}>
+                <h1 className={style.h1}>Funding</h1>
+              </div>
               {data.length > 3 ? (
                 <div className={style.contentslist}>
-                  <Link to="/fundingdetail" className={style.link}>
+                  <Link
+                    to={`/fundingdetail/${data[0].upcyclingId}`}
+                    className={style.link}
+                  >
                     <div className={style.contentsbox}>
                       <img
                         src={data[0].thumbNailImage}
                         alt="img"
-                        style={{
-                          width: "100%",
-                          height: "80%",
-                          borderTopLeftRadius: "20px",
-                          borderTopRightRadius: "20px",
-                        }}
+                        className={style.contentsImg}
                       />
-                      {data[0].title}
+                      <div className={style.contentsText}>{data[0].title}</div>
                     </div>
                   </Link>
 
-                  <Link to="/fundingdetail" className={style.link}>
+                  <Link
+                    to={`/fundingdetail/${data[1].upcyclingId}`}
+                    className={style.link}
+                  >
                     <div className={style.contentsbox}>
                       <img
                         src={data[1].thumbNailImage}
                         alt="img"
-                        style={{
-                          width: "100%",
-                          height: "80%",
-                          borderTopLeftRadius: "20px",
-                          borderTopRightRadius: "20px",
-                        }}
+                        className={style.contentsImg}
                       />
-                      {data[1].title}
+                      <div className={style.contentsText}>{data[1].title}</div>
                     </div>
                   </Link>
 
-                  <Link to="/fundingdetail" className={style.link}>
+                  <Link
+                    to={`/fundingdetail/${data[2].upcyclingId}`}
+                    className={style.link}
+                  >
                     <div className={style.contentsbox}>
                       <img
                         src={data[2].thumbNailImage}
                         alt="img"
-                        style={{
-                          width: "100%",
-                          height: "80%",
-                          borderTopLeftRadius: "20px",
-                          borderTopRightRadius: "20px",
-                        }}
+                        className={style.contentsImg}
                       />
-                      {data[2].title}
+                      <div className={style.contentsText}>{data[2].title}</div>
                     </div>
                   </Link>
 
-                  <Link to="/fundingdetail" className={style.link}>
+                  <Link
+                    to={`/fundingdetail/${data[3].upcyclingId}`}
+                    className={style.link}
+                  >
                     <div className={style.contentsbox}>
                       <img
                         src={data[3].thumbNailImage}
                         alt="img"
-                        style={{
-                          width: "100%",
-                          height: "80%",
-                          borderTopLeftRadius: "20px",
-                          borderTopRightRadius: "20px",
-                        }}
+                        className={style.contentsImg}
                       />
-                      {data[3].title}
+                      <div className={style.contentsText}>{data[3].title}</div>
                     </div>
                   </Link>
                 </div>
               ) : null}
             </div>
             <div id={style.footer}>
-              <div id={style.footercontents}></div>
+              <img
+                src={process.env.PUBLIC_URL + "/image/test8.jpg"}
+                alt="test"
+                className={style.mainImg}
+              />
             </div>
           </div>
         </div>
@@ -326,60 +354,43 @@ const MainPage = () => {
 
 export default MainPage;
 
-// const handleScroll = () => {
-//   let scrollPosition = window.scrollY;
-//   console.log(scrollPosition);
-//   if (scrollPosition > 750) {
-//     scrollPosition = 750;
-//   }
-//   const newLogoSize = logoSize - scrollPosition / 5;
-//   setLogoSize(newLogoSize);
-// };
+const ProfileDropdown = () => {
+  const [menuView, setMenuView] = useState(false);
+  const Dropdown = () => {
+    setMenuView(!menuView);
+  };
 
-// useEffect(() => {
-//   window.addEventListener("scroll", handleScroll);
-//   return () => {
-//     window.removeEventListener("scroll", handleScroll);
-//   };
-// }, []);
+  return (
+    <div className={style.ProfileWrapper}>
+      <AccountCircleIcon
+        onClick={Dropdown}
+        sx={{ width: "35px", height: "100%", color: "#6E934D" }}
+      />
+      <div className={style.Dropdowncontainer}>
+        {menuView && <DropdownBox />}
+      </div>
+    </div>
+  );
+};
 
-// return (
-//   <div>
-//     <div id={style.header}>
-//       <button>사이드바 햄버거</button>
-//       <div id={style.logo}>
-//         <img
-//           src={process.env.PUBLIC_URL + "/image/logo3.png"}
-//           alt="로고"
-//           style={{
-//             width: `${logoSize}px`,
-//             height: `${logoSize}px`,
-//             borderRadius: "20px",
-//           }}
-//         />
-//         <img
-//           src={process.env.PUBLIC_URL + "/image/logo2.png"}
-//           alt="로고"
-//           style={{ width: `${logoSize}px`, height: `${logoSize}px` }}
-//         />
-//       </div>
-//       <button>로그인 버튼</button>
-//     </div>
+const DropdownBox = () => {
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.reload();
+  };
 
-//     <h2>컨텐츠</h2>
-//     <div id={style.contents}>test</div>
-//   </div>
-
-// gsap.registerPlugin(ScrollTrigger);
-
-// gsap.to(".horwrap", {
-//   scrollTrigger: {
-//     trigger: ".horwrap",
-//     start: "0% 50%",
-//     end: "100% 30%",
-//     scrub: 1,
-//     // pin: ".horwrap",
-//     markers: true,
-//   },
-//   x: -1300,
-// });
+  return (
+    <div>
+      <div className={style.MenuItem}>
+        <Link to="/mypage" className={style.MenuLink}>
+          My page
+        </Link>
+      </div>
+      <div onClick={handleLogout} className={style.MenuItem}>
+        <Link to="/" className={style.MenuLink}>
+          Logout
+        </Link>
+      </div>
+    </div>
+  );
+};

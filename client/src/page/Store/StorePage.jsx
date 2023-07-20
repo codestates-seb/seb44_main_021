@@ -9,12 +9,12 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Header from "../../components/Header/Header";
-import style from "./FundingPage.module.css";
+import style from "./StorePage.module.css";
 
 const List = (props) => {
   return (
-    <div id={style.list} key={props.index}>
-      <Link to={`/fundingdetail/${props.upcyclingId}`} className={style.link}>
+    <div id={style.list} key={props.sellId}>
+      <Link to={`/storedetail/${props.sellId}`} className={style.link}>
         <img
           src={props.thumbNailImage}
           alt="로고"
@@ -27,18 +27,18 @@ const List = (props) => {
         />
         <div id={style.listText}>
           <h3>{props.title}</h3>
-          <div>펀딩 자재 : {props.categoryName}</div>
+          <div>업사이클 자재 : {props.material}</div>
+          <div>{props.price}원</div>
         </div>
       </Link>
     </div>
   );
 };
 
-const FundingPage = () => {
-  const { userData } = useContext(UserDataContext);
+const StorePage = () => {
   const [sort, setSort] = useState("descending");
   const [kategorie, setKategorie] = useState(0);
-  const [fundingList, setFundingList] = useState([]);
+  const [stoerList, setStoreList] = useState([]);
   const [page, setPage] = useState(1);
   const [isLoding, setIsLoding] = useState(false);
 
@@ -51,11 +51,11 @@ const FundingPage = () => {
 
   useEffect(() => {
     axios({
-      url: "/upcyclings/descending?page=1&size=8",
+      url: "/sells/descending?page=1&size=8",
       method: "get",
     })
       .then((response) => {
-        setFundingList(response.data.data);
+        setStoreList(response.data.data);
         console.log(response.data.data);
         setIsLoding(true);
       })
@@ -67,21 +67,21 @@ const FundingPage = () => {
     setPage(1);
     if (kategorie === 0) {
       axios({
-        url: `/upcyclings/${sort}?page=1&size=8`,
+        url: `/sells/${sort}?page=1&size=8`,
         method: "get",
       })
         .then((response) => {
-          setFundingList(response.data.data);
+          setStoreList(response.data.data);
           setIsLoding(true);
         })
         .catch((err) => console.log(err));
     } else {
       axios({
-        url: `/upcyclings/${sort}/categories/${kategorie}?page=1&size=8`,
+        url: `/sells/${sort}/sellcategories/${kategorie}?page=1&size=8`,
         method: "get",
       })
         .then((response) => {
-          setFundingList(response.data.data);
+          setStoreList(response.data.data);
           setIsLoding(true);
         })
         .catch((err) => console.log(err));
@@ -102,20 +102,20 @@ const FundingPage = () => {
     if (page > 1) {
       if (kategorie === 0) {
         axios({
-          url: `/upcyclings/${sort}?page=${page}&size=8`,
+          url: `/sells/${sort}?page=${page}&size=8`,
           method: "get",
         })
           .then((response) => {
-            setFundingList((prev) => [...prev, ...response.data.data]);
+            setStoreList((prev) => [...prev, ...response.data.data]);
           })
           .catch((err) => console.log(err));
       } else {
         axios({
-          url: `/upcyclings/${sort}/categories/${kategorie}?page=${page}&size=8`,
+          url: `/sells/${sort}/categories/${kategorie}?page=${page}&size=8`,
           method: "get",
         })
           .then((response) => {
-            setFundingList((prev) => [...prev, ...response.data.data]);
+            setStoreList((prev) => [...prev, ...response.data.data]);
           })
           .catch((err) => console.log(err));
       }
@@ -175,13 +175,6 @@ const FundingPage = () => {
     }
   };
 
-  const ViewEtc = () => {
-    if (kategorie !== 6) {
-      setKategorie(6);
-      window.scrollTo(0, 0);
-    }
-  };
-
   return (
     <div>
       <Header />
@@ -203,8 +196,8 @@ const FundingPage = () => {
             </FormControl>
           </Box>
           {localStorage.getItem("token") ? (
-            <Link to="/fundingcreate">
-              <button id={style.fundingButton}>펀딩 제품 등록</button>
+            <Link to="/storecreate">
+              <button id={style.fundingButton}>스토어 제품 등록</button>
             </Link>
           ) : null}
         </div>
@@ -217,57 +210,50 @@ const FundingPage = () => {
             ${kategorie === 0 ? style.selectedButton : ""}`}
             onClick={ViewAll}
           >
-            펀딩 전체보기
+            스토어 전체보기
           </button>
           <button
             className={`${style.button} 
             ${kategorie === 1 ? style.selectedButton : ""}`}
             onClick={ViewCloth}
           >
-            천
+            의류
           </button>
           <button
             className={`${style.button} 
             ${kategorie === 2 ? style.selectedButton : ""}`}
             onClick={ViewWood}
           >
-            목재
+            가구
           </button>
           <button
             className={`${style.button} 
             ${kategorie === 3 ? style.selectedButton : ""}`}
             onClick={ViewPlastic}
           >
-            플라스틱
+            인테리어
           </button>
           <button
             className={`${style.button} 
             ${kategorie === 4 ? style.selectedButton : ""}`}
             onClick={ViewIron}
           >
-            철제
+            소품
           </button>
           <button
             className={`${style.button} 
             ${kategorie === 5 ? style.selectedButton : ""}`}
             onClick={ViewGlass}
           >
-            유리
-          </button>
-          <button
-            className={`${style.button} 
-            ${kategorie === 6 ? style.selectedButton : ""}`}
-            onClick={ViewEtc}
-          >
             기타
           </button>
         </div>
         <div id={style.funding}>
-          {isLoding ? fundingList.map((obj, index) => List(obj, index)) : null}
+          {isLoding ? stoerList.map((obj, index) => List(obj, index)) : null}
         </div>
       </div>
     </div>
   );
 };
 
-export default FundingPage;
+export default StorePage;
