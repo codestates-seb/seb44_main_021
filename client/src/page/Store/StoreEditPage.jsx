@@ -97,10 +97,10 @@ const StoreEditPage = () => {
                     </div>
                 </div>
                 <div id={style.rightWrapper}>
-                    <div id={style.basicfont}>제품명</div>
+                    <div className={style.CautionMent}>제품명</div>
                     <textarea placeholder='50자 이내로 입력해주세요.' id={style.NameInput} defaultValue={data.title} maxLength="50" onChange={handleTitleChange}/>
                     <p className={style.errMsg}>{titleMsg}</p>
-                    <div className={style.CommonMent}>제품 소개글</div>
+                    <div className={style.CautionMent}>제품 소개글</div>
                     <textarea placeholder='500자 이내로 입력해주세요.' id={style.IntroduceBox} maxLength="500" defaultValue={data.content} onChange={handleContentChange}/>
                     <p className={style.errMsg}>{contentMsg}</p>
                     <div id={style.categorybox}>
@@ -125,6 +125,11 @@ const StoreEditPage = () => {
                     </div>
                     <button id={style.CreateButton}  onClick={handleSavaEdit}>수정하기</button>
                 </div>
+            </div>
+            <div id={style.downWrapper}>
+              <div id={style.ContentimgWrapper}>
+                <img id={style.FundingImg} src={data.contentImage} alt="제품 상세 이미지 미리보기" />
+              </div>
             </div>
         </div>
     );
