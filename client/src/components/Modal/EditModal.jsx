@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Style from "./EditModal.module.css";
 import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";

@@ -17,6 +17,7 @@ const SignupPage = () => {
     password: "",
     role: "",
     verifyPwd: "",
+    authNum: "",
   });
 
   /* 에러메세지 */
@@ -29,6 +30,10 @@ const SignupPage = () => {
   const [isEmail, setIsEmail] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   const [isName, setIsName] = useState(false);
+
+  /* 이메일 인증번호 전송 여부*/
+  const [isAuthNum, setIsAuthNum] = useState("");
+  const [isAuthNumSent, setIsAuthNumSent] = useState(false);
 
   const navigate = useNavigate();
   const storedUserRole = sessionStorage.getItem("userRole");
@@ -117,30 +122,77 @@ const SignupPage = () => {
         });
     }
   };
+  /* 이메일 인증 */
+  const sendAuthNumber = () => {
+    const { email } = userData;
+
+    setIsAuthNumSent(true);
+
+    axios
+      .post("/members/sendmail", { email })
+      .then((res) => {
+        console.log(res.data.message);
+        setIsAuthNum(res.data.message);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const CheckAuthNumber = () => {
+    const { authNum } = userData;
+
+    if (authNum === isAuthNum) {
+      console.log(authNum);
+      alert("인증이 완료되었습니다.");
+      setIsAuthNumSent(false);
+    }
+    if (authNum !== isAuthNum) {
+      alert("인증번호가 맞지 않습니다.");
+    }
+  };
+
+  // const [isOpenModal, setIsOpenModal] = useState(false);
 
   return (
     <div className={Style.SignupformContainer}>
-      <form className={Style.SignupForm} onSubmit={AxiosPost}>
+      <div className={Style.SignupFormWrapper} onSubmit={AxiosPost}>
         <Logo />
+        <form className={Style.SignupForm}>
+          <label>이메일</label>
+          <div className={Style.authEmailInput}>
+            <input
+              type="email"
+              placeholder="이메일을 입력하세요."
+              onChange={handleInputValue("email")}
+              onBlur={IsValidEmail}
+            />
 
-        <label className={Style.label}>
-          이메일
-          <input
-            className={Style.input}
-            type="email"
-            placeholder="이메일을 입력하세요."
-            onChange={handleInputValue("email")}
-            onBlur={IsValidEmail}
-          />
+            <button className={Style.authBtn} onClick={sendAuthNumber}>
+              인증번호 전송
+            </button>
+          </div>
           {emailErrMsg !== "" && <p className={Style.errMsg}>{emailErrMsg}</p>}
-        </label>
+          {isAuthNumSent && (
+            <>
+              <label>인증번호</label>
+              <div className={Style.authEmailInput}>
+                <input
+                  type="text"
+                  placeholder="인증번호를 입력하세요."
+                  onChange={handleInputValue("authNum")}
+                />
+                <button className={Style.authBtn} onClick={CheckAuthNumber}>
+                  인증번호 확인
+                </button>
+              </div>
+            </>
+          )}
 
-        {storedUserRole === "users" && (
-          <>
-            <label className={Style.label}>
-              닉네임
+          {storedUserRole === "users" && (
+            <>
+              <label>닉네임</label>
               <input
-                className={Style.input}
                 type="text"
                 placeholder="닉네임을 입력하세요."
                 onChange={handleInputValue("displayName")}
@@ -149,16 +201,13 @@ const SignupPage = () => {
               {nameErrMsg !== "" && (
                 <p className={Style.errMsg}>{nameErrMsg}</p>
               )}
-            </label>
-          </>
-        )}
+            </>
+          )}
 
-        {storedUserRole === "upcycler" && (
-          <>
-            <label className={Style.label}>
-              업사이클러명
+          {storedUserRole === "upcycler" && (
+            <>
+              <label>업사이클러명</label>
               <input
-                className={Style.input}
                 type="text"
                 placeholder="업사이클러명을 입력하세요."
                 onChange={handleInputValue("displayName")}
@@ -167,41 +216,41 @@ const SignupPage = () => {
               {nameErrMsg !== "" && (
                 <p className={Style.errMsg}>{nameErrMsg}</p>
               )}
-            </label>
-          </>
-        )}
+            </>
+          )}
 
-        <label className={Style.label}>
-          비밀번호
+          <label>비밀번호</label>
           <input
-            className={Style.input}
             type="password"
             placeholder="비밀번호를 입력하세요."
             onChange={handleInputValue("password")}
             onBlur={IsValidPwd}
           />
-        </label>
 
-        <label className={Style.label}>
-          비밀번호 확인
+          <label>비밀번호 확인</label>
           <input
-            className={Style.input}
             type="password"
             placeholder="비밀번호를 한번 더 입력하세요."
             onChange={handleInputValue("verifyPwd")}
             onBlur={IsValidPwd}
           />
           {pwdErrMsg !== "" && <p className={Style.errMsg}>{pwdErrMsg}</p>}
-        </label>
 
-        <button
-          type="submit"
-          className={disabled ? Style.disabledButton : Style.submitButton}
-          disabled={disabled}
-        >
-          sign up
-        </button>
-      </form>
+          <button
+            type="submit"
+            className={disabled ? Style.disabledButton : Style.submitButton}
+            disabled={disabled}
+          >
+            sign up
+          </button>
+        </form>
+      </div>
+      {/* {isOpenModal && (
+        <AlertModal
+        isOpenModal ={isOpenModal}
+        setIsOpenModal {setIsOpenModal}
+        />
+      )} */}
     </div>
   );
 };
