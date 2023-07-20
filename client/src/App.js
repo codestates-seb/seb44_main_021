@@ -13,6 +13,7 @@ import MyPage from "./page/MyPage/MyPage";
 import FundingCreatePage from "./page/Funding/FundingCreatePage";
 import FundingEditPage from "./page/Funding/FundingEditPage";
 import StoreCreatePage from "./page/Store/StoreCreatePage";
+import StoreEditPage from "./page/Store/StoreEditPage";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route element={<MyPage />} path="/mypage" />
           <Route element={<FundingEditPage />} path="/fundingedit/*" />
           <Route element={<StoreCreatePage />} path="/storecreate" />
+          <Route element={<StoreEditPage/>} path="/storeedit/*" />
         </Routes>
       </UserDataProvider>
     </div>
