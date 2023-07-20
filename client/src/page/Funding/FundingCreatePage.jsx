@@ -240,7 +240,7 @@ export default FundingCreatePage;
 const SettingUserThumbnail = ({setimgurl , Imgurl}) => {
     const [imageSrc, setImageSrc] = useState(null);
     const inputRef = useRef(null);
-  
+    
     const onUpload = (e) => {
 
       if (!e.target.files) {
@@ -298,7 +298,11 @@ const SettingUserThumbnail = ({setimgurl , Imgurl}) => {
     return (
       <div id={style.imgContainer}>
         <div id={style.imgWrapper}>
-          <img id={style.FundingImg} src={imageSrc} alt="펀딩 이미지 미리보기" />
+          {imageSrc ? (
+            <img id={style.FundingImg} src={imageSrc} alt="펀딩 이미지 미리보기" />
+          ) : (
+            <img id={style.FundingImg} src={`${process.env.PUBLIC_URL}/image/basicImg.png`} alt="펀딩 이미지 미리보기" />
+          )}
         </div>
         <div id={style.ThumImgCommonMent}>
           Step1. 만드려고 하는 업사이클링 제품을 대표할 수 있는 이미지를 넣어주세요!

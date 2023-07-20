@@ -234,7 +234,11 @@ const StoreCreatePage = () => {
             </div>
             <div id={style.downWrapper}>
               <div id={style.ContentimgWrapper}>
-                <img id={style.FundingImg} src={contentimgurl} alt="제품 상세 이미지 미리보기" />
+                {contentimgurl ? (
+                  <img id={style.FundingImg} src={contentimgurl} alt="제품 컨텐츠 이미지 미리보기" />
+                ) : (
+                  <img id={style.FundingImg} src={`${process.env.PUBLIC_URL}/image/basicImg.png`} alt="제품 컨텐츠 이미지 미리보기" />
+                )}             
               </div>
             </div>
         </div>
@@ -305,7 +309,11 @@ const SettingUserThumbnail = ({setThumimgurl , ThumImgurl}) => {
     return (
       <div id={style.imgContainer}>
         <div id={style.imgWrapper}>
-          <img id={style.FundingImg} src={imageSrc} alt="제품 대표 이미지" />
+        {imageSrc ? (
+            <img id={style.FundingImg} src={imageSrc} alt="제품 대표 이미지 미리보기" />
+          ) : (
+            <img id={style.FundingImg} src={`${process.env.PUBLIC_URL}/image/basicImg.png`} alt="제품 대표 이미지 미리보기" />
+          )}
         </div>
         <div className={style.CommonMent}>
           Step1. 판매하려고 하는 업사이클링 제품을 대표할 수 있는 이미지를 넣어주세요!
