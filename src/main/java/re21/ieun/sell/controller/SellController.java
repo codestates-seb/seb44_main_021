@@ -65,6 +65,14 @@ public class SellController {
 
     }
 
+    @DeleteMapping("/{sell-id}")
+    public ResponseEntity<?> deleteSell(@PathVariable("sell-id") @Positive long sellId) {
+
+        sellService.deleteSell(sellId);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
     @GetMapping("/{sell-id}")
     public ResponseEntity<?> getSell(@PathVariable("sell-id") @Positive long sellId) {
 
