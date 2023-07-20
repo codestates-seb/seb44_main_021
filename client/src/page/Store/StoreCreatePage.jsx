@@ -234,7 +234,7 @@ const StoreCreatePage = () => {
             </div>
             <div id={style.downWrapper}>
               <div id={style.ContentimgWrapper}>
-                <img id={style.FundingImg} src={contentimgurl} alt="제품 대표 이미지 미리보기" />
+                <img id={style.FundingImg} src={contentimgurl} alt="제품 상세 이미지 미리보기" />
               </div>
             </div>
         </div>
