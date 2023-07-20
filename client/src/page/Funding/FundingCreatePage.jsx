@@ -149,7 +149,7 @@ const FundingCreatePage = () => {
         Ddate();
         if (imgurl !== "" && title.length >= 5 && content.length >= 10 && totalQuantity.length > 0  && material !== "" & ddate !== "") {
           axios({
-            url: "http://ec2-43-201-105-214.ap-northeast-2.compute.amazonaws.com:8080/upcyclings",
+            url: "/upcyclings",
             method: "post",
             data: {
                 memberId: userData.memberId,
@@ -274,7 +274,7 @@ const SettingUserThumbnail = ({setimgurl , Imgurl}) => {
         
   
         axios({
-          url: 'http://ec2-43-201-105-214.ap-northeast-2.compute.amazonaws.com:8080/upload',
+          url: '/upload',
           method: 'POST',
           data: formData,
           headers: {
@@ -300,7 +300,7 @@ const SettingUserThumbnail = ({setimgurl , Imgurl}) => {
         <div id={style.imgWrapper}>
           <img id={style.FundingImg} src={imageSrc} alt="펀딩 이미지 미리보기" />
         </div>
-        <div className={style.CommonMent}>
+        <div id={style.ThumImgCommonMent}>
           Step1. 만드려고 하는 업사이클링 제품을 대표할 수 있는 이미지를 넣어주세요!
         </div>
         <input

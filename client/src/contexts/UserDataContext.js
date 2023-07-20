@@ -8,6 +8,7 @@ const UserDataProvider = ({ children }) => {
     email: "",
     memberId: "",
     memberRole: "",
+    thumbNailImage: "",
   });
 
   return (
