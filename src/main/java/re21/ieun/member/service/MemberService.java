@@ -69,6 +69,9 @@ public class MemberService {
         List<String> roles = authorityUtils.createRoles(member.getEmail());
         member.setRoles(roles);
 
+        // Delete the verification code after successful registration
+        verificationCodeRepository.deleteByCode(member.getCode());
+
         return memberRepository.save(member);
     }
 
