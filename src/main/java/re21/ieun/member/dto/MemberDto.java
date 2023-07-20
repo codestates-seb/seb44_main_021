@@ -22,6 +22,8 @@ public class MemberDto {
         private String displayName;
         @NotBlank
         private String role;
+        @NotBlank
+        private String code;
     }
     @Getter
     @AllArgsConstructor
