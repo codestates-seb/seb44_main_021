@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Logo from "../../components/Logo/Logo";
 
 const SignupPage = () => {
-  const NAME_REGEX = /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]{2,10}$/;
+  const NAME_REGEX = /^[A-Za-z0-9ㄱ-ㅎㅏ-ㅣ가-힣]{2,6}$/;
   const EMAIL_REGEX = /^[A-Za-z0-9.\-_]+@([A-Za-z0-9-]+\.)+[A-Za-z]{2,6}$/;
   const PWD_REGEX = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
@@ -55,7 +55,7 @@ const SignupPage = () => {
   /* 유효성 함수 */
   const IsValidName = () => {
     if (!NAME_REGEX.test(userData.displayName)) {
-      setNameErrMsg("특수 문자 제외 2자 ~ 10자를 입력하세요.");
+      setNameErrMsg("특수 문자 제외 2자 ~ 6자를 입력하세요.");
       setIsName(false);
     } else {
       setNameErrMsg("");
@@ -75,7 +75,7 @@ const SignupPage = () => {
 
   const IsValidPwd = () => {
     if (!PWD_REGEX.test(userData.password)) {
-      setPwdErrMsg("숫자, 문자, 특수문자 포함 8자 이상 입력하세요.");
+      setPwdErrMsg("숫자, 문자, 특수문자 포함 5자 이상 입력하세요.");
       setIsPassword(false);
     } else if (userData.password !== userData.verifyPwd) {
       setPwdErrMsg("비밀번호가 일치하지 않습니다.");

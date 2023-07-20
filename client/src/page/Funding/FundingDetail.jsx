@@ -34,7 +34,9 @@ const FundingDetail = () => {
   }, []);
 
   useEffect(() => {
-    if (data.totalQuantity && data.totalReceivedQuantity) {
+    if (data.totalReceivedQuantity === 0) {
+      setFundingRate("00");
+    } else if (data.totalQuantity && data.totalReceivedQuantity) {
       setFundingRate(
         ((data.totalReceivedQuantity / data.totalQuantity) * 100).toFixed(1)
       );
@@ -53,6 +55,7 @@ const FundingDetail = () => {
     setIsModalOpen(false);
     setFunding(false);
     setQuantity(0);
+    // window.location.reload();
   };
 
   const clickFunding = () => {
@@ -71,6 +74,12 @@ const FundingDetail = () => {
         })
         .catch((err) => console.log(err));
       setFunding(true);
+      setFundingRate(
+        (
+          ((data.totalReceivedQuantity + quantity) / data.totalQuantity) *
+          100
+        ).toFixed(1)
+      );
       console.log(funding);
     }
   };
@@ -79,6 +88,13 @@ const FundingDetail = () => {
     <div id={style.AllContainer}>
       <Header />
       <div id={style.TitleName}>펀딩 상세 정보</div>
+      {userData.memberId === data.memberId ? (
+        <div id={style.buttonContainer}>
+          <Link to={`/fundingedit/${data.upcyclingId}`} className={style.link}>
+            <button id={style.button}>수정</button>
+          </Link>
+        </div>
+      ) : null}
       <div id={style.AllWrapper}>
         <div id={style.leftWrapper}>
           <div id={style.imgContainer}>
@@ -227,13 +243,11 @@ const FundingDetail = () => {
                   </div>
                   <div className={style.modaltext}>달성률</div>
                   <div className={`${style.modaltext} ${style.rate}`}>
-                    {fundingRate}% -{">"}{" "}
                     {(
-                      ((data.totalReceivedQuantity + quantity) /
-                        data.totalQuantity) *
+                      (data.totalReceivedQuantity / data.totalQuantity) *
                       100
                     ).toFixed(1)}
-                    %
+                    % -{">"} {fundingRate}%
                   </div>
                   <Link to="/funding">
                     <button id={style.fundingButton}>
@@ -243,8 +257,10 @@ const FundingDetail = () => {
                 </div>
               ) : (
                 <>
-                  <div className={style.modaltext}>펀딩명 : title</div>
-                  <div className={style.modaltext}>자재 : xxx</div>
+                  <div className={style.modaltext}>펀딩명 : {data.title}</div>
+                  <div className={style.modaltext}>
+                    자재 : {data.categoryName}
+                  </div>
                   <div className={style.modaltext}>보내실 수량 :</div>
                   <Box sx={{ minWidth: 120 }}>
                     <FormControl fullWidth>

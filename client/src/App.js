@@ -4,6 +4,7 @@ import MainPage from "./page/Main/MainPage";
 import UserSelectionPage from "./page/SignupPage/UserSelectionPage";
 import SignupPage from "./page/SignupPage/SignupPage";
 import StorePage from "./page/Store/StorePage";
+import StoreDetail from "./page/Store/StoreDetail";
 import FundingPage from "./page/Funding/FundingPage";
 import FundingDetail from "./page/Funding/FundingDetail";
 import AboutPage from "./page/About/AboutPage";
@@ -21,6 +22,7 @@ function App() {
           {/* <Route element={< />} path="/" /> */}
           <Route element={<MainPage />} path="/" />
           <Route element={<StorePage />} path="/store" />
+          <Route element={<StoreDetail />} path="/storedetail/:id" />
           <Route element={<FundingPage />} path="/funding" />
           <Route element={<FundingDetail />} path="/fundingdetail/:id" />
           <Route element={<AboutPage />} path="/about" />
@@ -30,7 +32,7 @@ function App() {
           <Route element={<LoginPage />} path="/login" />
           <Route element={<MyPage />} path="/mypage" />
           <Route element={<FundingEditPage />} path="/fundingedit/*" />
-          <Route element={< StoreCreatePage/>} path="/storecreate" />
+          <Route element={<StoreCreatePage />} path="/storecreate" />
         </Routes>
       </UserDataProvider>
     </div>

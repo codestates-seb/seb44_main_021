@@ -5,6 +5,7 @@
     display: flex;
     flex-direction: column;
     align-items: center ;
+    color: #3a3a3a;
 }
 
 .MyPageWrapper{
@@ -45,7 +46,7 @@
 }
 
 .userName{
-    font-size: 30px;
+    font-size: 25px;
     font-weight: 800;
     margin-top: 20px;
 }
@@ -80,7 +81,7 @@
     border-radius: 10px;
     background: #ffffff;
     box-shadow:  1px 1px 3px #95959540, -1px -1px 3px #95959540;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .historyContainer::-webkit-scrollbar {
@@ -105,6 +106,7 @@
     margin-left: 15px;
     display: flex;
     align-items: center;
+    margin-top: 20px;
 }
 .historyTitle p{
     color: #6E934D;
@@ -126,7 +128,7 @@
 
 .historyWrapper table th {
     font-size: 16px;
-    font-weight: 400;
+    font-weight: 500;
     border-top: 2px solid #6E934D;
     border-bottom: 1px solid #6E934D;
     height: 30px;
@@ -147,17 +149,20 @@
     display: table;
     width: 100%;
     table-layout: fixed;
-    margin: 5px 0;
+    margin: 6px 0;
+
 }
-/* .historyWrapper tbody tr :hover {
-    background-color: #f0f0f0;
-} */
-.historyWrapper table td {
+
+.historyWrapper table .tableRow {
     text-align: center;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eaeaea;
 }
 
 .emptyText{
     /* width: 100%; */
     color: #767676;
     text-align: center;
+    border-bottom: none;
 }

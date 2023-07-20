@@ -73,6 +73,7 @@
 
 .modalContent > label{
   margin-top: 15px;
+  margin-bottom: 7px;
 }
 
 .imgUpload{
@@ -114,9 +115,9 @@
   outline: none !important; border-color: #6E934D;
 }
 
-.modalContent > p{
+/* .modalContent > p{
   margin-top: 5px;
-}
+} */
 
 .errMsg{
   margin-top: 5px;
