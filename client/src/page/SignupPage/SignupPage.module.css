@@ -7,14 +7,15 @@
     font-size: 14px;
     color: #454545;
 }
-.SignupForm{
+.SignupFormWrapper{
+    width: 20rem;
     display: flex;
     align-items: center;
     flex-direction: column;
     border-radius: 20px;
     background: #ffffff;
     box-shadow:  1px 1px 3px #95959540, -1px -1px 3px #95959540;
-    padding: 80px;
+    padding: 60px;
 }
 .userImg{
     width: 100px;
@@ -22,23 +23,30 @@
     margin-bottom: 30px;
 }
 
-.label{
+.SignupForm{
+    width: 100%;
+
+}
+.SignupForm label{
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
+    margin-top: 15px;
+    margin-bottom: 5px;
 }
 
-.input{
-    width: 240px;
-    height: 30px;
+.SignupForm input{
+    width: 100%;
+    height: 35px;
+    box-sizing: border-box;
     padding: 0 10px;
     border: solid 1px #c3c3c3;
     border-radius: 5px;
+    /* margin-bottom: 10px; */
 }
-.input:focus { outline: none !important; border-color: #6E934D; }
+input:focus { outline: none !important; border-color: #6E934D; }
 
 .submitButton {
-    height: 30px;
+    height: 35px;
     width: 100%;
     letter-spacing: 3.5px;
     color: #ffffff;
@@ -59,7 +67,7 @@
 
 
 .disabledButton{
-    height: 30px;
+    height: 35px;
     width: 100%;
     letter-spacing: 3.5px;
     color: #ffffff;
@@ -73,6 +81,29 @@
 /* error Messege */
 .errMsg{
     margin-top: 5px;
-    font-size: 14px;
     color: rgb(221, 106, 106);
+}
+
+
+
+.authEmailInput{
+    display: flex;
+    flex-direction: row;
+}
+.authBtn{
+    height: 35px;
+    width: 40%;
+    color: #ffffff;
+    background: #6E934D;
+    box-shadow: 3px 3px 5px rgba(107, 107, 107, 0.288);
+    border-radius: 5px;
+    border: none;
+    margin-left: 10px;
+}
+
+.authBtn:active {
+    box-shadow:  1px 1px 3px rgba(107, 107, 107, 0.288);
+}
+.authBtn:hover{
+    cursor: pointer;
 }

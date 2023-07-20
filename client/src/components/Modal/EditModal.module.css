@@ -7,6 +7,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 14px;
 }
 
 .modalWrapper{ 
@@ -72,10 +73,14 @@
 
 .modalContent > label{
   margin-top: 15px;
+  margin-bottom: 7px;
 }
 
 .imgUpload{
   position: relative;
+}
+.imgUpload :hover{
+  cursor: pointer;
 }
 
 .userImg{
@@ -90,7 +95,7 @@
 
 .uploadIcon{
   width: 30px;
-  height: 30pxuploadIconuploadIcona;
+  height: 30px;
   color: rgb(95, 148, 49);
   position: absolute;
   top: 80px;
@@ -110,9 +115,9 @@
   outline: none !important; border-color: #6E934D;
 }
 
-.modalContent > p{
+/* .modalContent > p{
   margin-top: 5px;
-}
+} */
 
 .errMsg{
   margin-top: 5px;

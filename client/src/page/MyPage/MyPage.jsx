@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Style from "./MyPage.module.css";
 import EditModal from "../../components/Modal/EditModal";
 import Header from "../../components/Header/Header";
@@ -6,20 +6,30 @@ import { UserDataContext } from "../../contexts/UserDataContext";
 import axios from "axios";
 
 const MyPage = () => {
-  const historyTitle = [
-    "나의 펀딩 내역",
-    "나의 주문 내역",
-    "나의 펀딩 등록 내역",
-    "나의 제품 등록 내역",
-  ];
-  const historyData = {
-    funding: ["날짜", "펀딩명", "수량"],
-    order: ["날짜", "제품명", "수량", "금액"],
-    Fregistration: ["날짜", "펀딩명", "펀딩기한", "펀딩률"],
-    Oregistration: ["날짜", "제품명", "금액"],
-  };
-  const { userData } = useContext(UserDataContext);
+  const { userData, setUserData } = useContext(UserDataContext);
 
+  const [historyData, setHistoryData] = useState([
+    {
+      title: "나의 펀딩 내역",
+      tableHeader: ["날짜", "펀딩명", "수량"],
+      history: [],
+    },
+    {
+      title: "나의 주문 내역",
+      tableHeader: ["날짜", "제품명", "수량", "금액"],
+      history: [],
+    },
+    {
+      title: "나의 펀딩 등록 내역",
+      tableHeader: ["날짜", "펀딩명", "펀딩기한"],
+      history: [],
+    },
+    {
+      title: "나의 제품 등록 내역",
+      tableHeader: ["날짜", "제품명", "금액"],
+      history: [],
+    },
+  ]);
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const handleOpenModal = () => {
@@ -30,13 +40,74 @@ const MyPage = () => {
     setIsOpenModal(!isOpenModal);
   };
 
-  // console.log(userData.memberId);
   useEffect(() => {
     console.log(userData.memberId);
     axios
-      .get(`/funding/member/${userData.memberId}`)
+      .get(`/funding/member/${userData.memberId}?page=1&size=999`)
+      .then((res) => {
+        setHistoryData((prevData) => {
+          const updatedData = [...prevData];
+          updatedData[0].history = res.data.data.map((item) => ({
+            fundingDate: new Date(item.fundingDate).toLocaleDateString("ko-KR"),
+            title: item.title,
+            quantity: item.quantity,
+          }));
+          return updatedData;
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    axios
+      .get(`/orders/member/${userData.memberId}?page=1&size=999`)
       .then((res) => {
         console.log(res);
+        setHistoryData((prevData) => {
+          const updatedData = [...prevData];
+          updatedData[1].history = res.data.data.map((item) => ({
+            createdAt: new Date(item.createdAt).toLocaleDateString("ko-KR"),
+            content: item.orderSells.map((sell) => sell.content),
+            quantity: item.orderSells.map((sell) => sell.quantity),
+            price: item.orderSells.map((sell) => sell.price),
+          }));
+          return updatedData;
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    axios
+      .get(`/upcyclings/member/${userData.memberId}?page=1&size=999`)
+      .then((res) => {
+        setHistoryData((prevData) => {
+          const updatedData = [...prevData];
+          updatedData[2].history = res.data.data.map((item) => ({
+            createdAt: new Date(item.createdAt).toLocaleDateString("ko-KR"),
+            title: item.title,
+            deadline: new Date(item.deadline).toLocaleDateString("ko-KR"),
+          }));
+          return updatedData;
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    axios
+      .get(`/sells/member/${userData.memberId}?page=1&size=999`)
+      .then((res) => {
+        console.log(res);
+        setHistoryData((prevData) => {
+          const updatedData = [...prevData];
+          updatedData[3].history = res.data.data.map((item) => ({
+            createdAt: new Date(item.createdAt).toLocaleDateString("ko-KR"),
+            title: item.content,
+            price: item.price,
+          }));
+          return updatedData;
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -48,14 +119,14 @@ const MyPage = () => {
       <Header />
       <div className={Style.MyPageWrapper}>
         <Profile onClick={handleOpenModal} userData={userData} />
-        <History
-          historyTitle={historyTitle}
-          historyData={historyData}
-          userData={userData}
-        />
+        <History historyData={historyData} userData={userData} />
       </div>
       {isOpenModal && (
-        <EditModal onClose={handleCloseModal} userData={userData} />
+        <EditModal
+          onClose={handleCloseModal}
+          userData={userData}
+          setUserData={setUserData}
+        />
       )}
     </div>
   );
@@ -69,7 +140,10 @@ const Profile = ({ onClick, userData }) => {
       <div className={Style.userInfo}>
         <img
           className={Style.userImg}
-          src={`${process.env.PUBLIC_URL}/image/profile.jpeg`}
+          src={
+            userData.thumbNailImage ||
+            `${process.env.PUBLIC_URL}/image/profile.jpeg`
+          }
           alt="profile-img"
         />
         <p className={Style.userName}>{userData.displayName} 님</p>
@@ -82,57 +156,90 @@ const Profile = ({ onClick, userData }) => {
   );
 };
 
-const History = ({ historyTitle, historyData, userData }) => {
+const History = ({ historyData, userData }) => {
   return (
     <div className={Style.historyContainer}>
       <div className={Style.historyWrapper}>
         {userData.memberRole === "MEMBER_USER" &&
-          Object.entries(historyData)
-            .slice(0, 2)
-            .map(([key, texts], index) => (
-              <>
-                <div className={Style.historyTitle}>
-                  <img
-                    className={Style.historyTitleIcon}
-                    src={`${process.env.PUBLIC_URL}/image/logo1.png`}
-                    alt="history-title-icon"
-                  />
-                  <p>{historyTitle[index]}</p>
-                </div>
-                <table>
-                  <thead>
-                    <tr key={key}>
-                      {texts.map((text, index) => (
-                        <th key={index}>{text}</th>
-                      ))}
-                    </tr>
-                  </thead>
-                </table>
-                <p className={Style.emptyText}> 내역이 없습니다.</p>
-              </>
-            ))}
-        {userData.memberRole === "MEMBER_UPCYCLER" &&
-          Object.entries(historyData).map(([key, texts], index) => (
-            <>
+          historyData.slice(0, 2).map((item, index) => (
+            <React.Fragment key={item.id}>
               <div className={Style.historyTitle}>
                 <img
                   className={Style.historyTitleIcon}
                   src={`${process.env.PUBLIC_URL}/image/logo1.png`}
                   alt="history-title-icon"
                 />
-                <p>{historyTitle[index]}</p>
+                <p>{item.title}</p>
               </div>
+
               <table>
                 <thead>
-                  <tr key={key}>
-                    {texts.map((text, index) => (
+                  <tr>
+                    {item.tableHeader.map((text, index) => (
                       <th key={index}>{text}</th>
                     ))}
                   </tr>
                 </thead>
+                <tbody>
+                  {item.history.length > 0 ? (
+                    item.history.map((data, dataIndex) => (
+                      <tr key={dataIndex}>
+                        {Object.keys(data).map((key, keyIndex) => (
+                          <td key={keyIndex}>{data[key]}</td>
+                        ))}
+                      </tr>
+                    ))
+                  ) : (
+                    <p className={Style.emptyText}>내역이 없습니다.</p>
+                  )}
+                </tbody>
               </table>
-              <p className={Style.emptyText}> 내역이 없습니다.</p>
-            </>
+            </React.Fragment>
+          ))}
+
+        {userData.memberRole === "MEMBER_UPCYCLER" &&
+          historyData.map((item, index) => (
+            <React.Fragment key={index}>
+              <div className={Style.historyTitle}>
+                <img
+                  className={Style.historyTitleIcon}
+                  src={`${process.env.PUBLIC_URL}/image/logo1.png`}
+                  alt="history-title-icon"
+                />
+                <p>{item.title}</p>
+              </div>
+              <table>
+                <thead>
+                  <tr>
+                    {item.tableHeader.map((text, index) => (
+                      <th key={index}>{text}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {item.history.length > 0 ? (
+                    item.history.map((data, dataIndex) => (
+                      <tr key={dataIndex}>
+                        {Object.keys(data).map((key, keyIndex) => (
+                          <td key={keyIndex} className={Style.tableRow}>
+                            {data[key]}
+                          </td>
+                        ))}
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td
+                        colSpan={item.tableHeader.length}
+                        className={Style.emptyText}
+                      >
+                        내역이 없습니다.
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </React.Fragment>
           ))}
       </div>
     </div>

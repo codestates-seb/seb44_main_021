@@ -23,7 +23,7 @@
 
 #leftWrapper{
     width: 35%;
-    margin-right: 15px;
+    margin-right: 10px;
 }
 
 #rightWrapper{
@@ -37,25 +37,42 @@
     align-items: center;
     justify-content: center;
     border: 3px solid #6E934D;
-    background-color: gainsboro;
-    width: 100%;
-    height: 400px;
+}
+
+#imgWrapper{
+    width: 450px;
+    height: 370px;
+    border: 2px dotted #6E934D;
+    margin: 20px 0px 0px 0px;
+}
+
+#imgInput{
+    margin: 5px 0px 10px 0px;
+}
+
+#CimgInput{
+    margin-left: 15px;
+    width: 200px;
+}
+
+#CimgInput::file-selector-button {
+    width: 100px;
+    height: 30px;
+    background: #6E934D;
+    border: 1px solid #6E934D;
+    color: #fff;
+    border-radius: 10px;
+    cursor: pointer;
 }
 
 #FundingImg{
     width: 100%;
-    height: 95%;
+    height: 100%;
 }
 
 .CommonMent{
+    font-size: 15px;
     margin-top: 10px;
-    font-weight: bold;
-}
-
-.MCommonMent{
-    margin-top: 10px;
-    font-weight: bold;
-    color: red;
 }
 
 .CautionMent{
@@ -63,52 +80,47 @@
     font-size: 13px;
 }
 
+#basicfont{
+    font-size: 15px;
+}
+
 .radioGroup {
     display: flex;
     border: 3px solid #6E934D;
     justify-content: center;
-    background-color: gainsboro;
-    width: 100%;
-  }
-  .radio {
-    display: block;
-    appearance: none;
-    width: 55px;
-    height: 55px;
-    padding: 0;
-    margin: 5px 15px;
-    border: 2px solid transparent;
-    box-sizing: border-box;
-    background-repeat: no-repeat;
-    background-position: center center;
-    &:focus {
-      outline: none;
-    }
-    &:checked {
-      border-color: #6E934D;
-      border-radius: 50%;
-    }
-  }
+    padding-top: 3px;
+    padding-bottom: 3px;
+    margin-top: 2px;
+}
+
+.radioinput{
+    margin-left: 10px;
+    margin-right: 5px;
+}
+
+#radioinput2{
+    margin-left: 10px;
+    margin-right: 5px;
+}
+
 
 .AmountBox{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    margin-top: 5px;
 }
 
 #AmountInput{
     border: 3px solid #6E934D;
-    width: 235px;
-    padding-left: 5px; 
-    font-size: 18px;
+    width: 150ㄴpx;
+    padding-left: 5px;    
+    font-size: 15px;
     height: 30px;
-    background-color: gainsboro;
-}
-
-#AmountInputBox{
-    display: flex;
-    align-items: center;
+    &:focus{
+        outline: none;
+    }
 }
 
 #AmountInput::-webkit-outer-spin-button,
@@ -126,12 +138,30 @@
     cursor: pointer;
 }
 
+#materialInput{
+    width: 100%;
+    height: 70px;
+    font-size: 15px;
+    padding-left: 5px;
+    padding-top: 3px;
+    box-sizing: border-box;
+    box-shadow: 0 0 0 3px #6E934D inset;
+    border: none;
+    margin-top: 5px;
+    resize: none;
+    font-family: Arial, Helvetica, sans-serif ;
+    &:focus{
+        outline: none;
+    }
+}
+
 #NameInput{
     width: 100%;
-    height: 42px;
+    height: 45px;
     font-size: 17px;
-    padding-left: 1.5px;
+    padding-left: 5px;
     padding-top: 3px;
+    box-sizing: border-box;
     box-shadow: 0 0 0 3px #6E934D inset;
     border: none;
     margin-top: 5px;
@@ -146,9 +176,10 @@
     width: 100%;
     height: 260px;
     font-size: 15px;
-    padding-left: 1.5px;
+    padding-left: 5px;
     padding-top: 3px;
     box-shadow: 0 0 0 3px #6E934D inset;
+    box-sizing: border-box;
     border: none;
     margin-top: 5px;
     font-family: Arial, Helvetica, sans-serif ;
@@ -163,7 +194,9 @@
     font-size: 15px;
     border: 3px solid #6E934D;
     padding: 5px;
-    background-color: gainsboro;
+    &:focus{
+        outline: none;
+    }
 }
 
 #CreateButton{
@@ -186,4 +219,19 @@
 
 #imgeButton{
     width: 100px;
+}
+
+#categorybox{
+    margin-bottom: 10px;
+}
+
+#categoryInput{
+    margin-top: 3px;
+    font-size: 15px;
+    width: 100%;
+    height: 25px;
+    border: 3px solid #6E934D;
+    &:focus{
+        outline: none;
+    }
 }
