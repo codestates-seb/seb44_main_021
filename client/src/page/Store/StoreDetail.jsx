@@ -8,7 +8,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { UserDataContext } from "../../contexts/UserDataContext";
 
@@ -63,14 +63,31 @@ const StoreDetail = () => {
     setQuantity(0);
   };
 
+  const navigate = useNavigate();
+
+  const deleteStore = () => {
+    axios({
+      url: `/sells/${id}`,
+      method: "delete",
+    })
+      .then((response) => {
+        console.log(response);
+        navigate("/store");
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div id={style.AllContainer}>
       <Header />
-      <div id={style.TitleName}>펀딩 상세 정보</div>
+      <div id={style.TitleName}>제품 상세 정보</div>
       {userData.memberId === data.memberId ? (
         <div id={style.buttonContainer}>
-          <Link to={`/fundingedit/${data.upcyclingId}`} className={style.link}>
-            <button id={style.button}>수정</button>
+          <button className={style.button} onClick={deleteStore}>
+            삭제
+          </button>
+          <Link to={`/storeedit/${data.sellId}`} className={style.link}>
+            <button className={style.button}>수정</button>
           </Link>
         </div>
       ) : null}
@@ -148,7 +165,7 @@ const StoreDetail = () => {
           ) : (
             <Link to="/login">
               <button id={style.CreateButton}>
-                로그인 이후 펀딩 가능합니다
+                로그인 이후 구매 가능합니다
               </button>
             </Link>
           )}
@@ -168,7 +185,7 @@ const StoreDetail = () => {
               <div className={style.modaltext}>
                 총 금액 : {data.price * quantity}원
               </div>
-              <div id={style.fundingButton}>
+              <div id={style.stoerButton}>
                 <Link to="/mypage">
                   <button className={style.fundingButton}>
                     구매 내역 보러가기
@@ -184,6 +201,16 @@ const StoreDetail = () => {
           </div>
         </div>
       )}
+      <div id={style.info}>
+        <h1 id={style.infoTitle}>제품 상세 설명</h1>
+        <img
+          src={data.contentImage}
+          alt="img"
+          style={{
+            maxWidth: "70vw",
+          }}
+        />
+      </div>
     </div>
   );
 };
