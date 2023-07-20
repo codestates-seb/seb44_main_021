@@ -13,12 +13,18 @@
     font-size: 15px;
 }
 
-#AllWrapper{
+#upWrapper{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     margin-top: 30px;
+}
+
+#downWrapper{
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
 }
 
 #leftWrapper{
@@ -29,6 +35,13 @@
 #rightWrapper{
     width: 35%;
     margin-left: 10px;
+}
+
+#ContentimgWrapper{
+    width: 72%;
+    height: fit-content;
+    border-top: 2px solid #6E934D;
+    padding-top: 50px;
 }
 
 #imgContainer{
@@ -109,7 +122,6 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    margin-top: 5px;
 }
 
 #AmountInput{

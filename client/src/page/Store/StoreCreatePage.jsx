@@ -179,27 +179,36 @@ const StoreCreatePage = () => {
             <Header />
             <div id={style.TitleName}>스토어 제품 등록</div>
             <div id={style.SubTitle}>판매하실 업사이클링 제품을 소개해주세요.</div>
-            <div id={style.AllWrapper}>
+            <div id={style.upWrapper}>
                 <div id={style.leftWrapper}>
                     <SettingUserThumbnail setThumimgurl = {setThumimgurl} ThumImgurl = {ThumImgurl}/>
                     <p className={style.errMsg}>{thumimgurlMsg}</p>
+                    <div className={style.CommonMent}>Step2. 제품명을 입력해주세요!</div>
+                    <textarea onChange={Title} ref={titleRef} placeholder='50자 이내로 입력해주세요.' id={style.NameInput} maxLength="50"/>
+                    <p className={style.errMsg}>{titleMsg}</p>
+                    <div className={style.AmountBox}>
+                        <div>
+                            <div className={style.CommonMent}>Step3. 제품에 대한 자세한 설명이 담긴 이미지를 등록해주세요!</div>
+                        </div>
+                        <div>
+                          <SettingContentimg setContentimgurl={setContentimgurl} ContentImgurl={ContentImgurl} />
+                          <p className={style.errMsg}>{contentimgurlMsg}</p>
+                        </div>
+                    </div>
+                </div>
+                <div id={style.rightWrapper}>
                     <div id={style.MaterierBox}>
-                        <div className={style.CommonMent}>Step2. 제품에 들어간 업사이클링 자재를 자세히 적어주세요!</div>
+                        <div id={style.basicfont}>Step4. 제품에 들어간 업사이클링 자재를 자세히 적어주세요!</div>
                         <div className={style.CautionMent}>*나중에 수정이 안되니 신중하게 선택해주세요*</div>
                         <textarea onChange={Material} ref={materialRef} placeholder='ex)깨진 유리조각, 페트병, 가죽치마 (100자 이내)' id={style.materialInput} maxLength="100"/>
                         <p className={style.errMsg}>{materialMsg}</p>
                     </div>
-                </div>
-                <div id={style.rightWrapper}>
-                    <div id={style.basicfont}>Step3. 제품명을 입력해주세요!</div>
-                    <textarea onChange={Title} ref={titleRef} placeholder='50자 이내로 입력해주세요.' id={style.NameInput} maxLength="50"/>
-                    <p className={style.errMsg}>{titleMsg}</p>
-                    <div className={style.CommonMent}>Step4. 내가 만든 제품에 대해 자세히 적어보세요!</div>
+                    <div className={style.CommonMent}>Step5. 내가 만든 제품에 대해 자세히 적어보세요!</div>
                     <textarea onChange={Content} ref={contentRef} placeholder='500자 이내로 입력해주세요.' id={style.IntroduceBox} maxLength="500"/>
                     <p className={style.errMsg}>{contentMsg}</p>
                     <div id={style.categorybox}>
                         <div>
-                            <div className={style.CommonMent}>Step5. 제품에 대한 카테고리를 선택해주세요!</div>
+                            <div className={style.CommonMent}>Step6. 제품에 대한 카테고리를 선택해주세요!</div>
                         </div>
                         <div className={style.radioGroup}>
                           <input type='radio' name='category' value="1" className={style.radioinput} onClick={handleCategory1}/>의류
@@ -212,16 +221,7 @@ const StoreCreatePage = () => {
                     </div>
                     <div className={style.AmountBox}>
                         <div>
-                            <div className={style.CommonMent}>Step6. 제품에 대한 자세한 설명이 담긴 이미지를 등록해주세요!</div>
-                        </div>
-                        <div>
-                          <SettingContentimg setContentimgurl={setContentimgurl} ContentImgurl={ContentImgurl} />
-                          <p className={style.errMsg}>{contentimgurlMsg}</p>
-                        </div>
-                    </div>
-                    <div className={style.AmountBox}>
-                        <div>
-                            <div className={style.CommonMent}>Step6. 제품에 대한 합리적인 가격을 입력해주세요!</div>
+                            <div className={style.CommonMent}>Step7. 제품에 대한 합리적인 가격을 입력해주세요!</div>
                             <div className={style.CautionMent}>*나중에 수정이 안되니 신중하게 선택해주세요*</div>
                         </div>
                         <div>
@@ -232,7 +232,13 @@ const StoreCreatePage = () => {
                     <button id={style.CreateButton}  onClick={Create}>등록하기</button>
                 </div>
             </div>
+            <div id={style.downWrapper}>
+              <div id={style.ContentimgWrapper}>
+                <img id={style.FundingImg} src={contentimgurl} alt="제품 대표 이미지 미리보기" />
+              </div>
+            </div>
         </div>
+
     );
 };
 
