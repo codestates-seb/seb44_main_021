@@ -72,7 +72,7 @@ const FundingEditPage = () => {
         })
         .then((res) => {
             console.log(res);
-            navigate(`/funding`);
+            navigate(`/fundingdetail/${upcyclingId}`);
         })
         .catch((err) => {
             console.log(err);
@@ -86,9 +86,9 @@ const FundingEditPage = () => {
             <div id={style.SubTitle}>펀딩명과 펀딩 소개글만 수정 가능합니다.</div>
             <div id={style.AllWrapper}>
                 <div id={style.leftWrapper}>
+                    <div className={style.CommonMent}>대표 이미지</div>
                     <div id={style.imgContainer}>
                         <img id={style.FundingImg} src={data.thumbNailImage} alt="펀딩 이미지 미리보기" />
-                        <div className={style.CommonMent}>대표 이미지</div>
                     </div>
                     <div id={style.MaterierBox}>
                         <div className={style.CommonMent}>

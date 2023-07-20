@@ -83,7 +83,7 @@
 
 #FundingImg{
     width: 100%;
-    height: 95%;
+    height: 100%;
 }
 
 .CommonMent{
@@ -163,8 +163,7 @@
     padding-left: 5px;
     padding-top: 3px;
     box-sizing: border-box;
-    box-shadow: 0 0 0 3px #6E934D inset;
-    border: none;
+    border: 3px solid #6E934D;
     margin-top: 5px;
     resize: none;
     font-family: Arial, Helvetica, sans-serif ;
