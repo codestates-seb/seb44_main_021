@@ -17,8 +17,8 @@ public class EmailSender {
 
     @Autowired
     public EmailSender(JavaMailSender javaMailSender,
-                       @Value("${email.sender.password}") String emailSenderPassword,
-                       @Value("${email.sender.man}") String emailSenderman) {
+                       @Value("${EMAIL_PASSWORD}") String emailSenderPassword,
+                       @Value("${EMAIL_MAN}") String emailSenderman) {
         this.javaMailSender = javaMailSender;
         this.emailSenderPassword = emailSenderPassword;
         this.emailSenderman = emailSenderman;
