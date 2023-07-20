@@ -104,12 +104,11 @@ const MainPage = () => {
                       fontSize: "50px",
                       color: "#000000",
                       fontWeight: "bold",
-                      marginTop: "170px"
+                      marginTop: "170px",
                     }}
                   >
-                    利   隱
+                    利 隱
                   </p>
-
                 </div>
               </div>
             </div>
@@ -141,7 +140,7 @@ const MainPage = () => {
                 <Link to="/login">
                   <AccountBoxIcon
                     className={style.button}
-                    sx={{ fontSize: 40, color: "#6E934D" }}
+                    sx={{ fontSize: 40, color: "#000000" }}
                   />
                 </Link>
               </button>
@@ -154,7 +153,7 @@ const MainPage = () => {
                   <img
                     src={process.env.PUBLIC_URL + "/image/test4.jpg"}
                     alt="test"
-                    style={{ width: "100%", height: "100%" }}
+                    className={style.mainImg}
                   />
                 </div>
 
@@ -163,7 +162,7 @@ const MainPage = () => {
                     <img
                       src={process.env.PUBLIC_URL + "/image/test6.jpg"}
                       alt="test"
-                      style={{ width: "100%", height: "100%" }}
+                      className={style.mainImg}
                     />
                   </Link>
                 </div>
@@ -173,7 +172,7 @@ const MainPage = () => {
                     <img
                       src={process.env.PUBLIC_URL + "/image/test7.jpg"}
                       alt="test"
-                      style={{ width: "100%", height: "100%" }}
+                      className={style.mainImg}
                     />
                   </Link>
                 </div>
@@ -193,46 +192,17 @@ const MainPage = () => {
                     <img
                       src={process.env.PUBLIC_URL + "/image/test10.jpg"}
                       alt="test"
-                      style={{
-                        width: "100%",
-                        height: "80%",
-                        borderTopLeftRadius: "20px",
-                        borderTopRightRadius: "20px",
-                      }}
+                      className={style.contentsImg}
                     />
-                    <p
-                      style={{
-                        fontSize: "14px",
-                        fontWeight: "bold",
-                        marginBottom: "15px",
-                      }}
-                    >
-
-                    </p>
-                    <p
-                      style={{
-                        fontSize: "20px",
-                        fontWeight: "bold",
-                        marginBottom: "10px",
-                      }}
-                    >
+                    <p className={style.contentsText}>
                       이은이 알려주는 친환경 잡지
                     </p>
-                    <p
-                      style={{
-                        fontSize: "14px", lineHeight: "1.8", marginBottom: "5px"
-                      }}
-                    >
-                      제로 웨이스트, 리업사이클 등 8개의 키워드 제품을 판매하는 eco fresh를 소개할게요!
+                    <p className={style.contentsSub}>
+                      제로 웨이스트, 리업사이클 등 8개의 키워드 제품을 판매하는
+                      eco fresh를 소개할게요!
                     </p>
 
-                    <p
-                      style={{
-                        fontSize: "6px", lineHeight: "1.6"
-                      }}
-                    >
-                      @ecomagazine
-                    </p>
+                    <p className={style.contentsFooter}>@ecomagazine</p>
                   </div>
                 </a>
                 <a
@@ -244,48 +214,17 @@ const MainPage = () => {
                     <img
                       src={process.env.PUBLIC_URL + "/image/test13.png"}
                       alt="test"
-                      style={{
-                        width: "100%",
-                        height: "80%",
-                        borderTopLeftRadius: "20px",
-                        borderTopRightRadius: "20px",
-                      }}
+                      className={style.contentsImg}
                     />
-                    
-                    <p
-                      style={{
-                        fontSize: "14px",
-                        fontWeight: "bold",
-                        marginBottom: "15px",
-                      }}
-                    >
-
-                    </p>
-                    <p
-                      style={{
-                        fontSize: "20px",
-                        fontWeight: "bold",
-                        marginBottom: "10px",
-                      }}
-                    >
+                    <p className={style.contentsText}>
                       친환경을 주목하는 아이즈매거진
                     </p>
-                    <p
-                      style={{
-                        fontSize: "14px", lineHeight: "1.8", marginBottom: "5px"
-                      }}
-                    >
-                      클린뷰티부터 스투시까지, 이은이 소개하는 업사이클링의 최신 트렌트를 읽어보세요 🙂
+                    <p className={style.contentsSub}>
+                      클린뷰티부터 스투시까지, 이은이 소개하는 업사이클링의 최신
+                      트렌트를 읽어보세요 🙂
                     </p>
 
-                    <p
-                      style={{
-                        fontSize: "6px", lineHeight: "1.6"
-                      }}
-                    >
-                      @eyesmagazine
-                    </p>
-
+                    <p className={style.contentsFooter}>@eyesmagazine</p>
                   </div>
                 </a>
                 <a
@@ -297,47 +236,18 @@ const MainPage = () => {
                     <img
                       src={process.env.PUBLIC_URL + "/image/test11.jpg"}
                       alt="test"
-                      style={{
-                        width: "100%",
-                        height: "80%",
-                        borderTopLeftRadius: "20px",
-                        borderTopRightRadius: "20px",
-                      }}
+                      className={style.contentsImg}
                     />
 
-                    <p
-                      style={{
-                        fontSize: "14px",
-                        fontWeight: "bold",
-                        marginBottom: "15px",
-                      }}
-                    >
-
-                    </p>
-                    <p
-                      style={{
-                        fontSize: "20px",
-                        fontWeight: "bold",
-                        marginBottom: "10px",
-                      }}
-                    >
+                    <p className={style.contentsText}>
                       '에코라이프스타일'의 확산
                     </p>
-                    <p
-                      style={{
-                        fontSize: "14px", lineHeight: "1.8", marginBottom: "5px"
-                      }}
-                    >
-                      아름다운 가게에서 소개하는 '에코파티메아리'를 확인해보세요 😎
+                    <p className={style.contentsSub}>
+                      아름다운 가게에서 소개하는 '에코파티메아리'를 확인해보세요
+                      😎
                     </p>
 
-                    <p
-                      style={{
-                        fontSize: "6px", lineHeight: "1.6"
-                      }}
-                    >
-                      @beautifulstore
-                    </p>
+                    <p className={style.contentsFooter}>@beautifulstore</p>
                   </div>
                 </a>
                 <a
@@ -349,46 +259,17 @@ const MainPage = () => {
                     <img
                       src={process.env.PUBLIC_URL + "/image/news4.jpg"}
                       alt="test"
-                      style={{
-                        width: "100%",
-                        height: "80%",
-                        borderTopLeftRadius: "20px",
-                        borderTopRightRadius: "20px",
-                      }}
+                      className={style.contentsImg}
                     />
-                    <p
-                      style={{
-                        fontSize: "14px",
-                        fontWeight: "bold",
-                        marginBottom: "15px",
-                      }}
-                    >
-
-                    </p>
-                    <p
-                      style={{
-                        fontSize: "20px",
-                        fontWeight: "bold",
-                        marginBottom: "10px",
-                      }}
-                    >
+                    <p className={style.contentsText}>
                       지속가능한 업사이클링 인테리어
                     </p>
-                    <p
-                      style={{
-                        fontSize: "14px", lineHeight: "1.8", marginBottom: "5px"
-                      }}
-                    >
-                      전세계가 열광하는 지속가능한 인테리어의 세계로 여러분을 초대합니다 📢
+                    <p className={style.contentsSub}>
+                      전세계가 열광하는 지속가능한 인테리어의 세계로 여러분을
+                      초대합니다 📢
                     </p>
 
-                    <p
-                      style={{
-                        fontSize: "6px", lineHeight: "1.6"
-                      }}
-                    >
-                      @metropolis
-                    </p>
+                    <p className={style.contentsFooter}>@metropolis</p>
                   </div>
                 </a>
               </div>
@@ -405,14 +286,9 @@ const MainPage = () => {
                       <img
                         src={data[0].thumbNailImage}
                         alt="img"
-                        style={{
-                          width: "100%",
-                          height: "80%",
-                          borderTopLeftRadius: "20px",
-                          borderTopRightRadius: "20px",
-                        }}
+                        className={style.contentsImg}
                       />
-                      {data[0].title}
+                      <div className={style.contentsText}>{data[0].title}</div>
                     </div>
                   </Link>
 
@@ -424,14 +300,9 @@ const MainPage = () => {
                       <img
                         src={data[1].thumbNailImage}
                         alt="img"
-                        style={{
-                          width: "100%",
-                          height: "80%",
-                          borderTopLeftRadius: "20px",
-                          borderTopRightRadius: "20px",
-                        }}
+                        className={style.contentsImg}
                       />
-                      {data[1].title}
+                      <div className={style.contentsText}>{data[1].title}</div>
                     </div>
                   </Link>
 
@@ -443,14 +314,9 @@ const MainPage = () => {
                       <img
                         src={data[2].thumbNailImage}
                         alt="img"
-                        style={{
-                          width: "100%",
-                          height: "80%",
-                          borderTopLeftRadius: "20px",
-                          borderTopRightRadius: "20px",
-                        }}
+                        className={style.contentsImg}
                       />
-                      {data[2].title}
+                      <div className={style.contentsText}>{data[2].title}</div>
                     </div>
                   </Link>
 
@@ -462,14 +328,9 @@ const MainPage = () => {
                       <img
                         src={data[3].thumbNailImage}
                         alt="img"
-                        style={{
-                          width: "100%",
-                          height: "80%",
-                          borderTopLeftRadius: "20px",
-                          borderTopRightRadius: "20px",
-                        }}
+                        className={style.contentsImg}
                       />
-                      {data[3].title}
+                      <div className={style.contentsText}>{data[3].title}</div>
                     </div>
                   </Link>
                 </div>
@@ -479,7 +340,7 @@ const MainPage = () => {
               <img
                 src={process.env.PUBLIC_URL + "/image/test8.jpg"}
                 alt="test"
-                style={{ width: "100%", height: "100%" }}
+                className={style.mainImg}
               />
             </div>
           </div>
