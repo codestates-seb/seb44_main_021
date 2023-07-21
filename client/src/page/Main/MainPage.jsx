@@ -82,7 +82,6 @@ const MainPage = () => {
         <div id={style.mainpage}>
           {open ? (
             <div className={style.modalOverlay}>
-              {/* <div className={style.modalContent}> */}
               <div
                 className={`${style.modalContent} ${
                   !isUnmount ? "" : style.closeModal
@@ -302,6 +301,10 @@ const MainPage = () => {
                         className={style.contentsImg}
                       />
                       <div className={style.contentsText}>{data[0].title}</div>
+                      <div className={style.contentsSub}>{data[0].content}</div>
+                      <div
+                        className={style.contentsFooter}
+                      >{`@${data[0].displayName}`}</div>
                     </div>
                   </Link>
 
@@ -316,6 +319,10 @@ const MainPage = () => {
                         className={style.contentsImg}
                       />
                       <div className={style.contentsText}>{data[1].title}</div>
+                      <div className={style.contentsSub}>{data[1].content}</div>
+                      <div
+                        className={style.contentsFooter}
+                      >{`@${data[1].displayName}`}</div>
                     </div>
                   </Link>
 
@@ -330,6 +337,10 @@ const MainPage = () => {
                         className={style.contentsImg}
                       />
                       <div className={style.contentsText}>{data[2].title}</div>
+                      <div className={style.contentsSub}>{data[2].content}</div>
+                      <div
+                        className={style.contentsFooter}
+                      >{`@${data[2].displayName}`}</div>
                     </div>
                   </Link>
 
@@ -344,6 +355,10 @@ const MainPage = () => {
                         className={style.contentsImg}
                       />
                       <div className={style.contentsText}>{data[3].title}</div>
+                      <div className={style.contentsSub}>{data[3].content}</div>
+                      <div
+                        className={style.contentsFooter}
+                      >{`@${data[3].displayName}`}</div>
                     </div>
                   </Link>
                 </div>
