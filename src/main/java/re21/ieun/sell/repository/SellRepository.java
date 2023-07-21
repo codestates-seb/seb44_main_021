@@ -14,9 +14,14 @@ import java.util.List;
 
 @Repository
 public interface SellRepository extends JpaRepository<Sell, Long> {
-    List<Sell> findByTitleContaining(String searchKeyword);
+
+    // 상품 게시글 검색 기능
+    Page<Sell> findByTitleContaining(String searchKeyword, Pageable pageable);
+
     Page<Sell> findBySellCategory(SellCategory sellcategory, Pageable pageable);
 
     Page<Sell> findByMember(Member member, Pageable pageable);
 
+    // 상품 게시글 검색 기능 + 카테고리
+    Page<Sell> findByTitleContainingAndSellCategory(String searchKeyword, SellCategory sellCategory, Pageable pageable);
 }
