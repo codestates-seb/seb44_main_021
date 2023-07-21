@@ -101,33 +101,12 @@ const FundingDetail = () => {
   return (
     <div id={style.AllContainer}>
       <Header />
-      <div id={style.TitleName}>펀딩 상세 정보</div>
-      {userData.memberId === data.memberId ? (
-        <div id={style.buttonContainer}>
-          <button className={style.button} onClick={deleteFunding}>
-            삭제
-          </button>
-          <Link to={`/fundingedit/${data.upcyclingId}`} className={style.link}>
-            <button className={style.button}>수정</button>
-          </Link>
-        </div>
-      ) : null}
       <div id={style.AllWrapper}>
         <div id={style.leftWrapper}>
           <div id={style.imgContainer}>
-            <img
-              src={data.thumbNailImage}
-              alt="img"
-              style={{
-                width: "35vw",
-                height: "100%",
-                objectFit: "cover",
-                borderRadius: "20px",
-              }}
-            />
+            <img id={style.thumimg} src={data.thumbNailImage} alt="img"/>
           </div>
           <div id={style.MaterierBox}>
-            <h3 className={style.h3}>펀딩 자재</h3>
             <div className={style.radioGroup}>
               <input
                 className={`${style.radio} ${
@@ -202,32 +181,46 @@ const FundingDetail = () => {
                 }}
               />
             </div>
-            <h3 className={style.h3}>업사이클러</h3>
-            <div id={style.upcycler}>{data.displayName}</div>
+            <hr id={style.materiarhr}></hr>
+            <div id={style.materiartext}>"{data.categoryName}" 자재가 있다면 펀딩해주세요!</div>
+            <div id={style.materiartext}>이은 펀딩은 단순히 제품을 펀딩하는 것이 아닌 업사이클링 제품을 위한 펀딩 과정을 지원해요.</div>
+            <div id={style.materiarblank}></div>
           </div>
         </div>
         <div id={style.rightWrapper}>
+          <div id={style.userbox}>
+            <div id={style.userinf}>
+              <img id={style.userprofile} src={`${process.env.PUBLIC_URL}/image/profile.jpeg`}/>
+              <div id={style.upcycler}>{data.displayName}</div>
+            </div>
+            <div id={style.useroption}>
+              {userData.memberId === data.memberId ? (
+                <div id={style.buttonContainer}>
+                  <button className={style.button} onClick={deleteFunding}>
+                    삭제
+                  </button>
+                  <Link to={`/fundingedit/${data.upcyclingId}`} className={style.link}>
+                    <button className={style.button}>수정</button>
+                  </Link>
+                </div>
+              ) : null}
+            </div>
+          </div>
+          <div id={style.subbox}>
+            <div id={style.text1}>🎁 펀딩</div>
+            <div id={style.viewtext}>조회수 {data.viewCount}</div>
+          </div>
           <div id={style.NameInput}>
             <h3>{data.title}</h3>
           </div>
           <div id={style.IntroduceBox}>{data.content}</div>
           <div className={style.AmountBox}>
-            <div>
-              <h2>펀딩 완료일</h2>
-            </div>
-            <div>
-              <h2>{data.deadline}</h2>
-            </div>
+              <div className={style.text2}>{data.deadline} </div>
+              <div>부로 펀딩이 마감됩니다. </div>
           </div>
-          <div className={style.AmountBox}>
-            <div>
-              <h2>펀딩률</h2>
-            </div>
-            <div>
-              <h2>
-                {data.totalReceivedQuantity <= 0 ? "00%" : `${fundingRate}%`}
-              </h2>
-            </div>
+          <div id={style.fundingpercent}>
+              <div className={style.text2}>{data.totalReceivedQuantity <= 0 ? "00%" : `${fundingRate}%`}</div>
+              <div>달성했습니다.</div>
           </div>
           {localStorage.getItem("token") ? (
             <button id={style.CreateButton} onClick={handleOpenModal}>
@@ -242,6 +235,7 @@ const FundingDetail = () => {
           )}
         </div>
       </div>
+      <div id={style.footer}></div>
       {isModalOpen && (
         <div className={style.modalOverlay}>
           <div className={style.modalContent}>
