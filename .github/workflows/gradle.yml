@@ -13,8 +13,8 @@ env:
 on:
   push:
     branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+#   pull_request:
+#     branches: [ "master" ]
 
 permissions:
   contents: read
@@ -40,6 +40,9 @@ jobs:
         MY_ACCESSKEY: ${{ secrets.MY_ACCESSKEY }}
         MY_SECRETKEY: ${{ secrets.MY_SECRETKEY }}
         MY_REGION: ${{ secrets.MY_REGION }}
+        EMAIL_MAN: ${{ secrets.EMAIL }}
+        EMAIL_PASSWORD: ${{ secrets.PASSWORD }}
+
     - name: Add permission
       run: chmod +x gradlew
     - name: Build with Gradle
