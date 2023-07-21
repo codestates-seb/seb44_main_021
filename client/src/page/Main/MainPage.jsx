@@ -19,6 +19,8 @@ const MainPage = () => {
   const [data, setData] = useState([]);
   const horwrapRef = useRef(null);
 
+  const [isUnmount, setIsUnmount] = useState(false);
+
   useEffect(() => {
     axios({
       url: "/upcyclings/descending?page=1&size=4",
@@ -62,11 +64,16 @@ const MainPage = () => {
   requestAnimationFrame(raf);
 
   const openModal = () => {
+    setIsUnmount(false);
     setOpen(true);
   };
 
   const closeModal = () => {
-    setOpen(false);
+    setIsUnmount(true);
+
+    setTimeout(() => {
+      setOpen(false); // animeTimeMs의 시간후 모달 닫음
+    }, 900);
   };
 
   return (
@@ -75,7 +82,11 @@ const MainPage = () => {
         <div id={style.mainpage}>
           {open ? (
             <div className={style.modalOverlay}>
-              <div className={style.modalContent}>
+              <div
+                className={`${style.modalContent} ${
+                  !isUnmount ? "" : style.closeModal
+                }`}
+              >
                 <div className={style.modalLogo}>
                   <img
                     src={process.env.PUBLIC_URL + "/image/logo1.png"}
@@ -139,9 +150,9 @@ const MainPage = () => {
             ) : (
               <button className={style.button}>
                 <Link to="/login">
-                  <AccountBoxIcon
+                  <AccountCircleIcon
                     className={style.button}
-                    sx={{ fontSize: 40, color: "#000000" }}
+                    sx={{ fontSize: 35, color: "#6E934D" }}
                   />
                 </Link>
               </button>
@@ -290,6 +301,10 @@ const MainPage = () => {
                         className={style.contentsImg}
                       />
                       <div className={style.contentsText}>{data[0].title}</div>
+                      <div className={style.contentsSub}>{data[0].content}</div>
+                      <div
+                        className={style.contentsFooter}
+                      >{`@${data[0].displayName}`}</div>
                     </div>
                   </Link>
 
@@ -304,6 +319,10 @@ const MainPage = () => {
                         className={style.contentsImg}
                       />
                       <div className={style.contentsText}>{data[1].title}</div>
+                      <div className={style.contentsSub}>{data[1].content}</div>
+                      <div
+                        className={style.contentsFooter}
+                      >{`@${data[1].displayName}`}</div>
                     </div>
                   </Link>
 
@@ -318,6 +337,10 @@ const MainPage = () => {
                         className={style.contentsImg}
                       />
                       <div className={style.contentsText}>{data[2].title}</div>
+                      <div className={style.contentsSub}>{data[2].content}</div>
+                      <div
+                        className={style.contentsFooter}
+                      >{`@${data[2].displayName}`}</div>
                     </div>
                   </Link>
 
@@ -332,6 +355,10 @@ const MainPage = () => {
                         className={style.contentsImg}
                       />
                       <div className={style.contentsText}>{data[3].title}</div>
+                      <div className={style.contentsSub}>{data[3].content}</div>
+                      <div
+                        className={style.contentsFooter}
+                      >{`@${data[3].displayName}`}</div>
                     </div>
                   </Link>
                 </div>

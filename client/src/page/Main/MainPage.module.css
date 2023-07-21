@@ -34,7 +34,10 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7); /*투명도 조정 */
+  background-color: rgba(0, 0, 0, 0.7);
+  /* background: rgba(0, 0, 0, 0.5); */
+  /* backdrop-filter: blur( 4px );
+  -webkit-backdrop-filter: blur( 4px ); */
 }
 
 .modalContent {
@@ -44,7 +47,38 @@
   background-color: #f5f5f5;
   height: 100%;
   width: 20%;
+  animation: openModal 1s forwards;
 }
+
+
+
+
+
+@keyframes openModal {
+  0% {
+      transform:  translateX(-300px);
+  }
+  100% {
+    transform:  translateX(0px);
+  }
+}
+
+.closeModal {
+  animation: closeModal 1s forwards;
+}
+
+@keyframes closeModal {
+  0% {
+      margin-top: 0px;
+  }
+  100% {
+    transform:  translateX(-300px);
+  }
+}
+
+
+
+
 
 #sidelist {
   display: flex;
@@ -191,15 +225,20 @@
 }
 
 .contentsText {
+  max-height: 2.2em;
+  overflow: hidden;
   font-size: 20px;
   font-weight: bold;
   margin: 15px 0 10px 0;
 }
 
 .contentsSub {
+  max-height: 3.2em;
+  overflow: hidden;
   font-size: 14px;
   line-height: 1.8;
   margin-bottom: 5px;
+
 }
 
 .contentsFooter {
