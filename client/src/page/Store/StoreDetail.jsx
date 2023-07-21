@@ -77,6 +77,10 @@ const StoreDetail = () => {
       .catch((err) => console.log(err));
   };
 
+  const formatPriceWithCommas = (price) => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  };
+
   return (
     <div id={style.AllContainer}>
       <Header />
@@ -122,7 +126,7 @@ const StoreDetail = () => {
               <h2>판매 가격</h2>
             </div>
             <div>
-              <h2>{data.price}원</h2>
+              <h2>{formatPriceWithCommas(data.price)}원</h2>
             </div>
           </div>
           <div className={style.AmountBox}>
@@ -155,7 +159,7 @@ const StoreDetail = () => {
               <h2>총 합계금액</h2>
             </div>
             <div>
-              <h2>{data.price * quantity}원</h2>
+              <h2>{formatPriceWithCommas(data.price * quantity)}원</h2>
             </div>
           </div>
           {localStorage.getItem("token") ? (
