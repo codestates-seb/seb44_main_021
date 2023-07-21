@@ -18,7 +18,8 @@ public enum ExceptionCode {
     INSUFFICIENT_QUANTITY(403, "Quantity not selectable"),      // 불충분한 수량, 선택할 수 없는 수량
     INVALID_QUANTITY(403, "Quantity is wrong"),         // 잘못된 수량
     INVALID_UPCYCLING(403, "Upcycling is wrong"),
-    INVALID_VERIFICATION_CODE(403, "The code does not match.");
+    INVALID_VERIFICATION_CODE(403, "The code does not match."),
+    SEARCH_NOT_FOUND(404, "Search not found");
 
     @Getter
     private final int status;
