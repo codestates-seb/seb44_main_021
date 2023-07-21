@@ -20,6 +20,13 @@ const Header = ({ url, setSearchParam }) => {
     setSearchTerm(event.target.value);
   };
 
+  const handleKeyPress = (event) => {
+    if (event.keyCode === 13) {
+      setSearchParam(searchTerm);
+      window.history.pushState("", null, `/${url}?serch=${searchTerm}`);
+    }
+  };
+
   const handleSearch = () => {
     // 검색 버튼 클릭 시 수행할 작업
     // 검색어가 비어있지 않은 경우에만 URL 파라미터를 추가하도록 설정
@@ -96,6 +103,7 @@ const Header = ({ url, setSearchParam }) => {
                 type="text"
                 value={searchTerm}
                 onChange={handleInputChange}
+                onKeyDown={handleKeyPress}
               />
               {searchTerm ? (
                 <CloseIcon
