@@ -36,6 +36,7 @@ const SignupPage = () => {
   const [isAuthNum, setIsAuthNum] = useState("");
   const [isAuthNumSent, setIsAuthNumSent] = useState(false);
   const [isCheckAuthNum, setIsCheckAuthNum] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const storedUserRole = sessionStorage.getItem("userRole");
@@ -128,21 +129,25 @@ const SignupPage = () => {
   /* 이메일 인증 */
   const sendAuthNumber = () => {
     const { email } = userData;
+
     if (!email) {
       setEmailErrMsg("이메일을 입력하세요.");
     }
     if (isEmail) {
+      setLoading(true);
       axios
         .post("/members/sendmail", { email })
         .then((res) => {
           console.log(res.data.message);
           setIsAuthNum(res.data.message);
           setIsAuthNumSent(true);
+          setLoading(false);
         })
         .catch((err) => {
           if (err.response.data.message === "이미 존재하는 이메일입니다.") {
             setEmailErrMsg("이미 존재하는 이메일입니다.");
             // setIsAuthNumSent(false);
+            setLoading(false);
           }
         });
     }
@@ -183,7 +188,13 @@ const SignupPage = () => {
               className={Style.authBtn}
               onClick={sendAuthNumber}
             >
-              인증번호 전송
+              {loading ? (
+                <div className={Style.loadingBox}>
+                  <div className={Style.loadingSpinner} />
+                </div>
+              ) : (
+                "인증번호 전송"
+              )}
             </button>
           </div>
           {emailErrMsg !== "" && <p className={Style.errMsg}>{emailErrMsg}</p>}
