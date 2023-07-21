@@ -155,6 +155,7 @@
   border-radius: 20px;
   /* background-color: #c7ffcc; */
   color: rgb(43, 43, 43);
+  word-break: break-all;
 }
 
 .contentsImg {
