@@ -114,7 +114,7 @@ const FundingEditPage = () => {
                         </div>
                     </div>
                     <div className={style.MCommonMent}>펀딩명</div>
-                    <textarea id={style.NameInput} placeholder='50자 이내로 입력해주세요.' defaultValue={data.title} maxLength="50" onChange={handleTitleChange}/>
+                    <textarea id={style.NameInput} placeholder='40자 이내로 입력해주세요.' defaultValue={data.title} maxLength="40" onChange={handleTitleChange}/>
                     <p className={style.errMsg}>{titleMsg}</p>
                     <div className={style.MCommonMent}>펀딩 소개글</div>
                     <textarea placeholder='500자 이내로 입력해주세요.' id={style.IntroduceBox} defaultValue={data.content} maxLength="500" onChange={handleContentChange}/>
