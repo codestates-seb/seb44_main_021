@@ -116,7 +116,6 @@ const MainPage = () => {
                       color: "#353535",
                       fontWeight: "bold",
                       marginTop: "170px",
-                      fontStyle: "italic",
                     }}
                   >
                     IEUN CO.
