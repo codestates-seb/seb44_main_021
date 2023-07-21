@@ -7,6 +7,11 @@ import Header from "../../components/Header/Header";
 import style from "./StorePage.module.css";
 
 const List = (props) => {
+
+  const formatPriceWithCommas = (price) => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  };
+
   return (
     <div id={style.list} key={props.sellId}>
       <Link to={`/storedetail/${props.sellId}`} className={style.link}>
@@ -23,7 +28,7 @@ const List = (props) => {
         <div id={style.listText}>
           <div id={style.title}>{props.title}</div>
           <div id={style.pricebox}>
-            <div id={style.price}>{props.price}</div>
+            <div id={style.price}>{formatPriceWithCommas(props.price)}</div>
             <div id={style.pricetext}>원</div>
           </div>
         </div>
