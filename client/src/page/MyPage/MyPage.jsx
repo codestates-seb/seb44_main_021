@@ -48,13 +48,18 @@ const MyPage = () => {
     },
   ]);
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [isUnmount, setIsUnmount] = useState(false);
 
   const handleOpenModal = () => {
     setIsOpenModal(!isOpenModal);
+    setIsUnmount(false);
   };
 
   const handleCloseModal = () => {
-    setIsOpenModal(!isOpenModal);
+    setIsUnmount(true);
+    setTimeout(() => {
+      setIsOpenModal(!isOpenModal);
+    }, 1000);
   };
 
   useEffect(() => {
@@ -143,6 +148,8 @@ const MyPage = () => {
           onClose={handleCloseModal}
           userData={userData}
           setUserData={setUserData}
+          setIsUnmount={setIsUnmount}
+          isUnmount={isUnmount}
         />
       )}
     </div>

@@ -3,7 +3,7 @@ import Style from "./EditModal.module.css";
 import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
 
-const EditModal = ({ onClose, userData, setUserData }) => {
+const EditModal = ({ onClose, userData, setUserData, isUnmount }) => {
   const [editUserInfo, setEditUserInfo] = useState({
     displayName: userData.displayName,
     password: "",
@@ -102,7 +102,11 @@ const EditModal = ({ onClose, userData, setUserData }) => {
   return (
     <div id={Style.modalContainer}>
       {!isPasswordVerified && (
-        <div className={Style.modalWrapper}>
+        <div
+          className={`${Style.firstModalWrapper} ${
+            !isUnmount ? "" : Style.closeModal
+          }`}
+        >
           <CloseIcon className={Style.closeIcon} onClick={onClose} />
           <div className={Style.modalContent}>
             <label>현재 비밀번호</label>
@@ -121,7 +125,11 @@ const EditModal = ({ onClose, userData, setUserData }) => {
         </div>
       )}
       {isPasswordVerified && (
-        <div className={Style.modalWrapper}>
+        <div
+          className={`${Style.secondModalWrapper} ${
+            !isUnmount ? "" : Style.closeModal
+          }`}
+        >
           <CloseIcon className={Style.closeIcon} onClick={onClose} />
           <SettingUserThumbnail
             setEditUserInfo={setEditUserInfo}
