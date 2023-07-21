@@ -123,14 +123,15 @@ public class SellService {
         return sellRepository.save(findSell);
     }
 
+    /*
     // Sell 검색 기능
-
     public List<SellResponseDto> sellSearchList(String searchKeyword) {
 
         List<Sell> sells = sellRepository.findByTitleContaining(searchKeyword);
 
         return sellMapper.sellToSellResponseDtos(sells);
     }
+     */
 
     public Page<Sell> findSellsBySellCategoryId(Long sellcategoryId, int page, int size) {
         SellCategory sellcategory = sellCategoryService.findsellcategory(sellcategoryId);
@@ -150,7 +151,34 @@ public class SellService {
     }
 
 
+    /* 검색 기능 - pagination(페이지네이션) */
+    public Page<Sell> searchSells(int page, int size, String searchKeyword, Long sellCategoryId, boolean ascendingSort) {
+        Pageable pageable;
+        SellCategory sellCategory = null;
 
+        if (sellCategoryId != null) {
+            // Assuming you have a method to find a SellCategory by ID in the SellCategoryService
+            sellCategory = sellCategoryService.findsellcategory(sellCategoryId);
+        }
+
+        if (ascendingSort) {
+            pageable = PageRequest.of(page, size, Sort.by("sellId").ascending());
+        } else {
+            pageable = PageRequest.of(page, size, Sort.by("sellId").descending());
+        }
+
+        if (searchKeyword.equals("") && sellCategory == null) {
+            return sellRepository.findAll(pageable);
+        } else if (searchKeyword.equals("") && sellCategory != null) {
+            return sellRepository.findBySellCategory(sellCategory, pageable);
+        } else if (!searchKeyword.equals("") && sellCategory == null) {
+            return sellRepository.findByTitleContaining(searchKeyword, pageable);
+        } else if (!searchKeyword.equals("") && sellCategory != null) {
+            return sellRepository.findByTitleContainingAndSellCategory(searchKeyword, sellCategory, pageable);
+        } else {
+            throw new BusinessLogicException(ExceptionCode.SEARCH_NOT_FOUND);
+        }
+    }
 
 
 }

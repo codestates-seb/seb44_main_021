@@ -210,13 +210,13 @@ public class UpcyclingController {
     public ResponseEntity<?> searchUpcyclingsByTitleContainingAndCategory(
             @RequestParam(defaultValue = "") String searchKeyword,
             @RequestParam(defaultValue = "1") @Positive int page,
-            @RequestParam(defaultValue = "10") @Positive int size,
+            @RequestParam(defaultValue = "8") @Positive int size,
             @RequestParam(required = false) Long categoryId,
-            @RequestParam(defaultValue = "descending") String order) {
+            @RequestParam(defaultValue = "descending") String sort) {
 
-        boolean ascendingOrder = order.equalsIgnoreCase("ascending");
+        boolean ascendingSort = sort.equalsIgnoreCase("ascending");
 
-        Page<Upcycling> upcyclingsPage = upcyclingService.searchUpcyclings(page - 1, size, searchKeyword, categoryId, ascendingOrder);
+        Page<Upcycling> upcyclingsPage = upcyclingService.searchUpcyclings(page - 1, size, searchKeyword, categoryId, ascendingSort);
         List<Upcycling> content = upcyclingsPage.getContent();
 
         return new ResponseEntity<>(

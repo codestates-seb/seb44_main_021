@@ -159,7 +159,7 @@ public class UpcyclingService {
 
 
     /* 검색 기능 - pagination(페이지네이션) */
-    public Page<Upcycling> searchUpcyclings(int page, int size, String searchKeyword, Long categoryId, boolean ascendingOrder) {
+    public Page<Upcycling> searchUpcyclings(int page, int size, String searchKeyword, Long categoryId, boolean ascendingSort) {
         Pageable pageable;
         Category category = null;
 
@@ -168,7 +168,7 @@ public class UpcyclingService {
             category = categoryService.findcategory(categoryId);
         }
 
-        if (ascendingOrder) {
+        if (ascendingSort) {
             pageable = PageRequest.of(page, size, Sort.by("upcyclingId").ascending());
         } else {
             pageable = PageRequest.of(page, size, Sort.by("upcyclingId").descending());

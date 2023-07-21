@@ -126,6 +126,7 @@ public class SellController {
     }
      */
 
+    /*
     // Sell search
     @GetMapping("/search/{searchKeyword}")
     public ResponseEntity<?> getSellsByTitleContaining(@PathVariable("searchKeyword") String searchKeyword) {
@@ -134,6 +135,7 @@ public class SellController {
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+     */
 
     //카테고리 id 기준으로 upcycling 글 최신순으로 정렬 + 페이지네이션
     @GetMapping("/descending/sellcategories/{sellcategory-id}")
@@ -172,5 +174,26 @@ public class SellController {
         return new ResponseEntity<>(
                 new MultiResponseDto<>(sellMapper.sellToSellResponseDtos(sells), pageSells),
                 HttpStatus.OK);
+    }
+
+
+    /* 검색 기능 - pagination(페이지네이션) */
+    @GetMapping("/search")
+    public ResponseEntity<?> searchSellsByTitleContainingAndSellCategory(
+            @RequestParam(defaultValue = "") String searchKeyword,
+            @RequestParam(defaultValue = "1") @Positive int page,
+            @RequestParam(defaultValue = "8") @Positive int size,
+            @RequestParam(required = false) Long sellCategoryId,
+            @RequestParam(defaultValue = "descending") String sort) {
+
+        boolean ascendingSort = sort.equalsIgnoreCase("ascending");
+
+        Page<Sell> sellsPage = sellService.searchSells(page - 1, size, searchKeyword, sellCategoryId, ascendingSort);
+        List<Sell> content = sellsPage.getContent();
+
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(sellMapper.sellToSellResponseDtos(content), sellsPage),
+                HttpStatus.OK
+        );
     }
 }
