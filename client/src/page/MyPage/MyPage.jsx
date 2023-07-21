@@ -8,6 +8,23 @@ import axios from "axios";
 const MyPage = () => {
   const { userData, setUserData } = useContext(UserDataContext);
 
+  useEffect(() => {
+    axios
+      .get(`/members/${userData.memberId}`)
+      .then((res) => {
+        console.log(res);
+        const user = res.data.data;
+        setUserData((prevUserData) => ({
+          ...prevUserData,
+          memberRole: user.memberRole,
+          thumbNailImage: user.thumbNailImage,
+        }));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [userData.memberId]);
+
   const [historyData, setHistoryData] = useState([
     {
       title: "나의 펀딩 내역",
