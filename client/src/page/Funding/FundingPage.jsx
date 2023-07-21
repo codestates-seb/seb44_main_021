@@ -3,11 +3,6 @@ import { UserDataContext } from "../../contexts/UserDataContext";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Lenis from "@studio-freight/lenis";
-import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
 import Header from "../../components/Header/Header";
 import style from "./FundingPage.module.css";
 
@@ -26,8 +21,11 @@ const List = (props) => {
           }}
         />
         <div id={style.listText}>
-          <h3>{props.title}</h3>
-          <div>펀딩 자재 : {props.categoryName}</div>
+          <div id={style.title}>{props.title}</div>
+          <div id={style.materiar}>
+            <img id={style.materiaricon} src={`${process.env.PUBLIC_URL}/image/circle.png`} alt="원모양 아이콘"/>
+            {props.categoryName}
+          </div>
         </div>
       </Link>
     </div>
@@ -185,85 +183,81 @@ const FundingPage = () => {
   return (
     <div>
       <Header />
-      <div id={style.containerh}>
-        <div id={style.sort}>
-          <Box sx={{ minWidth: 120 }}>
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">정렬</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={sort}
-                label="Sort"
-                onChange={handleChange}
-              >
-                <MenuItem value={"descending"}>최신순</MenuItem>
-                <MenuItem value={"ascending"}>오래된 순</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
-          {localStorage.getItem("token") ? (
-            <Link to="/fundingcreate">
-              <button id={style.fundingButton}>펀딩 제품 등록</button>
-            </Link>
-          ) : null}
-        </div>
-      </div>
       <div id={style.container}>
-        <div id={style.aside}>
-          <div id={style.kategorie}>카테고리</div>
-          <button
-            className={`${style.button} 
-            ${kategorie === 0 ? style.selectedButton : ""}`}
-            onClick={ViewAll}
-          >
-            펀딩 전체보기
-          </button>
-          <button
-            className={`${style.button} 
-            ${kategorie === 1 ? style.selectedButton : ""}`}
-            onClick={ViewCloth}
-          >
-            천
-          </button>
-          <button
-            className={`${style.button} 
-            ${kategorie === 2 ? style.selectedButton : ""}`}
-            onClick={ViewWood}
-          >
-            목재
-          </button>
-          <button
-            className={`${style.button} 
-            ${kategorie === 3 ? style.selectedButton : ""}`}
-            onClick={ViewPlastic}
-          >
-            플라스틱
-          </button>
-          <button
-            className={`${style.button} 
-            ${kategorie === 4 ? style.selectedButton : ""}`}
-            onClick={ViewIron}
-          >
-            철제
-          </button>
-          <button
-            className={`${style.button} 
-            ${kategorie === 5 ? style.selectedButton : ""}`}
-            onClick={ViewGlass}
-          >
-            유리
-          </button>
-          <button
-            className={`${style.button} 
-            ${kategorie === 6 ? style.selectedButton : ""}`}
-            onClick={ViewEtc}
-          >
-            기타
-          </button>
-        </div>
-        <div id={style.funding}>
-          {isLoding ? fundingList.map((obj, index) => List(obj, index)) : null}
+        <div id={style.containerup}>
+          <div id={style.blank}></div>
+          <div id={style.sort}>
+            <div id={style.sortcontainer}>
+              <div id={style.sortblank}></div>
+              <div id={style.sortbox}>
+                <button id={style.sorttext1} className={`${sort === "descending" ? style.selectsorttext : ""}`} onClick={handleChange} value={"descending"}>최신순</button>
+                <div id={style.sorticon}>|</div>
+                <button id={style.sorttext2} className={`${sort === "ascending" ? style.selectsorttext : ""}`} onClick={handleChange} value={"ascending"}>오래된 순</button>
+              </div>
+            </div>
+            {localStorage.getItem("token") ? (
+              <Link to="/fundingcreate">
+                <button id={style.fundingButton}>펀딩 제품 등록</button>
+              </Link>
+            ) : null}
+          </div>
+        </div>  
+        <div id={style.containerdown}>
+          <div id={style.aside}>
+            <div id={style.kategorie}>카테고리</div>
+            <button
+              className={`${style.button} 
+              ${kategorie === 0 ? style.selectedButton : ""}`}
+              onClick={ViewAll}
+            >
+              All 
+            </button>
+            <button
+              className={`${style.button} 
+              ${kategorie === 1 ? style.selectedButton : ""}`}
+              onClick={ViewCloth}
+            >
+              천
+            </button>
+            <button
+              className={`${style.button} 
+              ${kategorie === 2 ? style.selectedButton : ""}`}
+              onClick={ViewWood}
+            >
+              목재
+            </button>
+            <button
+              className={`${style.button} 
+              ${kategorie === 3 ? style.selectedButton : ""}`}
+              onClick={ViewPlastic}
+            >
+              플라스틱
+            </button>
+            <button
+              className={`${style.button} 
+              ${kategorie === 4 ? style.selectedButton : ""}`}
+              onClick={ViewIron}
+            >
+              철제
+            </button>
+            <button
+              className={`${style.button} 
+              ${kategorie === 5 ? style.selectedButton : ""}`}
+              onClick={ViewGlass}
+            >
+              유리
+            </button>
+            <button
+              className={`${style.button} 
+              ${kategorie === 6 ? style.selectedButton : ""}`}
+              onClick={ViewEtc}
+            >
+              기타
+            </button>
+          </div>
+          <div id={style.funding}>
+            {isLoding ? fundingList.map((obj, index) => List(obj, index)) : null}
+          </div>
         </div>
       </div>
     </div>

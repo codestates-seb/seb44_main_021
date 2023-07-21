@@ -56,7 +56,6 @@ const FundingCreatePage = () => {
         if (title.length < 4) {
           setTitleMsg("펀딩명은 5자 이상이여야 합니다!");
         } else {
-          setTitle(titleValue);
           setTitleMsg("");
         }
     };
@@ -68,7 +67,6 @@ const FundingCreatePage = () => {
         if (content.length < 9) {
             setcontentMsg("펀딩 소개글은 10자 이상이여야 합니다!");
         } else {
-            setcontent(contentValue);
             setcontentMsg("");
         }
     };
@@ -212,7 +210,7 @@ const FundingCreatePage = () => {
                     </div>
                     <div className={style.CommonMent}>Step4. 펀딩명을 입력해주세요!</div>
                     <div className={style.CautionMent}>펀딩율을 높이는 Tip★ 내가 만드려고 하는 제품의 특징을 살려서 적어보세요!</div>
-                    <textarea onChange={Title} ref={titleRef} placeholder='50자 이내로 입력해주세요.' id={style.NameInput} maxLength="50"/>
+                    <textarea onChange={Title} ref={titleRef} placeholder='40자 이내로 입력해주세요.' id={style.NameInput} maxLength="40"/>
                     <p className={style.errMsg}>{titleMsg}</p>
                     <div className={style.CommonMent}>Step5. 내가 필요한 자재에 대해 자세히 적어보세요!</div>
                     <div> 원하는 자재를 자세히 적을수록 원하시는 자재를 받으실 수 있습니다.</div>
