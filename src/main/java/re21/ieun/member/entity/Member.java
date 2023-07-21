@@ -28,6 +28,10 @@ public class Member extends Auditable {
 
     @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false)
+    private String code;
+
     @Column
     private String thumbNailImage;
 

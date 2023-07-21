@@ -64,14 +64,17 @@ public class SellService {
 
     // 판매 게시글 삭제
 
-    public Sell deleteSell(long sellId) {
+    public void deleteSell(long sellId) {
 
         Sell findSell = findVerifySell(sellId);
 
         findSell.setSellStatus(Sell.SellStatus.SELL_DELETE);
 
-        return sellRepository.save(findSell);
+        sellRepository.delete(findSell);
     }
+
+
+
 
     // member 가 존재하는지 확인 이 부분질문
     public void verifySell(Sell sell) {
@@ -103,6 +106,11 @@ public class SellService {
     public Page<Sell> findSells(int page, int size) {
         return sellRepository.findAll(PageRequest.of(page, size, Sort.by("sellId").descending()));
     }
+
+    public Page<Sell> findSells1(int page, int size) {
+        return sellRepository.findAll(PageRequest.of(page, size, Sort.by("sellId").ascending()));
+    }
+
 
 
     // Sell View
