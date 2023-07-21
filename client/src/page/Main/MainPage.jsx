@@ -19,6 +19,8 @@ const MainPage = () => {
   const [data, setData] = useState([]);
   const horwrapRef = useRef(null);
 
+  const [isUnmount, setIsUnmount] = useState(false);
+
   useEffect(() => {
     axios({
       url: "/upcyclings/descending?page=1&size=4",
@@ -62,11 +64,16 @@ const MainPage = () => {
   requestAnimationFrame(raf);
 
   const openModal = () => {
+    setIsUnmount(false);
     setOpen(true);
   };
 
   const closeModal = () => {
-    setOpen(false);
+    setIsUnmount(true);
+
+    setTimeout(() => {
+      setOpen(false); // animeTimeMs의 시간후 모달 닫음
+    }, 900);
   };
 
   return (
@@ -75,7 +82,12 @@ const MainPage = () => {
         <div id={style.mainpage}>
           {open ? (
             <div className={style.modalOverlay}>
-              <div className={style.modalContent}>
+              {/* <div className={style.modalContent}> */}
+              <div
+                className={`${style.modalContent} ${
+                  !isUnmount ? "" : style.closeModal
+                }`}
+              >
                 <div className={style.modalLogo}>
                   <img
                     src={process.env.PUBLIC_URL + "/image/logo1.png"}
