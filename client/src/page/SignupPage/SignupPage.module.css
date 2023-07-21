@@ -99,6 +99,9 @@ input:focus { outline: none !important; border-color: #6E934D; }
     border-radius: 5px;
     border: none;
     margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .authBtn:active {
@@ -107,3 +110,37 @@ input:focus { outline: none !important; border-color: #6E934D; }
 .authBtn:hover{
     cursor: pointer;
 }
+
+
+/* 로딩 */
+.loadingBox {
+
+    margin: 20px;
+}
+.loadingSpinner {
+      width: 11px;
+      height: 11px;
+      border: 1.5px solid rgb(198, 198, 198);
+      border-top: 1.5px solid rgb(255, 255, 255);
+      border-radius: 50%;
+
+      -webkit-animation: spin 1s linear infinite;
+      animation: spin 1s linear infinite;
+    }
+    @-webkit-keyframes spin {
+        0% {
+          -webkit-transform: rotate(0deg);
+        }
+        100% {
+          -webkit-transform: rotate(360deg);
+        }
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }

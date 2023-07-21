@@ -14,8 +14,13 @@
   margin-top: 30px;
 }
 
+#leftWrapper{
+  width: 45%;
+  margin-right: 10px;
+}
+
 #rightWrapper {
-  width: 35%;
+  width: 25%;
   margin-left: 10px;
 }
 
@@ -24,20 +29,26 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 50vh;
+  height: 500px;
+  width: 100%;
+}
+
+#thumimg{
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
 }
 
 .radioGroup {
   display: flex;
-  border: 3px solid #6e934d;
-  justify-content: center;
 }
 
 .radio {
   display: block;
   appearance: none;
-  width: 55px;
-  height: 55px;
+  width: 40px;
+  height: 40px;
   padding: 0;
   margin: 5px 15px;
   border: 2px solid transparent;
@@ -51,15 +62,26 @@
 
 .checked {
   border-color: #6e934d;
-  border-radius: 50%;
+  background-color: #fff;
+  border-radius: 5px;
 }
 
 .AmountBox {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-  margin-top: 30px;
+  justify-content: right;
+  padding-top: 15px;
+  margin-bottom: 10px;
+  border-top: 0.8px solid rgb(236, 236, 238);
+}
+
+#fundingpercent{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: right;
+  margin-bottom: 20px;
 }
 
 #AmountInput::-webkit-outer-spin-button,
@@ -70,52 +92,46 @@
 
 #NameInput {
   width: 100%;
-  height: 100px;
+  height: 50px;
   font-size: 17px;
-  padding-left: 5px;
-  border: 3px solid #6e934d;
-  margin-top: 5px;
   resize: none;
   font-family: Arial, Helvetica, sans-serif;
-  white-space: pre-line;
+  white-space:pre-line;
+  word-break: break-all;
+  margin-bottom: 10px;
 }
 
 #IntroduceBox {
   width: 100%;
-  height: 350px;
-  font-size: 15px;
-  padding-left: 5px;
-  border: 3px solid #6e934d;
+  height: 300px;
+  font-size: 14px;
   margin-top: 5px;
-  margin-bottom: 5px;
+  margin-bottom: 25px;
   font-family: Arial, Helvetica, sans-serif;
   resize: none;
-  white-space: pre-line;
+  white-space:pre-line;
+  word-break: break-all;
 }
 
 #CreateButton {
   width: 100%;
-  margin-top: 45px;
-  border: 3px solid #6e934d;
+  height: 50px;
+  font-size: 17px;
+  font-weight: 400;
+  border: none;
   background-color: #6e934d;
-  border-radius: 5px;
+  border-radius: 10px;
   color: #fff;
-  padding: 16px;
-  font-size: 25px;
   cursor: pointer;
+  &:hover {
+    background-color: #6e934d91;
+    border-radius: 10px;
+    cursor: pointer;
+  }
 }
 
 #upcycler {
-  display: flex;
-  align-items: center;
-  height: 70px;
-  border: 3px solid #6e934d;
-  padding-left: 10px;
-  font-size: larger;
-}
-
-.h3 {
-  margin-top: 20px;
+  margin-left: 10px;
 }
 
 .modalOverlay {
@@ -182,27 +198,93 @@
 }
 
 .button {
-  background-color: #b5e0a0;
+  background-color: #6e934d;
   border: none;
   border-radius: 10px;
-  padding: 15px;
-  text-align: left;
+  height: 30px;
+  width: 50px;
+  text-align: center;
   cursor: pointer;
-  color: rgb(82, 82, 82);
+  color: #fff;
   margin-left: 10px;
 }
 
 .button:hover {
-  background-color: #99df76;
+  background-color: #6e934d91;
   border-radius: 10px;
-  padding: 15px;
-  text-align: left;
   cursor: pointer;
-  color: rgb(82, 82, 82);
 }
 
 #buttonContainer {
   display: flex;
   flex-direction: row-reverse;
-  margin-right: 15vw;
+}
+
+#footer{
+  height: 60px;
+}
+
+#MaterierBox{
+  background-color: rgb(249,	250,	251);
+  margin-top: 20px;
+  border-radius: 5px;
+}
+
+#materiarhr{
+  border:0.5px solid rgb(243, 244, 246);
+}
+
+#materiartext{
+  margin-top: 5px;
+  margin-left: 20px;
+  font-size: 12px;
+}
+
+#materiarblank{
+  height: 10px;
+}
+
+#userbox{
+  display: flex;
+  flex-direction: row;
+  justify-content:space-between;
+  padding-bottom: 10px;
+  border-bottom: 0.8px solid rgb(236, 236, 238);
+}
+
+#userprofile{
+  width: 30px;
+  height: 30px;
+}
+
+#userinf{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#text1{
+  margin-top: 10px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.text2{
+  font-size: 20px;
+  font-weight: 600;
+  color: #6e934d;
+  margin-right: 5px;
+}
+
+#subbox{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#viewtext{
+  font-size: 13px;
+  margin-right: 15px;
 }

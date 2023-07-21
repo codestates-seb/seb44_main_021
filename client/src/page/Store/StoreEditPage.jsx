@@ -98,7 +98,7 @@ const StoreEditPage = () => {
                 </div>
                 <div id={style.rightWrapper}>
                     <div className={style.CautionMent}>제품명</div>
-                    <textarea placeholder='50자 이내로 입력해주세요.' id={style.NameInput} defaultValue={data.title} maxLength="50" onChange={handleTitleChange}/>
+                    <textarea placeholder='40자 이내로 입력해주세요.' id={style.NameInput} defaultValue={data.title} maxLength="40" onChange={handleTitleChange}/>
                     <p className={style.errMsg}>{titleMsg}</p>
                     <div className={style.CautionMent}>제품 소개글</div>
                     <textarea placeholder='500자 이내로 입력해주세요.' id={style.IntroduceBox} maxLength="500" defaultValue={data.content} onChange={handleContentChange}/>

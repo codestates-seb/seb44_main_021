@@ -6,10 +6,10 @@ import CloseIcon from "@mui/icons-material/Close";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Link } from "react-router-dom";
 import { UserDataContext } from "../../contexts/UserDataContext";
-import axios from "axios";
 
 const Header = ({ url, setSearchParam }) => {
-  const { userData, setUserData } = useContext(UserDataContext);
+  const { setUserData } = useContext(UserDataContext);
+
   const [isLogin, setIsLogin] = useState(false);
 
   const urlParams = new URL(window.location.href).searchParams;
@@ -55,21 +55,14 @@ const Header = ({ url, setSearchParam }) => {
       );
       const dec = JSON.parse(decodedPayload);
 
-      axios.get(`/members/${dec.memberId}`).then((res) => {
-        const user = res.data.data;
-        setUserData((prevUserData) => ({
-          ...prevUserData,
-          displayName: user.displayName,
-          email: user.email,
-          memberId: user.memberId,
-          memberRole: user.memberRole,
-          thumbNailImage: user.thumbNailImage,
-        }));
-      });
+      setUserData((prevUserData) => ({
+        ...prevUserData,
+        displayName: dec.displayName,
+        email: dec.username,
+        memberId: dec.memberId,
+      }));
     }
-    console.log(userData);
-  }, [userData.memberId, userData.thumbNailImage, userData.displayName]);
-
+  }, []);
   return (
     <div id={style.HeaderContainer}>
       <div id={style.HeaderWrapper}>
@@ -142,7 +135,7 @@ const ProfileDropdown = ({ setIsLogin }) => {
     <div className={style.ProfileWrapper}>
       <AccountCircleIcon
         onClick={Dropdown}
-        sx={{ width: "35px", height: "100%", color: "#6E934D" }}
+        sx={{ fontSize: 35, color: "#6E934D" }}
       />
       <div className={style.Dropdowncontainer}>
         {menuView && <DropdownBox setIsLogin={setIsLogin} />}
@@ -155,9 +148,7 @@ const ProfileLogin = () => {
   return (
     <div className={style.ProfileWrapper}>
       <Link to="/login">
-        <AccountCircleIcon
-          sx={{ width: "35px", height: "100%", color: "#6E934D" }}
-        />
+        <AccountCircleIcon sx={{ fontSize: 35, color: "#6E934D" }} />
       </Link>
     </div>
   );
