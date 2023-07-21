@@ -56,7 +56,6 @@ const FundingCreatePage = () => {
         if (title.length < 4) {
           setTitleMsg("펀딩명은 5자 이상이여야 합니다!");
         } else {
-          setTitle(titleValue);
           setTitleMsg("");
         }
     };
@@ -68,7 +67,6 @@ const FundingCreatePage = () => {
         if (content.length < 9) {
             setcontentMsg("펀딩 소개글은 10자 이상이여야 합니다!");
         } else {
-            setcontent(contentValue);
             setcontentMsg("");
         }
     };
