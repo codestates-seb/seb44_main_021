@@ -6,10 +6,9 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { UserDataContext } from "../../contexts/UserDataContext";
-import axios from "axios";
 
 const Header = () => {
-  const { userData, setUserData } = useContext(UserDataContext);
+  const { setUserData } = useContext(UserDataContext);
   const [isLogin, setIsLogin] = useState(false);
 
   useEffect(() => {
@@ -30,21 +29,14 @@ const Header = () => {
       );
       const dec = JSON.parse(decodedPayload);
 
-      axios.get(`/members/${dec.memberId}`).then((res) => {
-        const user = res.data.data;
-        setUserData((prevUserData) => ({
-          ...prevUserData,
-          displayName: user.displayName,
-          email: user.email,
-          memberId: user.memberId,
-          memberRole: user.memberRole,
-          thumbNailImage: user.thumbNailImage,
-        }));
-      });
+      setUserData((prevUserData) => ({
+        ...prevUserData,
+        displayName: dec.displayName,
+        email: dec.username,
+        memberId: dec.memberId,
+      }));
     }
-    console.log(userData);
-  }, [userData.memberId, userData.thumbNailImage, userData.displayName]);
-
+  }, []);
   return (
     <div id={style.HeaderContainer}>
       <div id={style.HeaderWrapper}>
