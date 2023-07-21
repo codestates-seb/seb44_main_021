@@ -78,7 +78,7 @@ const MainPage = () => {
               <div className={style.modalContent}>
                 <div className={style.modalLogo}>
                   <img
-                    src={process.env.PUBLIC_URL + "/image/logo5.png"}
+                    src={process.env.PUBLIC_URL + "/image/logo1.png"}
                     alt="로고"
                     style={{
                       width: "60px",
@@ -101,13 +101,14 @@ const MainPage = () => {
                   </Link>
                   <p
                     style={{
-                      fontSize: "50px",
-                      color: "#000000",
+                      fontSize: "35px",
+                      color: "#353535",
                       fontWeight: "bold",
                       marginTop: "170px",
+                      fontStyle: "italic",
                     }}
                   >
-                    利 隱
+                    IEUN CO.
                   </p>
                 </div>
               </div>
