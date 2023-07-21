@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { UserDataContext } from "../../contexts/UserDataContext";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import Lenis from "@studio-freight/lenis";
 import Header from "../../components/Header/Header";
@@ -40,6 +40,8 @@ const FundingPage = () => {
   const [page, setPage] = useState(1);
   const [isLoding, setIsLoding] = useState(false);
 
+  const [searchParam, setSearchParam] = useState("");
+
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {
@@ -63,28 +65,43 @@ const FundingPage = () => {
   useEffect(() => {
     setIsLoding(false);
     setPage(1);
-    if (kategorie === 0) {
-      axios({
-        url: `/upcyclings/${sort}?page=1&size=8`,
-        method: "get",
-      })
-        .then((response) => {
-          setFundingList(response.data.data);
-          setIsLoding(true);
+    if (searchParam) {
+      if (kategorie === 0) {
+        axios({
+          url: `/upcyclings/search?searchKeyword=${searchParam}`,
+          method: "get",
         })
-        .catch((err) => console.log(err));
+          .then((response) => {
+            console.log(response);
+            setFundingList(response.data);
+            setIsLoding(true);
+          })
+          .catch((err) => console.log(err));
+      }
     } else {
-      axios({
-        url: `/upcyclings/${sort}/categories/${kategorie}?page=1&size=8`,
-        method: "get",
-      })
-        .then((response) => {
-          setFundingList(response.data.data);
-          setIsLoding(true);
+      if (kategorie === 0) {
+        axios({
+          url: `/upcyclings/${sort}?page=1&size=8`,
+          method: "get",
         })
-        .catch((err) => console.log(err));
+          .then((response) => {
+            setFundingList(response.data.data);
+            setIsLoding(true);
+          })
+          .catch((err) => console.log(err));
+      } else {
+        axios({
+          url: `/upcyclings/${sort}/categories/${kategorie}?page=1&size=8`,
+          method: "get",
+        })
+          .then((response) => {
+            setFundingList(response.data.data);
+            setIsLoding(true);
+          })
+          .catch((err) => console.log(err));
+      }
     }
-  }, [sort, kategorie]);
+  }, [sort, kategorie, searchParam]);
 
   const handleScroll = () => {
     // 스크롤 이벤트 핸들러
@@ -182,6 +199,7 @@ const FundingPage = () => {
 
   return (
     <div>
+
       <Header />
       <div id={style.container}>
         <div id={style.containerup}>
