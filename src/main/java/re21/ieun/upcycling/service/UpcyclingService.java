@@ -123,6 +123,7 @@ public class UpcyclingService {
         return upcyclingRepository.save(findUpcycling);
     }
 
+    /*
     // Upcycling 검색 기능
     public List<UpcyclingResponseDto> upcyclingSearchList(String searchKeyword) {
 
@@ -130,6 +131,7 @@ public class UpcyclingService {
 
         return upcyclingMapper.upcyclingToUpcyclingResponseDtos(upcyclings);
     }
+     */
 
 //    //category로 검색
 //    public List<UpcyclingResponseDto> findUpcyclingsByCategoryId(long categoryId) {
@@ -155,5 +157,34 @@ public class UpcyclingService {
         return upcyclingRepository.findByMember(member, pageable);
     }
 
+
+    /* 검색 기능 - pagination(페이지네이션) */
+    public Page<Upcycling> searchUpcyclings(int page, int size, String searchKeyword, Long categoryId, boolean ascendingOrder) {
+        Pageable pageable;
+        Category category = null;
+
+        if (categoryId != null) {
+            // Assuming you have a method to find a category by ID in the categoryService
+            category = categoryService.findcategory(categoryId);
+        }
+
+        if (ascendingOrder) {
+            pageable = PageRequest.of(page, size, Sort.by("upcyclingId").ascending());
+        } else {
+            pageable = PageRequest.of(page, size, Sort.by("upcyclingId").descending());
+        }
+
+        if (searchKeyword.equals("") && category == null) {
+            return upcyclingRepository.findAll(pageable);
+        } else if (searchKeyword.equals("") && category != null) {
+            return upcyclingRepository.findByCategory(category, pageable);
+        } else if (!searchKeyword.equals("") && category == null) {
+            return upcyclingRepository.findByTitleContaining(searchKeyword, pageable);
+        } else if (!searchKeyword.equals("") && category != null) {
+            return upcyclingRepository.findByTitleContainingAndCategory(searchKeyword, category, pageable);
+        } else {
+            throw new BusinessLogicException(ExceptionCode.SEARCH_NOT_FOUND);
+        }
+    }
 }
 

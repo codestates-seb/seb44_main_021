@@ -153,6 +153,7 @@ public class UpcyclingController {
     }
      */
 
+    /*
     // Upcycling 검색 기능, @PathVariable -> @RequestParam 로 바꿈
     @GetMapping("/search")
     public ResponseEntity<?> getUpcyclingsByTitleContaining(@RequestParam("searchKeyword") String searchKeyword) {
@@ -161,6 +162,7 @@ public class UpcyclingController {
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+     */
 
     //카테고리 id 기준으로 upcycling 글 최신순으로 정렬 + 페이지네이션
     @GetMapping("/descending/categories/{category-id}")
@@ -201,4 +203,26 @@ public class UpcyclingController {
                 HttpStatus.OK);
 
     }
+
+
+    /* 검색 기능 - pagination(페이지네이션) */
+    @GetMapping("/search")
+    public ResponseEntity<?> searchUpcyclingsByTitleContainingAndCategory(
+            @RequestParam(defaultValue = "") String searchKeyword,
+            @RequestParam(defaultValue = "1") @Positive int page,
+            @RequestParam(defaultValue = "10") @Positive int size,
+            @RequestParam(required = false) Long categoryId,
+            @RequestParam(defaultValue = "descending") String order) {
+
+        boolean ascendingOrder = order.equalsIgnoreCase("ascending");
+
+        Page<Upcycling> upcyclingsPage = upcyclingService.searchUpcyclings(page - 1, size, searchKeyword, categoryId, ascendingOrder);
+        List<Upcycling> content = upcyclingsPage.getContent();
+
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(upcyclingMapper.upcyclingToUpcyclingResponseDtos(content), upcyclingsPage),
+                HttpStatus.OK
+        );
+    }
+
 }
