@@ -91,10 +91,10 @@ const MainPage = () => {
                 </div>
                 <div id={style.sidelist}>
                   <Link to="/funding" className={style.link}>
-                    <div className={style.sidelistText}>펀딩 페이지</div>
+                    <div className={style.sidelistText}>펀딩+</div>
                   </Link>
                   <Link to="/store" className={style.link}>
-                    <div className={style.sidelistText}>상품 페이지</div>
+                    <div className={style.sidelistText}>스토어</div>
                   </Link>
                   <Link to="/about" className={style.link}>
                     <div className={style.sidelistText}>About</div>
