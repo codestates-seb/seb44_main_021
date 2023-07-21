@@ -96,3 +96,17 @@
     font-size: 14px;
     color: rgb(221, 106, 106);
 }
+
+/* oauth btn */
+.oauthBtnContainer{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 100%;
+    background: #ffffff;
+    border-radius: 5px;
+    border: solid 1px #d0d1cf;
+    margin: 10px 0;
+}

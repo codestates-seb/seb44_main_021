@@ -3,6 +3,7 @@ import Style from "./LoginPage.module.css";
 import axios from "axios";
 import Logo from "../../components/Logo/Logo";
 import { useNavigate } from "react-router-dom";
+import { FcGoogle } from "react-icons/fc";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -56,6 +57,8 @@ const LoginPage = () => {
     <div id={Style.loginContainer} onSubmit={AxiosLogin}>
       <form className={Style.loginWrapper}>
         <Logo />
+        <GoogleLoginBtn />
+        {/* <KakaoLoginBtn /> */}
         <label>
           이메일
           <input
@@ -90,3 +93,12 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+
+const GoogleLoginBtn = () => {
+  return (
+    <div className={Style.oauthBtnContainer}>
+      <FcGoogle style={{ fontSize: "20px", marginRight: "5px" }} />
+      구글 계정으로 로그인하기
+    </div>
+  );
+};

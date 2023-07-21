@@ -21,6 +21,12 @@
     margin-top: 30px;
 }
 
+#downWrapper{
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+}
+
 #leftWrapper{
     width: 35%;
     margin-right: 10px;
@@ -31,12 +37,22 @@
     margin-left: 10px;
 }
 
+#ContentimgWrapper{
+    width: 72%;
+    height: fit-content;
+    border-top: 2px solid #6E934D;
+    padding-top: 50px;
+}
+
 #imgContainer{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     border: 3px solid #6E934D;
+    background-color: gainsboro;
+    width: 100%;
+    height: 390px;
 }
 
 #imgWrapper{
@@ -68,20 +84,24 @@
 #FundingImg{
     width: 100%;
     height: 100%;
+    object-fit: cover;
 }
 
 .CommonMent{
     font-size: 15px;
     margin-top: 10px;
+    font-weight: bold;
 }
 
 .CautionMent{
     color: red;
-    font-size: 13px;
+    font-size: 15px;
+    font-weight: bold;
 }
 
 #basicfont{
     font-size: 15px;
+    font-weight: bold;
 }
 
 .radioGroup {
@@ -91,6 +111,7 @@
     padding-top: 3px;
     padding-bottom: 3px;
     margin-top: 2px;
+    background-color: gainsboro;
 }
 
 .radioinput{
@@ -114,13 +135,11 @@
 
 #AmountInput{
     border: 3px solid #6E934D;
-    width: 150ㄴpx;
+    width: 150px;
     padding-left: 5px;    
     font-size: 15px;
     height: 30px;
-    &:focus{
-        outline: none;
-    }
+    background-color: gainsboro;
 }
 
 #AmountInput::-webkit-outer-spin-button,
@@ -145,14 +164,11 @@
     padding-left: 5px;
     padding-top: 3px;
     box-sizing: border-box;
-    box-shadow: 0 0 0 3px #6E934D inset;
-    border: none;
+    border: 3px solid #6E934D;
     margin-top: 5px;
     resize: none;
     font-family: Arial, Helvetica, sans-serif ;
-    &:focus{
-        outline: none;
-    }
+    background-color: gainsboro;
 }
 
 #NameInput{

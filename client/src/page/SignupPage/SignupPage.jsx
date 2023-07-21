@@ -17,13 +17,14 @@ const SignupPage = () => {
     password: "",
     role: "",
     verifyPwd: "",
-    authNum: "",
+    code: "",
   });
 
   /* 에러메세지 */
   const [emailErrMsg, setEmailErrMsg] = useState("");
   const [pwdErrMsg, setPwdErrMsg] = useState("");
   const [nameErrMsg, setNameErrMsg] = useState("");
+  const [AuthNumErrMsg, setAuthNumErrMsg] = useState("");
 
   /* 입력란 공백 및 유효성 통과 여부 */
   const [disabled, setDisabled] = useState(false);
@@ -34,11 +35,12 @@ const SignupPage = () => {
   /* 이메일 인증번호 전송 여부*/
   const [isAuthNum, setIsAuthNum] = useState("");
   const [isAuthNumSent, setIsAuthNumSent] = useState(false);
+  const [isCheckAuthNum, setIsCheckAuthNum] = useState(false);
 
   const navigate = useNavigate();
   const storedUserRole = sessionStorage.getItem("userRole");
 
-  /* 첫 마운트시 유저 가입 유형 데이터에 업데이트 */
+  /* 유저 가입 유형 데이터에 업데이트 */
   useEffect(() => {
     setUserData({ ...userData, role: storedUserRole });
   }, []);
@@ -49,7 +51,8 @@ const SignupPage = () => {
       userData.displayName &&
       userData.email &&
       userData.password &&
-      userData.verifyPwd;
+      userData.verifyPwd &&
+      userData.code;
     setDisabled(!blankData);
   }, [userData]);
 
@@ -95,11 +98,11 @@ const SignupPage = () => {
   const AxiosPost = (e) => {
     e.preventDefault();
 
-    const { displayName, email, password, role } = userData;
+    const { displayName, email, password, role, code } = userData;
 
-    if (isPassword && isEmail && isName) {
+    if (isPassword && isEmail && isName && isCheckAuthNum) {
       axios
-        .post("/members/signup", { displayName, email, password, role })
+        .post("/members/signup", { displayName, email, password, role, code })
         .then((res) => {
           console.log(res);
           if (res.status === 201) {
@@ -125,40 +128,47 @@ const SignupPage = () => {
   /* 이메일 인증 */
   const sendAuthNumber = () => {
     const { email } = userData;
-
-    setIsAuthNumSent(true);
-
-    axios
-      .post("/members/sendmail", { email })
-      .then((res) => {
-        console.log(res.data.message);
-        setIsAuthNum(res.data.message);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (!email) {
+      setEmailErrMsg("이메일을 입력하세요.");
+    }
+    if (isEmail) {
+      axios
+        .post("/members/sendmail", { email })
+        .then((res) => {
+          console.log(res.data.message);
+          setIsAuthNum(res.data.message);
+          setIsAuthNumSent(true);
+        })
+        .catch((err) => {
+          if (err.response.data.message === "이미 존재하는 이메일입니다.") {
+            setEmailErrMsg("이미 존재하는 이메일입니다.");
+            // setIsAuthNumSent(false);
+          }
+        });
+    }
   };
 
   const CheckAuthNumber = () => {
-    const { authNum } = userData;
+    const { code } = userData;
 
-    if (authNum === isAuthNum) {
-      console.log(authNum);
+    if (code === isAuthNum) {
+      // console.log(code);
+      setIsCheckAuthNum(true);
+      setAuthNumErrMsg("");
       alert("인증이 완료되었습니다.");
-      setIsAuthNumSent(false);
     }
-    if (authNum !== isAuthNum) {
-      alert("인증번호가 맞지 않습니다.");
+    if (code !== isAuthNum) {
+      // console.log(code);
+      setIsCheckAuthNum(false);
+      setAuthNumErrMsg("인증번호를 확인해주세요.");
     }
   };
 
-  // const [isOpenModal, setIsOpenModal] = useState(false);
-
   return (
     <div className={Style.SignupformContainer}>
-      <div className={Style.SignupFormWrapper} onSubmit={AxiosPost}>
+      <div className={Style.SignupFormWrapper}>
         <Logo />
-        <form className={Style.SignupForm}>
+        <form className={Style.SignupForm} onSubmit={AxiosPost}>
           <label>이메일</label>
           <div className={Style.authEmailInput}>
             <input
@@ -168,11 +178,16 @@ const SignupPage = () => {
               onBlur={IsValidEmail}
             />
 
-            <button className={Style.authBtn} onClick={sendAuthNumber}>
+            <button
+              type="button"
+              className={Style.authBtn}
+              onClick={sendAuthNumber}
+            >
               인증번호 전송
             </button>
           </div>
           {emailErrMsg !== "" && <p className={Style.errMsg}>{emailErrMsg}</p>}
+
           {isAuthNumSent && (
             <>
               <label>인증번호</label>
@@ -180,12 +195,19 @@ const SignupPage = () => {
                 <input
                   type="text"
                   placeholder="인증번호를 입력하세요."
-                  onChange={handleInputValue("authNum")}
+                  onChange={handleInputValue("code")}
                 />
-                <button className={Style.authBtn} onClick={CheckAuthNumber}>
+                <button
+                  type="button"
+                  className={Style.authBtn}
+                  onClick={CheckAuthNumber}
+                >
                   인증번호 확인
                 </button>
               </div>
+              {AuthNumErrMsg !== "" && (
+                <p className={Style.errMsg}>{AuthNumErrMsg}</p>
+              )}
             </>
           )}
 
