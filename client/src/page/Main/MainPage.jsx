@@ -150,9 +150,9 @@ const MainPage = () => {
             ) : (
               <button className={style.button}>
                 <Link to="/login">
-                  <AccountBoxIcon
+                  <AccountCircleIcon
                     className={style.button}
-                    sx={{ fontSize: 40, color: "#000000" }}
+                    sx={{ fontSize: 35, color: "#6E934D" }}
                   />
                 </Link>
               </button>

@@ -94,7 +94,7 @@ const ProfileDropdown = ({ setIsLogin }) => {
     <div className={style.ProfileWrapper}>
       <AccountCircleIcon
         onClick={Dropdown}
-        sx={{ width: "35px", height: "100%", color: "#6E934D" }}
+        sx={{ fontSize: 35, color: "#6E934D" }}
       />
       <div className={style.Dropdowncontainer}>
         {menuView && <DropdownBox setIsLogin={setIsLogin} />}
@@ -107,9 +107,7 @@ const ProfileLogin = () => {
   return (
     <div className={style.ProfileWrapper}>
       <Link to="/login">
-        <AccountCircleIcon
-          sx={{ width: "35px", height: "100%", color: "#6E934D" }}
-        />
+        <AccountCircleIcon sx={{ fontSize: 35, color: "#6E934D" }} />
       </Link>
     </div>
   );
