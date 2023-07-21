@@ -104,6 +104,7 @@
   height: 300px;
   margin-top: 20px;
   justify-self: end;
+  word-break: break-all;
 }
 
 #listText {
