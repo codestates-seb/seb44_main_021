@@ -7,9 +7,8 @@ import Header from "../../components/Header/Header";
 import style from "./StorePage.module.css";
 
 const List = (props) => {
-
   const formatPriceWithCommas = (price) => {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
   return (
@@ -44,7 +43,9 @@ const StorePage = () => {
   const [page, setPage] = useState(1);
   const [isLoding, setIsLoding] = useState(false);
 
-  const [searchParam, setSearchParam] = useState("");
+  const urlParams = new URL(window.location.href).searchParams;
+  const serch = urlParams.get("serch");
+  const [searchParam, setSearchParam] = useState(serch);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -54,41 +55,78 @@ const StorePage = () => {
   }, []);
 
   useEffect(() => {
-    axios({
-      url: "/sells/descending?page=1&size=8",
-      method: "get",
-    })
-      .then((response) => {
-        setStoreList(response.data.data);
-        console.log(response.data.data);
-        setIsLoding(true);
-      })
-      .catch((err) => console.log(err));
-  }, []);
-
-  useEffect(() => {
-    setIsLoding(false);
-    setPage(1);
-    if (kategorie === 0) {
+    if (searchParam) {
       axios({
-        url: `/sells/${sort}?page=1&size=8`,
+        url: `/sells/search?page=1&size=8&searchKeyword=${searchParam}`,
         method: "get",
       })
         .then((response) => {
           setStoreList(response.data.data);
+          console.log(response.data.data);
           setIsLoding(true);
         })
         .catch((err) => console.log(err));
     } else {
       axios({
-        url: `/sells/${sort}/sellcategories/${kategorie}?page=1&size=8`,
+        url: "/sells/descending?page=1&size=8",
         method: "get",
       })
         .then((response) => {
           setStoreList(response.data.data);
+          console.log(response.data.data);
           setIsLoding(true);
         })
         .catch((err) => console.log(err));
+    }
+  }, []);
+
+  useEffect(() => {
+    setIsLoding(false);
+    setPage(1);
+    if (searchParam) {
+      if (kategorie === 0) {
+        axios({
+          url: `/sells/search?page=1&size=8&sort=${sort}&searchKeyword=${searchParam}`,
+          method: "get",
+        })
+          .then((response) => {
+            setStoreList(response.data.data);
+            setIsLoding(true);
+          })
+          .catch((err) => console.log(err));
+      } else {
+        axios({
+          url: `/sells/search?page=1&size=8&sort=${sort}&sellCategoryId=${kategorie}&searchKeyword=${searchParam}`,
+          method: "get",
+        })
+          .then((response) => {
+            setStoreList(response.data.data);
+            setIsLoding(true);
+          })
+          .catch((err) => console.log(err));
+      }
+    } else {
+      if (kategorie === 0) {
+        axios({
+          url: `/sells/${sort}?page=1&size=8`,
+          method: "get",
+        })
+          .then((response) => {
+            setStoreList(response.data.data);
+            setIsLoding(true);
+          })
+          .catch((err) => console.log(err));
+      } else {
+        axios({
+          url: `/sells/${sort}/sellcategories/${kategorie}?page=1&size=8`,
+          method: "get",
+        })
+          .then((response) => {
+            setStoreList(response.data.data);
+            setIsLoding(true);
+          })
+          .catch((err) => console.log(err));
+      }
     }
   }, [sort, kategorie, searchParam]);
 
@@ -104,24 +142,46 @@ const StorePage = () => {
 
   useEffect(() => {
     if (page > 1) {
-      if (kategorie === 0) {
-        axios({
-          url: `/sells/${sort}?page=${page}&size=8`,
-          method: "get",
-        })
-          .then((response) => {
-            setStoreList((prev) => [...prev, ...response.data.data]);
+      if (searchParam) {
+        if (kategorie === 0) {
+          axios({
+            url: `/sells/search?page=${page}&size=8&sort=${sort}&searchKeyword=${searchParam}`,
+            method: "get",
           })
-          .catch((err) => console.log(err));
+            .then((response) => {
+              setStoreList((prev) => [...prev, ...response.data.data]);
+            })
+            .catch((err) => console.log(err));
+        } else {
+          axios({
+            url: `/sells/search?page=${page}&size=8&sort=${sort}&sellCategoryId=${kategorie}&searchKeyword=${searchParam}`,
+            method: "get",
+          })
+            .then((response) => {
+              setStoreList((prev) => [...prev, ...response.data.data]);
+            })
+            .catch((err) => console.log(err));
+        }
       } else {
-        axios({
-          url: `/sells/${sort}/categories/${kategorie}?page=${page}&size=8`,
-          method: "get",
-        })
-          .then((response) => {
-            setStoreList((prev) => [...prev, ...response.data.data]);
+        if (kategorie === 0) {
+          axios({
+            url: `/sells/${sort}?page=${page}&size=8`,
+            method: "get",
           })
-          .catch((err) => console.log(err));
+            .then((response) => {
+              setStoreList((prev) => [...prev, ...response.data.data]);
+            })
+            .catch((err) => console.log(err));
+        } else {
+          axios({
+            url: `/sells/${sort}/sellcategories/${kategorie}?page=${page}&size=8`,
+            method: "get",
+          })
+            .then((response) => {
+              setStoreList((prev) => [...prev, ...response.data.data]);
+            })
+            .catch((err) => console.log(err));
+        }
       }
     }
   }, [page]);
@@ -181,7 +241,7 @@ const StorePage = () => {
 
   return (
     <div>
-      <Header />
+      <Header url="store" setSearchParam={setSearchParam} />
       <div id={style.container}>
         <div id={style.containerup}>
           <div id={style.blank}></div>
@@ -189,9 +249,27 @@ const StorePage = () => {
             <div id={style.sortcontainer}>
               <div id={style.sortblank}></div>
               <div id={style.sortbox}>
-                <button id={style.sorttext1} className={`${sort === "descending" ? style.selectsorttext : ""}`} onClick={handleChange} value={"descending"}>최신순</button>
+                <button
+                  id={style.sorttext1}
+                  className={`${
+                    sort === "descending" ? style.selectsorttext : ""
+                  }`}
+                  onClick={handleChange}
+                  value={"descending"}
+                >
+                  최신순
+                </button>
                 <div id={style.sorticon}>|</div>
-                <button id={style.sorttext2} className={`${sort === "ascending" ? style.selectsorttext : ""}`} onClick={handleChange} value={"ascending"}>오래된 순</button>
+                <button
+                  id={style.sorttext2}
+                  className={`${
+                    sort === "ascending" ? style.selectsorttext : ""
+                  }`}
+                  onClick={handleChange}
+                  value={"ascending"}
+                >
+                  오래된 순
+                </button>
               </div>
             </div>
             {localStorage.getItem("token") ? (
