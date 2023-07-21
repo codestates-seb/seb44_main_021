@@ -229,6 +229,7 @@ const FundingCreatePage = () => {
                     <button id={style.CreateButton}  onClick={Create}>등록하기</button>
                 </div>
             </div>
+            <div id={style.footer}></div>
         </div>
     );
 };
