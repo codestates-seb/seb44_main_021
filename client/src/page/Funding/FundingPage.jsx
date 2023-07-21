@@ -3,11 +3,6 @@ import { UserDataContext } from "../../contexts/UserDataContext";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Lenis from "@studio-freight/lenis";
-import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
 import Header from "../../components/Header/Header";
 import style from "./FundingPage.module.css";
 

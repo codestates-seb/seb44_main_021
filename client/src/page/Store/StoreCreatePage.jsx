@@ -184,7 +184,7 @@ const StoreCreatePage = () => {
                     <SettingUserThumbnail setThumimgurl = {setThumimgurl} ThumImgurl = {ThumImgurl}/>
                     <p className={style.errMsg}>{thumimgurlMsg}</p>
                     <div className={style.CommonMent}>Step2. 제품명을 입력해주세요!</div>
-                    <textarea onChange={Title} ref={titleRef} placeholder='50자 이내로 입력해주세요.' id={style.NameInput} maxLength="50"/>
+                    <textarea onChange={Title} ref={titleRef} placeholder='40자 이내로 입력해주세요.' id={style.NameInput} maxLength="40"/>
                     <p className={style.errMsg}>{titleMsg}</p>
                     <div className={style.AmountBox}>
                         <div>

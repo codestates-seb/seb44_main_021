@@ -62,10 +62,6 @@
   font-size: 25px;
   padding-bottom: 10px;
   border-bottom: 1px solid #6e934d;
-  /*  */
-  /* background-color: #6e934d;
-  color: #fff;
-  padding-top: 10px; */
 }
 
 .button {
@@ -150,8 +146,6 @@
   height: 11px;
   margin-right: 10px;
 }
-
-/* 곽시현 창작 */
 
 #sortcontainer{
   display: flex;
