@@ -23,7 +23,11 @@ const List = (props) => {
         <div id={style.listText}>
           <div id={style.title}>{props.title}</div>
           <div id={style.materiar}>
-            <img id={style.materiaricon} src={`${process.env.PUBLIC_URL}/image/circle.png`} alt="원모양 아이콘"/>
+            <img
+              id={style.materiaricon}
+              src={`${process.env.PUBLIC_URL}/image/circle.png`}
+              alt="원모양 아이콘"
+            />
             {props.categoryName}
           </div>
         </div>
@@ -40,7 +44,9 @@ const FundingPage = () => {
   const [page, setPage] = useState(1);
   const [isLoding, setIsLoding] = useState(false);
 
-  const [searchParam, setSearchParam] = useState("");
+  const urlParams = new URL(window.location.href).searchParams;
+  const serch = urlParams.get("serch");
+  const [searchParam, setSearchParam] = useState(serch);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -50,16 +56,27 @@ const FundingPage = () => {
   }, []);
 
   useEffect(() => {
-    axios({
-      url: "/upcyclings/descending?page=1&size=8",
-      method: "get",
-    })
-      .then((response) => {
-        setFundingList(response.data.data);
-        console.log(response.data.data);
-        setIsLoding(true);
+    if (searchParam) {
+      axios({
+        url: `/upcyclings/search?page=1&size=8&searchKeyword=${searchParam}`,
+        method: "get",
       })
-      .catch((err) => console.log(err));
+        .then((response) => {
+          setFundingList(response.data.data);
+          setIsLoding(true);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      axios({
+        url: "/upcyclings/descending?page=1&size=8",
+        method: "get",
+      })
+        .then((response) => {
+          console.log(response.data.data);
+          setIsLoding(true);
+        })
+        .catch((err) => console.log(err));
+    }
   }, []);
 
   useEffect(() => {
@@ -68,12 +85,22 @@ const FundingPage = () => {
     if (searchParam) {
       if (kategorie === 0) {
         axios({
-          url: `/upcyclings/search?searchKeyword=${searchParam}`,
+          url: `/upcyclings/search?page=1&size=8&sort=${sort}&searchKeyword=${searchParam}`,
           method: "get",
         })
           .then((response) => {
             console.log(response);
-            setFundingList(response.data);
+            setFundingList(response.data.data);
+            setIsLoding(true);
+          })
+          .catch((err) => console.log(err));
+      } else {
+        axios({
+          url: `/upcyclings/search?page=1&size=8&sort=${sort}&categoryId=${kategorie}&searchKeyword=${searchParam}`,
+          method: "get",
+        })
+          .then((response) => {
+            setFundingList(response.data.data);
             setIsLoding(true);
           })
           .catch((err) => console.log(err));
@@ -115,24 +142,46 @@ const FundingPage = () => {
 
   useEffect(() => {
     if (page > 1) {
-      if (kategorie === 0) {
-        axios({
-          url: `/upcyclings/${sort}?page=${page}&size=8`,
-          method: "get",
-        })
-          .then((response) => {
-            setFundingList((prev) => [...prev, ...response.data.data]);
+      if (searchParam) {
+        if (kategorie === 0) {
+          axios({
+            url: `/upcyclings/search?page=${page}&size=8&sort=${sort}&searchKeyword=${searchParam}`,
+            method: "get",
           })
-          .catch((err) => console.log(err));
+            .then((response) => {
+              setFundingList((prev) => [...prev, ...response.data.data]);
+            })
+            .catch((err) => console.log(err));
+        } else {
+          axios({
+            url: `/upcyclings/search?page=${page}&size=8&sort=${sort}&categoryId=${kategorie}&searchKeyword=${searchParam}`,
+            method: "get",
+          })
+            .then((response) => {
+              setFundingList((prev) => [...prev, ...response.data.data]);
+            })
+            .catch((err) => console.log(err));
+        }
       } else {
-        axios({
-          url: `/upcyclings/${sort}/categories/${kategorie}?page=${page}&size=8`,
-          method: "get",
-        })
-          .then((response) => {
-            setFundingList((prev) => [...prev, ...response.data.data]);
+        if (kategorie === 0) {
+          axios({
+            url: `/upcyclings/${sort}?page=${page}&size=8`,
+            method: "get",
           })
-          .catch((err) => console.log(err));
+            .then((response) => {
+              setFundingList((prev) => [...prev, ...response.data.data]);
+            })
+            .catch((err) => console.log(err));
+        } else {
+          axios({
+            url: `/upcyclings/${sort}/categories/${kategorie}?page=${page}&size=8`,
+            method: "get",
+          })
+            .then((response) => {
+              setFundingList((prev) => [...prev, ...response.data.data]);
+            })
+            .catch((err) => console.log(err));
+        }
       }
     }
   }, [page]);
@@ -199,8 +248,7 @@ const FundingPage = () => {
 
   return (
     <div>
-
-      <Header />
+      <Header url="funding" setSearchParam={setSearchParam} />
       <div id={style.container}>
         <div id={style.containerup}>
           <div id={style.blank}></div>
@@ -208,9 +256,27 @@ const FundingPage = () => {
             <div id={style.sortcontainer}>
               <div id={style.sortblank}></div>
               <div id={style.sortbox}>
-                <button id={style.sorttext1} className={`${sort === "descending" ? style.selectsorttext : ""}`} onClick={handleChange} value={"descending"}>최신순</button>
+                <button
+                  id={style.sorttext1}
+                  className={`${
+                    sort === "descending" ? style.selectsorttext : ""
+                  }`}
+                  onClick={handleChange}
+                  value={"descending"}
+                >
+                  최신순
+                </button>
                 <div id={style.sorticon}>|</div>
-                <button id={style.sorttext2} className={`${sort === "ascending" ? style.selectsorttext : ""}`} onClick={handleChange} value={"ascending"}>오래된 순</button>
+                <button
+                  id={style.sorttext2}
+                  className={`${
+                    sort === "ascending" ? style.selectsorttext : ""
+                  }`}
+                  onClick={handleChange}
+                  value={"ascending"}
+                >
+                  오래된 순
+                </button>
               </div>
             </div>
             {localStorage.getItem("token") ? (
@@ -219,7 +285,7 @@ const FundingPage = () => {
               </Link>
             ) : null}
           </div>
-        </div>  
+        </div>
         <div id={style.containerdown}>
           <div id={style.aside}>
             <div id={style.kategorie}>카테고리</div>
@@ -228,7 +294,7 @@ const FundingPage = () => {
               ${kategorie === 0 ? style.selectedButton : ""}`}
               onClick={ViewAll}
             >
-              All 
+              All
             </button>
             <button
               className={`${style.button} 
@@ -274,7 +340,9 @@ const FundingPage = () => {
             </button>
           </div>
           <div id={style.funding}>
-            {isLoding ? fundingList.map((obj, index) => List(obj, index)) : null}
+            {isLoding
+              ? fundingList.map((obj, index) => List(obj, index))
+              : null}
           </div>
         </div>
       </div>

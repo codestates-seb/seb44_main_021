@@ -13,9 +13,7 @@ const Header = ({ url, setSearchParam }) => {
   const [isLogin, setIsLogin] = useState(false);
 
   const urlParams = new URL(window.location.href).searchParams;
-
   const serch = urlParams.get("serch");
-
   const [searchTerm, setSearchTerm] = useState(serch); // 검색어 상태 추가
 
   const handleInputChange = (event) => {
