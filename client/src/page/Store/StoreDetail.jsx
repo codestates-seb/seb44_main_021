@@ -78,7 +78,10 @@ const StoreDetail = () => {
   };
 
   const formatPriceWithCommas = (price) => {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    if (price) {
+      return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+    return "수량을 선택해주세요!";
   };
 
   return (
@@ -159,7 +162,9 @@ const StoreDetail = () => {
               <h2>총 합계금액</h2>
             </div>
             <div>
-              <h2>{formatPriceWithCommas(data.price * quantity)}원</h2>
+              {quantity ? <h2>{formatPriceWithCommas(data.price * quantity)}원</h2>:
+                <h2>{formatPriceWithCommas(data.price * quantity)}</h2>
+              }
             </div>
           </div>
           {localStorage.getItem("token") ? (
