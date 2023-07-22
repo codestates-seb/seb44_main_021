@@ -72,12 +72,12 @@ public class SecurityConfiguration {
                         .antMatchers(HttpMethod.GET, "/*/members").hasRole("USER")
                         .antMatchers(HttpMethod.GET, "/*/members/**").hasAnyRole("USER", "ADMIN")
                         .antMatchers(HttpMethod.DELETE, "/*/members/**").hasRole("USER")
-                        //.antMatchers(HttpMethod.POST, "/*/upcycling").hasRole("USER")
+                        //.antMatchers(HttpMethod.POST, "/upcyclings/**").hasRole("USER")
                         .anyRequest().permitAll()
                 )
                 .oauth2Login(oauth2 -> oauth2
                         .successHandler(new OAuth2MemberSuccessHandler(jwtTokenizer, authorityUtils, memberRepository))
-                );;
+                );
 
         return http.build();
     }
@@ -93,7 +93,7 @@ public class SecurityConfiguration {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOriginPatterns(List.of("*"));
-        configuration.setAllowedOrigins(List.of("http://localhost:3001"));      // 여기에 https 도메인 추가
+        //configuration.setAllowedOrigins(List.of("http://localhost:3001"));      // 여기에 https 도메인 추가
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowCredentials(true);
         configuration.addAllowedHeader("*");

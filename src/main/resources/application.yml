@@ -5,9 +5,9 @@ spring:
       settings:
         web-allow-others: true
       path: /h2
-  redis:
-    host: localhost # ${redis_host}
-    port: 6379 # ${redis_port}
+#  redis:
+#    host: localhost # ${redis_host}
+#    port: 6379 # ${redis_port}
   datasource:
     url: jdbc:h2:mem:test
   jpa:
@@ -59,7 +59,7 @@ mail:
     admin: admin@gmail.com
 JWT_KEY: ${JWT_SECRET_KEY}
 jwt:
-  access-token-expiration-minutes: 30
+  access-token-expiration-minutes: 1
   refresh-token-expiration-minutes: 240
 MY_ACCESSKEY: ${MY_ACCESSKEY}
 MY_SECRETKEY: ${MY_SECRETKEY}
