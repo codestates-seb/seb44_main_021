@@ -36,12 +36,12 @@ jobs:
       with:
         files: ${{ env.RESOURCE_PATH }}
       env:
-      spring:
-        security:
-          oauth2:
-            client:
-              registration:
-                google:
+        spring:
+         security:
+           oauth2:
+             client:
+               registration:
+                 google:
                   clientId: ${{ secret.G_CLIENT_ID }}
                   clientSecret: ${{ secret.G_CLIENT_SECRET }}
         JWT_KEY: ${{ secrets.JWT_KEY }}
