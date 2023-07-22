@@ -42,8 +42,15 @@ jobs:
         MY_REGION: ${{ secrets.MY_REGION }}
         EMAIL_MAN: ${{ secrets.EMAIL }}
         EMAIL_PASSWORD: ${{ secrets.PASSWORD }}
-        G_CLIENT_ID: ${{ secrets.G_CLIENT_ID }}
-        G_CLIENT_SECRET: ${{ secrets.G_CLIENT_SECRET }}
+        spring:
+          security:
+            oauth2:
+              client:
+                registration:
+                  google:
+                    clientId: ${{ secrets.G_CLIENT_ID }}
+                    clientSecret: ${{ secrets.G_CLIENT_SECRET }}
+
 
     - name: Add permission
       run: chmod +x gradlew
