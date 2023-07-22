@@ -97,4 +97,7 @@ public class JwtTokenizer {
         return key;
     }
 
+    public String getTokenFromHeader(String tokenHeader) {
+        return tokenHeader.replace("Bearer ", "");
+    }
 }

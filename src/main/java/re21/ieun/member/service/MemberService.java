@@ -103,9 +103,10 @@ public class MemberService {
         return memberRepository.findAll(PageRequest.of(page, size, Sort.by("memberId").descending()));
     }
 
-    private void verifyExistsEmail(String email) {
-        Optional<Member> member = memberRepository.findByEmail(email);
-        if (member.isPresent()) throw new BusinessLogicException(ExceptionCode.EMAIL_EXISTS);
+    public Member verifyExistsEmail(String email) {
+//        Optional<Member> member = memberRepository.findByEmail(email);
+//        if (member.isPresent()) throw new BusinessLogicException(ExceptionCode.EMAIL_EXISTS);
+        return memberRepository.findByEmail(email).orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
     }
 
     private void verifyExistsDisplayName(String displayName) {

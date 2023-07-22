@@ -1,5 +1,5 @@
 package re21.ieun.auth.redis;
-/*
+
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import re21.ieun.auth.jwt.JwtTokenizer;
@@ -28,4 +28,3 @@ public class RedisService {
         return redisTemplate.hasKey(token);
     }
 }
- */

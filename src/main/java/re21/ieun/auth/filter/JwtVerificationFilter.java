@@ -9,7 +9,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 import re21.ieun.auth.jwt.JwtTokenizer;
+import re21.ieun.auth.redis.RedisService;
+import re21.ieun.auth.service.AuthService;
 import re21.ieun.auth.utils.CustomAuthorityUtils;
+import re21.ieun.exception.BusinessLogicException;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -25,11 +28,15 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
 
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
+    private final RedisService redisService;
+    private final AuthService authService;
 
-    public JwtVerificationFilter(JwtTokenizer jwtTokenizer,
-                                 CustomAuthorityUtils authorityUtils) {
+    public JwtVerificationFilter(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils,
+                                 RedisService redisService, AuthService authService) {
         this.jwtTokenizer = jwtTokenizer;
         this.authorityUtils = authorityUtils;
+        this.redisService = redisService;
+        this.authService = authService;
     }
 
     @Override
@@ -49,6 +56,7 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
 
         filterChain.doFilter(request, response);
          */
+        /*
         try {
             Map<String, Object> claims = verifyJws(request);
             setAuthenticationToContext(claims);
@@ -80,6 +88,32 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
         }
 
         filterChain.doFilter(request, response);
+         */
+
+        String token = jwtTokenizer.getTokenFromHeader(request.getHeader("Authorization"));
+        try {
+            if (!redisService.isSignedOut(token)) {
+                Map<String, Object> claims = verifyJws(request);
+                setAuthenticationToContext(claims);
+            }
+        } catch (SignatureException se) {
+            request.setAttribute("exception", se);
+        } catch (ExpiredJwtException ee) {
+            String refreshToken = request.getHeader("Refresh");
+            try {
+                jwtTokenizer.verifySignature(refreshToken, jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey()));
+                String newAccessToken = authService.reissue(refreshToken);
+                response.setHeader("Authorization", newAccessToken);
+                response.setIntHeader("reIssue", 3000);
+                response.sendError(3000);
+            } catch (BusinessLogicException be) {
+                request.setAttribute("exception", be);
+            }
+        } catch (Exception e) {
+            request.setAttribute("exception", e);
+        }
+
+        filterChain.doFilter(request, response);
     }
 
     @Override
@@ -104,6 +138,7 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
+    /*
     // refresh 토큰 추가
     // 요청에서 새로고침 토큰을 추출하는 도우미 메서드
     private String extractRefreshToken(HttpServletRequest request) {
@@ -140,4 +175,5 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
         Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getAccessTokenExpirationMinutes());
         return jwtTokenizer.generateAccessToken(null, subject, expiration, base64EncodedSecretKey);
     }
+     */
 }
