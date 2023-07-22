@@ -57,10 +57,10 @@ server:
 mail:
   address:
     admin: admin@gmail.com
-JWT_KEY: ${JWT_SECRET_KEY}
 jwt:
   access-token-expiration-minutes: 1
   refresh-token-expiration-minutes: 240
+JWT_KEY: ${JWT_SECRET_KEY}
 MY_ACCESSKEY: ${MY_ACCESSKEY}
 MY_SECRETKEY: ${MY_SECRETKEY}
 MY_REGION: ${MY_REGION}

@@ -36,20 +36,14 @@ jobs:
       with:
         files: ${{ env.RESOURCE_PATH }}
       env:
-        spring:
-         security:
-           oauth2:
-             client:
-               registration:
-                 google:
-                  clientId: ${{ secret.G_CLIENT_ID }}
-                  clientSecret: ${{ secret.G_CLIENT_SECRET }}
         JWT_KEY: ${{ secrets.JWT_KEY }}
         MY_ACCESSKEY: ${{ secrets.MY_ACCESSKEY }}
         MY_SECRETKEY: ${{ secrets.MY_SECRETKEY }}
         MY_REGION: ${{ secrets.MY_REGION }}
         EMAIL_MAN: ${{ secrets.EMAIL }}
         EMAIL_PASSWORD: ${{ secrets.PASSWORD }}
+        G_CLIENT_ID: ${{ secrets.G_CLIENT_ID }}
+        G_CLIENT_SECRET: ${{ secrets.G_CLIENT_SECRET }}
 
     - name: Add permission
       run: chmod +x gradlew
