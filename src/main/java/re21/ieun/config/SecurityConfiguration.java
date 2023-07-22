@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -17,10 +18,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 import re21.ieun.auth.filter.JwtAuthenticationFilter;
 import re21.ieun.auth.filter.JwtVerificationFilter;
-import re21.ieun.auth.handler.MemberAccessDeniedHandler;
-import re21.ieun.auth.handler.MemberAuthenticationEntryPoint;
-import re21.ieun.auth.handler.MemberAuthenticationFailureHandler;
-import re21.ieun.auth.handler.MemberAuthenticationSuccessHandler;
+import re21.ieun.auth.handler.*;
 import re21.ieun.auth.jwt.JwtTokenizer;
 import re21.ieun.auth.utils.CustomAuthorityUtils;
 import re21.ieun.member.repository.MemberRepository;
@@ -76,7 +74,10 @@ public class SecurityConfiguration {
                         .antMatchers(HttpMethod.DELETE, "/*/members/**").hasRole("USER")
                         //.antMatchers(HttpMethod.POST, "/*/upcycling").hasRole("USER")
                         .anyRequest().permitAll()
-                );
+                )
+                .oauth2Login(oauth2 -> oauth2
+                        .successHandler(new OAuth2MemberSuccessHandler(jwtTokenizer, authorityUtils, memberRepository))
+                );;
 
         return http.build();
     }
@@ -116,12 +117,14 @@ public class SecurityConfiguration {
             builder
                     .addFilter(jwtAuthenticationFilter)
                     .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class)
-                    .addFilterAfter(new CustomResponseCookieFilter(), JwtVerificationFilter.class); // CustomResponseCookieFilter 추가
+                    .addFilterAfter(jwtVerificationFilter, OAuth2LoginAuthenticationFilter.class);
+                    //.addFilterAfter(new CustomResponseCookieFilter(), JwtVerificationFilter.class); // CustomResponseCookieFilter 추가
 
 
         }
     }
 
+    /*
     // cookie 추가
     public static class CustomResponseCookieFilter extends OncePerRequestFilter {
         @Override
@@ -141,5 +144,6 @@ public class SecurityConfiguration {
             filterChain.doFilter(request, response);
         }
     }
+     */
 
 }
