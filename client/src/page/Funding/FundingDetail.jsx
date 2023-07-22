@@ -19,6 +19,7 @@ const FundingDetail = () => {
   const [quantity, setQuantity] = useState(0);
   const [funding, setFunding] = useState(false);
   const [fundingRate, setFundingRate] = useState();
+  const [profile,setprofile] = useState("");
   const { userData } = useContext(UserDataContext);
 
   useEffect(() => {
@@ -32,6 +33,18 @@ const FundingDetail = () => {
       })
       .catch((err) => console.log(err));
   }, []);
+
+  useEffect(() => {
+    axios
+      .get(`/members/${data.memberId}`)
+      .then((res) => {
+        console.log(res);
+        setprofile(res.data.data.thumbNailImage)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [data.memberId]);
 
   useEffect(() => {
     if (data.totalReceivedQuantity === 0) {
@@ -190,7 +203,11 @@ const FundingDetail = () => {
         <div id={style.rightWrapper}>
           <div id={style.userbox}>
             <div id={style.userinf}>
-              <img id={style.userprofile} src={`${process.env.PUBLIC_URL}/image/profile.jpeg`}/>
+              {profile !== null ? (
+                <img id={style.userprofile} src={profile} alt="펀딩 이미지 미리보기" />
+              ) : (
+                <img id={style.userprofile} src={`${process.env.PUBLIC_URL}/image/profile.jpeg`} alt="기본 프로필"/>
+              )}              
               <div id={style.upcycler}>{data.displayName}</div>
             </div>
             <div id={style.useroption}>
