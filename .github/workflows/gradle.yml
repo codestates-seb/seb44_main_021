@@ -47,9 +47,11 @@ jobs:
     - name: Set yml file1
       run: |
         cp $RESOURCE_PATH $RESOURCE_PATH.bak # 백업 파일 생성
+        sed -i "s/\${MYSQL_PASSWORD}/${{ secrets.MYSQL_PASSWORD }}/g" $RESOURCE_PATH
         sed -i "s/\${G_CLIENT_ID}/${{ secrets.G_CLIENT_ID }}/g" $RESOURCE_PATH
         sed -i "s/\${G_CLIENT_SECRET}/${{ secrets.G_CLIENT_SECRET }}/g" $RESOURCE_PATH
       env:
+        MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
         G_CLIENT_ID: ${{ secrets.G_CLIENT_ID }}
         G_CLIENT_SECRET: ${{ secrets.G_CLIENT_SECRET }}
 
