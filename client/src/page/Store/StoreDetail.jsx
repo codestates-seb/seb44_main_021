@@ -17,6 +17,7 @@ const StoreDetail = () => {
   const [data, setData] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [quantity, setQuantity] = useState(0);
+  const [profile,setprofile] = useState("");
   const { userData } = useContext(UserDataContext);
 
   useEffect(() => {
@@ -30,6 +31,18 @@ const StoreDetail = () => {
       })
       .catch((err) => console.log(err));
   }, []);
+
+  useEffect(() => {
+    axios
+      .get(`/members/${data.memberId}`)
+      .then((res) => {
+        console.log(res);
+        setprofile(res.data.data.thumbNailImage)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [data.memberId]);
 
   const handleChange = (event) => {
     setQuantity(event.target.value);
@@ -87,39 +100,45 @@ const StoreDetail = () => {
   return (
     <div id={style.AllContainer}>
       <Header />
-      <div id={style.TitleName}>제품 상세 정보</div>
-      {userData.memberId === data.memberId ? (
-        <div id={style.buttonContainer}>
-          <button className={style.button} onClick={deleteStore}>
-            삭제
-          </button>
-          <Link to={`/storeedit/${data.sellId}`} className={style.link}>
-            <button className={style.button}>수정</button>
-          </Link>
-        </div>
-      ) : null}
       <div id={style.AllWrapper}>
         <div id={style.leftWrapper}>
           <div id={style.imgContainer}>
-            <img
-              src={data.thumbNailImage}
-              alt="img"
-              style={{
-                width: "35vw",
-                height: "100%",
-                objectFit: "cover",
-                borderRadius: "20px",
-              }}
-            />
+            <img id={style.thumimg} src={data.thumbNailImage} alt="img"/>
           </div>
           <div id={style.MaterierBox}>
-            <h3 className={style.h3}>펀딩 자재</h3>
-            <div className={style.radioGroup}>{data.material}</div>
-            <h3 className={style.h3}>업사이클러</h3>
-            <div id={style.upcycler}>{data.displayName}</div>
+            <div className={style.materiarblank}></div>
+            <div className={style.materiartext}>판매자가 작성한 제품에 사용된 업사이클링 품목입니다.</div>
+            <div className={style.materiartext}>이은 스토어는 단순히 수익성 제품을 판매하는 것이 아닌 업사이클링 제품을 판매하는 과정을 지원해요.</div>
+            <hr id={style.materiarhr}></hr>
+            <div id={style.materialcontext}>{data.material}</div>
+            <div className={style.materiarblank}></div>
           </div>
         </div>
         <div id={style.rightWrapper}>
+          <div id={style.userbox}>
+            <div id={style.userinf}>
+              {profile !== null ? (
+                <img id={style.userprofile} src={profile} alt="펀딩 이미지 미리보기" />
+              ) : (
+                <img id={style.userprofile} src={`${process.env.PUBLIC_URL}/image/profile.jpeg`} alt="기본 프로필"/>
+              )}              
+              <div id={style.upcycler}>{data.displayName}</div>
+            </div>
+            <div id={style.useroption}>
+              {userData.memberId === data.memberId ? (
+                <div id={style.buttonContainer}>
+                  <button className={style.button} onClick={deleteStore}>
+                    삭제
+                  </button>
+                  <Link to={`/storeedit/${data.sellId}`} className={style.link}>
+                    <button className={style.button}>수정</button>
+                  </Link>
+                </div>
+              ) : null}
+            </div>
+          </div>
+          <h3 className={style.h3}>업사이클러</h3>
+            <div id={style.upcycler}>{data.displayName}</div>
           <div id={style.NameInput}>
             <h3>{data.title}</h3>
           </div>

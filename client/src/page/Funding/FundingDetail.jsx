@@ -195,8 +195,8 @@ const FundingDetail = () => {
               />
             </div>
             <hr id={style.materiarhr}></hr>
-            <div id={style.materiartext}>"{data.categoryName}" 자재가 있다면 펀딩해주세요!</div>
-            <div id={style.materiartext}>이은 펀딩은 단순히 제품을 펀딩하는 것이 아닌 업사이클링 제품을 위한 펀딩 과정을 지원해요.</div>
+            <div className={style.materiartext}>"{data.categoryName}" 자재가 있다면 펀딩해주세요!</div>
+            <div className={style.materiartext}>이은 펀딩은 단순히 제품을 펀딩하는 것이 아닌 업사이클링 제품을 위한 펀딩 과정을 지원해요.</div>
             <div id={style.materiarblank}></div>
           </div>
         </div>
