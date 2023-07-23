@@ -19,6 +19,7 @@ const MyPage = () => {
           displayName: user.displayName,
           memberRole: user.memberRole,
           thumbNailImage: user.thumbNailImage,
+          normalOrOauth: user.normalOrOauth,
         }));
       })
       .catch((err) => {
@@ -173,9 +174,13 @@ const Profile = ({ onClick, userData }) => {
         />
         <p className={Style.userName}>{userData.displayName} 님</p>
         <p className={Style.userEmail}>{userData.email}</p>
-        <button className={Style.editButton} onClick={onClick}>
-          Edit Profile
-        </button>
+        {userData.normalOrOauth === "normal" ? (
+          <button className={Style.editButton} onClick={onClick}>
+            Edit Profile
+          </button>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );
