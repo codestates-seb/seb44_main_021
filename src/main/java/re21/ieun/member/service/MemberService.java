@@ -1,6 +1,7 @@
 package re21.ieun.member.service;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -27,6 +28,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
+@Slf4j
 public class MemberService {
     private final MemberRepository memberRepository;
     private final MemberMapper memberMapper;
@@ -103,10 +105,10 @@ public class MemberService {
         return memberRepository.findAll(PageRequest.of(page, size, Sort.by("memberId").descending()));
     }
 
-    public Member verifyExistsEmail(String email) {
-//        Optional<Member> member = memberRepository.findByEmail(email);
-//        if (member.isPresent()) throw new BusinessLogicException(ExceptionCode.EMAIL_EXISTS);
-        return memberRepository.findByEmail(email).orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+
+    private void verifyExistsEmail(String email) {
+        Optional<Member> member = memberRepository.findByEmail(email);
+        if (member.isPresent()) throw new BusinessLogicException(ExceptionCode.EMAIL_EXISTS);
     }
 
     private void verifyExistsDisplayName(String displayName) {
@@ -164,6 +166,10 @@ public class MemberService {
     @Transactional(readOnly = true)
     public boolean verifiedMemberEmail(String email) {
         return memberRepository.existsByEmail(email);
+    }
+
+    public Member findMemberByEmail(String email) {
+        return memberRepository.findByEmail(email).orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
     }
 
 }

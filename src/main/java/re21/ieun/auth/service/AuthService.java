@@ -2,6 +2,7 @@ package re21.ieun.auth.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import re21.ieun.auth.jwt.JwtTokenizer;
@@ -22,7 +23,7 @@ public class AuthService {
     private final MemberService memberService;
     private final JwtTokenizer jwtTokenizer;
 
-    public AuthService(RedisService redisService, MemberService memberService, JwtTokenizer jwtTokenizer) {
+    public AuthService(@Lazy RedisService redisService, @Lazy MemberService memberService, @Lazy JwtTokenizer jwtTokenizer) {
         this.redisService = redisService;
         this.memberService = memberService;
         this.jwtTokenizer = jwtTokenizer;
@@ -40,7 +41,7 @@ public class AuthService {
         Jws<Claims> claims = jwtTokenizer.getClaims(refreshToken, base64EncodedSecretKey);
 
         String subject = claims.getBody().getSubject();
-        Member member = memberService.verifyExistsEmail(subject);
+        Member member = memberService.findMemberByEmail(subject);
 
         Map<String, Object> userClaims = new HashMap<>();
         userClaims.put("email", member.getEmail());
