@@ -130,9 +130,9 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
 
         return UriComponentsBuilder
                 .newInstance()
-                .scheme("http")
-                .host("localhost")
-                .port(3000)
+                .scheme("https")
+                .host("ieun.store") // Replace "localhost" with the correct host
+                //.port(443) // Use this line if you need to specify a non-default port for HTTPS (default: 443)
                 //.path("/receive-token.html")
                 .queryParams(queryParams)
                 .build()
