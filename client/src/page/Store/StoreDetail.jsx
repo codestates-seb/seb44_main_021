@@ -3,11 +3,6 @@ import Header from "../../components/Header/Header";
 import style from "./StoreDetail.module.css";
 import axios from "axios";
 import CloseIcon from "@mui/icons-material/Close";
-import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
 import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { UserDataContext } from "../../contexts/UserDataContext";
@@ -137,52 +132,40 @@ const StoreDetail = () => {
               ) : null}
             </div>
           </div>
-          <h3 className={style.h3}>업사이클러</h3>
-            <div id={style.upcycler}>{data.displayName}</div>
+          <div id={style.subbox}>
+            <div className={style.text1}>🛒 스토어</div>
+            <div id={style.viewtext}>조회수 {data.viewCount}</div>
+          </div>
           <div id={style.NameInput}>
             <h3>{data.title}</h3>
           </div>
           <div id={style.IntroduceBox}>{data.content}</div>
           <div className={style.AmountBox}>
+            <div className={style.text2}>상품 금액</div>
+            <div className={style.text2}>{formatPriceWithCommas(data.price)}원</div>
+          </div>
+          <div className={style.quantity}>
+            <div className={style.text2}>수량</div>
             <div>
-              <h2>판매 가격</h2>
-            </div>
-            <div>
-              <h2>{formatPriceWithCommas(data.price)}원</h2>
+              <select
+                id={style.quantitybox}
+                value={quantity}
+                label="quantity"
+                onChange={handleChange}
+              >
+                <option className={style.text2} value={1}>1개</option>
+                <option className={style.text2} value={2}>2개</option>
+                <option className={style.text2} value={3}>3개</option>
+                <option className={style.text2} value={4}>4개</option>
+                <option className={style.text2} value={5}>5개</option>
+              </select>
             </div>
           </div>
-          <div className={style.AmountBox}>
+          <div className={style.quantity}>
+            <div className={style.text1}>총 결제 금액 </div>
             <div>
-              <h2>수량</h2>
-            </div>
-            <div>
-              <Box sx={{ minWidth: 200 }}>
-                <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">수량</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={quantity}
-                    label="quantity"
-                    onChange={handleChange}
-                  >
-                    <MenuItem value={1}>1개</MenuItem>
-                    <MenuItem value={2}>2개</MenuItem>
-                    <MenuItem value={3}>3개</MenuItem>
-                    <MenuItem value={4}>4개</MenuItem>
-                    <MenuItem value={5}>5개</MenuItem>
-                  </Select>
-                </FormControl>
-              </Box>
-            </div>
-          </div>
-          <div className={style.AmountBox}>
-            <div>
-              <h2>총 합계금액</h2>
-            </div>
-            <div>
-              {quantity ? <h2>{formatPriceWithCommas(data.price * quantity)}원</h2>:
-                <h2>{formatPriceWithCommas(data.price * quantity)}</h2>
+              {quantity ? <div className={style.text3}>{formatPriceWithCommas(data.price * quantity)}원</div>:
+                <div className={style.text3}>{formatPriceWithCommas(data.price * quantity)}</div>
               }
             </div>
           </div>
@@ -229,15 +212,15 @@ const StoreDetail = () => {
           </div>
         </div>
       )}
-      <div id={style.info}>
-        <h1 id={style.infoTitle}>제품 상세 설명</h1>
-        <img
-          src={data.contentImage}
-          alt="img"
-          style={{
-            maxWidth: "70vw",
-          }}
-        />
+      <div id={style.infoWrapper}>
+        <div id={style.info}>
+          <div id={style.infoTitle}>제품 상세 정보</div>
+          <img
+            src={data.contentImage}
+            alt="img"
+          />
+        </div>
+        <div id={style.footer}>IEUN CO.</div>
       </div>
     </div>
   );
