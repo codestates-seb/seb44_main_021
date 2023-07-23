@@ -42,14 +42,14 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         var oAuth2User = (OAuth2User) authentication.getPrincipal();
         String email = String.valueOf(oAuth2User.getAttributes().get("email")); // OAuth2User 객체로부터 Resource Owner의 이메일 주소를 얻기
         String displayName = String.valueOf(oAuth2User.getAttributes().get("name")); // 이름을 얻기
-//        String profileImage = String.valueOf(oAuth2User.getAttributes().get("picture")); // 프로필 이미지 URL을 얻기
+        String thumbNailImage = String.valueOf(oAuth2User.getAttributes().get("picture")); // 프로필 이미지 URL을 얻기
 
         Optional<Member> optionalMember = memberRepository.findByEmail(email);
         List<String> authorities = authorityUtils.createRoles(email);           // 권한 정보 생성
 
         Member member;
         if (optionalMember.isEmpty()) { // 이메일이 저장되어 있지 않은 경우
-            member = saveMember(email, displayName); // Resource Owner의 정보를 DB에 저장
+            member = saveMember(email, displayName, thumbNailImage); // Resource Owner의 정보를 DB에 저장
         } else {
             member = optionalMember.get();
         }
@@ -57,7 +57,7 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         redirect(request, response, member, authorities);  // Access Token과 Refresh Token을 생성해서 Frontend 애플리케이션에 전달하기 위해 Redirect
     }
 
-    private Member saveMember(String email, String displayName) {
+    private Member saveMember(String email, String displayName, String thumbNailImage) {
         memberRepository.findByEmail(email).ifPresent(it ->
         {
             throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS, String.format("%s is duplicated 버그발생! OAuth2 핸들러 검사하시오.", email));
@@ -65,6 +65,9 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         Member member = new Member();
         member.setEmail(email);
         member.setDisplayName(displayName);
+        member.setMemberRole(Member.MemberRole.MEMBER_USER);
+        member.setThumbNailImage(thumbNailImage);
+        member.setNormalOrOauth("Oauth");
 //       member.setProfileImage(profileImage);
         Member savedMember = memberRepository.save(member);
         List<String> roles = authorityUtils.createRoles(email);
@@ -94,9 +97,10 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
 
     private String delegateAccessToken(Member member, List<String> authorities) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("memberEmail", member.getEmail());
-        claims.put("memberDisplayName", member.getDisplayName());
-        claims.put("roles", authorities);
+        claims.put("memberId", member.getMemberId());   // 추가
+        claims.put("username", member.getEmail());
+        claims.put("roles", member.getRoles());
+        claims.put("displayName", member.getDisplayName());
 
         String subject = member.getEmail();
 

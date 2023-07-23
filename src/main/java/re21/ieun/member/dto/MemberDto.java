@@ -57,5 +57,6 @@ public class MemberDto {
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
         private String thumbNailImage;
+        private String NormalOrOauth;
     }
 }

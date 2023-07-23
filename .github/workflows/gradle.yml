@@ -42,14 +42,16 @@ jobs:
         MY_REGION: ${{ secrets.MY_REGION }}
         EMAIL_MAN: ${{ secrets.EMAIL }}
         EMAIL_PASSWORD: ${{ secrets.PASSWORD }}
-        security:
-          oauth2:
-            client:
-              registration:
-                google:
-                  clientId: ${{ secrets.G_CLIENT_ID }}
-                  clientSecret: ${{ secrets.G_CLIENT_SECRET }}
-
+        security.oauth2.client.registration.google.clientId: ${{ secrets.G_CLIENT_ID }}
+        security.oauth2.client.registration.google.clientSecret: ${{ secrets.G_CLIENT_SECRET }}
+    - name: Set yml file1
+      run: |
+        cp $RESOURCE_PATH $RESOURCE_PATH.bak # 백업 파일 생성
+        sed -i "s/\${G_CLIENT_ID}/${{ secrets.G_CLIENT_ID }}/g" $RESOURCE_PATH
+        sed -i "s/\${G_CLIENT_SECRET}/${{ secrets.G_CLIENT_SECRET }}/g" $RESOURCE_PATH
+      env:
+        G_CLIENT_ID: ${{ secrets.G_CLIENT_ID }}
+        G_CLIENT_SECRET: ${{ secrets.G_CLIENT_SECRET }}
 
     - name: Add permission
       run: chmod +x gradlew
