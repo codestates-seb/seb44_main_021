@@ -28,6 +28,7 @@ const Header = () => {
           .join("")
       );
       const dec = JSON.parse(decodedPayload);
+      console.log(dec);
 
       setUserData((prevUserData) => ({
         ...prevUserData,
