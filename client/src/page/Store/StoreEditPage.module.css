@@ -1,18 +1,3 @@
-#TitleName{
-    color: #6E934D;
-    text-align: center;
-    margin-top: 10px;
-    font-size: 30px;
-    font-weight: bold;
-}
-
-#SubTitle{
-    color: #6E934D;
-    text-align: center;
-    margin-top: 3px;
-    font-size: 15px;
-}
-
 #AllWrapper{
     display: flex;
     flex-direction: row;
@@ -28,14 +13,43 @@
 }
 
 #leftWrapper{
-    width: 35%;
+    width: 45%;
     margin-right: 10px;
 }
 
 #rightWrapper{
-    width: 35%;
-    margin-left: 10px;
+    width: 25%;
+  margin-left: 10px;
 }
+
+#MaterierBox{
+    background-color: rgb(249,	250,	251);
+    margin-top: 20px;
+    border-radius: 5px;
+}  
+
+.materiartext{
+    margin-top: 5px;
+    margin-left: 20px;
+    font-size: 12px;
+}
+
+.materiarblank{
+height: 10px;
+}
+
+#materiarhr{
+margin-top: 5px;
+border:0.5px solid rgb(243, 244, 246);
+}
+
+#materialcontext{
+margin-top: 10px;
+margin-left: 20px;
+margin-right: 20px;
+font-size: 15px;
+}
+  
 
 #ContentimgWrapper{
     width: 72%;
@@ -49,10 +63,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: 3px solid #6E934D;
-    background-color: gainsboro;
+    height: 500px;
     width: 100%;
-    height: 390px;
 }
 
 #imgWrapper{
@@ -82,9 +94,10 @@
 }
 
 #FundingImg{
+    object-fit: cover;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    border-radius: 10px;
 }
 
 .CommonMent{
@@ -127,10 +140,11 @@
 
 .AmountBox{
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 5px;
+    flex-direction: column;
+    align-items:end;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-top: 0.8px solid rgb(236, 236, 238);
 }
 
 #AmountInput{
@@ -173,34 +187,40 @@
 
 #NameInput{
     width: 100%;
-    height: 45px;
-    font-size: 17px;
-    padding-left: 5px;
-    padding-top: 3px;
+    height: 60px;
+    font-size: 16px;
+    border: 1px solid #dde2e6;
     box-sizing: border-box;
-    box-shadow: 0 0 0 3px #6E934D inset;
-    border: none;
-    margin-top: 5px;
+    border-radius: 3px;
+    background-color: #fff;
+    padding-top: 11px;
+    padding-right: 16px;
+    padding-left: 16px;
+    margin-top: 13px;
     resize: none;
     font-family: Arial, Helvetica, sans-serif ;
     &:focus{
+        border: 1px solid #6E934D;
         outline: none;
     }
 }
 
 #IntroduceBox{
     width: 100%;
-    height: 260px;
+    height: 380px;
     font-size: 15px;
-    padding-left: 5px;
-    padding-top: 3px;
-    box-shadow: 0 0 0 3px #6E934D inset;
+    border: 1px solid #dde2e6;
     box-sizing: border-box;
-    border: none;
-    margin-top: 5px;
+    border-radius: 3px;
+    background-color: #fff;
+    padding-top: 11px;
+    padding-right: 16px;
+    padding-left: 16px;
+    margin-top: 13px;
     font-family: Arial, Helvetica, sans-serif ;
     resize: none;
     &:focus{
+        border: 1px solid #6E934D;
         outline: none;
     }
 }
@@ -250,4 +270,57 @@
     &:focus{
         outline: none;
     }
+}
+
+.text1{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 18px;
+    margin-right: 5px;
+    margin-top: 10px;
+}
+
+.text2{
+    font-size: 20px;
+    font-weight: 600;
+    color: #6e934d;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+
+#infoWrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#info {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 50px;
+}
+
+#infoTitle {
+    color: #6e934d;
+    margin: 10px 0 50px 0;
+    font-size: 22px;
+    font-weight: bold;
+    border-bottom: 1px solid rgb(243, 244, 246);
+    padding-bottom: 20px;
+}
+
+#footer{
+    width: 100%;
+    height: 50px;
+    margin-top: 20px;
+    background-color: #6e934d;
+    text-align: center;
+    padding-top: 25px;
+    color: #fff;
+    font-size: 20px;
 }

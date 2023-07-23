@@ -133,7 +133,7 @@ const StoreDetail = () => {
             </div>
           </div>
           <div id={style.subbox}>
-            <div className={style.text1}>🛒 스토어</div>
+            <div className={style.text1}>🛒 스토어 {">"} {data.sellCategoryName}</div>
             <div id={style.viewtext}>조회수 {data.viewCount}</div>
           </div>
           <div id={style.NameInput}>
