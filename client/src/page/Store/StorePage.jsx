@@ -37,11 +37,13 @@ const List = (props) => {
 };
 
 const StorePage = () => {
+  const { userData } = useContext(UserDataContext);
   const [sort, setSort] = useState("descending");
   const [kategorie, setKategorie] = useState(0);
   const [stoerList, setStoreList] = useState([]);
   const [page, setPage] = useState(1);
   const [isLoding, setIsLoding] = useState(false);
+  const [role,setrole] = useState("");
 
   const urlParams = new URL(window.location.href).searchParams;
   const serch = urlParams.get("serch");
@@ -79,6 +81,19 @@ const StorePage = () => {
         .catch((err) => console.log(err));
     }
   }, []);
+
+  useEffect(() => {
+    axios
+      .get(`/members/${userData.memberId}`)
+      .then((res) => {
+        console.log(res);
+        console.log(res.data.data.memberRole)
+        setrole(res.data.data.memberRole)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [userData.memberId,userData.memberRole]);
 
   useEffect(() => {
     setIsLoding(false);
@@ -272,7 +287,7 @@ const StorePage = () => {
                 </button>
               </div>
             </div>
-            {localStorage.getItem("token") ? (
+            {role === "MEMBER_UPCYCLER" ? (
               <Link to="/storecreate">
                 <button id={style.fundingButton}>스토어 제품 등록</button>
               </Link>
