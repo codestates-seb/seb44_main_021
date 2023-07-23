@@ -93,11 +93,12 @@
 <br>
 
 ## 📂 ERD
-[이은 ERD & 테이블 명세서](https://www.figma.com/file/9Np5C845rVqUdUqwSkfDFm/RE-%3A-21---ERD?type=whiteboard&node-id=0-1&t=toGQsQ9xqT4wlimf-0)
+[이은 ERD & 테이블 명세서](https://www.erdcloud.com/d/sW7RaiTwpKhHcxPiT)
 <br>
-ERD 캡처해서 사진 넣기
 <br>
-임시적으로 피그마 ERD 명세서로 넣어놓음
+<img src="https://github.com/codestates-seb/seb44_main_021/assets/99308074/435f8cdc-da5f-4d9d-8d0a-809fa49e1012">
+<br>
+
 
 
 <br>
