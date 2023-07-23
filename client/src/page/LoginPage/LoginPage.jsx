@@ -15,7 +15,6 @@ const LoginPage = () => {
 
   const handleInputValue = (key) => (e) => {
     setLoginInfo({ ...loginInfo, [key]: e.target.value });
-    // console.log(loginInfo);
   };
 
   const handleButtonClick = () => {
@@ -58,7 +57,6 @@ const LoginPage = () => {
       <form className={Style.loginWrapper}>
         <Logo />
         <GoogleLoginBtn />
-        {/* <KakaoLoginBtn /> */}
         <label>
           이메일
           <input
@@ -95,8 +93,12 @@ const LoginPage = () => {
 export default LoginPage;
 
 const GoogleLoginBtn = () => {
+  const oauthLoginClick = () => {
+    window.location.href =
+      "http://ec2-3-37-130-72.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/google";
+  };
   return (
-    <div className={Style.oauthBtnContainer}>
+    <div className={Style.oauthBtnContainer} onClick={oauthLoginClick}>
       <FcGoogle style={{ fontSize: "20px", marginRight: "5px" }} />
       구글 계정으로 로그인하기
     </div>

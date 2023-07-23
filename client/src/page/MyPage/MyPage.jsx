@@ -16,6 +16,7 @@ const MyPage = () => {
         const user = res.data.data;
         setUserData((prevUserData) => ({
           ...prevUserData,
+          displayName: user.displayName,
           memberRole: user.memberRole,
           thumbNailImage: user.thumbNailImage,
         }));
@@ -23,7 +24,7 @@ const MyPage = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [userData.memberId]);
+  }, [userData.memberId, userData.displayName]);
 
   const [historyData, setHistoryData] = useState([
     {
