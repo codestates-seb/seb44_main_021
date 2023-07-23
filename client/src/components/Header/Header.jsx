@@ -6,6 +6,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Link } from "react-router-dom";
 import { UserDataContext } from "../../contexts/UserDataContext";
+import axios from "axios";
 
 const Header = ({ url, setSearchParam }) => {
   const { setUserData } = useContext(UserDataContext);
@@ -164,7 +165,21 @@ const ProfileLogin = () => {
 const DropdownBox = ({ setIsLogin }) => {
   const handleLogout = () => {
     setIsLogin(false);
-    localStorage.removeItem("token");
+
+    axios
+      .delete("/auth/signout", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // 저장한 토큰 값을 사용하여 헤더 설정
+        },
+      })
+      .then((res) => {
+        console.log("Success", res);
+        localStorage.removeItem("token"); // 요청이 성공하면 로컬 스토리지에서 토큰 삭제
+        window.location.reload("/");
+      })
+      .catch((err) => {
+        console.log("Error occurred during logout:", err);
+      });
   };
 
   return (

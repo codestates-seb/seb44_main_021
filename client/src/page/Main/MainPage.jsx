@@ -411,8 +411,20 @@ const ProfileDropdown = () => {
 
 const DropdownBox = () => {
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    window.location.reload();
+    axios
+      .delete("/auth/signout", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // 저장한 토큰 값을 사용하여 헤더 설정
+        },
+      })
+      .then((res) => {
+        console.log("Success", res); // 로그아웃 성공!
+        localStorage.removeItem("token");
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.log("Error occurred during logout:", err); // 에러 핸들링
+      });
   };
 
   return (
