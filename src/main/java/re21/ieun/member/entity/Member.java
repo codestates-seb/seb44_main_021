@@ -35,6 +35,9 @@ public class Member extends Auditable {
     @Column
     private String thumbNailImage;
 
+    @Column
+    private String normalOrOauth;
+
     //@Column
     //private String profileImg;
 
