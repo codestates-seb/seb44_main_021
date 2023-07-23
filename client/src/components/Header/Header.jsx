@@ -59,6 +59,7 @@ const Header = ({ url, setSearchParam }) => {
           .join("")
       );
       const dec = JSON.parse(decodedPayload);
+      console.log(dec);
 
       setUserData((prevUserData) => ({
         ...prevUserData,
