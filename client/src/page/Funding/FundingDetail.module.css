@@ -255,6 +255,7 @@
 #userprofile{
   width: 30px;
   height: 30px;
+  border-radius: 50%;
 }
 
 #userinf{
@@ -286,5 +287,4 @@
 
 #viewtext{
   font-size: 13px;
-  margin-right: 15px;
 }

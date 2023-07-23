@@ -87,7 +87,7 @@
 
 .sidelistText {
   margin-top: 20px;
-  font-size: 20px;
+  font-size: 25px;
   cursor: pointer;
   font-weight: 500;
   color: #000;
@@ -99,7 +99,7 @@
 
 .sidelistText::after {
   background: none repeat scroll 0 0 transparent;
-  background: #6E934D;
+  background: #6e934d;
   bottom: 0;
   content: "";
   display: block;
@@ -113,8 +113,6 @@
   left: 0;
   width: 100%;
 }
-
-
 
 .modalLogo {
   /* position: absolute; */
@@ -211,7 +209,6 @@
   color: rgb(43, 43, 43);
   word-break: break-all;
 }
-
 
 .contentsImg {
   width: 100%;
