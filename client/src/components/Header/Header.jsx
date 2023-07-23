@@ -6,6 +6,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Link } from "react-router-dom";
 import { UserDataContext } from "../../contexts/UserDataContext";
+import axios from "axios";
 
 const Header = ({ url, setSearchParam }) => {
   const { setUserData } = useContext(UserDataContext);
@@ -165,6 +166,19 @@ const DropdownBox = ({ setIsLogin }) => {
   const handleLogout = () => {
     setIsLogin(false);
     localStorage.removeItem("token");
+
+    axios
+      .post("/auth/signout", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (

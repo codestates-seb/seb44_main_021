@@ -412,7 +412,20 @@ const ProfileDropdown = () => {
 const DropdownBox = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
-    window.location.reload();
+
+    axios
+      .post("/auth/signout", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
