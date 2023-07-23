@@ -22,6 +22,15 @@ const MainPage = () => {
   const [isUnmount, setIsUnmount] = useState(false);
 
   useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const accessToken = urlParams.get("access_token");
+    console.log(accessToken);
+    if (accessToken) {
+      localStorage.setItem("token", accessToken);
+    }
+  }, []);
+
+  useEffect(() => {
     axios({
       url: "/upcyclings/descending?page=1&size=4",
       method: "get",
