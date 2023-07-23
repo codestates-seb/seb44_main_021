@@ -14,8 +14,13 @@
   margin-top: 30px;
 }
 
+#leftWrapper{
+  width: 45%;
+  margin-right: 10px;
+}
+
 #rightWrapper {
-  width: 35%;
+  width: 25%;
   margin-left: 10px;
 }
 
@@ -24,22 +29,15 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 50vh;
+  height: 500px;
+  width: 100%;
 }
 
-.radioGroup {
-  width: 35vw;
-  display: flex;
-  border: 3px solid #6e934d;
-  align-items: center;
-  height: 65px;
-  padding-left: 10px;
-  word-break: break-all;
-}
-
-.checked {
-  border-color: #6e934d;
-  border-radius: 50%;
+#thumimg{
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
 }
 
 .AmountBox {
@@ -217,4 +215,56 @@
   font-weight: bold;
   border-bottom: 3px solid #99df76;
   padding-bottom: 10px;
+}
+
+#MaterierBox{
+  background-color: rgb(249,	250,	251);
+  margin-top: 20px;
+  border-radius: 5px;
+}
+
+.materiartext{
+  margin-top: 5px;
+  margin-left: 20px;
+  font-size: 12px;
+}
+
+.materiarblank{
+  height: 10px;
+}
+
+#materiarhr{
+  margin-top: 5px;
+  border:0.5px solid rgb(243, 244, 246);
+}
+
+#materialcontext{
+  margin-top: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+  font-size: 15px;
+}
+
+#userbox{
+  display: flex;
+  flex-direction: row;
+  justify-content:space-between;
+  padding-bottom: 10px;
+  border-bottom: 0.8px solid rgb(236, 236, 238);
+}
+
+#userprofile{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+#userinf{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#upcycler {
+  margin-left: 10px;
 }
