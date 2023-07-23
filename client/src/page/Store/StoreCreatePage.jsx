@@ -175,74 +175,109 @@ const StoreCreatePage = () => {
     };
 
     return (
-        <div id={style.AllContainer}>
-            <Header />
-            <div id={style.TitleName}>스토어 제품 등록</div>
-            <div id={style.SubTitle}>판매하실 업사이클링 제품을 소개해주세요.</div>
-            <div id={style.upWrapper}>
+        <div>
+          <Header />
+          <div id={style.AllContainer}>
+            <div id={style.AllWrapper}>
+              <div id={style.UpWrapper}>
                 <div id={style.leftWrapper}>
-                    <SettingUserThumbnail setThumimgurl = {setThumimgurl} ThumImgurl = {ThumImgurl}/>
-                    <p className={style.errMsg}>{thumimgurlMsg}</p>
-                    <div className={style.CommonMent}>Step2. 제품명을 입력해주세요!</div>
-                    <textarea onChange={Title} ref={titleRef} placeholder='40자 이내로 입력해주세요.' id={style.NameInput} maxLength="40"/>
-                    <p className={style.errMsg}>{titleMsg}</p>
-                    <div className={style.AmountBox}>
-                        <div>
-                            <div className={style.CommonMent}>Step3. 제품에 대한 자세한 설명이 담긴 이미지를 등록해주세요!</div>
-                        </div>
-                        <div>
-                          <SettingContentimg setContentimgurl={setContentimgurl} ContentImgurl={ContentImgurl} />
-                          <p className={style.errMsg}>{contentimgurlMsg}</p>
-                        </div>
-                    </div>
+                  <div id={style.TitleName}>스토어 기본 정보</div>
+                  <div id={style.SubTitle}>판매하실 업사이클링 제품을 대표하는 중요한 정보들을 입력해주세요.</div>
+                  <div className={style.Titlebox}>
+                    <div className={style.CommonMent}>제품 제목</div>
+                    <div className={style.star}>*</div>
+                  </div>
+                  <textarea onChange={Title} ref={titleRef} placeholder='40자 이내로 입력해주세요.' id={style.NameInput} maxLength="40"/>
+                  <p className={style.errMsg}>{titleMsg}</p>
+                  <div className={style.Titlebox}>
+                    <div className={style.CommonMent}>대표 이미지</div>
+                    <div className={style.star}>*</div>
+                  </div>
+                  <SettingUserThumbnail setThumimgurl = {setThumimgurl} ThumImgurl = {ThumImgurl}/>
+                  <p className={style.errMsg}>{thumimgurlMsg}</p>
+                  <div className={style.Titlebox}>
+                    <div className={style.CommonMent}>제품 소개</div>
+                    <div className={style.star}>*</div>
+                  </div>
+                  <textarea onChange={Content} ref={contentRef} placeholder='500자 이내로 입력해주세요.' id={style.IntroduceBox} maxLength="500"/>
+                  <p className={style.errMsg}>{contentMsg}</p>
+                  <div className={style.Titlebox}>
+                    <div className={style.CommonMent}>자재 소개</div>
+                    <div className={style.star}>*</div>
+                  </div>
+                  <textarea onChange={Material} ref={materialRef} placeholder='ex)깨진 유리조각, 페트병, 가죽치마 (100자 이내)' id={style.materialInput} maxLength="100"/>
+                  <p className={style.errMsg}>{materialMsg}</p>
+                  <div className={style.Titlebox}>
+                    <div className={style.CommonMent}>카테고리</div>
+                    <div className={style.star}>*</div>
+                  </div>
+                  <div className={style.radioGroup}>
+                    <input type='radio' name='category' value="1" className={style.radioinput} onClick={handleCategory1}/>의류
+                    <input type='radio' name='category' value="2" className={style.radioinput} onClick={handleCategory2}/>가구
+                    <input type='radio' name='category' value="3" className={style.radioinput} onClick={handleCategory3}/>인테리어
+                    <input type='radio' name='category' value="4" className={style.radioinput} onClick={handleCategory4}/>소품
+                    <input type='radio' name='category' value="5" className={style.radioinput} onClick={handleCategory5}/>기타
+                  </div>
+                  <p className={style.errMsg}>{categoryidMsg}</p>
+                  <div className={style.Titlebox}>
+                    <div className={style.CommonMent}>판매 금액</div>
+                    <div className={style.star}>*</div>
+                  </div>
+                  <input type="text" onChange={Price} ref={priceRef} onInput={handleInputChange} placeholder='숫자만 입력해주세요.' id={style.AmountInput}/>
+                  <p className={style.errMsg}>{priceMsg}</p>
+                  <div className={style.Titlebox}>
+                    <div className={style.CommonMent}>상세 정보 이미지</div>
+                    <div className={style.star}>*</div>
+                  </div>
+                  <SettingContentimg setContentimgurl={setContentimgurl} ContentImgurl={ContentImgurl} />
+                  <p className={style.errMsg}>{contentimgurlMsg}</p>
+                  <button id={style.CreateButton}  onClick={Create}>등록하기</button>
                 </div>
                 <div id={style.rightWrapper}>
-                    <div id={style.MaterierBox}>
-                        <div id={style.basicfont}>Step4. 제품에 들어간 업사이클링 자재를 자세히 적어주세요!</div>
-                        <div className={style.CautionMent}>*나중에 수정이 안되니 신중하게 선택해주세요*</div>
-                        <textarea onChange={Material} ref={materialRef} placeholder='ex)깨진 유리조각, 페트병, 가죽치마 (100자 이내)' id={style.materialInput} maxLength="100"/>
-                        <p className={style.errMsg}>{materialMsg}</p>
-                    </div>
-                    <div className={style.CommonMent}>Step5. 내가 만든 제품에 대해 자세히 적어보세요!</div>
-                    <textarea onChange={Content} ref={contentRef} placeholder='500자 이내로 입력해주세요.' id={style.IntroduceBox} maxLength="500"/>
-                    <p className={style.errMsg}>{contentMsg}</p>
-                    <div id={style.categorybox}>
-                        <div>
-                            <div className={style.CommonMent}>Step6. 제품에 대한 카테고리를 선택해주세요!</div>
-                        </div>
-                        <div className={style.radioGroup}>
-                          <input type='radio' name='category' value="1" className={style.radioinput} onClick={handleCategory1}/>의류
-                          <input type='radio' name='category' value="2" className={style.radioinput} onClick={handleCategory2}/>가구
-                          <input type='radio' name='category' value="3" className={style.radioinput} onClick={handleCategory3}/>인테리어
-                          <input type='radio' name='category' value="4" className={style.radioinput} onClick={handleCategory4}/>소품
-                          <input type='radio' name='category' value="5" className={style.radioinput} onClick={handleCategory5}/>기타
-                        </div>
-                        <p className={style.errMsg}>{categoryidMsg}</p>
-                    </div>
-                    <div className={style.AmountBox}>
-                        <div>
-                            <div className={style.CommonMent}>Step7. 제품에 대한 합리적인 가격을 입력해주세요!</div>
-                            <div className={style.CautionMent}>*나중에 수정이 안되니 신중하게 선택해주세요*</div>
-                        </div>
-                        <div>
-                          <input type="text" onChange={Price} ref={priceRef} onInput={handleInputChange} placeholder='숫자만 입력해주세요.' id={style.AmountInput}/>
-                          <p className={style.errMsg}>{priceMsg}</p>
-                        </div>
-                    </div>
-                    <button id={style.CreateButton}  onClick={Create}>등록하기</button>
+                  <div id={style.tipbox1}>
+                    <p className={style.tiptitle}>TIP! 제품 제목은 핵심을 간결하게</p>
+                    <p className={style.tipcontent}>업사이클링 상품만의 장점을 잘 드러나는 키워드를 한 가지 이상 포함해 주세요.</p>
+                    <p className={style.tipcontent}>중요한 키워드는 눈에 잘 띄도록 제목 앞부분에 적는 것을 추천해요.</p>
+                  </div>
+                  <div id={style.tipbox2}>
+                    <p className={style.tiptitle}>TIP! 클릭할 수밖에 없는 매력적인 이미지</p>
+                    <p className={style.tipcontent}>제품의 첫인상인 대표 이미지는 가장 매력적으로 보이는 사진을 선택해 주세요.</p>
+                    <p className={style.tipcontent}>이미지가 1:1 비율로 보일 수 있으므로 이미지 내 좌우 여백이 충분하고 중앙에 위치한 사진을 선택해 주세요.</p>
+                  </div>
+                  <div id={style.tipbox3}>
+                    <p className={style.tiptitle}>TIP! 이것만은 알아 주었으면 하는 핵심</p>
+                    <p className={style.tipcontent}>제품을 간결하게 소개해 주세요.</p>
+                    <p className={style.tipcontent}>육하원칙에 의거하여 적으면 더 좋아요.</p>
+                  </div>
+                  <div id={style.tipbox4}>
+                    <p className={style.tiptitle}>TIP! 업사이클한 자재에 대한 자세한 설명</p>
+                    <p className={style.tipcontent}>어떤 자재를 가지고 만들었는지 적어주세요. 자세할수록 소비자의 마음을 사로잡기 좋습니다. 추후 수정이 불가하니 신중하게 적어주세요.</p>
+                  </div>
+                  <div id={style.tipbox5}>
+                    <p className={style.tiptitle}>TIP! 가격은 너무 낮거나 높지 않게</p>
+                    <p className={style.tipcontent}>추후 수정이 불가하니 신중하게 선택해주세요.</p>
+                    <p className={style.tipcontent}>판매자의 노력이 담긴 합리적인 가격을 제시해주세요.</p>
+                  </div>
+                  <div id={style.tipbox6}>
+                    <p className={style.tiptitle}>TIP! 상세한 설명이 담긴 단 한 장의 사진</p>
+                    <p className={style.tipcontent}>최대한 많은 내용을 담아 긴 사진으로 한 장 올려주세요.</p>
+                    <p className={style.tipcontent}>소비자들이 궁금해할만한 내용은 모두 담아주세요.</p>
+                  </div>
                 </div>
-            </div>
-            <div id={style.downWrapper}>
-              <div id={style.ContentimgWrapper}>
-                {contentimgurl ? (
-                  <img id={style.FundingImg} src={contentimgurl} alt="제품 컨텐츠 이미지 미리보기" />
-                ) : (
-                  <img id={style.FundingImg} src={`${process.env.PUBLIC_URL}/image/basicImg.png`} alt="제품 컨텐츠 이미지 미리보기" />
-                )}             
+              </div>
+              <div id={style.downWrapper}>
+                <div id={style.ContentimgWrapper}>
+                  {contentimgurl ? (
+                    <img className={style.FundingImg} src={contentimgurl} alt="제품 컨텐츠 이미지 미리보기" />
+                  ) : (
+                    <div>+ 이미지를 추가해주세요.</div>                  
+                  )}             
+                </div>
               </div>
             </div>
+            <div id={style.footer}>IEUN CO.</div>
+          </div>
         </div>
-
     );
 };
 
@@ -307,25 +342,22 @@ const SettingUserThumbnail = ({setThumimgurl , ThumImgurl}) => {
     };
   
     return (
-      <div id={style.imgContainer}>
-        <div id={style.imgWrapper}>
-        {imageSrc ? (
-            <img id={style.FundingImg} src={imageSrc} alt="제품 대표 이미지 미리보기" />
-          ) : (
-            <img id={style.FundingImg} src={`${process.env.PUBLIC_URL}/image/basicImg.png`} alt="제품 대표 이미지 미리보기" />
-          )}
-        </div>
-        <div className={style.CommonMent}>
-          Step1. 판매하려고 하는 업사이클링 제품을 대표할 수 있는 이미지를 넣어주세요!
-        </div>
+      <div>
         <input
           type="file"
           accept="image/*"
           name="file"
           ref={inputRef}
           onChange={onUpload}
-          id={style.imgInput}
+          className={style.imgInput}
         />
+        <div id={style.imgWrapper}>
+          {imageSrc ? (
+            <img className={style.FundingImg} src={imageSrc} alt="펀딩 이미지 미리보기" />
+          ) : (
+            <div>+ 이미지를 추가해주세요.</div>
+          )}
+        </div>
       </div>
     );
   };
@@ -395,7 +427,7 @@ const SettingUserThumbnail = ({setThumimgurl , ThumImgurl}) => {
           name="file"
           ref={inputRef}
           onChange={onUpload}
-          id={style.CimgInput}
+          className={style.imgInput}
         />
     );
   };
