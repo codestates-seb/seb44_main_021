@@ -132,6 +132,7 @@ const FundingDetail = () => {
                   backgroundImage: "url(/image/IconCloth.png)",
                   backgroundSize: "cover",
                 }}
+                disabled
               />
               <input
                 className={`${style.radio} ${
@@ -144,6 +145,7 @@ const FundingDetail = () => {
                   backgroundImage: "url(/image/IconWood.png)",
                   backgroundSize: "cover",
                 }}
+                disabled
               />
               <input
                 className={`${style.radio} ${
@@ -156,6 +158,7 @@ const FundingDetail = () => {
                   backgroundImage: "url(/image/IconPlastic.png)",
                   backgroundSize: "cover",
                 }}
+                disabled
               />
               <input
                 className={`${style.radio} ${
@@ -168,6 +171,7 @@ const FundingDetail = () => {
                   backgroundImage: "url(/image/IconSteel.png)",
                   backgroundSize: "cover",
                 }}
+                disabled
               />
               <input
                 className={`${style.radio} ${
@@ -180,6 +184,7 @@ const FundingDetail = () => {
                   backgroundImage: "url(/image/IconGlass.png)",
                   backgroundSize: "cover",
                 }}
+                disabled
               />
               <input
                 className={`${style.radio} ${
@@ -192,6 +197,7 @@ const FundingDetail = () => {
                   backgroundImage: "url(/image/IconEtc.png)",
                   backgroundSize: "cover",
                 }}
+                disabled
               />
             </div>
             <hr id={style.materiarhr}></hr>
