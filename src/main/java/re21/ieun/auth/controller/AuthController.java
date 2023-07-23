@@ -17,19 +17,19 @@ public class AuthController {
     }
 
     @DeleteMapping("/signout")
-    public ResponseEntity signOut(@RequestHeader("Authorization") String tokenHeader,
-                                  @RequestHeader("Refresh") String refreshToken ) {
-        authService.signOut(tokenHeader, refreshToken);
+    public ResponseEntity signOut(@RequestHeader("Authorization") String tokenHeader) {     // , @RequestHeader("Refresh") String refreshToken
+        authService.signOut(tokenHeader);     // , refreshToken
         log.info("# sign out");
         return ResponseEntity.ok("Signed out successfully.");
     }
 
-
+    /*
     @PostMapping("/reissue")
     public ResponseEntity reissue(@RequestHeader("refresh") String refreshToken) {
         String accessToken = authService.reissue(refreshToken);
 
         return ResponseEntity.ok().header("Authorization",accessToken).build();
     }
+     */
 
 }
