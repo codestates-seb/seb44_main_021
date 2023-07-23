@@ -189,26 +189,25 @@ const StoreDetail = () => {
             <button className={style.closeButton} onClick={handleCloseModal}>
               <CloseIcon />
             </button>
-            <div className={style.modalBody}>
-              <h3>구매해 주셔서 감사합니다!!</h3>
-
-              <div className={style.modaltext}>제품명 : {data.title}</div>
-              <div className={style.modaltext}>수량 : {quantity}</div>
-              <div className={style.modaltext}>
-                총 금액 : {data.price * quantity}원
-              </div>
-              <div id={style.stoerButton}>
-                <Link to="/mypage">
-                  <button className={style.fundingButton}>
-                    구매 내역 보러가기
-                  </button>
-                </Link>
-                <Link to="/store">
-                  <button className={style.fundingButton}>
-                    다른 상품 보러가기
-                  </button>
-                </Link>
-              </div>
+            <div id={style.modaltitle}>{data.displayName}님, 구매해 주셔서 감사합니다!!</div>
+            <div className={style.modaltext1}>제품명</div>
+            <div className={style.modaltext}>{data.title}</div>
+            <div className={style.modaltext1}>수량</div>
+            <div className={style.modaltext}>{quantity}개</div>
+            <div id={style.modaltitle1}>
+              총 금액 : {data.price * quantity}원
+            </div>
+            <div id={style.stoerButton}>
+              <Link to="/mypage">
+                <button className={style.fundingButton}>
+                  구매 내역 보러가기
+                </button>
+              </Link>
+              <Link to="/store">
+                <button className={style.fundingButton1}>
+                  다른 상품 보러가기
+                </button>
+              </Link>
             </div>
           </div>
         </div>
