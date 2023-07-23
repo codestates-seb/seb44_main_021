@@ -231,6 +231,7 @@ const StoreCreatePage = () => {
                   </div>
                   <SettingContentimg setContentimgurl={setContentimgurl} ContentImgurl={ContentImgurl} />
                   <p className={style.errMsg}>{contentimgurlMsg}</p>
+                  <div id={style.subMent}>아래에서 상세 정보 이미지를 미리 볼 수 있어요.</div>
                   <button id={style.CreateButton}  onClick={Create}>등록하기</button>
                 </div>
                 <div id={style.rightWrapper}>
