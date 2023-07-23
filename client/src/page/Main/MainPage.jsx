@@ -210,7 +210,7 @@ const MainPage = () => {
                 >
                   <div className={style.contentsbox}>
                     <img
-                      src={process.env.PUBLIC_URL + "/image/test10.jpg"}
+                      src={process.env.PUBLIC_URL + "/image/test13.png"}
                       alt="test"
                       className={style.contentsImg}
                     />
@@ -232,7 +232,7 @@ const MainPage = () => {
                 >
                   <div className={style.contentsbox}>
                     <img
-                      src={process.env.PUBLIC_URL + "/image/test13.png"}
+                      src={process.env.PUBLIC_URL + "/image/test14.png"}
                       alt="test"
                       className={style.contentsImg}
                     />
@@ -254,7 +254,7 @@ const MainPage = () => {
                 >
                   <div className={style.contentsbox}>
                     <img
-                      src={process.env.PUBLIC_URL + "/image/test11.jpg"}
+                      src={process.env.PUBLIC_URL + "/image/test15.jpg"}
                       alt="test"
                       className={style.contentsImg}
                     />
@@ -277,7 +277,7 @@ const MainPage = () => {
                 >
                   <div className={style.contentsbox}>
                     <img
-                      src={process.env.PUBLIC_URL + "/image/news4.jpg"}
+                      src={process.env.PUBLIC_URL + "/image/test16.jpg"}
                       alt="test"
                       className={style.contentsImg}
                     />
