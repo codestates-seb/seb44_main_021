@@ -153,6 +153,7 @@ const StoreDetail = () => {
                 label="quantity"
                 onChange={handleChange}
               >
+                <option className={style.text2}>선택해주세요.</option>
                 <option className={style.text2} value={1}>1개</option>
                 <option className={style.text2} value={2}>2개</option>
                 <option className={style.text2} value={3}>3개</option>

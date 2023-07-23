@@ -172,65 +172,93 @@ const FundingCreatePage = () => {
     };
 
     return (
+      <div>
+        <Header />
         <div id={style.AllContainer}>
-            <Header />
-            <div id={style.TitleName}>업사이클링 펀딩 등록</div>
-            <div id={style.SubTitle}>만드실 업사이클링 제품을 소개해주세요.</div>
-            <div id={style.AllWrapper}>
-                <div id={style.leftWrapper}>
-                    <SettingUserThumbnail setimgurl = {setimgurl} Imgurl = {Imgurl}/>
-                    <p className={style.errMsg}>{imgurlMsg}</p>
-                    <div id={style.MaterierBox}>
-                        <div className={style.CommonMent}>
-                            Step2. 펀딩 받고 싶은 자재를 골라주세요!
-                            <div className={style.CautionMent}>(하나로 제한)</div>
-                        </div>
-                        <div className={style.radioGroup}>
-                            <input className={style.radio} type="radio" value="1" name="materials" style={{ backgroundImage: 'url(/image/IconCloth.png)', backgroundSize:'cover'}} onClick={handleMateriel1} />
-                            <input className={style.radio} type="radio" value="2" name="materials" style={{ backgroundImage: 'url(/image/IconWood.png)', backgroundSize:'cover'}} onClick={handleMateriel2} />
-                            <input className={style.radio} type="radio" value="3" name="materials" style={{ backgroundImage: 'url(/image/IconPlastic.png)', backgroundSize:'cover'}} onClick={handleMateriel3} />
-                            <input className={style.radio} type="radio" value="4" name="materials" style={{ backgroundImage: 'url(/image/IconSteel.png)', backgroundSize:'cover'}} onClick={handleMateriel4} />
-                            <input className={style.radio} type="radio" value="5" name="materials" style={{ backgroundImage: 'url(/image/IconGlass.png)', backgroundSize:'cover'}} onClick={handleMateriel5} />
-                            <input className={style.radio} type="radio" value="6" name="materials" style={{ backgroundImage: 'url(/image/IconEtc.png)', backgroundSize:'cover'}} onClick={handleMateriel6} />
-                        </div>
-                        <p className={style.errMsg}>{materialMsg}</p>
-                    </div>
-                </div>
-                <div id={style.rightWrapper}>
-                    <div className={style.AmountBox}>
-                        <div>
-                            <div >Step3. 펀딩 자재 수량을 입력해주세요!</div>
-                            <div>펀딩율에 적용됩니다.</div>
-                            <div className={style.CautionMent}>*나중에 수정이 안되니 신중하게 선택해주세요*</div>
-                        </div>
-                        <div>
-                            <input type="text" onChange={TotalQuantity} ref={totalQuantityRef} onInput={handleInputChange} placeholder='숫자만 입력해주세요.' id={style.AmountInput}/>
-                            <p className={style.errMsg}>{totalQuantityMsg}</p>
-                        </div>
-                    </div>
-                    <div className={style.CommonMent}>Step4. 펀딩명을 입력해주세요!</div>
-                    <div className={style.CautionMent}>펀딩율을 높이는 Tip★ 내가 만드려고 하는 제품의 특징을 살려서 적어보세요!</div>
-                    <textarea onChange={Title} ref={titleRef} placeholder='40자 이내로 입력해주세요.' id={style.NameInput} maxLength="40"/>
-                    <p className={style.errMsg}>{titleMsg}</p>
-                    <div className={style.CommonMent}>Step5. 내가 필요한 자재에 대해 자세히 적어보세요!</div>
-                    <div> 원하는 자재를 자세히 적을수록 원하시는 자재를 받으실 수 있습니다.</div>
-                    <textarea onChange={Content} ref={contentRef} placeholder='500자 이내로 입력해주세요.' id={style.IntroduceBox} maxLength="500"/>
-                    <p className={style.errMsg}>{contentMsg}</p>
-                    <div className={style.AmountBox}>
-                        <div>
-                            <div className={style.CommonMent}>Step6. 정확한 펀딩 마감일을 입력해주세요!</div>
-                            <div className={style.CautionMent}>*나중에 수정이 안되니 신중하게 선택해주세요*</div>
-                        </div>
-                        <div>
-                            <input type='date' id={style.DateInput} onChange={Ddate} ref={ddateRef} min={minDate} max={formattedMaxDate}/>
-                            <p className={style.errMsg}>{ddateMsg}</p>        
-                        </div>
-                    </div>
-                    <button id={style.CreateButton}  onClick={Create}>등록하기</button>
-                </div>
+          <div id={style.AllWrapper}>
+            <div id={style.leftWrapper}>
+              <div id={style.TitleName}>펀딩 기본 정보</div>
+              <div id={style.SubTitle}>만드실 업사이클링을 대표하는 중요한 정보들을 입력해주세요.</div>
+              <div className={style.Titlebox}>
+                <div className={style.CommonMent}>펀딩 제목</div>
+                <div className={style.star}>*</div>
+              </div>
+              <textarea onChange={Title} ref={titleRef} placeholder='40자 이내로 입력해주세요.' id={style.NameInput} maxLength="40"/>
+              <p className={style.errMsg}>{titleMsg}</p>
+              <div className={style.Titlebox}>
+                <div className={style.CommonMent}>대표 이미지</div>
+                <div className={style.star}>*</div>
+              </div>
+              <SettingUserThumbnail setimgurl = {setimgurl} Imgurl = {Imgurl}/>
+              <p className={style.errMsg}>{imgurlMsg}</p>
+              <div className={style.Titlebox}>
+                <div className={style.CommonMent}>펀딩 소개</div>
+                <div className={style.star}>*</div>
+              </div>
+              <textarea onChange={Content} ref={contentRef} placeholder='500자 이내로 입력해주세요.' id={style.IntroduceBox} maxLength="500"/>
+              <p className={style.errMsg}>{contentMsg}</p>
+              <div className={style.Titlebox}>
+                <div className={style.CommonMent}>펀딩 자재 유형</div>
+                <div className={style.star}>*</div>
+              </div>
+              <div className={style.radioGroup}>
+                <input className={style.radio} type="radio" value="1" name="materials" style={{ backgroundImage: 'url(/image/IconCloth.png)', backgroundSize:'cover'}} onClick={handleMateriel1} />
+                <input className={style.radio} type="radio" value="2" name="materials" style={{ backgroundImage: 'url(/image/IconWood.png)', backgroundSize:'cover'}} onClick={handleMateriel2} />
+                <input className={style.radio} type="radio" value="3" name="materials" style={{ backgroundImage: 'url(/image/IconPlastic.png)', backgroundSize:'cover'}} onClick={handleMateriel3} />
+                <input className={style.radio} type="radio" value="4" name="materials" style={{ backgroundImage: 'url(/image/IconSteel.png)', backgroundSize:'cover'}} onClick={handleMateriel4} />
+                <input className={style.radio} type="radio" value="5" name="materials" style={{ backgroundImage: 'url(/image/IconGlass.png)', backgroundSize:'cover'}} onClick={handleMateriel5} />
+                <input className={style.radio} type="radio" value="6" name="materials" style={{ backgroundImage: 'url(/image/IconEtc.png)', backgroundSize:'cover'}} onClick={handleMateriel6} />
+              </div>
+              <p className={style.errMsg}>{materialMsg}</p>
+              <div className={style.Titlebox}>
+                <div className={style.CommonMent}>목표 수량</div>
+                <div className={style.star}>*</div>
+              </div>
+              <input type="text" onChange={TotalQuantity} ref={totalQuantityRef} onInput={handleInputChange} placeholder='숫자만 입력해주세요.' id={style.AmountInput}/>
+              <p className={style.errMsg}>{totalQuantityMsg}</p>
+              <div className={style.Titlebox}>
+                <div className={style.CommonMent}>펀딩 종료일</div>
+                <div className={style.star}>*</div>
+              </div>
+              <div>
+                <input type='date' id={style.DateInput} onChange={Ddate} ref={ddateRef} min={minDate} max={formattedMaxDate}/>
+                <p className={style.errMsg}>{ddateMsg}</p>        
+              </div>
+              <button id={style.CreateButton}  onClick={Create}>등록하기</button>
             </div>
-            <div id={style.footer}></div>
+            <div id={style.rightWrapper}>
+              <div id={style.tipbox1}>
+                <p className={style.tiptitle}>TIP! 프로젝트 제목은 핵심을 간결하게</p>
+                <p className={style.tipcontent}>업사이클링 상품의 특징이 잘 드러나는 키워드를 한 가지 이상 포함해 주세요.</p>
+                <p className={style.tipcontent}>중요한 키워드는 눈에 잘 띄도록 제목 앞부분에 적는 것을 추천해요.</p>
+              </div>
+              <div id={style.tipbox2}>
+                <p className={style.tiptitle}>TIP! 클릭할 수밖에 없는 매력적인 이미지</p>
+                <p className={style.tipcontent}>펀딩의 첫인상인 대표 이미지는 가장 매력적으로 보이는 사진을 선택해 주세요.</p>
+                <p className={style.tipcontent}>이미지가 1:1 비율로 보일 수 있으므로 이미지 내 좌우 여백이 충분하고 중앙에 위치한 사진을 선택해 주세요.</p>
+              </div>
+              <div id={style.tipbox3}>
+                <p className={style.tiptitle}>TIP! 이것만은 알아 주었으면 하는 핵심</p>
+                <p className={style.tipcontent}>프로젝트를 쉽고 간결하게 소개해 주세요.</p>
+                <p className={style.tipcontent}>원하시는 자재에 대해 상세히 적어주세요.</p>
+              </div>
+              <div id={style.tipbox4}>
+                <p className={style.tiptitle}>TIP! 핵심 자재 하나만 픽</p>
+                <p className={style.tipcontent}>나중에 수정이 안되니 가장 펀딩을 원하는 자재를 하나만 선택해주세요.</p>
+                <p className={style.tipcontent}>여러개의 업사이클링 제품이 필요하다면 펀딩을 여러번 등록해주세요.</p>
+              </div>
+              <div id={style.tipbox5}>
+                <p className={style.tiptitle}>TIP! 목표 수량은 너무 낮거나 높지 않게</p>
+                <p className={style.tipcontent}>펀딩율을 결정하는 중요한 요소니 신중하게 고민해 주세요. 추후 수정이 불가합니다.</p>
+              </div>
+              <div id={style.tipbox6}>
+                <p className={style.tiptitle}>TIP! 100일 뒤까지는 오케이</p>
+                <p className={style.tipcontent}>목표 수량을 채울 수 있는 시간을 고민후 선택해주세요. 추후 수정이 불가합니다.</p>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     );
 };
 
@@ -295,17 +323,7 @@ const SettingUserThumbnail = ({setimgurl , Imgurl}) => {
     };
   
     return (
-      <div id={style.imgContainer}>
-        <div id={style.imgWrapper}>
-          {imageSrc ? (
-            <img id={style.FundingImg} src={imageSrc} alt="펀딩 이미지 미리보기" />
-          ) : (
-            <img id={style.FundingImg} src={`${process.env.PUBLIC_URL}/image/basicImg.png`} alt="펀딩 이미지 미리보기" />
-          )}
-        </div>
-        <div id={style.ThumImgCommonMent}>
-          Step1. 만드려고 하는 업사이클링 제품을 대표할 수 있는 이미지를 넣어주세요!
-        </div>
+      <div>
         <input
           type="file"
           accept="image/*"
@@ -314,6 +332,13 @@ const SettingUserThumbnail = ({setimgurl , Imgurl}) => {
           onChange={onUpload}
           id={style.imgInput}
         />
+        <div id={style.imgWrapper}>
+          {imageSrc ? (
+            <img id={style.FundingImg} src={imageSrc} alt="펀딩 이미지 미리보기" />
+          ) : (
+            <div>+ 이미지를 추가해주세요.</div>
+          )}
+        </div>
       </div>
     );
   };
