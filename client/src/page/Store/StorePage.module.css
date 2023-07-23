@@ -38,6 +38,7 @@
   justify-content: space-between;
   width: 80%;
   margin-top: 40px;
+  height: 30px;
 }
 
 #container {
@@ -74,7 +75,7 @@
 }
 
 .selectedButton {
-  width: 50%;
+  width: fit-content;
   border-bottom: 2px solid #6e934d;
   padding: 10px 0;
 }
