@@ -47,16 +47,12 @@
   animation: openModal 1s forwards;
 }
 
-
-
-
-
 @keyframes openModal {
   0% {
-      transform:  translateX(-300px);
+    transform: translateX(-300px);
   }
   100% {
-    transform:  translateX(0px);
+    transform: translateX(0px);
   }
 }
 
@@ -66,16 +62,12 @@
 
 @keyframes closeModal {
   0% {
-      margin-top: 0px;
+    margin-top: 0px;
   }
   100% {
-    transform:  translateX(-300px);
+    transform: translateX(-300px);
   }
 }
-
-
-
-
 
 #sidelist {
   display: flex;
@@ -219,7 +211,7 @@
 }
 
 .contentsText {
-  max-height: 2.2em;
+  height: 2.7em;
   overflow: hidden;
   font-size: 20px;
   font-weight: bold;
@@ -232,7 +224,6 @@
   font-size: 14px;
   line-height: 1.8;
   margin-bottom: 5px;
-
 }
 
 .contentsFooter {
