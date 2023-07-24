@@ -91,7 +91,7 @@ const MyPage = () => {
           const updatedData = [...prevData];
           updatedData[1].history = res.data.data.map((item) => ({
             createdAt: new Date(item.createdAt).toLocaleDateString("ko-KR"),
-            content: item.orderSells.map((sell) => sell.content),
+            title: item.orderSells.map((sell) => sell.title),
             quantity: item.orderSells.map((sell) => sell.quantity),
             price: item.orderSells.map((sell) => sell.price),
           }));
@@ -127,7 +127,7 @@ const MyPage = () => {
           const updatedData = [...prevData];
           updatedData[3].history = res.data.data.map((item) => ({
             createdAt: new Date(item.createdAt).toLocaleDateString("ko-KR"),
-            title: item.content,
+            title: item.title,
             price: item.price,
           }));
           return updatedData;
