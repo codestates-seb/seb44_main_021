@@ -5,8 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import axios from "axios";
 
-axios.defaults.baseURL =
-  "http://ec2-3-37-130-72.ap-northeast-2.compute.amazonaws.com:8080";
+axios.defaults.baseURL = "https://re21.store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
