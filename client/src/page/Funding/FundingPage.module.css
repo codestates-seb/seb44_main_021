@@ -5,7 +5,7 @@
   width: 70%;
 }
 
-#containerup{
+#containerup {
   display: flex;
   width: 70%;
 }
@@ -17,7 +17,7 @@
   padding: 15px;
   text-align: left;
   cursor: pointer;
-  color: #FFF;
+  color: #fff;
 }
 
 #fundingButton:hover {
@@ -26,7 +26,7 @@
   padding: 15px;
   text-align: left;
   cursor: pointer;
-  color:#fff;
+  color: #fff;
 }
 
 #sort {
@@ -35,9 +35,10 @@
   width: 80%;
   margin-top: 40px;
   height: 30px;
+  margin-bottom: 20px;
 }
 
-#blank{
+#blank {
   width: 20%;
 }
 
@@ -57,6 +58,7 @@
   position: sticky;
   top: 72px;
   margin-top: 30px;
+  margin-bottom: calc(90vh - 400px);
 }
 
 #kategorie {
@@ -99,7 +101,7 @@
 #list {
   width: 250px;
   height: 300px;
-  margin-top: 20px;
+  margin-top: 30px;
   justify-self: end;
   word-break: break-all;
 }
@@ -118,16 +120,16 @@
   color: black;
 }
 
-#title{
+#title {
   display: block;
   font-size: 1em;
   font-weight: bold;
   width: 250px;
-  white-space:pre-line;
+  white-space: pre-line;
   word-break: break-all;
 }
 
-#materiar{
+#materiar {
   display: flex;
   align-items: center;
   margin-top: 3px;
@@ -137,52 +139,52 @@
   padding-right: 10px;
   border-top-left-radius: 100px;
   border-bottom-left-radius: 100px;
-  color: #FFF;
+  color: #fff;
   height: 10px;
   font-size: 13px;
 }
 
-#materiaricon{
+#materiaricon {
   width: 11px;
   height: 11px;
   margin-right: 10px;
 }
 
-#sortcontainer{
+#sortcontainer {
   display: flex;
   flex-direction: column;
 }
 
-#sortblank{
+#sortblank {
   height: 50%;
 }
 
-#sortbox{
+#sortbox {
   display: flex;
   height: 50%;
 }
 
-#sorttext1{
-  background:none;
+#sorttext1 {
+  background: none;
   border: none;
   margin-right: 5px;
   font-size: 16px;
 }
 
-#sorticon{
+#sorticon {
   color: rgba(220, 220, 220, 0.826);
   font-size: 15px;
 }
 
-#sorttext2{
-  background:none;
+#sorttext2 {
+  background: none;
   border: none;
   margin-left: 5px;
   font-size: 16px;
 }
 
-.selectsorttext{
-  background:none;
+.selectsorttext {
+  background: none;
   border: none;
   margin-right: 5px;
   font-size: 16px;
