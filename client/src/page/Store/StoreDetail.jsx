@@ -227,7 +227,7 @@ const StoreDetail = () => {
               <CloseIcon />
             </button>
             <div id={style.modaltitle}>
-              {data.displayName}님, 구매해 주셔서 감사합니다!!
+              {userData.displayName}님, 구매해 주셔서 감사합니다!!
             </div>
             <div className={style.modaltext1}>제품명</div>
             <div className={style.modaltext}>{data.title}</div>

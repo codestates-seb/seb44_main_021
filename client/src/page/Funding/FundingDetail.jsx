@@ -289,7 +289,7 @@ const FundingDetail = () => {
               {funding ? (
                 <div className={style.modalbox}>
                   <div className={style.modaltitle}>
-                    {data.displayName}님의 펀딩으로 <br />
+                    {userData.displayName}님의 펀딩으로 <br />
                     펀딩율이 아래와 같이 상승했습니다.
                   </div>
                   <div id={style.ratebox}>
@@ -321,7 +321,7 @@ const FundingDetail = () => {
                 <>
                   <div className={style.modalbox}>
                     <div className={style.modaltitle}>
-                      {data.displayName}님, 펀딩 하시겠습니까?
+                      {userData.displayName}님, 펀딩 하시겠습니까?
                     </div>
                     <div className={style.modaltext1}>펀딩명</div>
                     <div className={style.modaltext}>{data.title}</div>

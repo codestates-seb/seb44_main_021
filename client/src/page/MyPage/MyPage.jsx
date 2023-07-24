@@ -8,16 +8,6 @@ import axios from "axios";
 const MyPage = () => {
   const { userData, setUserData } = useContext(UserDataContext);
 
-  const urlParams = new URL(window.location.href).searchParams;
-  const id = urlParams.get("id");
-
-  useEffect(() => {
-    if (!id) {
-      window.history.pushState("", null, `/mypage/?id=${userData.memberId}`);
-      window.location.reload();
-    }
-  }, []);
-
   useEffect(() => {
     axios
       .get(`/members/${userData.memberId}`)
