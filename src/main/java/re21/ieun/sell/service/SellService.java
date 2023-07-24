@@ -113,8 +113,7 @@ public class SellService {
 
 
 
-    // Sell View
-
+    // SellId 검증 + Sell View(조회수) Counting
     public Sell increaseViewCount(long sellId) {
 
         Sell findSell = findVerifySell(sellId);

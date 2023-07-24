@@ -9,7 +9,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 import re21.ieun.auth.jwt.JwtTokenizer;
+import re21.ieun.auth.redis.RedisService;
+import re21.ieun.auth.service.AuthService;
 import re21.ieun.auth.utils.CustomAuthorityUtils;
+import re21.ieun.exception.BusinessLogicException;
+import re21.ieun.exception.ExceptionCode;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -25,11 +29,15 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
 
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
+    private final RedisService redisService;
+    private final AuthService authService;
 
-    public JwtVerificationFilter(JwtTokenizer jwtTokenizer,
-                                 CustomAuthorityUtils authorityUtils) {
+    public JwtVerificationFilter(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils,
+                                 RedisService redisService, AuthService authService) {
         this.jwtTokenizer = jwtTokenizer;
         this.authorityUtils = authorityUtils;
+        this.redisService = redisService;
+        this.authService = authService;
     }
 
     @Override
@@ -49,32 +57,31 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
 
         filterChain.doFilter(request, response);
          */
+
+
+
+        String token = jwtTokenizer.getTokenFromHeader(request.getHeader("Authorization"));
         try {
-            Map<String, Object> claims = verifyJws(request);
-            setAuthenticationToContext(claims);
+            if (!redisService.isSignedOut(token)) {
+                Map<String, Object> claims = verifyJws(request);
+                setAuthenticationToContext(claims);
+            }
         } catch (SignatureException se) {
             request.setAttribute("exception", se);
         } catch (ExpiredJwtException ee) {
-            // 액세스 토큰이 만료되었습니다. 토큰을 새로고침합니다.
+            /*
+            String refreshToken = request.getHeader("Refresh");
             try {
-                String refreshToken = extractRefreshToken(request);
-                String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
-                Map<String, Object> refreshTokenClaims = jwtTokenizer.getClaims(refreshToken, base64EncodedSecretKey).getBody();
-
-                // 새로고침 토큰이 여전히 유효하고 원래 액세스 토큰의 사용자와 관련된 토큰인지 확인합니다.
-                if (isRefreshTokenValid(refreshTokenClaims)) {
-                    // 새로운 액세스 토큰을 생성합니다.
-                    String newAccessToken = generateNewAccessToken(refreshTokenClaims.get("username").toString(), base64EncodedSecretKey);
-
-                    // 새로운 액세스 토큰을 응답 헤더에 설정합니다.
-                    response.setHeader("Authorization", "Bearer " + newAccessToken);
-                } else {
-                    // 새로고침 토큰이 무효하거나 만료되었을 경우, 상황에 적절히 대응할 수 있습니다.
-                    // 예를 들어 사용자의 세션을 무효화하고 로그아웃시킬 수 있습니다.
-                }
-            } catch (Exception e) {
-                request.setAttribute("exception", e);
+                jwtTokenizer.verifySignature(refreshToken, jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey()));
+                String newAccessToken = authService.reissue(refreshToken);
+                response.setHeader("Authorization", newAccessToken);
+                response.setIntHeader("reIssue", 3000);
+                response.sendError(3000);
+            } catch (BusinessLogicException be) {
+                request.setAttribute("exception", be);
             }
+
+             */
         } catch (Exception e) {
             request.setAttribute("exception", e);
         }
@@ -104,40 +111,4 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
-    // refresh 토큰 추가
-    // 요청에서 새로고침 토큰을 추출하는 도우미 메서드
-    private String extractRefreshToken(HttpServletRequest request) {
-        String refreshToken = null;
-        // 새로고침 토큰을 요청에서 추출합니다. 예를 들어 쿠키 또는 요청 매개변수에서 가져올 수 있습니다.
-        // 예를 들면, 쿠키로 전송된 경우:
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if ("refreshToken".equals(cookie.getName())) {
-                    refreshToken = cookie.getValue();
-                    break;
-                }
-            }
-        }
-        return refreshToken;
-    }
-
-    // 새로고침 토큰의 유효성을 확인하는 도우미 메서드
-    private boolean isRefreshTokenValid(Map<String, Object> refreshTokenClaims) {
-        // refreshTokenClaims를 io.jsonwebtoken.Claims로 형변환합니다.
-        Claims claims = (Claims) refreshTokenClaims;
-
-        // 여기에서 토큰의 유효성을 확인하는 로직을 구현합니다. 예를 들어, 새로고침 토큰의 만료 날짜를 확인할 수 있습니다.
-        Date refreshTokenExpiration = claims.getExpiration();
-        Date now = new Date();
-        return refreshTokenExpiration.after(now);
-    }
-
-    // 새로운 액세스 토큰을 생성하는 도우미 메서드
-    private String generateNewAccessToken(String subject, String base64EncodedSecretKey) {
-        // 기존의 `JwtTokenizer` 클래스에 있는 `generateAccessToken` 메서드를 활용하여 구현합니다.
-        // 사용자 지정 클레임을 전달하는 대신, 새로고침 토큰에서 기존의 클레임을 재사용합니다.
-        Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getAccessTokenExpirationMinutes());
-        return jwtTokenizer.generateAccessToken(null, subject, expiration, base64EncodedSecretKey);
-    }
 }

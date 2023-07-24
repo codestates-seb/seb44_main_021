@@ -20,7 +20,10 @@ public enum ExceptionCode {
     INVALID_QUANTITY(403, "Quantity is wrong"),         // 잘못된 수량
     INVALID_UPCYCLING(403, "Upcycling is wrong"),
     INVALID_VERIFICATION_CODE(403, "The code does not match."),
-    SEARCH_NOT_FOUND(404, "Search not found");
+    SEARCH_NOT_FOUND(404, "Search not found"),
+    USER_INPUT_ERROR(401, "Request is invalid"),
+    TOKEN_EXPIRED(403, "Token has expired"),
+    LOGIN_NOT_REQUIRED(401, "Login is required.");
 
     @Getter
     private final int status;
