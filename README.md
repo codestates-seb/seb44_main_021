@@ -6,14 +6,23 @@
  <br>
   <br>
 <b>숨어있는 것들로 세상을 이롭게</b><br>
- 프로젝트 기간: 2023.06.28 ~ 2023.07.24
 </div>
 
 <br>
+<br>
 
-## 🔗 배포주소 : [ieun](링크넣기)
+## 🔗 배포주소 : [ieun](https://ieun.store/)
 
 <br>
+<br /> <br />
+
+## 🗓️ 프로젝트 기간
+
+<br />
+
+2023.06.28 ~ 2023.07.24
+
+<br />
 
 ## 🔗 서비스설명
 숨어있는 것들로 세상을 아름답게 '이은' 입니다.
@@ -25,9 +34,9 @@
 <br>
 
 ## 👨‍👨‍👧‍👧 Team List
-|![신성철]()|![곽시현]()|![나예진]()|![강병주]()|![박재성]()|![윤승현]()|
+|![신성철](https://github.com/codestates-seb/seb44_main_021/assets/99308074/c1cbacdb-08f0-47fd-a9f3-99921cd200eb)|![곽시현](https://github.com/codestates-seb/seb44_main_021/assets/99308074/5362dd7e-e9f3-40f5-a889-44e6c2abf554)|![나예진](https://github.com/codestates-seb/seb44_main_021/assets/99308074/6853dbdd-004e-4859-9bfa-6a23723eaf76)|![강병주](https://github.com/codestates-seb/seb44_main_021/assets/99308074/33eed813-1578-470f-9935-910da2f87733)|![박재성](https://github.com/codestates-seb/seb44_main_021/assets/99308074/3c843bf3-0e6d-40c5-8ee1-96c56c4f6344)|![윤승현](https://github.com/codestates-seb/seb44_main_021/assets/99308074/fc1eec62-97a1-4188-a194-c7fe35354685)|
 |:---:|:---:|:---:|:---:|:---:|:---:|
-|[신성철]()|[곽시현]()|[나예진]()|[강병주]()|[박재성]()|[윤승현](https://github.com/yunkr)|
+|[신성철]()|[곽시현]()|[나예진]()|[강병주](https://github.com/okgo25)|[박재성](https://github.com/Parkjaeseong94)|[윤승현](https://github.com/yunkr)|
 |FE 팀장|FE|FE|BE 부팀장|BE|BE|
 
 <br>
@@ -39,27 +48,57 @@
 <br>
 
 **신성철**
- - 성철님이 담당하신 부분을 적어주세요.
- 
+ - Main
+ - Funding detail - modal(1,2)
+ - Store detail - modal(1)
+ - Funding list
+ - Store list
+
+ <br>
  
  **곽시현**
- - 시현님이 담당하신 부분을 적어주세요.
- 
+ - Funding create
+ - Store create
+ - Funding edit
+ - Store edit 
+
+<br>
  
 **나예진**
- - 예진님이 담당하신 부분을 적어주세요.
- 
+ - Login
+ - Signup
+ - Mypage - edit modal 
+
+<br>
  
 **강병주**
- - 병주님이 담당하신 부분을 적어주세요.
- 
+ - Sell CRUD
+ - Order
+ - OrderSell
+ - 검색기능
+ - 기술 문서 작성 (notion, google sheet) 및 디자인
+
+<br>
  
 **박재성**
- - 재성님이 담당하신 부분을 적어주세요.
+ - Member CRUD
+ - AWS S3 버킷 이미지 연동
+ - JWT
+ - 카테고리
+ - 클라이언트, 서버 배포 및 관리
+ - 인증번호 이메일
+ - GitHub Actions
+ - 정렬, 필터 기능
  
+<br>
  
 **윤승현**
- - 승현님이 담당하신 부분을 적어주세요.
+ - Upcycling CRUD
+ - Funding CRUD
+ - Order
+ - 검색기능
+ - Redis 로그아웃
+ - 인증번호 이메일 
  
 
 </div>
@@ -86,17 +125,28 @@
 
 <br>
 
-## 📂 Stacks
+## 🔨 Skill Stacks
 
-스택 그림 넣기
+<img src="https://github.com/codestates-seb/seb44_main_021/assets/99308074/b3f86be5-89c6-41f4-b7b4-256db94aa545">
 
 <br>
+
+### Tools
+| Git | Github | Discord |
+| :---: | :---: | :---: |
+| <img alt="git logo" src="https://git-scm.com/images/logos/logomark-orange@2x.png" width="65" height="65" > | <img alt="github logo" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="65" height="65"> | <img alt="Discord logo" src="https://assets-global.website-files.com/6257adef93867e50d84d30e2/62595384e89d1d54d704ece7_3437c10597c1526c3dbd98c737c2bcae.svg" height="65" width="65"> |
+
+
+<br/>
+<br/>
+
 
 ## 📂 ERD
 [이은 ERD & 테이블 명세서](https://www.erdcloud.com/d/sW7RaiTwpKhHcxPiT)
 <br>
 <br>
-<img src="https://github.com/codestates-seb/seb44_main_021/assets/99308074/435f8cdc-da5f-4d9d-8d0a-809fa49e1012">
+<br/>
+<img src="https://github.com/codestates-seb/seb44_main_021/assets/99308074/ecc2ccab-a92e-469a-9c20-1b89726caacb">
 <br>
 
 
