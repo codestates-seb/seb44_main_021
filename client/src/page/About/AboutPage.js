@@ -89,9 +89,16 @@ const AboutPage = () => {
               <div class={styles.arrowBox}>
                 <p style={{ marginBottom: "10px" }}>Work Log</p>
                 <ul>
-                  <li>상품(Sell)</li>
-                  <li>order(주문)</li>
-                  <li>OAuth2(구글)</li>
+                  <li>Sell CRUD</li>
+                  <li>Order</li>
+                  <li>OrderSell</li>
+                  <li>검색기능</li>
+                  <li>
+                    기술 문서 작성
+                    <br />
+                    (notion, google sheet)
+                    <br />및 배너 디자인
+                  </li>
                 </ul>
               </div>
             </div>
@@ -104,14 +111,14 @@ const AboutPage = () => {
               <div class={styles.arrowBox}>
                 <p style={{ marginBottom: "10px" }}>Work Log</p>
                 <ul>
-                  <li>배포</li>
-                  <li>
-                    깃허브 액션
-                    <br />
-                    (자동 배포)
-                  </li>
-                  <li>이미지</li>
-                  <li>회원가입(메일)</li>
+                  <li>Member CRUD</li>
+                  <li>AWS S3 버킷 이미지 연동</li>
+                  <li>JWT</li>
+                  <li>카테고리</li>
+                  <li>클라이언트, 서버 배포 및 관리</li>
+                  <li>인증번호 이메일</li>
+                  <li>GitHub Actions</li>
+                  <li>정렬, 필터 기능</li>
                 </ul>
               </div>
             </div>
@@ -126,27 +133,18 @@ const AboutPage = () => {
                   Work Log
                 </p>
                 <ul>
-                  <li>업사이클링</li>
-                  <li>펀딩</li>
+                  <li>Upcycling CRUD</li>
+                  <li>Funding CRUD</li>
                   <li>검색기능</li>
-                  <li>
-                    로그인
-                    <br />
-                    (access token)
-                    <br />
-                    local storage
-                  </li>
-                  <li>로그아웃(Redis)</li>
+                  <li>Order</li>
+                  <li>검색기능</li>
+                  <li>Redis 로그아웃</li>
+                  <li>인증번호 이메일</li>
                 </ul>
               </div>
             </div>
           </div>
         </div>
-
-        {/* <div className={styles.companyInfo}>
-          <h1>Company Info</h1>
-          <div className={styles.infoBox}>dddd</div>
-        </div> */}
       </div>
       <div id={styles.footer}>IEUN CO.</div>
     </div>
