@@ -116,7 +116,7 @@
 |<b>업사이클링 페이지</b>|<b>업사이클링 펀딩 글 등록</b>|
 |![upcycling](https://github.com/codestates-seb/seb44_main_021/assets/99308074/3af83feb-b433-41a0-b3b1-059360f29924)|![2023_07_25_00_10_57_249 mp4_20230725_002629](https://github.com/codestates-seb/seb44_main_021/assets/99308074/fdd0ce8e-7f46-4828-9eb1-01adba485dee)|
 |<b>업사이클링 펀딩 글 확인</b>|<b>업사이클링 펀딩 수정/삭제</b>|
-|![image](https://github.com/codestates-seb/seb44_main_021/assets/99308074/ee59b102-157e-4cac-9e50-a182ef927372)|![image](https://github.com/codestates-seb/seb44_main_021/assets/99308074/ee59b102-157e-4cac-9e50-a182ef927372)|
+|![UPCYCLING1](https://github.com/codestates-seb/seb44_main_021/assets/99308074/d54c2c69-6b3a-438b-a862-300ab998f1f1)|![upcycling2](https://github.com/codestates-seb/seb44_main_021/assets/99308074/9af48b56-6bb6-497d-9484-f0a4e4106f3c)|
 |<b>상품 페이지</b>|<b>상품 등록</b>|
 |![upcycling](https://github.com/codestates-seb/seb44_main_021/assets/99308074/ce9b0ce6-241a-462e-af23-d60bd6ec3efd)|![image](https://github.com/codestates-seb/seb44_main_021/assets/99308074/ee59b102-157e-4cac-9e50-a182ef927372)|
 |<b>상품 확인</b>|<b>상품 수정</b>|
