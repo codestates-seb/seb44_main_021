@@ -3,7 +3,7 @@ import Style from "./LoginPage.module.css";
 import axios from "axios";
 import Logo from "../../components/Logo/Logo";
 import { useNavigate } from "react-router-dom";
-import { FcGoogle } from "react-icons/fc";
+// import { FcGoogle } from "react-icons/fc";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -55,7 +55,6 @@ const LoginPage = () => {
     <div id={Style.loginContainer} onSubmit={AxiosLogin}>
       <form className={Style.loginWrapper}>
         <Logo />
-        <GoogleLoginBtn />
         <label>
           이메일
           <input
@@ -91,14 +90,14 @@ const LoginPage = () => {
 
 export default LoginPage;
 
-const GoogleLoginBtn = () => {
-  const oauthLoginClick = () => {
-    window.location.href = "https://re21.store/oauth2/authorization/google";
-  };
-  return (
-    <div className={Style.oauthBtnContainer} onClick={oauthLoginClick}>
-      <FcGoogle style={{ fontSize: "20px", marginRight: "5px" }} />
-      구글 계정으로 로그인하기
-    </div>
-  );
-};
+// const GoogleLoginBtn = () => {
+//   const oauthLoginClick = () => {
+//     window.location.href = "https://re21.store/oauth2/authorization/google";
+//   };
+//   return (
+//     <div className={Style.oauthBtnContainer} onClick={oauthLoginClick}>
+//       <FcGoogle style={{ fontSize: "20px", marginRight: "5px" }} />
+//       구글 계정으로 로그인하기
+//     </div>
+//   );
+// };

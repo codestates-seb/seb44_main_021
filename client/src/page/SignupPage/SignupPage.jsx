@@ -138,7 +138,6 @@ const SignupPage = () => {
       axios
         .post("/members/sendmail", { email })
         .then((res) => {
-          console.log(res.data.message);
           setIsAuthNum(res.data.message);
           setIsAuthNumSent(true);
           setLoading(false);
@@ -146,7 +145,6 @@ const SignupPage = () => {
         .catch((err) => {
           if (err.response.data.message === "이미 존재하는 이메일입니다.") {
             setEmailErrMsg("이미 존재하는 이메일입니다.");
-            // setIsAuthNumSent(false);
             setLoading(false);
           }
         });
@@ -278,12 +276,6 @@ const SignupPage = () => {
           </button>
         </form>
       </div>
-      {/* {isOpenModal && (
-        <AlertModal
-        isOpenModal ={isOpenModal}
-        setIsOpenModal {setIsOpenModal}
-        />
-      )} */}
     </div>
   );
 };
