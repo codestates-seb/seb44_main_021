@@ -105,18 +105,20 @@
 </details>
 
 <br>
+<br/>
+<br/>
 
 ## 📸 화면 구성
 
 |메인페이지|로그인/회원가입|
 |:---:|:---:|
-|![image](https://github.com/codestates-seb/seb44_main_021/assets/99308074/ee59b102-157e-4cac-9e50-a182ef927372)|![image](https://github.com/codestates-seb/seb44_main_021/assets/99308074/ee59b102-157e-4cac-9e50-a182ef927372)|
-|<b>업사이클링 페이지</b>|<b>업사이클링 펀딩 등록</b>|
-|![image](https://github.com/codestates-seb/seb44_main_021/assets/99308074/ee59b102-157e-4cac-9e50-a182ef927372)|![image](https://github.com/codestates-seb/seb44_main_021/assets/99308074/ee59b102-157e-4cac-9e50-a182ef927372)|
-|<b>업사이클링 펀딩 확인</b>|<b>업사이클링 펀딩 수정</b>|
+|![MAINPAGE](https://github.com/codestates-seb/seb44_main_021/assets/99308074/e49d503f-d419-4112-8eb9-706e3eef121b)|![signup_login](https://github.com/codestates-seb/seb44_main_021/assets/99308074/4455e006-1cae-4e2c-8408-6263922ae2f3)|
+|<b>업사이클링 페이지</b>|<b>업사이클링 펀딩 글 등록</b>|
+|![upcycling](https://github.com/codestates-seb/seb44_main_021/assets/99308074/3af83feb-b433-41a0-b3b1-059360f29924)|![2023_07_25_00_10_57_249 mp4_20230725_002629](https://github.com/codestates-seb/seb44_main_021/assets/99308074/fdd0ce8e-7f46-4828-9eb1-01adba485dee)|
+|<b>업사이클링 펀딩 글 확인</b>|<b>업사이클링 펀딩 수정/삭제</b>|
 |![image](https://github.com/codestates-seb/seb44_main_021/assets/99308074/ee59b102-157e-4cac-9e50-a182ef927372)|![image](https://github.com/codestates-seb/seb44_main_021/assets/99308074/ee59b102-157e-4cac-9e50-a182ef927372)|
 |<b>상품 페이지</b>|<b>상품 등록</b>|
-|![image](https://github.com/codestates-seb/seb44_main_021/assets/99308074/ee59b102-157e-4cac-9e50-a182ef927372)|![image](https://github.com/codestates-seb/seb44_main_021/assets/99308074/ee59b102-157e-4cac-9e50-a182ef927372)|
+|![upcycling](https://github.com/codestates-seb/seb44_main_021/assets/99308074/ce9b0ce6-241a-462e-af23-d60bd6ec3efd)|![image](https://github.com/codestates-seb/seb44_main_021/assets/99308074/ee59b102-157e-4cac-9e50-a182ef927372)|
 |<b>상품 확인</b>|<b>상품 수정</b>|
 |![image](https://github.com/codestates-seb/seb44_main_021/assets/99308074/ee59b102-157e-4cac-9e50-a182ef927372)|![image](https://github.com/codestates-seb/seb44_main_021/assets/99308074/ee59b102-157e-4cac-9e50-a182ef927372)|
 |<b>추가</b>|<b>추가</b>|
@@ -124,6 +126,7 @@
 
 
 <br>
+<br/>
 
 ## 🔨 Skill Stacks
 
@@ -142,7 +145,7 @@
 
 
 ## 📂 ERD
-[이은 ERD & 테이블 명세서](https://www.erdcloud.com/d/sW7RaiTwpKhHcxPiT)
+[이은 ERD](https://www.erdcloud.com/d/sW7RaiTwpKhHcxPiT)
 <br>
 <br>
 <br/>
