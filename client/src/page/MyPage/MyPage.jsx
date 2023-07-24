@@ -170,13 +170,9 @@ const Profile = ({ onClick, userData }) => {
         />
         <p className={Style.userName}>{userData.displayName} 님</p>
         <p className={Style.userEmail}>{userData.email}</p>
-        {userData.normalOrOauth === "normal" ? (
-          <button className={Style.editButton} onClick={onClick}>
-            Edit Profile
-          </button>
-        ) : (
-          ""
-        )}
+        <button className={Style.editButton} onClick={onClick}>
+          Edit Profile
+        </button>
       </div>
     </div>
   );

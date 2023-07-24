@@ -105,7 +105,6 @@ const SignupPage = () => {
       axios
         .post("/members/signup", { displayName, email, password, role, code })
         .then((res) => {
-          console.log(res);
           if (res.status === 201) {
             alert("회원가입이 완료 되었습니다.");
             navigate("/login");
@@ -113,13 +112,11 @@ const SignupPage = () => {
         })
         .catch((err) => {
           if (err.response.data === "DisplayName exists") {
-            console.log(err);
             setNameErrMsg("중복된 닉네임입니다.");
             setIsName(false);
           }
 
           if (err.response.data === "Email exists") {
-            console.log(err);
             setEmailErrMsg("중복된 이메일입니다.");
             setIsEmail(false);
           }

@@ -176,7 +176,13 @@ const DropdownBox = ({ setIsLogin }) => {
         window.location.reload("/");
       })
       .catch((err) => {
-        console.log("Error occurred during logout:", err);
+        if (err.response && err.response.status === 500) {
+          // 토큰 만료로 인한 500 Unauthorized 에러일 경우에도 로그아웃 실행
+          localStorage.removeItem("token");
+          window.location.reload();
+        } else {
+          console.log("Error occurred during logout:", err); // 다른 에러는 그대로 콘솔에 표시
+        }
       });
   };
 
