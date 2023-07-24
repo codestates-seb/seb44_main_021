@@ -50,6 +50,22 @@
     margin-top: 15px;
 }
 
+#imgInput::file-selector-button {
+    width: 100px;
+    height: 30px;
+    background: #dde2e6;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#imgInput::file-selector-button:hover{
+    background: #d1d5d9;
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+}
+
 #FundingImg{
     width: 100%;
     height: 100%;
@@ -104,13 +120,6 @@
       border-color: #6E934D;
       border-radius: 50%;
     }
-  }
-
-.AmountBox{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
 }
 
 #AmountInput{
@@ -131,22 +140,6 @@
 #AmountInput::-webkit-outer-spin-button,
 #AmountInput::-webkit-inner-spin-button {
     margin: 0;
-}
-
-#imgInput::file-selector-button {
-    width: 100px;
-    height: 30px;
-    background: #dde2e6;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-#imgInput::file-selector-button:hover{
-    background: #d1d5d9;
-    border-radius: 10px;
-    cursor: pointer;
-    border: none;
 }
 
 #NameInput{
@@ -222,10 +215,6 @@
     font-size: 13px;
     color: red;   
     margin-top: 5px;
-}
-
-#imgeButton{
-    width: 100px;
 }
 
 #tipbox1{

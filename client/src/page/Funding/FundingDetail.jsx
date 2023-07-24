@@ -260,58 +260,55 @@ const FundingDetail = () => {
               <CloseIcon />
             </button>
             <div className={style.modalBody}>
-              <h3>펀딩해 주셔서 감사합니다!!</h3>
               {funding ? (
-                <div>
+                <div className={style.modalbox}>
+                  <div className={style.modaltitle}>{data.displayName}님의 펀딩으로 <br/>펀딩율이 아래와 같이 상승했습니다.</div>
+                  <div id={style.ratebox}>
+                    <div className={style.xrate}>
+                      {(
+                        (data.totalReceivedQuantity / data.totalQuantity) *
+                        100
+                      ).toFixed(1)}
+                      % -{">"}
+                    </div>
+                    <div className={style.rate}>{fundingRate}%</div>
+                  </div>  
                   <div className={style.modaltext}>
-                    주소 : 서울특별시 강남구 58 - 2
+                  주소 : 서울특별시 강남구 58 - 2
                   </div>
-                  <div className={`${style.modaltext} ${style.red}`}>
+                  <div className={style.red1}>
                     택배는 위의 주소로 착불로 보내주시면 됩니다!
                   </div>
-                  <div className={style.modaltext}>달성률</div>
-                  <div className={`${style.modaltext} ${style.rate}`}>
-                    {(
-                      (data.totalReceivedQuantity / data.totalQuantity) *
-                      100
-                    ).toFixed(1)}
-                    % -{">"} {fundingRate}%
-                  </div>
+                  <div className={style.modaltitle1}>펀딩해주셔서 감사합니다!</div>
                   <Link to="/funding">
-                    <button id={style.fundingButton}>
+                    <button id={style.fundingButton1}>
                       다른 펀딩 더 보러가기
                     </button>
                   </Link>
                 </div>
               ) : (
                 <>
-                  <div className={style.modaltext}>펀딩명 : {data.title}</div>
-                  <div className={style.modaltext}>
-                    자재 : {data.categoryName}
+                  <div className={style.modalbox}>
+                    <div className={style.modaltitle}>{data.displayName}님, 펀딩 하시겠습니까?</div>
+                    <div className={style.modaltext1}>펀딩명</div>
+                    <div className={style.modaltext}>{data.title}</div>
+                    <div className={style.modaltext1}>펀딩 자재</div>
+                    <div className={style.modaltext}>{data.categoryName}</div>
+                    <div className={style.modaltext1}>보내실 수량</div>
+                    <select
+                      id={style.modalselect}
+                      value={quantity}
+                      label="quantity"
+                      onChange={handleChange}>
+                      <option value={1}>1개</option>
+                      <option value={2}>2개</option>
+                      <option value={3}>3개</option>
+                      <option value={4}>4개</option>
+                      <option value={5}>5개</option>
+                    </select>
                   </div>
-                  <div className={style.modaltext}>보내실 수량 :</div>
-                  <Box sx={{ minWidth: 120 }}>
-                    <FormControl fullWidth>
-                      <InputLabel id="demo-simple-select-label">
-                        수량
-                      </InputLabel>
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={quantity}
-                        label="quantity"
-                        onChange={handleChange}
-                      >
-                        <MenuItem value={1}>1개</MenuItem>
-                        <MenuItem value={2}>2개</MenuItem>
-                        <MenuItem value={3}>3개</MenuItem>
-                        <MenuItem value={4}>4개</MenuItem>
-                        <MenuItem value={5}>5개</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </Box>
-                  <div className={`${style.modaltext} ${style.red}`}>
-                    * 반드시 수량을 선택해 주세요!
+                  <div className={style.red}>
+                      * 반드시 수량을 선택해 주세요!
                   </div>
                   <button id={style.fundingButton} onClick={clickFunding}>
                     펀딩하기

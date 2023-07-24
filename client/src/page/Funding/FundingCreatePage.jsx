@@ -228,7 +228,7 @@ const FundingCreatePage = () => {
             </div>
             <div id={style.rightWrapper}>
               <div id={style.tipbox1}>
-                <p className={style.tiptitle}>TIP! 프로젝트 제목은 핵심을 간결하게</p>
+                <p className={style.tiptitle}>TIP! 펀딩 제목은 핵심을 간결하게</p>
                 <p className={style.tipcontent}>업사이클링 상품의 특징이 잘 드러나는 키워드를 한 가지 이상 포함해 주세요.</p>
                 <p className={style.tipcontent}>중요한 키워드는 눈에 잘 띄도록 제목 앞부분에 적는 것을 추천해요.</p>
               </div>
@@ -239,7 +239,7 @@ const FundingCreatePage = () => {
               </div>
               <div id={style.tipbox3}>
                 <p className={style.tiptitle}>TIP! 이것만은 알아 주었으면 하는 핵심</p>
-                <p className={style.tipcontent}>프로젝트를 쉽고 간결하게 소개해 주세요.</p>
+                <p className={style.tipcontent}>제품을 쉽고 간결하게 소개해 주세요.</p>
                 <p className={style.tipcontent}>원하시는 자재에 대해 상세히 적어주세요.</p>
               </div>
               <div id={style.tipbox4}>
