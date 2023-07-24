@@ -60,7 +60,6 @@ const Header = ({ url, setSearchParam }) => {
           .join("")
       );
       const dec = JSON.parse(decodedPayload);
-      console.log(dec);
 
       setUserData((prevUserData) => ({
         ...prevUserData,
@@ -173,7 +172,6 @@ const DropdownBox = ({ setIsLogin }) => {
         },
       })
       .then((res) => {
-        console.log("Success", res);
         localStorage.removeItem("token"); // 요청이 성공하면 로컬 스토리지에서 토큰 삭제
         window.location.reload("/");
       })

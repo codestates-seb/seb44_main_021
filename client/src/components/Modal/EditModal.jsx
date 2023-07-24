@@ -21,7 +21,6 @@ const EditModal = ({ onClose, userData, setUserData, isUnmount }) => {
 
   const EditInputValue = (key) => (e) => {
     setEditUserInfo({ ...editUserInfo, [key]: e.target.value });
-    console.log(editUserInfo);
   };
 
   // 유효성 검사
@@ -64,7 +63,6 @@ const EditModal = ({ onClose, userData, setUserData, isUnmount }) => {
           thumbNailImage,
         })
         .then((res) => {
-          console.log(res);
           setUserData((prevUserData) => ({
             ...prevUserData,
             displayName: res.data.displayName,
@@ -87,7 +85,6 @@ const EditModal = ({ onClose, userData, setUserData, isUnmount }) => {
         password: currentPwd,
       })
       .then((res) => {
-        console.log(res.data);
         if (res.data === "성공") {
           setIsPasswordVerified(true);
           setPwdErrMsg("");
@@ -114,7 +111,6 @@ const EditModal = ({ onClose, userData, setUserData, isUnmount }) => {
               type="password"
               onChange={(e) => {
                 setCurrentPwd(e.target.value);
-                console.log(currentPwd);
               }}
             />
             {PwdErrMsg && <p className={Style.errMsg}>{PwdErrMsg}</p>}
@@ -219,11 +215,7 @@ const SettingUserThumbnail = ({
         },
       })
         .then((response) => {
-          console.log(response.data);
           setThumbNailImage(response.data);
-          console.log(thumbNailImage);
-          // console.log(formData);
-          // console.log(imageSrc);
         })
         .catch((error) => {
           console.error(error);

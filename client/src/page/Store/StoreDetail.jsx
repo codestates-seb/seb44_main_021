@@ -22,7 +22,6 @@ const StoreDetail = () => {
     })
       .then((response) => {
         setData(response.data);
-        console.log(response.data);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -31,7 +30,6 @@ const StoreDetail = () => {
     axios
       .get(`/members/${data.memberId}`)
       .then((res) => {
-        console.log(res);
         setprofile(res.data.data.thumbNailImage);
       })
       .catch((err) => {
@@ -59,9 +57,7 @@ const StoreDetail = () => {
           ],
         },
       })
-        .then((response) => {
-          console.log(response);
-        })
+        .then((response) => {})
         .catch((err) => console.log(err));
     }
   };
@@ -87,7 +83,6 @@ const StoreDetail = () => {
       method: "delete",
     })
       .then((response) => {
-        console.log(response);
         navigate("/store");
       })
       .catch((err) => console.log(err));

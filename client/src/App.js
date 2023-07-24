@@ -20,7 +20,6 @@ function App() {
     <div>
       <UserDataProvider>
         <Routes>
-          {/* <Route element={< />} path="/" /> */}
           <Route element={<MainPage />} path="/" />
           <Route element={<StorePage />} path="/store" />
           <Route element={<StoreDetail />} path="/storedetail/:id" />
@@ -34,7 +33,7 @@ function App() {
           <Route element={<MyPage />} path="/mypage" />
           <Route element={<FundingEditPage />} path="/fundingedit/*" />
           <Route element={<StoreCreatePage />} path="/storecreate" />
-          <Route element={<StoreEditPage/>} path="/storeedit/*" />
+          <Route element={<StoreEditPage />} path="/storeedit/*" />
         </Routes>
       </UserDataProvider>
     </div>

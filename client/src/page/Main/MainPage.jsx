@@ -24,7 +24,6 @@ const MainPage = () => {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const accessToken = urlParams.get("access_token");
-    console.log(accessToken);
     if (accessToken) {
       localStorage.setItem("token", accessToken);
     }
@@ -37,7 +36,6 @@ const MainPage = () => {
     })
       .then((response) => {
         setData(response.data.data);
-        console.log(response.data.data);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -418,7 +416,6 @@ const DropdownBox = () => {
         },
       })
       .then((res) => {
-        console.log("Success", res); // 로그아웃 성공!
         localStorage.removeItem("token");
         window.location.reload();
       })

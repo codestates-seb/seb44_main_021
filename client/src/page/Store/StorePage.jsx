@@ -43,7 +43,7 @@ const StorePage = () => {
   const [stoerList, setStoreList] = useState([]);
   const [page, setPage] = useState(1);
   const [isLoding, setIsLoding] = useState(false);
-  const [role,setrole] = useState("");
+  const [role, setrole] = useState("");
 
   const urlParams = new URL(window.location.href).searchParams;
   const serch = urlParams.get("serch");
@@ -64,7 +64,6 @@ const StorePage = () => {
       })
         .then((response) => {
           setStoreList(response.data.data);
-          console.log(response.data.data);
           setIsLoding(true);
         })
         .catch((err) => console.log(err));
@@ -75,7 +74,6 @@ const StorePage = () => {
       })
         .then((response) => {
           setStoreList(response.data.data);
-          console.log(response.data.data);
           setIsLoding(true);
         })
         .catch((err) => console.log(err));
@@ -86,14 +84,12 @@ const StorePage = () => {
     axios
       .get(`/members/${userData.memberId}`)
       .then((res) => {
-        console.log(res);
-        console.log(res.data.data.memberRole)
-        setrole(res.data.data.memberRole)
+        setrole(res.data.data.memberRole);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [userData.memberId,userData.memberRole]);
+  }, [userData.memberId, userData.memberRole]);
 
   useEffect(() => {
     setIsLoding(false);

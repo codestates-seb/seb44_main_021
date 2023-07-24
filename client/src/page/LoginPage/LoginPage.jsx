@@ -31,7 +31,6 @@ const LoginPage = () => {
     axios
       .post("/auth/login", loginInfo)
       .then((res) => {
-        console.log(res);
         if (res.status === 200) {
           // 엑세스 토큰 저장
           const authHeader = res.headers.authorization;

@@ -29,7 +29,6 @@ const FundingDetail = () => {
     })
       .then((response) => {
         setData(response.data.data);
-        console.log(response.data.data);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -38,7 +37,6 @@ const FundingDetail = () => {
     axios
       .get(`/members/${data.memberId}`)
       .then((res) => {
-        console.log(res);
         setprofile(res.data.data.thumbNailImage);
       })
       .catch((err) => {
@@ -72,7 +70,7 @@ const FundingDetail = () => {
   };
 
   const clickFunding = () => {
-    if (quantity) {
+    if (quantity !== 0) {
       axios({
         url: `/funding`,
         method: "post",
@@ -82,18 +80,14 @@ const FundingDetail = () => {
           quantity: quantity,
         },
       })
-        .then((response) => {
-          console.log(response);
-        })
+        .then((response) => {})
         .catch((err) => console.log(err));
       setFunding(true);
+      const nowtotalReceivedQuantity =
+        parseInt(data.totalReceivedQuantity) + parseInt(quantity);
       setFundingRate(
-        (
-          ((data.totalReceivedQuantity + quantity) / data.totalQuantity) *
-          100
-        ).toFixed(1)
+        ((nowtotalReceivedQuantity / data.totalQuantity) * 100).toFixed(1)
       );
-      console.log(funding);
     }
   };
 
@@ -113,11 +107,10 @@ const FundingDetail = () => {
       method: "delete",
     })
       .then((response) => {
-        console.log(response);
         navigate("/funding");
+        alert("삭제되었습니다.");
       })
       .catch((err) => console.log(err));
-    alert("삭제되었습니다.");
   };
 
   return (
@@ -341,6 +334,7 @@ const FundingDetail = () => {
                       label="quantity"
                       onChange={handleChange}
                     >
+                      <option value={0}>수량을 선택해주세요.</option>
                       <option value={1}>1개</option>
                       <option value={2}>2개</option>
                       <option value={3}>3개</option>

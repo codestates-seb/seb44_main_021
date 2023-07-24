@@ -12,7 +12,6 @@ const MyPage = () => {
     axios
       .get(`/members/${userData.memberId}`)
       .then((res) => {
-        console.log(res);
         const user = res.data.data;
         setUserData((prevUserData) => ({
           ...prevUserData,
@@ -65,7 +64,6 @@ const MyPage = () => {
   };
 
   useEffect(() => {
-    console.log(userData.memberId);
     axios
       .get(`/funding/member/${userData.memberId}?page=1&size=999`)
       .then((res) => {
@@ -86,7 +84,6 @@ const MyPage = () => {
     axios
       .get(`/orders/member/${userData.memberId}?page=1&size=999`)
       .then((res) => {
-        console.log(res);
         setHistoryData((prevData) => {
           const updatedData = [...prevData];
           updatedData[1].history = res.data.data.map((item) => ({
@@ -122,7 +119,6 @@ const MyPage = () => {
     axios
       .get(`/sells/member/${userData.memberId}?page=1&size=999`)
       .then((res) => {
-        console.log(res);
         setHistoryData((prevData) => {
           const updatedData = [...prevData];
           updatedData[3].history = res.data.data.map((item) => ({
