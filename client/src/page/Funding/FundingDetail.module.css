@@ -148,7 +148,7 @@
 
 .modalContent {
   background-color: #fff;
-  padding: 20px;
+  padding: 20px 30px 20px 30px;
   border-radius: 10px;
   max-width: 400px;
   width: 100%;
@@ -164,31 +164,115 @@
   float: right;
 }
 
+.modaltitle{
+  font-size: 18px;
+  margin-top: 35px;
+  color: #6e934d;
+}
+
+.modaltitle1{
+  font-size: 18px;
+  margin-top: 30px;
+  color: #6e934d;
+}
+
+.modaltext1 {
+  margin-top: 25px;
+  width: 90%;
+  font-weight: bold;
+}
+
 .modaltext {
   margin-top: 10px;
-  margin-bottom: 5px;
+  width: 90%;
+}
+
+#modalselect{
+  width: 90%;
+  height: 30px;
+  margin-top: 10px;
+  &:focus{
+    outline: none;
+  }
+}
+.modalBody{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modalbox{
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .red {
   font-size: 12px;
   color: red;
+  margin-top: 2px;
+  margin-left: 20px;
+}
+
+.red1 {
+  font-size: 12px;
+  color: red;
+  margin-top: 2px;
+}
+
+#ratebox{
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
 }
 
 .rate {
+  font-size: 33px;
+  margin-left: 10px;
+  color: #6e934d;
+}
+
+.xrate {
   font-size: 24px;
 }
 
 #fundingButton {
-  background-color: #b5e0a0;
+  background-color: #6e934d;
   border: none;
   border-radius: 10px;
-  padding: 15px;
-  text-align: left;
   cursor: pointer;
-  color: rgb(82, 82, 82);
-  margin-top: 20px;
+  color: #fff;
+  margin-top: 40px;
   width: 100%;
+  height: 40px;
+  font-size: 15px;
   text-align: center;
+  &:hover{
+    background: #6e934d91;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+}
+
+#fundingButton1 {
+  background-color: #6e934d;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #fff;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  width: 200px;
+  height: 40px;
+  font-size: 15px;
+  text-align: center;
+  &:hover{
+    background: #6e934d91;
+    border-radius: 10px;
+    cursor: pointer;
+  }
 }
 
 .link {
@@ -234,7 +318,7 @@
   border:0.5px solid rgb(243, 244, 246);
 }
 
-#materiartext{
+.materiartext{
   margin-top: 5px;
   margin-left: 20px;
   font-size: 12px;
@@ -255,6 +339,7 @@
 #userprofile{
   width: 30px;
   height: 30px;
+  border-radius: 50%;
 }
 
 #userinf{
@@ -286,5 +371,4 @@
 
 #viewtext{
   font-size: 13px;
-  margin-right: 15px;
 }

@@ -22,6 +22,15 @@ const MainPage = () => {
   const [isUnmount, setIsUnmount] = useState(false);
 
   useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const accessToken = urlParams.get("access_token");
+    console.log(accessToken);
+    if (accessToken) {
+      localStorage.setItem("token", accessToken);
+    }
+  }, []);
+
+  useEffect(() => {
     axios({
       url: "/upcyclings/descending?page=1&size=4",
       method: "get",
@@ -116,7 +125,6 @@ const MainPage = () => {
                       color: "#353535",
                       fontWeight: "bold",
                       marginTop: "170px",
-                      fontStyle: "italic",
                     }}
                   >
                     IEUN CO.
@@ -202,7 +210,7 @@ const MainPage = () => {
                 >
                   <div className={style.contentsbox}>
                     <img
-                      src={process.env.PUBLIC_URL + "/image/test10.jpg"}
+                      src={process.env.PUBLIC_URL + "/image/test13.png"}
                       alt="test"
                       className={style.contentsImg}
                     />
@@ -224,7 +232,7 @@ const MainPage = () => {
                 >
                   <div className={style.contentsbox}>
                     <img
-                      src={process.env.PUBLIC_URL + "/image/test13.png"}
+                      src={process.env.PUBLIC_URL + "/image/test14.png"}
                       alt="test"
                       className={style.contentsImg}
                     />
@@ -246,7 +254,7 @@ const MainPage = () => {
                 >
                   <div className={style.contentsbox}>
                     <img
-                      src={process.env.PUBLIC_URL + "/image/test11.jpg"}
+                      src={process.env.PUBLIC_URL + "/image/test15.jpg"}
                       alt="test"
                       className={style.contentsImg}
                     />
@@ -269,7 +277,7 @@ const MainPage = () => {
                 >
                   <div className={style.contentsbox}>
                     <img
-                      src={process.env.PUBLIC_URL + "/image/news4.jpg"}
+                      src={process.env.PUBLIC_URL + "/image/test16.jpg"}
                       alt="test"
                       className={style.contentsImg}
                     />
@@ -403,8 +411,20 @@ const ProfileDropdown = () => {
 
 const DropdownBox = () => {
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    window.location.reload();
+    axios
+      .delete("/auth/signout", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // 저장한 토큰 값을 사용하여 헤더 설정
+        },
+      })
+      .then((res) => {
+        console.log("Success", res); // 로그아웃 성공!
+        localStorage.removeItem("token");
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.log("Error occurred during logout:", err); // 에러 핸들링
+      });
   };
 
   return (

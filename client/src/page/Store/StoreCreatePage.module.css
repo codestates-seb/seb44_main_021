@@ -1,110 +1,136 @@
+#AllContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#AllWrapper{
+    display: flex;
+    width: 70%;
+    flex-direction: column;
+    margin-top: 70px;
+    margin-bottom: 100px;
+}
+
+#UpWrapper{
+    display: flex;
+    flex-direction: row;
+}
+
+#downWrapper{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid #dde2e6;
+    margin-top: 70px;
+}
+
+#leftWrapper{
+    width: 70%;
+}
+
+#rightWrapper{
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items:flex-end;
+}
+
 #TitleName{
     color: #6E934D;
-    text-align: center;
-    margin-top: 10px;
     font-size: 30px;
     font-weight: bold;
 }
 
 #SubTitle{
     color: #6E934D;
-    text-align: center;
-    margin-top: 3px;
+    margin-top: 10px;
     font-size: 15px;
 }
 
-#upWrapper{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    margin-top: 30px;
-}
-
-#downWrapper{
-    margin-top: 50px;
-    display: flex;
-    justify-content: center;
-}
-
-#leftWrapper{
-    width: 35%;
-    margin-right: 10px;
-}
-
-#rightWrapper{
-    width: 35%;
-    margin-left: 10px;
-}
-
 #ContentimgWrapper{
-    width: 72%;
+    width: 80%;
     height: fit-content;
-    border-top: 2px solid #6E934D;
     padding-top: 50px;
-}
-
-#imgContainer{
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    border: 3px solid #6E934D;
 }
 
 #imgWrapper{
-    width: 450px;
-    height: 370px;
-    border: 2px dotted #6E934D;
-    margin: 20px 0px 0px 0px;
+    width: 100%;
+    height: 500px;
+    border: 1px solid #dde2e6;
+    margin-top: 10px;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
 
-#imgInput{
-    margin: 5px 0px 10px 0px;
+.imgInput{
+    margin-top: 15px;
 }
 
-#CimgInput{
-    margin-left: 15px;
-    width: 200px;
-}
-
-#CimgInput::file-selector-button {
+.imgInput::file-selector-button {
     width: 100px;
     height: 30px;
-    background: #6E934D;
-    border: 1px solid #6E934D;
-    color: #fff;
+    background: #dde2e6;
+    border: none;
     border-radius: 10px;
     cursor: pointer;
 }
 
-#FundingImg{
+.imgInput::file-selector-button:hover{
+    background: #d1d5d9;
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+}
+
+.FundingImg{
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.CommonMent{
+.Titlebox{
+    display: flex;
+    flex-direction: row;
+    margin-top: 60px;
+}
+
+.star{
+    font-size: 18px;
+    color: red;
+    margin-left: 3px;
+}
+
+#subMent{
     font-size: 15px;
-    margin-top: 10px;
+    margin-top: 10px ;
+}
+
+.CommonMent{
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .CautionMent{
     color: red;
     font-size: 13px;
-}
-
-#basicfont{
-    font-size: 15px;
+    margin-top: 5px;
 }
 
 .radioGroup {
     display: flex;
-    border: 3px solid #6E934D;
-    justify-content: center;
-    padding-top: 3px;
-    padding-bottom: 3px;
-    margin-top: 2px;
+    border: 1px solid #dde2e6;
+    justify-content: left;
+    align-items: center;
+    margin-top: 13px;
+    border-radius: 3px;
+    height: 30px;
 }
 
 .radioinput{
@@ -112,27 +138,19 @@
     margin-right: 5px;
 }
 
-#radioinput2{
-    margin-left: 10px;
-    margin-right: 5px;
-}
-
-
-.AmountBox{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-}
 
 #AmountInput{
-    border: 3px solid #6E934D;
-    width: 150ㄴpx;
-    padding-left: 5px;    
+    width: 100%;
+    height: 42px;
+    border: 1px solid #dde2e6;
+    box-sizing: border-box;
+    border-radius: 3px;
+    padding-left: 13px;    
     font-size: 15px;
-    height: 30px;
+    margin-top: 13px;
     &:focus{
         outline: none;
+        border: 1px solid #6E934D;
     }
 }
 
@@ -141,110 +159,185 @@
     margin: 0;
 }
 
-#imgInput::file-selector-button {
-    width: 100px;
-    height: 30px;
-    background: #6E934D;
-    border: 1px solid #6E934D;
-    color: #fff;
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-#materialInput{
-    width: 100%;
-    height: 70px;
-    font-size: 15px;
-    padding-left: 5px;
-    padding-top: 3px;
-    box-sizing: border-box;
-    box-shadow: 0 0 0 3px #6E934D inset;
-    border: none;
-    margin-top: 5px;
-    resize: none;
-    font-family: Arial, Helvetica, sans-serif ;
-    &:focus{
-        outline: none;
-    }
-}
-
 #NameInput{
     width: 100%;
-    height: 45px;
-    font-size: 17px;
-    padding-left: 5px;
-    padding-top: 3px;
+    height: 42px;
+    font-size: 16px;
+    border: 1px solid #dde2e6;
     box-sizing: border-box;
-    box-shadow: 0 0 0 3px #6E934D inset;
-    border: none;
-    margin-top: 5px;
+    border-radius: 3px;
+    background-color: #fff;
+    padding-top: 11px;
+    padding-right: 16px;
+    padding-left: 16px;
+    margin-top: 13px;
     resize: none;
     font-family: Arial, Helvetica, sans-serif ;
     &:focus{
+        border: 1px solid #6E934D;
         outline: none;
     }
 }
 
 #IntroduceBox{
     width: 100%;
-    height: 260px;
+    height: 210px;
     font-size: 15px;
-    padding-left: 5px;
-    padding-top: 3px;
-    box-shadow: 0 0 0 3px #6E934D inset;
+    border: 1px solid #dde2e6;
     box-sizing: border-box;
-    border: none;
-    margin-top: 5px;
+    border-radius: 3px;
+    background-color: #fff;
+    padding-top: 11px;
+    padding-right: 16px;
+    padding-left: 16px;
+    margin-top: 13px;
     font-family: Arial, Helvetica, sans-serif ;
     resize: none;
     &:focus{
+        border: 1px solid #6E934D;
+        outline: none;
+    }
+}
+
+#materialInput{
+    width: 100%;
+    height: 77px;
+    font-size: 16px;
+    border: 1px solid #dde2e6;
+    box-sizing: border-box;
+    border-radius: 3px;
+    background-color: #fff;
+    padding-top: 11px;
+    padding-right: 16px;
+    padding-left: 16px;
+    margin-top: 13px;
+    resize: none;
+    font-family: Arial, Helvetica, sans-serif ;
+    &:focus{
+        border: 1px solid #6E934D;
         outline: none;
     }
 }
 
 #DateInput{
-    width: 200px;
+    width: 100%;
+    height: 42px;
     font-size: 15px;
-    border: 3px solid #6E934D;
+    border: 1px solid #dde2e6;
+    box-sizing: border-box;
+    border-radius: 3px;
+    margin-top: 13px;
     padding: 5px;
     &:focus{
+        border: 1px solid #6E934D;
         outline: none;
     }
 }
 
 #CreateButton{
     width: 100%;
-    margin-top: 15px;
+    height: 50px;
+    margin-top: 100px;
     border: 3px solid #6E934D;
     background-color: #6E934D;
     border-radius: 5px;
     color: #fff;
     padding: 5px;
-    font-size: 15px;
+    font-size: 18px;
+    font-weight: 500;
 }
 
 .errMsg{
-    font-size: 15px;
-    background-color: red;
-    color: #fff;   
-    margin-top: 2px;
+    width: fit-content;
+    font-size: 13px;
+    color: red;   
+    margin-top: 5px;
 }
 
-#imgeButton{
-    width: 100px;
+#tipbox1{
+    width: 75%;
+    height: fit-content;
+    background-color: #ebedef;
+    border-radius: 3px;
+    padding: 10px;
+    white-space:pre-line;
+    word-break:normal;
+    margin-top: 130px;
 }
 
-#categorybox{
-    margin-bottom: 10px;
+#tipbox2{
+    width: 75%;
+    height: fit-content;
+    background-color: #ebedef;
+    border-radius: 3px;
+    padding: 10px;
+    white-space:pre-line;
+    word-break:normal;
+    margin-top: 110px;
 }
 
-#categoryInput{
+#tipbox3{
+    width: 75%;
+    height: fit-content;
+    background-color: #ebedef;
+    border-radius: 3px;
+    padding: 10px;
+    white-space:pre-line;
+    word-break:normal;
+    margin-top: 475px;
+}
+
+#tipbox4{
+    width: 75%;
+    height: fit-content;
+    background-color: #ebedef;
+    border-radius: 3px;
+    padding: 10px;
+    white-space:pre-line;
+    word-break:normal;
+    margin-top: 230px;
+}
+
+#tipbox5{
+    width: 75%;
+    height: fit-content;
+    background-color: #ebedef;
+    border-radius: 3px;
+    padding: 10px;
+    white-space:pre-line;
+    word-break:normal;
+    margin-top: 200px;
+}
+
+#tipbox6{
+    width: 75%;
+    height: fit-content;
+    background-color: #ebedef;
+    border-radius: 3px;
+    padding: 10px;
+    white-space:pre-line;
+    word-break:normal;
+    margin-top: 70px;
+}
+
+.tiptitle{
+    font-size: 12px;
     margin-top: 3px;
-    font-size: 15px;
+    font-weight: bold;
+}
+
+.tipcontent{
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+#footer{
     width: 100%;
-    height: 25px;
-    border: 3px solid #6E934D;
-    &:focus{
-        outline: none;
-    }
+    height: 50px;
+    margin-top: 20px;
+    background-color: #6e934d;
+    text-align: center;
+    padding-top: 25px;
+    color: #fff;
+    font-size: 20px;
 }

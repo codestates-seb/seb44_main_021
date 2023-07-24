@@ -16,14 +16,16 @@ const MyPage = () => {
         const user = res.data.data;
         setUserData((prevUserData) => ({
           ...prevUserData,
+          displayName: user.displayName,
           memberRole: user.memberRole,
           thumbNailImage: user.thumbNailImage,
+          normalOrOauth: user.normalOrOauth,
         }));
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [userData.memberId]);
+  }, [userData.memberId, userData.displayName]);
 
   const [historyData, setHistoryData] = useState([
     {
@@ -172,9 +174,13 @@ const Profile = ({ onClick, userData }) => {
         />
         <p className={Style.userName}>{userData.displayName} 님</p>
         <p className={Style.userEmail}>{userData.email}</p>
-        <button className={Style.editButton} onClick={onClick}>
-          Edit Profile
-        </button>
+        {userData.normalOrOauth === "normal" ? (
+          <button className={Style.editButton} onClick={onClick}>
+            Edit Profile
+          </button>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

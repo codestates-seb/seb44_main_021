@@ -1,53 +1,69 @@
+#AllContainer{
+    display: flex;
+    justify-content: center;
+}
+
+#AllWrapper{
+    display: flex;
+    width: 70%;
+    flex-direction: row;
+    margin-top: 70px;
+    margin-bottom: 100px;
+}
+
+#leftWrapper{
+    width: 70%;
+}
+
+#rightWrapper{
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items:flex-end;
+}
+
 #TitleName{
     color: #6E934D;
-    text-align: center;
-    margin-top: 10px;
     font-size: 30px;
     font-weight: bold;
 }
 
 #SubTitle{
     color: #6E934D;
-    text-align: center;
-    margin-top: 3px;
+    margin-top: 10px;
     font-size: 15px;
 }
 
-#AllWrapper{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    margin-top: 30px;
-}
-
-#leftWrapper{
-    width: 35%;
-    margin-right: 10px;
-}
-
-#rightWrapper{
-    width: 35%;
-    margin-left: 10px;
-}
-
-#imgContainer{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border: 3px solid #6E934D;
-}
-
 #imgWrapper{
-    width: 450px;
-    height: 350px;
-    border: 2px dotted #6E934D;
-    margin: 20px 0px 0px 0px;
+    width: 100%;
+    height: 500px;
+    border: 1px solid #dde2e6;
+    margin-top: 10px;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
 
 #imgInput{
-    margin: 5px 0px 10px 0px;
+    margin-top: 15px;
+}
+
+#imgInput::file-selector-button {
+    width: 100px;
+    height: 30px;
+    background: #dde2e6;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#imgInput::file-selector-button:hover{
+    background: #d1d5d9;
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
 }
 
 #FundingImg{
@@ -56,36 +72,47 @@
     object-fit: cover;
 }
 
-#ThumImgCommonMent{
-    margin-top: 10px;
-    font-size: 15px;
+.Titlebox{
+    display: flex;
+    flex-direction: row;
+    margin-top: 60px;
+}
+
+.star{
+    font-size: 18px;
+    color: red;
+    margin-left: 3px;
 }
 
 .CommonMent{
-    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .CautionMent{
     color: red;
     font-size: 13px;
+    margin-top: 5px;
 }
 
 .radioGroup {
     display: flex;
-    border: 3px solid #6E934D;
-    justify-content: center;
+    border: 1px solid #dde2e6;
+    justify-content: left;
+    margin-top: 13px;
+    border-radius: 3px;
   }
   .radio {
     display: block;
     appearance: none;
-    width: 55px;
-    height: 55px;
-    padding: 0;
+    width: 45px;
+    height: 45px;
     margin: 5px 15px;
     border: 2px solid transparent;
     box-sizing: border-box;
     background-repeat: no-repeat;
     background-position: center center;
+    border-radius: 50%;
     &:focus {
       outline: none;
     }
@@ -93,23 +120,20 @@
       border-color: #6E934D;
       border-radius: 50%;
     }
-  }
-
-.AmountBox{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
 }
 
 #AmountInput{
-    border: 3px solid #6E934D;
-    width: 235px;
-    padding-left: 5px;    
+    width: 100%;
+    height: 42px;
+    border: 1px solid #dde2e6;
+    box-sizing: border-box;
+    border-radius: 3px;
+    padding-left: 13px;    
     font-size: 15px;
-    height: 30px;
+    margin-top: 13px;
     &:focus{
         outline: none;
+        border: 1px solid #6E934D;
     }
 }
 
@@ -118,80 +142,154 @@
     margin: 0;
 }
 
-#imgInput::file-selector-button {
-    width: 100px;
-    height: 30px;
-    background: #6E934D;
-    border: 1px solid #6E934D;
-    color: #fff;
-    border-radius: 10px;
-    cursor: pointer;
-}
-
 #NameInput{
     width: 100%;
     height: 42px;
-    font-size: 17px;
-    padding-left: 1.5px;
-    padding-top: 3px;
-    box-shadow: 0 0 0 3px #6E934D inset;
-    border: none;
-    margin-top: 5px;
+    font-size: 16px;
+    border: 1px solid #dde2e6;
+    box-sizing: border-box;
+    border-radius: 3px;
+    background-color: #fff;
+    padding-top: 11px;
+    padding-right: 16px;
+    padding-left: 16px;
+    margin-top: 13px;
     resize: none;
     font-family: Arial, Helvetica, sans-serif ;
     &:focus{
+        border: 1px solid #6E934D;
         outline: none;
     }
 }
 
 #IntroduceBox{
     width: 100%;
-    height: 260px;
+    height: 210px;
     font-size: 15px;
-    padding-left: 1.5px;
-    padding-top: 3px;
-    box-shadow: 0 0 0 3px #6E934D inset;
-    border: none;
-    margin-top: 5px;
+    border: 1px solid #dde2e6;
+    box-sizing: border-box;
+    border-radius: 3px;
+    background-color: #fff;
+    padding-top: 11px;
+    padding-right: 16px;
+    padding-left: 16px;
+    margin-top: 13px;
     font-family: Arial, Helvetica, sans-serif ;
     resize: none;
     &:focus{
+        border: 1px solid #6E934D;
         outline: none;
     }
 }
 
 #DateInput{
-    width: 200px;
+    width: 100%;
+    height: 42px;
     font-size: 15px;
-    border: 3px solid #6E934D;
+    border: 1px solid #dde2e6;
+    box-sizing: border-box;
+    border-radius: 3px;
+    margin-top: 13px;
     padding: 5px;
     &:focus{
+        border: 1px solid #6E934D;
         outline: none;
     }
 }
 
 #CreateButton{
     width: 100%;
-    margin-top: 15px;
+    height: 50px;
+    margin-top: 100px;
     border: 3px solid #6E934D;
     background-color: #6E934D;
     border-radius: 5px;
     color: #fff;
     padding: 5px;
-    font-size: 15px;
+    font-size: 18px;
+    font-weight: 500;
 }
 
 .errMsg{
-    font-size: 15px;
-    background-color: red;
-    color: #fff;   
-    margin-top: 2px;
+    width: fit-content;
+    font-size: 13px;
+    color: red;   
+    margin-top: 5px;
 }
 
-#imgeButton{
-    width: 100px;
+#tipbox1{
+    width: 75%;
+    height: fit-content;
+    background-color: #ebedef;
+    border-radius: 3px;
+    padding: 10px;
+    white-space:pre-line;
+    word-break:normal;
+    margin-top: 130px;
 }
 
-#footer{
-    height: 60px;
+#tipbox2{
+    width: 75%;
+    height: fit-content;
+    background-color: #ebedef;
+    border-radius: 3px;
+    padding: 10px;
+    white-space:pre-line;
+    word-break:normal;
+    margin-top: 110px;
+}
+
+#tipbox3{
+    width: 75%;
+    height: fit-content;
+    background-color: #ebedef;
+    border-radius: 3px;
+    padding: 10px;
+    white-space:pre-line;
+    word-break:normal;
+    margin-top: 475px;
+}
+
+#tipbox4{
+    width: 75%;
+    height: fit-content;
+    background-color: #ebedef;
+    border-radius: 3px;
+    padding: 10px;
+    white-space:pre-line;
+    word-break:normal;
+    margin-top: 200px;
+}
+
+#tipbox5{
+    width: 75%;
+    height: fit-content;
+    background-color: #ebedef;
+    border-radius: 3px;
+    padding: 10px;
+    white-space:pre-line;
+    word-break:normal;
+    margin-top: 60px;
+}
+
+#tipbox6{
+    width: 75%;
+    height: fit-content;
+    background-color: #ebedef;
+    border-radius: 3px;
+    padding: 10px;
+    white-space:pre-line;
+    word-break:normal;
+    margin-top: 70px;
+}
+
+.tiptitle{
+    font-size: 12px;
+    margin-top: 3px;
+    font-weight: bold;
+}
+
+.tipcontent{
+    font-size: 12px;
+    margin-top: 5px;
 }
