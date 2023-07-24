@@ -211,7 +211,7 @@
 }
 
 .contentsText {
-  height: 2.7em;
+  max-height: 8vh;
   overflow: hidden;
   font-size: 20px;
   font-weight: bold;
@@ -219,7 +219,7 @@
 }
 
 .contentsSub {
-  max-height: 3.2em;
+  max-height: 7.5vh;
   overflow: hidden;
   font-size: 14px;
   line-height: 1.8;
