@@ -4,6 +4,9 @@ spring:
     url: jdbc:mysql://ieun1.cfhkssdrrqpz.ap-northeast-2.rds.amazonaws.com:13306/ieun1?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: root
     password: ${MYSQL_PASSWORD}
+  redis:
+    host: localhost # ${redis_host}
+    port: 6379 # ${redis_port}
   jpa:
     hibernate:
     show-sql: false
