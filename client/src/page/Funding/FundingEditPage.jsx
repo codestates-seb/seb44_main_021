@@ -82,50 +82,33 @@ const FundingEditPage = () => {
     return (
         <div id={style.AllContainer}>
             <Header />
-            <div id={style.TitleName}>업사이클링 펀딩 수정</div>
-            <div id={style.SubTitle}>펀딩명과 펀딩 소개글만 수정 가능합니다.</div>
             <div id={style.AllWrapper}>
                 <div id={style.leftWrapper}>
-                    <div className={style.CommonMent}>대표 이미지</div>
                     <div id={style.imgContainer}>
                         <img id={style.FundingImg} src={data.thumbNailImage} alt="펀딩 이미지 미리보기" />
                     </div>
                     <div id={style.MaterierBox}>
-                        <div className={style.CommonMent}>
-                            펀딩자재
-                        </div>
                         <div className={style.radioGroup}>
-                            <input className={style.radio} type="radio" value="1" name="materials" style={{ backgroundImage: 'url(/image/IconCloth.png)', backgroundSize:'cover'}} checked={data.categoryId === 1} readOnly/>
-                            <input className={style.radio} type="radio" value="2" name="materials" style={{ backgroundImage: 'url(/image/IconWood.png)', backgroundSize:'cover'}} checked={data.categoryId === 2} readOnly/>
-                            <input className={style.radio} type="radio" value="3" name="materials" style={{ backgroundImage: 'url(/image/IconPlastic.png)', backgroundSize:'cover'}}  checked={data.categoryId === 3} readOnly/>
-                            <input className={style.radio} type="radio" value="4" name="materials" style={{ backgroundImage: 'url(/image/IconSteel.png)', backgroundSize:'cover'}} checked={data.categoryId === 4} readOnly />
-                            <input className={style.radio} type="radio" value="5" name="materials" style={{ backgroundImage: 'url(/image/IconGlass.png)', backgroundSize:'cover'}} checked={data.categoryId === 5} readOnly/>
-                            <input className={style.radio} type="radio" value="6" name="materials" style={{ backgroundImage: 'url(/image/IconEtc.png)', backgroundSize:'cover'}} checked={data.categoryId === 6} readOnly />
+                            <input className={style.radio} type="radio" value="1" name="materials" style={{ backgroundImage: 'url(/image/IconCloth.png)', backgroundSize:'cover'}} checked={data.categoryId === 1} disabled/>
+                            <input className={style.radio} type="radio" value="2" name="materials" style={{ backgroundImage: 'url(/image/IconWood.png)', backgroundSize:'cover'}} checked={data.categoryId === 2} disabled/>
+                            <input className={style.radio} type="radio" value="3" name="materials" style={{ backgroundImage: 'url(/image/IconPlastic.png)', backgroundSize:'cover'}}  checked={data.categoryId === 3} disabled/>
+                            <input className={style.radio} type="radio" value="4" name="materials" style={{ backgroundImage: 'url(/image/IconSteel.png)', backgroundSize:'cover'}} checked={data.categoryId === 4} disabled />
+                            <input className={style.radio} type="radio" value="5" name="materials" style={{ backgroundImage: 'url(/image/IconGlass.png)', backgroundSize:'cover'}} checked={data.categoryId === 5} disabled/>
+                            <input className={style.radio} type="radio" value="6" name="materials" style={{ backgroundImage: 'url(/image/IconEtc.png)', backgroundSize:'cover'}} checked={data.categoryId === 6} disabled/>
                         </div>
+                        <hr id={style.materiarhr}></hr>
+                        <div className={style.materiartext}>"{data.categoryName}" 자재를 선택하셨습니다.</div>
+                        <div id={style.materiarblank}></div>
                     </div>
                 </div>
                 <div id={style.rightWrapper}>
-                    <div className={style.AmountBox}>
-                        <div>
-                            <div className={style.CommonMent}>펀딩 자재 수량</div>
-                        </div>
-                        <div id={style.AmountInputBox}>
-                            <input type="text" placeholder='숫자만 입력해주세요.' id={style.AmountInput} defaultValue={data.totalQuantity} readOnly/>
-                        </div>
-                    </div>
-                    <div className={style.MCommonMent}>펀딩명</div>
                     <textarea id={style.NameInput} placeholder='40자 이내로 입력해주세요.' defaultValue={data.title} maxLength="40" onChange={handleTitleChange}/>
                     <p className={style.errMsg}>{titleMsg}</p>
-                    <div className={style.MCommonMent}>펀딩 소개글</div>
                     <textarea placeholder='500자 이내로 입력해주세요.' id={style.IntroduceBox} defaultValue={data.content} maxLength="500" onChange={handleContentChange}/>
                     <p className={style.errMsg}>{contentMsg}</p>
                     <div className={style.AmountBox}>
-                        <div>
-                            <div className={style.CommonMent}>펀딩 마감일</div>
-                        </div>
-                        <div>
-                            <input type='date' id={style.DateInput} defaultValue={data.deadline} readOnly/>
-                        </div>
+                        <div className={style.text1}>마감일은 <p className={style.text2}>{data.deadline}</p>로 선택하셨습니다. </div>
+                        <div className={style.text1}>수량은 <p className={style.text2}>{data.totalQuantity}</p>개 선택하셨습니다.</div>
                     </div>
                     <button id={style.CreateButton} onClick={handleSavaEdit}>수정하기</button>
                 </div>

@@ -1,18 +1,3 @@
-#TitleName{
-    color: #6E934D;
-    text-align: center;
-    margin-top: 10px;
-    font-size: 30px;
-    font-weight: bold;
-}
-
-#SubTitle{
-    color: #6E934D;
-    text-align: center;
-    margin-top: 3px;
-    font-size: 15px;
-}
-
 #AllWrapper{
     display: flex;
     flex-direction: row;
@@ -22,12 +7,12 @@
 }
 
 #leftWrapper{
-    width: 35%;
-    margin-right: 15px;
+    width: 45%;
+    margin-right: 10px;
 }
 
 #rightWrapper{
-    width: 35%;
+    width: 25%;
     margin-left: 10px;
 }
 
@@ -36,16 +21,15 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: 3px solid #6E934D;
-    background-color: gainsboro;
+    height: 500px;
     width: 100%;
-    height: 380px;
 }
 
 #FundingImg{
+    object-fit: cover;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    border-radius: 10px;
 }
 
 .CommonMent{
@@ -64,18 +48,36 @@
     font-size: 13px;
 }
 
+#MaterierBox{
+    background-color: rgb(249,	250,	251);
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+#materiarhr{
+    border:0.5px solid rgb(243, 244, 246);
+  }
+  
+  .materiartext{
+    margin-top: 5px;
+    margin-left: 20px;
+    font-size: 12px;
+  }
+  
+  #materiarblank{
+    height: 10px;
+  }
+  
+
 .radioGroup {
     display: flex;
-    border: 3px solid #6E934D;
-    justify-content: center;
-    background-color: gainsboro;
-    width: 100%;
-  }
-  .radio {
+    
+}
+.radio {
     display: block;
     appearance: none;
-    width: 55px;
-    height: 55px;
+    width: 40px;
+    height: 40px;
     padding: 0;
     margin: 5px 15px;
     border: 2px solid transparent;
@@ -83,19 +85,22 @@
     background-repeat: no-repeat;
     background-position: center center;
     &:focus {
-      outline: none;
+        outline: none;
     }
     &:checked {
-      border-color: #6E934D;
-      border-radius: 50%;
+        border-color: #6e934d;
+        background-color: #fff;
+        border-radius: 5px;
     }
-  }
+}
 
 .AmountBox{
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items:end;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-top: 0.8px solid rgb(236, 236, 238);
 }
 
 #AmountInput{
@@ -129,32 +134,40 @@
 
 #NameInput{
     width: 100%;
-    height: 42px;
-    font-size: 17px;
-    padding-left: 1.5px;
-    padding-top: 3px;
-    box-shadow: 0 0 0 3px #6E934D inset;
-    border: none;
-    margin-top: 5px;
+    height: 60px;
+    font-size: 16px;
+    border: 1px solid #dde2e6;
+    box-sizing: border-box;
+    border-radius: 3px;
+    background-color: #fff;
+    padding-top: 11px;
+    padding-right: 16px;
+    padding-left: 16px;
+    margin-top: 13px;
     resize: none;
     font-family: Arial, Helvetica, sans-serif ;
     &:focus{
+        border: 1px solid #6E934D;
         outline: none;
     }
 }
 
 #IntroduceBox{
     width: 100%;
-    height: 260px;
+    height: 380px;
     font-size: 15px;
-    padding-left: 1.5px;
-    padding-top: 3px;
-    box-shadow: 0 0 0 3px #6E934D inset;
-    border: none;
-    margin-top: 5px;
+    border: 1px solid #dde2e6;
+    box-sizing: border-box;
+    border-radius: 3px;
+    background-color: #fff;
+    padding-top: 11px;
+    padding-right: 16px;
+    padding-left: 16px;
+    margin-top: 13px;
     font-family: Arial, Helvetica, sans-serif ;
     resize: none;
     &:focus{
+        border: 1px solid #6E934D;
         outline: none;
     }
 }
@@ -188,3 +201,21 @@
 #imgeButton{
     width: 100px;
 }
+
+.text1{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 18px;
+    margin-right: 5px;
+    margin-top: 10px;
+}
+
+.text2{
+    font-size: 20px;
+    font-weight: 600;
+    color: #6e934d;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+

@@ -19,7 +19,7 @@ const FundingDetail = () => {
   const [quantity, setQuantity] = useState(0);
   const [funding, setFunding] = useState(false);
   const [fundingRate, setFundingRate] = useState();
-  const [profile,setprofile] = useState("");
+  const [profile, setprofile] = useState("");
   const { userData } = useContext(UserDataContext);
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const FundingDetail = () => {
       .get(`/members/${data.memberId}`)
       .then((res) => {
         console.log(res);
-        setprofile(res.data.data.thumbNailImage)
+        setprofile(res.data.data.thumbNailImage);
       })
       .catch((err) => {
         console.log(err);
@@ -100,6 +100,14 @@ const FundingDetail = () => {
   const navigate = useNavigate();
 
   const deleteFunding = () => {
+    const shouldDelete = window.confirm("정말로 삭제하시겠습니까?");
+
+    if (shouldDelete) {
+      handleDelete();
+    }
+  };
+
+  const handleDelete = () => {
     axios({
       url: `/upcyclings/${id}`,
       method: "delete",
@@ -109,6 +117,7 @@ const FundingDetail = () => {
         navigate("/funding");
       })
       .catch((err) => console.log(err));
+    alert("삭제되었습니다.");
   };
 
   return (
@@ -117,7 +126,7 @@ const FundingDetail = () => {
       <div id={style.AllWrapper}>
         <div id={style.leftWrapper}>
           <div id={style.imgContainer}>
-            <img id={style.thumimg} src={data.thumbNailImage} alt="img"/>
+            <img id={style.thumimg} src={data.thumbNailImage} alt="img" />
           </div>
           <div id={style.MaterierBox}>
             <div className={style.radioGroup}>
@@ -132,6 +141,7 @@ const FundingDetail = () => {
                   backgroundImage: "url(/image/IconCloth.png)",
                   backgroundSize: "cover",
                 }}
+                disabled
               />
               <input
                 className={`${style.radio} ${
@@ -144,6 +154,7 @@ const FundingDetail = () => {
                   backgroundImage: "url(/image/IconWood.png)",
                   backgroundSize: "cover",
                 }}
+                disabled
               />
               <input
                 className={`${style.radio} ${
@@ -156,6 +167,7 @@ const FundingDetail = () => {
                   backgroundImage: "url(/image/IconPlastic.png)",
                   backgroundSize: "cover",
                 }}
+                disabled
               />
               <input
                 className={`${style.radio} ${
@@ -168,6 +180,7 @@ const FundingDetail = () => {
                   backgroundImage: "url(/image/IconSteel.png)",
                   backgroundSize: "cover",
                 }}
+                disabled
               />
               <input
                 className={`${style.radio} ${
@@ -180,6 +193,7 @@ const FundingDetail = () => {
                   backgroundImage: "url(/image/IconGlass.png)",
                   backgroundSize: "cover",
                 }}
+                disabled
               />
               <input
                 className={`${style.radio} ${
@@ -192,11 +206,17 @@ const FundingDetail = () => {
                   backgroundImage: "url(/image/IconEtc.png)",
                   backgroundSize: "cover",
                 }}
+                disabled
               />
             </div>
             <hr id={style.materiarhr}></hr>
-            <div className={style.materiartext}>"{data.categoryName}" 자재가 있다면 펀딩해주세요!</div>
-            <div className={style.materiartext}>이은 펀딩은 단순히 제품을 펀딩하는 것이 아닌 업사이클링 제품을 위한 펀딩 과정을 지원해요.</div>
+            <div className={style.materiartext}>
+              "{data.categoryName}" 자재가 있다면 펀딩해주세요!
+            </div>
+            <div className={style.materiartext}>
+              이은 펀딩은 단순히 제품을 펀딩하는 것이 아닌 업사이클링 제품을
+              위한 펀딩 과정을 지원해요.
+            </div>
             <div id={style.materiarblank}></div>
           </div>
         </div>
@@ -204,10 +224,18 @@ const FundingDetail = () => {
           <div id={style.userbox}>
             <div id={style.userinf}>
               {profile !== null ? (
-                <img id={style.userprofile} src={profile} alt="펀딩 이미지 미리보기" />
+                <img
+                  id={style.userprofile}
+                  src={profile}
+                  alt="펀딩 이미지 미리보기"
+                />
               ) : (
-                <img id={style.userprofile} src={`${process.env.PUBLIC_URL}/image/profile.jpeg`} alt="기본 프로필"/>
-              )}              
+                <img
+                  id={style.userprofile}
+                  src={`${process.env.PUBLIC_URL}/image/profile.jpeg`}
+                  alt="기본 프로필"
+                />
+              )}
               <div id={style.upcycler}>{data.displayName}</div>
             </div>
             <div id={style.useroption}>
@@ -216,7 +244,10 @@ const FundingDetail = () => {
                   <button className={style.button} onClick={deleteFunding}>
                     삭제
                   </button>
-                  <Link to={`/fundingedit/${data.upcyclingId}`} className={style.link}>
+                  <Link
+                    to={`/fundingedit/${data.upcyclingId}`}
+                    className={style.link}
+                  >
                     <button className={style.button}>수정</button>
                   </Link>
                 </div>
@@ -232,12 +263,14 @@ const FundingDetail = () => {
           </div>
           <div id={style.IntroduceBox}>{data.content}</div>
           <div className={style.AmountBox}>
-              <div className={style.text2}>{data.deadline} </div>
-              <div>부로 펀딩이 마감됩니다. </div>
+            <div className={style.text2}>{data.deadline} </div>
+            <div>부로 펀딩이 마감됩니다. </div>
           </div>
           <div id={style.fundingpercent}>
-              <div className={style.text2}>{data.totalReceivedQuantity <= 0 ? "00%" : `${fundingRate}%`}</div>
-              <div>달성했습니다.</div>
+            <div className={style.text2}>
+              {data.totalReceivedQuantity <= 0 ? "00%" : `${fundingRate}%`}
+            </div>
+            <div>달성했습니다.</div>
           </div>
           {localStorage.getItem("token") ? (
             <button id={style.CreateButton} onClick={handleOpenModal}>
@@ -262,7 +295,10 @@ const FundingDetail = () => {
             <div className={style.modalBody}>
               {funding ? (
                 <div className={style.modalbox}>
-                  <div className={style.modaltitle}>{data.displayName}님의 펀딩으로 <br/>펀딩율이 아래와 같이 상승했습니다.</div>
+                  <div className={style.modaltitle}>
+                    {data.displayName}님의 펀딩으로 <br />
+                    펀딩율이 아래와 같이 상승했습니다.
+                  </div>
                   <div id={style.ratebox}>
                     <div className={style.xrate}>
                       {(
@@ -272,14 +308,16 @@ const FundingDetail = () => {
                       % -{">"}
                     </div>
                     <div className={style.rate}>{fundingRate}%</div>
-                  </div>  
+                  </div>
                   <div className={style.modaltext}>
-                  주소 : 서울특별시 강남구 58 - 2
+                    주소 : 서울특별시 강남구 58 - 2
                   </div>
                   <div className={style.red1}>
                     택배는 위의 주소로 착불로 보내주시면 됩니다!
                   </div>
-                  <div className={style.modaltitle1}>펀딩해주셔서 감사합니다!</div>
+                  <div className={style.modaltitle1}>
+                    펀딩해주셔서 감사합니다!
+                  </div>
                   <Link to="/funding">
                     <button id={style.fundingButton1}>
                       다른 펀딩 더 보러가기
@@ -289,7 +327,9 @@ const FundingDetail = () => {
               ) : (
                 <>
                   <div className={style.modalbox}>
-                    <div className={style.modaltitle}>{data.displayName}님, 펀딩 하시겠습니까?</div>
+                    <div className={style.modaltitle}>
+                      {data.displayName}님, 펀딩 하시겠습니까?
+                    </div>
                     <div className={style.modaltext1}>펀딩명</div>
                     <div className={style.modaltext}>{data.title}</div>
                     <div className={style.modaltext1}>펀딩 자재</div>
@@ -299,7 +339,8 @@ const FundingDetail = () => {
                       id={style.modalselect}
                       value={quantity}
                       label="quantity"
-                      onChange={handleChange}>
+                      onChange={handleChange}
+                    >
                       <option value={1}>1개</option>
                       <option value={2}>2개</option>
                       <option value={3}>3개</option>
@@ -308,7 +349,7 @@ const FundingDetail = () => {
                     </select>
                   </div>
                   <div className={style.red}>
-                      * 반드시 수량을 선택해 주세요!
+                    * 반드시 수량을 선택해 주세요!
                   </div>
                   <button id={style.fundingButton} onClick={clickFunding}>
                     펀딩하기
