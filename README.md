@@ -36,7 +36,7 @@
 ## 👨‍👨‍👧‍👧 Team List
 |![신성철](https://github.com/codestates-seb/seb44_main_021/assets/99308074/c1cbacdb-08f0-47fd-a9f3-99921cd200eb)|![곽시현](https://github.com/codestates-seb/seb44_main_021/assets/99308074/5362dd7e-e9f3-40f5-a889-44e6c2abf554)|![나예진](https://github.com/codestates-seb/seb44_main_021/assets/99308074/6853dbdd-004e-4859-9bfa-6a23723eaf76)|![강병주](https://github.com/codestates-seb/seb44_main_021/assets/99308074/33eed813-1578-470f-9935-910da2f87733)|![박재성](https://github.com/codestates-seb/seb44_main_021/assets/99308074/3c843bf3-0e6d-40c5-8ee1-96c56c4f6344)|![윤승현](https://github.com/codestates-seb/seb44_main_021/assets/99308074/fc1eec62-97a1-4188-a194-c7fe35354685)|
 |:---:|:---:|:---:|:---:|:---:|:---:|
-|[신성철]()|[곽시현]()|[나예진]()|[강병주](https://github.com/okgo25)|[박재성](https://github.com/Parkjaeseong94)|[윤승현](https://github.com/yunkr)|
+|[신성철](https://github.com/weed7968)|[곽시현](https://github.com/shun-is-me)|[나예진](https://github.com/yejinzz)|[강병주](https://github.com/okgo25)|[박재성](https://github.com/Parkjaeseong94)|[윤승현](https://github.com/yunkr)|
 |FE 팀장|FE|FE|BE 부팀장|BE|BE|
 
 <br>
