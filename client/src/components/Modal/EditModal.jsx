@@ -147,7 +147,7 @@ const EditModal = ({ onClose, userData, setUserData, isUnmount }) => {
             {nameErrMsg && <p className={Style.errMsg}>{nameErrMsg}</p>}
             <label>이메일</label>
             <p>{userData.email}</p>
-            <label>새 비밀번호</label>
+            <label>새 비밀번호 (선택)</label>
             <input
               type="password"
               onChange={EditInputValue("password")}

@@ -168,11 +168,13 @@ const MainPage = () => {
             <div className="horwrap" ref={horwrapRef}>
               <div className={style.horwrap}>
                 <div className={style.hor}>
-                  <img
-                    src={process.env.PUBLIC_URL + "/image/test4.jpg"}
-                    alt="test"
-                    className={style.mainImg}
-                  />
+                  <Link to="/about">
+                    <img
+                      src={process.env.PUBLIC_URL + "/image/test4.jpg"}
+                      alt="test"
+                      className={style.mainImg}
+                    />
+                  </Link>
                 </div>
 
                 <div className={style.hor}>
