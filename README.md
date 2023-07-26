@@ -83,13 +83,14 @@
  
 **박재성**
  - Member CRUD
- - AWS S3 버킷 이미지 연동
+ - 이미지 업로드 구현 (AWS S3 연동)
  - JWT
  - 카테고리
  - 클라이언트, 서버 배포 및 관리
  - 인증번호 이메일
  - GitHub Actions
  - 정렬, 필터 기능
+ - CLIENT HTTPS 적용, EC2 Loadbalance 적용
  
 <br>
  
