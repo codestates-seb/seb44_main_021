@@ -1,0 +1,168 @@
+/* all */
+.MyPageContainer{
+    background-color: #f6f6f6;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center ;
+    color: #3a3a3a;
+}
+
+.MyPageWrapper{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* UserProfile */
+.profileContainer{
+    width: 17%;
+    height: 85vh;
+    border-radius: 10px;
+    background: #6E934D;
+    box-shadow:  1px 1px 3px #95959540, -1px -1px 3px #95959540;
+    margin-right: 15px;
+}
+
+.userImg{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: solid 4px #f8f8f8;
+}
+
+.userInfo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+}
+
+.userInfo{
+    color: #f8f8f8;
+}
+
+.userName{
+    font-size: 25px;
+    font-weight: 800;
+    margin-top: 20px;
+}
+
+.userEmail{
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.editButton {
+    height: 30px;
+    width: 130px;
+    letter-spacing: 3.5px;
+    color: #ffffff;
+    background: #98ae83;
+    box-shadow: 3px 3px 5px rgba(68, 68, 68, 0.288);
+    border-radius: 5px;
+    border: none;
+}
+
+.editButton:active {
+    box-shadow:  1px 1px 3px rgba(107, 107, 107, 0.288);
+}
+.editButton:hover {
+    cursor: pointer;
+}
+
+  /* History */
+.historyContainer{
+    width:53%;
+    height: 85vh;
+    border-radius: 10px;
+    background: #ffffff;
+    box-shadow:  1px 1px 3px #95959540, -1px -1px 3px #95959540;
+    overflow-y: auto;
+}
+
+.historyContainer::-webkit-scrollbar {
+    width: 8px;
+}
+
+.historyContainer::-webkit-scrollbar-thumb {
+    background-color: #cacaca;
+    border-radius: 4px;
+}
+
+.historyContainer::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.historyWrapper{
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+}
+.historyTitle{
+    margin-left: 15px;
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+.historyTitle p{
+    color: #6E934D;
+    font-size: 20px;
+    font-weight: 700;
+
+}
+
+.historyTitleIcon{
+    width: 30px;
+    height: 30px;
+}
+
+.historyWrapper table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.historyWrapper table th {
+    font-size: 16px;
+    font-weight: 500;
+    border-top: 2px solid #6E934D;
+    border-bottom: 1px solid #6E934D;
+    height: 30px;
+}
+
+.historyWrapper table tbody {
+    display: block;
+    height: 150px;
+    overflow: auto;
+    font-size: 14px;
+}
+
+.historyWrapper table tbody::-webkit-scrollbar {
+    display: none;
+}
+
+.historyWrapper table tr{
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    margin: 6px 0;
+
+}
+
+.historyWrapper table .tableRow {
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.emptyText{
+    /* width: 100%; */
+    color: #767676;
+    text-align: center;
+    border-bottom: none;
+}

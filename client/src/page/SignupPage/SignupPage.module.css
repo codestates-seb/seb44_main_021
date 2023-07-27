@@ -1,0 +1,146 @@
+.SignupformContainer{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    color: #454545;
+}
+.SignupFormWrapper{
+    width: 20rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow:  1px 1px 3px #95959540, -1px -1px 3px #95959540;
+    padding: 60px;
+}
+.userImg{
+    width: 100px;
+    height: 100px;
+    margin-bottom: 30px;
+}
+
+.SignupForm{
+    width: 100%;
+
+}
+.SignupForm label{
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.SignupForm input{
+    width: 100%;
+    height: 35px;
+    box-sizing: border-box;
+    padding: 0 10px;
+    border: solid 1px #c3c3c3;
+    border-radius: 5px;
+    /* margin-bottom: 10px; */
+}
+input:focus { outline: none !important; border-color: #6E934D; }
+
+.submitButton {
+    height: 35px;
+    width: 100%;
+    letter-spacing: 3.5px;
+    color: #ffffff;
+    background: #6E934D;
+    box-shadow: 3px 3px 5px rgba(107, 107, 107, 0.288);
+    border-radius: 5px;
+    border: none;
+    margin-top: 20px;
+    text-transform: uppercase;
+}
+
+.submitButton:active {
+    box-shadow:  1px 1px 3px rgba(107, 107, 107, 0.288);
+}
+.submitButton:hover{
+    cursor: pointer;
+}
+
+
+.disabledButton{
+    height: 35px;
+    width: 100%;
+    letter-spacing: 3.5px;
+    color: #ffffff;
+    background: #afafaf;
+    border-radius: 5px;
+    border: none;
+    margin-top: 20px;
+    text-transform: uppercase;
+}
+
+/* error Messege */
+.errMsg{
+    margin-top: 5px;
+    color: rgb(221, 106, 106);
+}
+
+
+
+.authEmailInput{
+    display: flex;
+    flex-direction: row;
+}
+.authBtn{
+    height: 35px;
+    width: 40%;
+    color: #ffffff;
+    background: #6E934D;
+    box-shadow: 3px 3px 5px rgba(107, 107, 107, 0.288);
+    border-radius: 5px;
+    border: none;
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.authBtn:active {
+    box-shadow:  1px 1px 3px rgba(107, 107, 107, 0.288);
+}
+.authBtn:hover{
+    cursor: pointer;
+}
+
+
+/* 로딩 */
+.loadingBox {
+
+    margin: 20px;
+}
+.loadingSpinner {
+      width: 11px;
+      height: 11px;
+      border: 1.5px solid rgb(198, 198, 198);
+      border-top: 1.5px solid rgb(255, 255, 255);
+      border-radius: 50%;
+
+      -webkit-animation: spin 1s linear infinite;
+      animation: spin 1s linear infinite;
+    }
+    @-webkit-keyframes spin {
+        0% {
+          -webkit-transform: rotate(0deg);
+        }
+        100% {
+          -webkit-transform: rotate(360deg);
+        }
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
