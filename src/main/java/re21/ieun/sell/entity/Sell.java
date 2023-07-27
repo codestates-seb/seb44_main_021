@@ -6,8 +6,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import re21.ieun.audit.Auditable;
 import re21.ieun.member.entity.Member;
+import re21.ieun.order.entity.OrderSell;
+import re21.ieun.sellcategory.entity.SellCategory;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -26,13 +30,32 @@ public class Sell extends Auditable {
     private String content;
 
     @Column(nullable = false)
-    private int price;
+    private String material;
 
-    @Column(columnDefinition = "long default 0", nullable = false)
+    // 상품 가격
+    @Column(nullable = false)
+    private int price;
+    @Column
+    private String thumbNailImage;
+    @Column
+    private String contentImage;
+
+    @Column(columnDefinition = "bigint default 0", nullable = false)
     private Long viewCount;
 
+    @ManyToOne
+    @JoinColumn(name = "sellCategory_id")
+    private SellCategory sellCategory;
 
-    // like(좋아요)
+    @OneToMany(mappedBy = "sell")
+    private List<OrderSell> orderSells = new ArrayList<>();
+
+    public void addOrderSell(OrderSell orderSell) {
+        this.orderSells.add(orderSell);
+        if (orderSell.getSell() != this) {
+            orderSell.addSell(this);
+        }
+    }
 
     public enum SellStatus {
 

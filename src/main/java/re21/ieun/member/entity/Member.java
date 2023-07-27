@@ -7,6 +7,8 @@ import re21.ieun.audit.Auditable;
 import re21.ieun.upcycling.entity.Upcycling;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -24,15 +26,27 @@ public class Member extends Auditable {
     @Column(nullable = false, updatable = false, unique = true)
     private String email;
 
-    @Column(nullable = false)
+    @Column //(nullable = false)
     private String password;
 
+    @Column //(nullable = false)
+    private String code;
+
     @Column
-    private String profileImg;
+    private String thumbNailImage;
+
+    @Column
+    private String normalOrOauth;
+
+    //@Column
+    //private String profileImg;
 
     @Enumerated(EnumType.STRING)
     @Column
     private MemberRole memberRole;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
 
     /*
     @OneToMany
