@@ -8,7 +8,8 @@ import Logo from "../../components/Logo/Logo";
 const SignupPage = () => {
   const NAME_REGEX = /^[A-Za-z0-9ㄱ-ㅎㅏ-ㅣ가-힣]{2,6}$/;
   const EMAIL_REGEX = /^[A-Za-z0-9.\-_]+@([A-Za-z0-9-]+\.)+[A-Za-z]{2,6}$/;
-  const PWD_REGEX = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+  const PWD_REGEX =
+    /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>/?]).{8,24}$/;
 
   /* 유저 데이터 */
   const [userData, setUserData] = useState({
@@ -84,7 +85,7 @@ const SignupPage = () => {
 
   const IsValidPwd = () => {
     if (!PWD_REGEX.test(userData.password)) {
-      setPwdErrMsg("숫자, 문자, 특수문자 포함 5자 이상 입력하세요.");
+      setPwdErrMsg("숫자, 문자, 특수문자 포함 8자 이상 입력하세요.");
       setIsPassword(false);
     } else if (userData.password !== userData.verifyPwd) {
       setPwdErrMsg("비밀번호가 일치하지 않습니다.");
