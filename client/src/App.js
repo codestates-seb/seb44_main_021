@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { UserDataProvider } from "./contexts/UserDataContext";
+// import { UserDataProvider } from "./store/UserDataSlice";
 import MainPage from "./page/Main/MainPage";
 import UserSelectionPage from "./page/SignupPage/UserSelectionPage";
 import SignupPage from "./page/SignupPage/SignupPage";
@@ -18,24 +18,24 @@ import StoreEditPage from "./page/Store/StoreEditPage";
 function App() {
   return (
     <div>
-      <UserDataProvider>
-        <Routes>
-          <Route element={<MainPage />} path="/" />
-          <Route element={<StorePage />} path="/store" />
-          <Route element={<StoreDetail />} path="/storedetail/:id" />
-          <Route element={<FundingPage />} path="/funding" />
-          <Route element={<FundingDetail />} path="/fundingdetail/:id" />
-          <Route element={<AboutPage />} path="/about" />
-          <Route element={<UserSelectionPage />} path="/signup" />
-          <Route element={<SignupPage />} path="/signup/*" />
-          <Route element={<FundingCreatePage />} path="/fundingcreate" />
-          <Route element={<LoginPage />} path="/login" />
-          <Route element={<MyPage />} path="/mypage" />
-          <Route element={<FundingEditPage />} path="/fundingedit/*" />
-          <Route element={<StoreCreatePage />} path="/storecreate" />
-          <Route element={<StoreEditPage />} path="/storeedit/*" />
-        </Routes>
-      </UserDataProvider>
+      {/* <UserDataProvider> */}
+      <Routes>
+        <Route element={<MainPage />} path="/" />
+        <Route element={<StorePage />} path="/store" />
+        <Route element={<StoreDetail />} path="/storedetail/:id" />
+        <Route element={<FundingPage />} path="/funding" />
+        <Route element={<FundingDetail />} path="/fundingdetail/:id" />
+        <Route element={<AboutPage />} path="/about" />
+        <Route element={<UserSelectionPage />} path="/signup" />
+        <Route element={<SignupPage />} path="/signup/:role" />
+        <Route element={<FundingCreatePage />} path="/fundingcreate" />
+        <Route element={<LoginPage />} path="/login" />
+        <Route element={<MyPage />} path="/mypage/*" />
+        <Route element={<FundingEditPage />} path="/fundingedit/*" />
+        <Route element={<StoreCreatePage />} path="/storecreate" />
+        <Route element={<StoreEditPage />} path="/storeedit/*" />
+      </Routes>
+      {/* </UserDataProvider> */}
     </div>
   );
 }
