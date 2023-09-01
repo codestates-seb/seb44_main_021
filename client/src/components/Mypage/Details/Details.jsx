@@ -1,7 +1,6 @@
 import React from "react";
 import * as S from "./Details.styled";
 import { useSelector } from "react-redux";
-// import { userDetailsActions } from "../../store/userDetailsSlice";
 
 const Details = () => {
   const detailsData = useSelector((state) => state.userDetails);

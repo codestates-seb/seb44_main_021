@@ -4,20 +4,19 @@ import Header from "../../components/Header/Header";
 import UserDetails from "../../components/Mypage/Details/Details";
 import UserProfile from "../../components/Mypage/UserProfile/UserProfile";
 import { useSelector, useDispatch } from "react-redux";
-import { userDataActions } from "../../store/userDataSlice";
 import { useGetMemberId } from "../../hooks/useGetMemberId";
-import { axiosInstance } from "../../api/axiosInstance";
 import * as S from "./MyPage.styled";
-
 import { getDetailDatas } from "../../api/getDetailDatas";
-import { mapFundingDetails } from "../../utils/mapDetails";
 import useScrollLock from "../../hooks/useScrollLock";
+import { getUserData } from "../../api/getUserData";
+import { useParams } from "react-router-dom";
+import { userDetailsActions } from "../../store/userDetailsSlice";
 
 const MyPage = () => {
   const userData = useSelector((state) => state.userData);
-  const DetailsData = useSelector((state) => state.userDetails);
+  const detailsData = useSelector((state) => state.userDetails);
   const dispatch = useDispatch();
-  //custom hook
+  const { path } = useParams();
   const { getMemberId } = useGetMemberId();
   const { lockScroll, activeScroll } = useScrollLock();
 
@@ -40,31 +39,15 @@ const MyPage = () => {
 
   useEffect(() => {
     getMemberId();
-    //유저데이터 요청
-    axiosInstance
-      .get(`/members/${userData.memberId}`)
-      .then((res) => {
-        const user = res.data.data;
-        dispatch(
-          userDataActions.setUserData({
-            email: user.email,
-            displayName: user.displayName,
-            memberRole: user.memberRole,
-            thumbNailImage: user.thumbNailImage,
-          })
-        );
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    // 첫 로드시 펀딩 데이터 요청
+    dispatch(userDetailsActions.setTitle(detailsData.details[path]?.title));
+    dispatch(userDetailsActions.setCategory(path));
     getDetailDatas(
       userData.memberId,
       dispatch,
-      mapFundingDetails,
-      DetailsData.currentCartegory
+      detailsData.details[path]?.mapFunction,
+      detailsData.details[path]?.category
     );
+    getUserData(userData.memberId, dispatch);
   }, [userData.memberId]);
 
   return (

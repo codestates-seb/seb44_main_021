@@ -30,7 +30,7 @@ function App() {
         <Route element={<SignupPage />} path="/signup/:role" />
         <Route element={<FundingCreatePage />} path="/fundingcreate" />
         <Route element={<LoginPage />} path="/login" />
-        <Route element={<MyPage />} path="/mypage/*" />
+        <Route element={<MyPage />} path="/mypage/:path" />
         <Route element={<FundingEditPage />} path="/fundingedit/*" />
         <Route element={<StoreCreatePage />} path="/storecreate" />
         <Route element={<StoreEditPage />} path="/storeedit/*" />
