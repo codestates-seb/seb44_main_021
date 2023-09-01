@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import useInputs from "../../hooks/useInputs";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Button from "../common/Button";
 import Input from "../common/Input";
 import { axiosInstance } from "../../api/axiosInstance";
 import * as S from "./SignupForm.styled";
 import { LodingSpiner } from "../common/LodingSpiner";
 
-const SignupForm = ({ role }) => {
+const SignupForm = () => {
+  const { role } = useParams();
+
   const NAME_REGEX = /^[A-Za-z0-9ㄱ-ㅎㅏ-ㅣ가-힣]{2,6}$/;
   const EMAIL_REGEX = /^[A-Za-z0-9.\-_]+@([A-Za-z0-9-]+\.)+[A-Za-z]{2,6}$/;
   const PWD_REGEX =
