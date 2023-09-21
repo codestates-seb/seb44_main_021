@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
-import { UserDataContext } from "../../contexts/UserDataContext";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Lenis from "@studio-freight/lenis";
 import Header from "../../components/Header/Header";
 import style from "./StorePage.module.css";
+import { useSelector } from "react-redux";
+import { axiosInstance } from "../../api/axiosInstance";
 
 const List = (props) => {
   const formatPriceWithCommas = (price) => {
@@ -37,7 +38,7 @@ const List = (props) => {
 };
 
 const StorePage = () => {
-  const { userData } = useContext(UserDataContext);
+  const userData = useSelector((state) => state.userData);
   const [sort, setSort] = useState("descending");
   const [kategorie, setKategorie] = useState(0);
   const [stoerList, setStoreList] = useState([]);
@@ -58,7 +59,7 @@ const StorePage = () => {
 
   useEffect(() => {
     if (searchParam) {
-      axios({
+      axiosInstance({
         url: `/sells/search?page=1&size=8&searchKeyword=${searchParam}`,
         method: "get",
       })
@@ -68,7 +69,7 @@ const StorePage = () => {
         })
         .catch((err) => console.log(err));
     } else {
-      axios({
+      axiosInstance({
         url: "/sells/descending?page=1&size=8",
         method: "get",
       })
@@ -81,7 +82,7 @@ const StorePage = () => {
   }, []);
 
   useEffect(() => {
-    axios
+    axiosInstance
       .get(`/members/${userData.memberId}`)
       .then((res) => {
         setrole(res.data.data.memberRole);
@@ -96,7 +97,7 @@ const StorePage = () => {
     setPage(1);
     if (searchParam) {
       if (kategorie === 0) {
-        axios({
+        axiosInstance({
           url: `/sells/search?page=1&size=8&sort=${sort}&searchKeyword=${searchParam}`,
           method: "get",
         })
@@ -106,7 +107,7 @@ const StorePage = () => {
           })
           .catch((err) => console.log(err));
       } else {
-        axios({
+        axiosInstance({
           url: `/sells/search?page=1&size=8&sort=${sort}&sellCategoryId=${kategorie}&searchKeyword=${searchParam}`,
           method: "get",
         })
@@ -118,7 +119,7 @@ const StorePage = () => {
       }
     } else {
       if (kategorie === 0) {
-        axios({
+        axiosInstance({
           url: `/sells/${sort}?page=1&size=8`,
           method: "get",
         })
@@ -128,7 +129,7 @@ const StorePage = () => {
           })
           .catch((err) => console.log(err));
       } else {
-        axios({
+        axiosInstance({
           url: `/sells/${sort}/sellcategories/${kategorie}?page=1&size=8`,
           method: "get",
         })
@@ -155,7 +156,7 @@ const StorePage = () => {
     if (page > 1) {
       if (searchParam) {
         if (kategorie === 0) {
-          axios({
+          axiosInstance({
             url: `/sells/search?page=${page}&size=8&sort=${sort}&searchKeyword=${searchParam}`,
             method: "get",
           })
@@ -164,7 +165,7 @@ const StorePage = () => {
             })
             .catch((err) => console.log(err));
         } else {
-          axios({
+          axiosInstance({
             url: `/sells/search?page=${page}&size=8&sort=${sort}&sellCategoryId=${kategorie}&searchKeyword=${searchParam}`,
             method: "get",
           })
@@ -175,7 +176,7 @@ const StorePage = () => {
         }
       } else {
         if (kategorie === 0) {
-          axios({
+          axiosInstance({
             url: `/sells/${sort}?page=${page}&size=8`,
             method: "get",
           })
@@ -184,7 +185,7 @@ const StorePage = () => {
             })
             .catch((err) => console.log(err));
         } else {
-          axios({
+          axiosInstance({
             url: `/sells/${sort}/sellcategories/${kategorie}?page=${page}&size=8`,
             method: "get",
           })
