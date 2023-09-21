@@ -1,16 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import { axiosInstance } from "../../api/axiosInstance";
 import Lenis from "@studio-freight/lenis";
 import style from "./MainPage.module.css";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Loading from "../../loading";
 import MenuIcon from "@mui/icons-material/Menu";
-import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import CloseIcon from "@mui/icons-material/Close";
-import NorthEastSharpIcon from "@mui/icons-material/NorthEastSharp";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import ProfileDropdown from "../../components/Header/dropdown/ProfileDropdown";
 
 const MainPage = () => {
   const [logoSize, setLogoSize] = useState(60);
@@ -21,6 +19,8 @@ const MainPage = () => {
 
   const [isUnmount, setIsUnmount] = useState(false);
 
+  // const loginStatus = JSON.parse(localStorage.getItem("login"));
+
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const accessToken = urlParams.get("access_token");
@@ -30,7 +30,7 @@ const MainPage = () => {
   }, []);
 
   useEffect(() => {
-    axios({
+    axiosInstance({
       url: "/upcyclings/descending?page=1&size=4",
       method: "get",
     })
@@ -151,18 +151,7 @@ const MainPage = () => {
                 style={{ width: `${logoSize}px`, height: `${logoSize}px` }}
               />
             </div>
-            {localStorage.getItem("token") ? (
-              <ProfileDropdown />
-            ) : (
-              <button className={style.button}>
-                <Link to="/login">
-                  <AccountCircleIcon
-                    className={style.button}
-                    sx={{ fontSize: 35, color: "#6E934D" }}
-                  />
-                </Link>
-              </button>
-            )}
+            <ProfileDropdown />
           </div>
           <div id={style.main}>
             <div className="horwrap" ref={horwrapRef}>
@@ -389,61 +378,3 @@ const MainPage = () => {
 };
 
 export default MainPage;
-
-const ProfileDropdown = () => {
-  const [menuView, setMenuView] = useState(false);
-  const Dropdown = () => {
-    setMenuView(!menuView);
-  };
-
-  return (
-    <div className={style.ProfileWrapper}>
-      <AccountCircleIcon
-        onClick={Dropdown}
-        sx={{ width: "35px", height: "100%", color: "#6E934D" }}
-      />
-      <div className={style.Dropdowncontainer}>
-        {menuView && <DropdownBox />}
-      </div>
-    </div>
-  );
-};
-
-const DropdownBox = () => {
-  const handleLogout = () => {
-    axios
-      .delete("/auth/signout", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`, // 저장한 토큰 값을 사용하여 헤더 설정
-        },
-      })
-      .then((res) => {
-        localStorage.removeItem("token");
-        window.location.reload();
-      })
-      .catch((err) => {
-        if (err.response && err.response.status === 500) {
-          // 토큰 만료로 인한 500 Unauthorized 에러일 경우에도 로그아웃 실행
-          localStorage.removeItem("token");
-          window.location.reload();
-        } else {
-          console.log("Error occurred during logout:", err); // 다른 에러는 그대로 콘솔에 표시
-        }
-      });
-  };
-
-  return (
-    <div>
-      <div className={style.MenuItem}>
-        <Link to="/mypage" className={style.MenuLink}>
-          My page
-        </Link>
-      </div>
-      <div onClick={handleLogout} className={style.MenuItem}>
-        <Link to="/" className={style.MenuLink}>
-          Logout
-        </Link>
-      </div>
-    </div>
-  );
-};

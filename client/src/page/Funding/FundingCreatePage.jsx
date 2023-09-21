@@ -1,10 +1,11 @@
 import React from "react";
 import Header from "../../components/Header/Header";
 import style from "./FundingCreatePage.module.css";
-import { useState, useRef, useContext } from "react";
+import { useState, useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { UserDataContext } from "../../contexts/UserDataContext";
+// import { UserDataContext } from "../../store/UserDataSlice";
+import { useSelector } from "react-redux";
 
 const FundingCreatePage = () => {
   const [title, setTitle] = useState("");
@@ -34,7 +35,7 @@ const FundingCreatePage = () => {
   maxDate.setDate(today.getDate() + 100);
   const formattedMaxDate = maxDate.toISOString().split("T")[0];
 
-  const { userData } = useContext(UserDataContext);
+  const userData = useSelector((state) => state.userData);
 
   const handleInputChange = (event) => {
     event.target.value = event.target.value

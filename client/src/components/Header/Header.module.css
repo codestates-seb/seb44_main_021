@@ -49,13 +49,6 @@
   font-size: 15px;
 }
 
-.ProfileWrapper {
-  width: 4%;
-  display: flex;
-  justify-content: right;
-  align-items: center;
-}
-
 .LinkContent {
   font-size: 23px;
   font-weight: bold;
@@ -64,29 +57,4 @@
 
 .LinkStyle {
   text-decoration: none;
-}
-
-.Dropdowncontainer {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  top: 100%;
-  border: 0.3px solid #6e934d;
-  background-color: white;
-}
-
-.MenuItem {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100px;
-  height: 45px;
-  font-size: 15px;
-}
-
-.MenuLink {
-  text-decoration: none;
-  color: #6e934d;
-  font-weight: bold;
 }
