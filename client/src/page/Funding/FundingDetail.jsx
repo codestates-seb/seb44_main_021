@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Header from "../../components/Header/Header";
 import style from "./FundingDetail.module.css";
 import axios from "axios";
 import CloseIcon from "@mui/icons-material/Close";
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-// import { UserDataContext } from "../../store/UserDataSlice";
-import { useSelector } from "react-redux";
-import { axiosInstance } from "../../api/axiosInstance";
+import { UserDataContext } from "../../contexts/UserDataContext";
 
 const FundingDetail = () => {
   const { id } = useParams();
@@ -17,23 +20,21 @@ const FundingDetail = () => {
   const [funding, setFunding] = useState(false);
   const [fundingRate, setFundingRate] = useState();
   const [profile, setprofile] = useState("");
-
-  const userData = useSelector((state) => state.userData);
+  const { userData } = useContext(UserDataContext);
 
   useEffect(() => {
-    axiosInstance({
+    axios({
       url: `/upcyclings/${id}`,
       method: "get",
     })
       .then((response) => {
         setData(response.data.data);
-        console.log(response);
       })
       .catch((err) => console.log(err));
   }, []);
 
   useEffect(() => {
-    axiosInstance
+    axios
       .get(`/members/${data.memberId}`)
       .then((res) => {
         setprofile(res.data.data.thumbNailImage);

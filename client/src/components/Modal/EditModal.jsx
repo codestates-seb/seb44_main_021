@@ -1,25 +1,17 @@
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { userDataActions } from "../../store/userDataSlice";
-// import Style from "./EditModal.module.css";
-import useInputs from "../../hooks/useInputs";
-import * as S from "./EditModal.styled";
-import { axiosInstance } from "../../api/axiosInstance";
+import Style from "./EditModal.module.css";
+import CloseIcon from "@mui/icons-material/Close";
+import axios from "axios";
 
-const EditModal = ({ onClose, isUnmount }) => {
-  const userData = useSelector((state) => state.userData);
-  const dispatch = useDispatch();
-
-  const [editUserInfo, onChange] = useInputs({
+const EditModal = ({ onClose, userData, setUserData, isUnmount }) => {
+  const [editUserInfo, setEditUserInfo] = useState({
     displayName: userData.displayName,
     password: "",
     verifyPwd: "",
-    currentPwd: "",
+    memberId: userData.memberId,
   });
-
   const [thumbNailImage, setThumbNailImage] = useState("");
-
-  // const [currentPwd, setCurrentPwd] = useState("");
+  const [currentPwd, setCurrentPwd] = useState("");
   const [PwdErrMsg, setPwdErrMsg] = useState("");
   const [newPwdErrMsg, setNewPwdErrMsg] = useState("");
   const [nameErrMsg, setNameErrMsg] = useState("");
@@ -27,9 +19,9 @@ const EditModal = ({ onClose, isUnmount }) => {
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordVerified, setIsPasswordVerified] = useState(false);
 
-  // const EditInputValue = (key) => (e) => {
-  //   setEditUserInfo({ ...editUserInfo, [key]: e.target.value });
-  // };
+  const EditInputValue = (key) => (e) => {
+    setEditUserInfo({ ...editUserInfo, [key]: e.target.value });
+  };
 
   // 유효성 검사
   const NAME_REGEX = /^[A-Za-z0-9ㄱ-ㅎㅏ-ㅣ가-힣]{2,6}$/;
@@ -60,24 +52,22 @@ const EditModal = ({ onClose, isUnmount }) => {
 
   const AxiosPatch = (e) => {
     e.preventDefault();
-    const { displayName, password } = editUserInfo;
+    const { displayName, password, memberId } = editUserInfo;
 
     if (isPassword || isName || thumbNailImage) {
-      axiosInstance
+      axios
         .patch(`/members/${userData.memberId}`, {
-          memberId: userData.memberId,
+          memberId,
           displayName,
           password,
           thumbNailImage,
         })
         .then((res) => {
-          console.log(res);
-          dispatch(
-            userDataActions.setUserData({
-              displayName: res.data.displayName,
-              thumbNailImage: res.data.thumbNailImage,
-            })
-          );
+          setUserData((prevUserData) => ({
+            ...prevUserData,
+            displayName: res.data.displayName,
+            thumbNailImage: res.data.thumbNailImage,
+          }));
 
           onClose();
         })
@@ -89,10 +79,10 @@ const EditModal = ({ onClose, isUnmount }) => {
 
   const AxiosCurrentPwd = (e) => {
     e.preventDefault();
-    axiosInstance
+    axios
       .post(`/members/verifiedpassword`, {
         memberId: userData.memberId,
-        password: editUserInfo.currentPwd,
+        password: currentPwd,
       })
       .then((res) => {
         if (res.data === "성공") {
@@ -107,70 +97,77 @@ const EditModal = ({ onClose, isUnmount }) => {
   };
 
   return (
-    <S.ModalContainer>
+    <div id={Style.modalContainer}>
       {!isPasswordVerified && (
-        <S.FirstModalWrapper isUnmount={isUnmount}>
-          <S.StyledCloseIcon onClick={onClose} />
-          <S.ModalContent>
+        <div
+          className={`${Style.firstModalWrapper} ${
+            !isUnmount ? "" : Style.closeModal
+          }`}
+        >
+          <CloseIcon className={Style.closeIcon} onClick={onClose} />
+          <div className={Style.modalContent}>
             <label>현재 비밀번호</label>
             <input
-              name="currentPwd"
               type="password"
-              value={editUserInfo.currentPwd}
-              onChange={onChange}
+              onChange={(e) => {
+                setCurrentPwd(e.target.value);
+              }}
             />
-            {PwdErrMsg && <S.ErrMsg>{PwdErrMsg}</S.ErrMsg>}
-          </S.ModalContent>
-          <S.EditButton onClick={AxiosCurrentPwd}>Next</S.EditButton>
-        </S.FirstModalWrapper>
+            {PwdErrMsg && <p className={Style.errMsg}>{PwdErrMsg}</p>}
+          </div>
+          <button className={Style.editButton} onClick={AxiosCurrentPwd}>
+            Next
+          </button>
+        </div>
       )}
       {isPasswordVerified && (
-        <S.SecondModalWrapper isUnmount={isUnmount}>
-          <S.StyledCloseIcon onClick={onClose} />
+        <div
+          className={`${Style.secondModalWrapper} ${
+            !isUnmount ? "" : Style.closeModal
+          }`}
+        >
+          <CloseIcon className={Style.closeIcon} onClick={onClose} />
           <SettingUserThumbnail
+            setEditUserInfo={setEditUserInfo}
             setThumbNailImage={setThumbNailImage}
             thumbNailImage={thumbNailImage}
             userData={userData}
           />
-          <S.ModalContent>
+          <div className={Style.modalContent}>
             <label>
               {userData.memberRole === "MEMBER_USER" && "닉네임"}
               {userData.memberRole === "MEMBER_UPCYCLER" && "업사이클러"}
             </label>
             <input
               type="text"
-              name="displayName"
               defaultValue={userData.displayName}
-              value={editUserInfo.displayName}
-              onChange={onChange}
+              onChange={EditInputValue("displayName")}
               onBlur={IsValidName}
             />
-            {nameErrMsg && <S.ErrMsg>{nameErrMsg}</S.ErrMsg>}
+            {nameErrMsg && <p className={Style.errMsg}>{nameErrMsg}</p>}
             <label>이메일</label>
             <p>{userData.email}</p>
             <label>새 비밀번호 (선택)</label>
             <input
               type="password"
-              name="password"
-              value={editUserInfo.password}
-              onChange={onChange}
+              onChange={EditInputValue("password")}
               onBlur={IsValidPwd}
             />
             <label>새 비밀번호 확인</label>
             <input
               type="password"
-              name="verifyPwd"
-              value={editUserInfo.verifyPwd}
-              onChange={onChange}
+              onChange={EditInputValue("verifyPwd")}
               onBlur={IsValidPwd}
             />
-            {newPwdErrMsg && <S.ErrMsg>{newPwdErrMsg}</S.ErrMsg>}
-          </S.ModalContent>
-          <S.EditButton onClick={AxiosPatch}>Edit</S.EditButton>
-        </S.SecondModalWrapper>
+            {newPwdErrMsg && <p className={Style.errMsg}>{newPwdErrMsg}</p>}
+          </div>
+          <button className={Style.editButton} onClick={AxiosPatch}>
+            Edit
+          </button>
+        </div>
       )}
-      <S.ModalLayer onClick={onClose}></S.ModalLayer>
-    </S.ModalContainer>
+      <div className={Style.modalLayer} onClick={onClose}></div>
+    </div>
   );
 };
 
@@ -209,7 +206,7 @@ const SettingUserThumbnail = ({
         reject(new Error("파일을 읽는 도중 오류가 발생했습니다."));
       };
 
-      axiosInstance({
+      axios({
         url: "/upload",
         method: "POST",
         data: formData,
@@ -227,16 +224,17 @@ const SettingUserThumbnail = ({
   };
 
   return (
-    <div>
-      <S.ImgUpload>
+    <div id={Style.imgContainer}>
+      <div className={Style.imgUpload}>
         <label htmlFor="fileInput">
-          <S.UserImg src={imageSrc} alt="profile-img" />
-          <S.UploadIcon
+          <img className={Style.userImg} src={imageSrc} alt="profile-img" />
+          <img
+            className={Style.uploadIcon}
             src={`${process.env.PUBLIC_URL}/image/add-img-icon.png`}
             alt="add-img-icon"
           />
         </label>
-      </S.ImgUpload>
+      </div>
 
       <input
         type="file"

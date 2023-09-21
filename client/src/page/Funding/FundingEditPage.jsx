@@ -2,8 +2,8 @@ import React from "react";
 import Header from "../../components/Header/Header";
 import style from "./FundingEditPage.module.css";
 import { useState, useEffect } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { axiosInstance } from "../../api/axiosInstance";
 
 const FundingEditPage = () => {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ const FundingEditPage = () => {
   const upcyclingId = parts[parts.length - 1];
 
   useEffect(() => {
-    axiosInstance({
+    axios({
       url: `/upcyclings/${upcyclingId}`,
       method: "get",
     })
@@ -57,7 +57,7 @@ const FundingEditPage = () => {
   };
 
   const handleSavaEdit = () => {
-    axiosInstance({
+    axios({
       url: `/upcyclings/${upcyclingId}`,
       method: "PATCH",
       data: {

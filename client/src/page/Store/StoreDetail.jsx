@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Header from "../../components/Header/Header";
 import style from "./StoreDetail.module.css";
 import axios from "axios";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { axiosInstance } from "../../api/axiosInstance";
+import { UserDataContext } from "../../contexts/UserDataContext";
 
 const StoreDetail = () => {
   const { id } = useParams();
@@ -14,11 +13,10 @@ const StoreDetail = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [quantity, setQuantity] = useState(0);
   const [profile, setprofile] = useState("");
-
-  const userData = useSelector((state) => state.userData);
+  const { userData } = useContext(UserDataContext);
 
   useEffect(() => {
-    axiosInstance({
+    axios({
       url: `/sells/${id}`,
       method: "get",
     })

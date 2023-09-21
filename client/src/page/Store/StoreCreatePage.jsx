@@ -1,10 +1,10 @@
 import React from "react";
 import Header from "../../components/Header/Header";
 import style from "./StoreCreatePage.module.css";
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { axiosInstance } from "../../api/axiosInstance";
+import { UserDataContext } from "../../contexts/UserDataContext";
 
 const StoreCreatePage = () => {
   const [categoryid, setcategoryid] = useState("");
@@ -28,6 +28,8 @@ const StoreCreatePage = () => {
   const priceRef = useRef(null);
   const materialRef = useRef(null);
   const navigate = useNavigate();
+
+  const { userData } = useContext(UserDataContext);
 
   const handleCategory1 = () => {
     categoryRef.current = "1";
@@ -136,7 +138,6 @@ const StoreCreatePage = () => {
   };
 
   const Create = () => {
-    const userData = useSelector((state) => state.userData);
     Category();
     Title();
     Content();
@@ -152,7 +153,7 @@ const StoreCreatePage = () => {
       thumimgurl !== "" &&
       contentimgurl !== ""
     ) {
-      axiosInstance({
+      axios({
         url: "/sells",
         method: "post",
         data: {
@@ -438,7 +439,7 @@ const SettingUserThumbnail = ({ setThumimgurl, ThumImgurl }) => {
         reject(new Error("파일을 읽는 도중 오류가 발생했습니다."));
       };
 
-      axiosInstance({
+      axios({
         url: "/upload",
         method: "POST",
         data: formData,
@@ -515,7 +516,7 @@ const SettingContentimg = ({ setContentimgurl, ContentImgurl }) => {
         reject(new Error("파일을 읽는 도중 오류가 발생했습니다."));
       };
 
-      axiosInstance({
+      axios({
         url: "/upload",
         method: "POST",
         data: formData,
