@@ -1,13 +1,10 @@
-import React, { useState, useEffect } from "react";
-// import { UserDataContext } from "../../store/UserDataSlice";
+import React, { useState, useEffect, useContext } from "react";
+import { UserDataContext } from "../../contexts/UserDataContext";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import Lenis from "@studio-freight/lenis";
 import Header from "../../components/Header/Header";
 import style from "./FundingPage.module.css";
-import { useSelector } from "react-redux";
-import { useGetMemberId } from "../../hooks/useGetMemberId";
-import { axiosInstance } from "../../api/axiosInstance";
 
 const List = (props) => {
   return (
@@ -40,9 +37,7 @@ const List = (props) => {
 };
 
 const FundingPage = () => {
-  const { getMemberId } = useGetMemberId();
-  const userData = useSelector((state) => state.userData);
-
+  const { userData } = useContext(UserDataContext);
   const [sort, setSort] = useState("descending");
   const [kategorie, setKategorie] = useState(0);
   const [fundingList, setFundingList] = useState([]);
@@ -55,8 +50,6 @@ const FundingPage = () => {
   const [searchParam, setSearchParam] = useState(serch);
 
   useEffect(() => {
-    getMemberId();
-
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -64,7 +57,7 @@ const FundingPage = () => {
   }, []);
 
   useEffect(() => {
-    axiosInstance
+    axios
       .get(`/members/${userData.memberId}`)
       .then((res) => {
         setrole(res.data.data.memberRole);
@@ -76,7 +69,7 @@ const FundingPage = () => {
 
   useEffect(() => {
     if (searchParam) {
-      axiosInstance({
+      axios({
         url: `/upcyclings/search?page=1&size=8&searchKeyword=${searchParam}`,
         method: "get",
       })
@@ -86,7 +79,7 @@ const FundingPage = () => {
         })
         .catch((err) => console.log(err));
     } else {
-      axiosInstance({
+      axios({
         url: "/upcyclings/descending?page=1&size=8",
         method: "get",
       })
@@ -102,7 +95,7 @@ const FundingPage = () => {
     setPage(1);
     if (searchParam) {
       if (kategorie === 0) {
-        axiosInstance({
+        axios({
           url: `/upcyclings/search?page=1&size=8&sort=${sort}&searchKeyword=${searchParam}`,
           method: "get",
         })
@@ -112,7 +105,7 @@ const FundingPage = () => {
           })
           .catch((err) => console.log(err));
       } else {
-        axiosInstance({
+        axios({
           url: `/upcyclings/search?page=1&size=8&sort=${sort}&categoryId=${kategorie}&searchKeyword=${searchParam}`,
           method: "get",
         })
@@ -124,7 +117,7 @@ const FundingPage = () => {
       }
     } else {
       if (kategorie === 0) {
-        axiosInstance({
+        axios({
           url: `/upcyclings/${sort}?page=1&size=8`,
           method: "get",
         })
@@ -134,7 +127,7 @@ const FundingPage = () => {
           })
           .catch((err) => console.log(err));
       } else {
-        axiosInstance({
+        axios({
           url: `/upcyclings/${sort}/categories/${kategorie}?page=1&size=8`,
           method: "get",
         })
@@ -161,7 +154,7 @@ const FundingPage = () => {
     if (page > 1) {
       if (searchParam) {
         if (kategorie === 0) {
-          axiosInstance({
+          axios({
             url: `/upcyclings/search?page=${page}&size=8&sort=${sort}&searchKeyword=${searchParam}`,
             method: "get",
           })
@@ -170,7 +163,7 @@ const FundingPage = () => {
             })
             .catch((err) => console.log(err));
         } else {
-          axiosInstance({
+          axios({
             url: `/upcyclings/search?page=${page}&size=8&sort=${sort}&categoryId=${kategorie}&searchKeyword=${searchParam}`,
             method: "get",
           })
@@ -181,7 +174,7 @@ const FundingPage = () => {
         }
       } else {
         if (kategorie === 0) {
-          axiosInstance({
+          axios({
             url: `/upcyclings/${sort}?page=${page}&size=8`,
             method: "get",
           })
@@ -190,7 +183,7 @@ const FundingPage = () => {
             })
             .catch((err) => console.log(err));
         } else {
-          axiosInstance({
+          axios({
             url: `/upcyclings/${sort}/categories/${kategorie}?page=${page}&size=8`,
             method: "get",
           })

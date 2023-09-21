@@ -1,16 +1,14 @@
 #header {
   position: fixed;
   top: 0;
-  width: calc(100% - 65px);
-  height: 70px;
+  width: calc(100vw - 65px);
   z-index: 90;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   background-color: transparent;
-  /* margin-bottom: 30px; */
-  padding: 0 30px;
-  padding-top: 30px;
+  margin-bottom: 30px;
+  padding: 30px 30px;
 }
 
 .h1 {
@@ -160,11 +158,7 @@
   width: 100%;
   height: 100%;
 }
-@media (max-width: 768px) {
-  .mainImg {
-    height: calc(100% - 70px);
-  }
-}
+
 .horwrap {
   display: flex;
   flex-wrap: wrap;
@@ -262,4 +256,36 @@
   outline: none;
   text-decoration: none;
   color: black;
+}
+
+.ProfileWrapper {
+  width: 4%;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+
+.Dropdowncontainer {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 80px;
+  border: 0.3px solid #6e934d;
+  background-color: white;
+}
+
+.MenuItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 45px;
+  font-size: 15px;
+}
+
+.MenuLink {
+  text-decoration: none;
+  color: #6e934d;
+  font-weight: bold;
 }

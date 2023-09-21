@@ -1,0 +1,170 @@
+/* edit modal */
+#modalContainer{
+    position:absolute;
+    width:100%;
+    height:100%;
+    z-index:1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.firstModalWrapper{ 
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding:30px 50px;
+    background: rgb(255, 255, 255);
+    box-shadow: 0 8px 20px 0 rgba(40, 40, 40, 0.37);
+    border-radius: 10px;
+    border: 1px solid rgba(220, 220, 220, 0.18);
+    animation: openModal 1.5s forwards;
+}
+
+.secondModalWrapper{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding:30px 50px;
+  background: rgb(255, 255, 255);
+  box-shadow: 0 8px 20px 0 rgba(40, 40, 40, 0.37);
+  border-radius: 10px;
+  border: 1px solid rgba(220, 220, 220, 0.18);
+}
+
+@keyframes openModal {
+  0% {
+    transform: translateY(-600px);
+  }
+  60% {
+    transform: translateY(50px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.closeModal {
+  animation: closeModal 1.5s forwards;
+}
+@keyframes closeModal {
+  0% {
+    transform: translateY(0px);
+  }
+  20% {
+    transform: translateY(50px);
+  }
+  100% {
+    transform: translateY(-600px);
+  }
+}
+
+.closeIcon{
+  position: absolute;
+  top: 10px;
+  right: 10px; 
+  color: #6b6b6b;
+}
+
+.closeIcon:hover {
+  cursor: pointer;
+}
+
+.editButton {
+    height: 30px;
+    width: 100%;
+    letter-spacing: 3.5px;
+    color: #ffffff;
+    background: #6E934D;
+    box-shadow: 3px 3px 5px rgba(68, 68, 68, 0.288);
+    border-radius: 5px;
+    border: none;
+    margin: 20px;
+}
+
+.editButton:active {
+    box-shadow:  1px 1px 3px rgba(107, 107, 107, 0.288);
+}
+
+.editButton:hover {
+  background:  #4d742b;
+  cursor: pointer;
+}
+.modalLayer{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:-1;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* edit modal content */
+.modalContent{
+  display: flex;
+  flex-direction: column;
+  /* justify-content: left; */
+}
+
+
+
+
+.modalContent > label{
+  margin-top: 15px;
+  margin-bottom: 7px;
+}
+
+.imgUpload{
+  position: relative;
+}
+.imgUpload :hover{
+  cursor: pointer;
+}
+
+.userImg{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: solid 4px #6E934D;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.uploadIcon{
+  width: 30px;
+  height: 30px;
+  color: rgb(95, 148, 49);
+  position: absolute;
+  top: 80px;
+  left: 75px;
+  z-index: 2;
+}
+
+.modalContent > input{
+  width: 240px;
+  height: 30px;
+  padding: 0 10px;
+  /* margin-bottom: 20px; */
+  border: solid 1px #c6c6c6;
+  border-radius: 5px;
+}
+.modalContent > input:focus { 
+  outline: none !important; border-color: #6E934D;
+}
+
+/* .modalContent > p{
+  margin-top: 5px;
+} */
+
+.errMsg{
+  margin-top: 5px;
+  font-size: 14px;
+  color: rgb(221, 106, 106);
+}
