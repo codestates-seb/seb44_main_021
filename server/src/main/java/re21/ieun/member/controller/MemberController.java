@@ -108,6 +108,7 @@ public class MemberController {
 //
 //        return ResponseEntity.created(location).build();
 //    }
+//
 
     @GetMapping
     public ResponseEntity getMembers(@RequestParam int page, @RequestParam int size){
