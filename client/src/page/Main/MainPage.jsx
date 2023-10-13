@@ -1,17 +1,20 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
 import { axiosInstance } from "../../api/axiosInstance";
 import Lenis from "@studio-freight/lenis";
-import style from "./MainPage.module.css";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Loading from "../../loading";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import ProfileDropdown from "../../components/Header/dropdown/ProfileDropdown";
+import Contents from "../../components/Main/Contents";
+import List from "../../components/Main/List";
+import SideLink from "../../components/Main/SideLink";
+import Banner from "./../../components/Main/Banner";
+import Footer from "../../components/Main/Footer";
+import styled, { keyframes } from "styled-components";
 
 const MainPage = () => {
-  const [logoSize, setLogoSize] = useState(60);
   const [nowloding, setNowloding] = useState(false);
   const [open, setOpen] = useState(false);
   const [data, setData] = useState([]);
@@ -27,9 +30,7 @@ const MainPage = () => {
     if (accessToken) {
       localStorage.setItem("token", accessToken);
     }
-  }, []);
 
-  useEffect(() => {
     axiosInstance({
       url: "/upcyclings/descending?page=1&size=4",
       method: "get",
@@ -39,8 +40,6 @@ const MainPage = () => {
       })
       .catch((err) => console.log(err));
   }, []);
-
-  gsap.registerPlugin(ScrollTrigger);
 
   useEffect(() => {
     if (horwrapRef.current) {
@@ -61,13 +60,12 @@ const MainPage = () => {
     setNowloding(true);
   }, [horwrapRef.current]);
 
+  gsap.registerPlugin(ScrollTrigger);
   const lenis = new Lenis();
-
   function raf(time) {
     lenis.raf(time);
     requestAnimationFrame(raf);
   }
-
   requestAnimationFrame(raf);
 
   const openModal = () => {
@@ -86,289 +84,102 @@ const MainPage = () => {
   return (
     <>
       {nowloding ? (
-        <div id={style.mainpage}>
+        <div>
           {open ? (
-            <div className={style.modalOverlay}>
-              <div
-                className={`${style.modalContent} ${
-                  !isUnmount ? "" : style.closeModal
-                }`}
-              >
-                <div className={style.modalLogo}>
+            <ModalOverlay>
+              <ModalContent isUnmount={isUnmount}>
+                <ModalLogo>
                   <img
                     src={process.env.PUBLIC_URL + "/image/logo1.png"}
                     alt="로고"
-                    style={{
-                      width: "60px",
-                      height: "60px",
-                    }}
                   />
-                  <button onClick={closeModal} id={style.closebutton}>
+                  <Closebutton onClick={closeModal}>
                     <CloseIcon sx={{ fontSize: 30, color: "#000000" }} />
-                  </button>
-                </div>
-                <div id={style.sidelist}>
-                  <Link to="/funding" className={style.link}>
-                    <div className={style.sidelistText}>펀딩+</div>
-                  </Link>
-                  <Link to="/store" className={style.link}>
-                    <div className={style.sidelistText}>스토어</div>
-                  </Link>
-                  <Link to="/about" className={style.link}>
-                    <div className={style.sidelistText}>About</div>
-                  </Link>
-                  <p
-                    style={{
-                      fontSize: "35px",
-                      color: "#353535",
-                      fontWeight: "bold",
-                      marginTop: "170px",
-                    }}
-                  >
-                    IEUN CO.
-                  </p>
-                </div>
-              </div>
-            </div>
+                  </Closebutton>
+                </ModalLogo>
+                <Sidelist>
+                  <SideLink to="/funding" text="펀딩+" />
+                  <SideLink to="/store" text="스토어" />
+                  <SideLink to="/about" text="About" />
+                  <TeamName>IEUN CO.</TeamName>
+                </Sidelist>
+              </ModalContent>
+            </ModalOverlay>
           ) : null}
-          <div id={style.header}>
-            <button className={style.button} onClick={openModal}>
+          <Header>
+            <OpenModalButton onClick={openModal}>
               <MenuIcon sx={{ fontSize: 40, color: "#6E934D" }} />
-            </button>
-            <div id={style.logo}>
-              <img
+            </OpenModalButton>
+            <Logo>
+              <LogoImg
                 src={process.env.PUBLIC_URL + "/image/logo3.png"}
                 alt="로고"
-                style={{
-                  width: `${logoSize}px`,
-                  height: `${logoSize}px`,
-                  borderRadius: "20px",
-                }}
               />
-              <img
+              <LogoImg
                 src={process.env.PUBLIC_URL + "/image/logo2.png"}
                 alt="로고"
-                style={{ width: `${logoSize}px`, height: `${logoSize}px` }}
               />
-            </div>
+            </Logo>
             <ProfileDropdown />
-          </div>
-          <div id={style.main}>
-            <div className="horwrap" ref={horwrapRef}>
-              <div className={style.horwrap}>
-                <div className={style.hor}>
-                  <Link to="/about">
-                    <img
-                      src={process.env.PUBLIC_URL + "/image/test4.jpg"}
-                      alt="test"
-                      className={style.mainImg}
-                    />
-                  </Link>
-                </div>
+          </Header>
 
-                <div className={style.hor}>
-                  <Link to="/funding">
-                    <img
-                      src={process.env.PUBLIC_URL + "/image/test6.jpg"}
-                      alt="test"
-                      className={style.mainImg}
-                    />
-                  </Link>
-                </div>
-
-                <div className={style.hor}>
-                  <Link to="/store">
-                    <img
-                      src={process.env.PUBLIC_URL + "/image/test7.jpg"}
-                      alt="test"
-                      className={style.mainImg}
-                    />
-                  </Link>
-                </div>
-              </div>
-            </div>
-            <div id={style.contents}>
-              <div id={style.h1boxMagazine}>
-                <h1 className={style.h1}>Magazine</h1>
-              </div>
-              <div className={style.contentslist}>
-                <a
+          <Main>
+            <Horwrap ref={horwrapRef}>
+              <Banner link="/about" img="/image/test4.jpg" />
+              <Banner link="/funding" img="/image/test6.jpg" />
+              <Banner link="/store" img="/image/test7.jpg" />
+            </Horwrap>
+            <ContentsFrame>
+              <H1>Magazine</H1>
+              <Contentslist>
+                <Contents
                   href="https://eco-fresh.co.kr/article/%EC%97%90%EC%BD%94-%EB%A7%A4%EA%B1%B0%EC%A7%84/1008/168259/"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <div className={style.contentsbox}>
-                    <img
-                      src={process.env.PUBLIC_URL + "/image/test13.png"}
-                      alt="test"
-                      className={style.contentsImg}
-                    />
-                    <p className={style.contentsText}>
-                      이은이 알려주는 친환경 잡지
-                    </p>
-                    <p className={style.contentsSub}>
-                      제로 웨이스트, 리업사이클 등 8개의 키워드 제품을 판매하는
-                      eco fresh를 소개할게요!
-                    </p>
-
-                    <p className={style.contentsFooter}>@ecomagazine</p>
-                  </div>
-                </a>
-                <a
+                  src="/image/test13.png"
+                  title="이은이 알려주는 친환경 잡지"
+                  text="제로 웨이스트, 리업사이클 등 8개의 키워드 제품을 판매하는 eco fresh를 소개할게요!"
+                  footer="@ecomagazine"
+                />
+                <Contents
                   href="https://www.eyesmag.com/search?s=%EC%97%85%EC%82%AC%EC%9D%B4%ED%81%B4%EB%A7%81"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <div className={style.contentsbox}>
-                    <img
-                      src={process.env.PUBLIC_URL + "/image/test14.png"}
-                      alt="test"
-                      className={style.contentsImg}
-                    />
-                    <p className={style.contentsText}>
-                      친환경을 주목하는 아이즈매거진
-                    </p>
-                    <p className={style.contentsSub}>
-                      클린뷰티부터 스투시까지, 이은이 소개하는 업사이클링의 최신
-                      트렌트를 읽어보세요 🙂
-                    </p>
-
-                    <p className={style.contentsFooter}>@eyesmagazine</p>
-                  </div>
-                </a>
-                <a
+                  src="/image/test14.png"
+                  title="친환경을 주목하는 아이즈매거진"
+                  text="클린뷰티부터 스투시까지, 이은이 소개하는 업사이클링의 최신 트렌트를 읽어보세요 🙂"
+                  footer="@eyesmagazine"
+                />
+                <Contents
                   href="https://www.beautifulstore.org/upcycling"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <div className={style.contentsbox}>
-                    <img
-                      src={process.env.PUBLIC_URL + "/image/test15.jpg"}
-                      alt="test"
-                      className={style.contentsImg}
-                    />
-
-                    <p className={style.contentsText}>
-                      '에코라이프스타일'의 확산
-                    </p>
-                    <p className={style.contentsSub}>
-                      아름다운 가게에서 소개하는 '에코파티메아리'를 확인해보세요
-                      😎
-                    </p>
-
-                    <p className={style.contentsFooter}>@beautifulstore</p>
-                  </div>
-                </a>
-                <a
+                  src="/image/test15.jpg"
+                  title="'에코라이프스타일'의 확산"
+                  text="아름다운 가게에서 소개하는 '에코파티메아리'를 확인해보세요😎"
+                  footer="@beautifulstore"
+                />
+                <Contents
                   href="https://metropolismag.com/sustainability/"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <div className={style.contentsbox}>
-                    <img
-                      src={process.env.PUBLIC_URL + "/image/test16.jpg"}
-                      alt="test"
-                      className={style.contentsImg}
-                    />
-                    <p className={style.contentsText}>
-                      지속가능한 업사이클링 인테리어
-                    </p>
-                    <p className={style.contentsSub}>
-                      전세계가 열광하는 지속가능한 인테리어의 세계로 여러분을
-                      초대합니다 📢
-                    </p>
-
-                    <p className={style.contentsFooter}>@metropolis</p>
-                  </div>
-                </a>
-              </div>
-              <div id={style.h1boxFunding}>
-                <h1 className={style.h1}>Funding</h1>
-              </div>
+                  src="/image/test16.jpg"
+                  title="지속가능한 업사이클링 인테리어"
+                  text="전세계가 열광하는 지속가능한 인테리어의 세계로 여러분을 초대합니다 📢"
+                  footer="@metropolis"
+                />
+              </Contentslist>
+              <H1>Funding</H1>
               {data.length > 3 ? (
-                <div className={style.contentslist}>
-                  <Link
-                    to={`/fundingdetail/${data[0].upcyclingId}`}
-                    className={style.link}
-                  >
-                    <div className={style.contentsbox}>
-                      <img
-                        src={data[0].thumbNailImage}
-                        alt="img"
-                        className={style.contentsImg}
+                <Contentslist>
+                  {data.slice(0, 4).map((item, index) => (
+                    <div key={index}>
+                      <List
+                        upcyclingId={item.upcyclingId}
+                        thumbNailImage={item.thumbNailImage}
+                        title={item.title}
+                        content={item.content}
+                        displayName={item.displayName}
                       />
-                      <div className={style.contentsText}>{data[0].title}</div>
-                      <div className={style.contentsSub}>{data[0].content}</div>
-                      <div
-                        className={style.contentsFooter}
-                      >{`@${data[0].displayName}`}</div>
                     </div>
-                  </Link>
-
-                  <Link
-                    to={`/fundingdetail/${data[1].upcyclingId}`}
-                    className={style.link}
-                  >
-                    <div className={style.contentsbox}>
-                      <img
-                        src={data[1].thumbNailImage}
-                        alt="img"
-                        className={style.contentsImg}
-                      />
-                      <div className={style.contentsText}>{data[1].title}</div>
-                      <div className={style.contentsSub}>{data[1].content}</div>
-                      <div
-                        className={style.contentsFooter}
-                      >{`@${data[1].displayName}`}</div>
-                    </div>
-                  </Link>
-
-                  <Link
-                    to={`/fundingdetail/${data[2].upcyclingId}`}
-                    className={style.link}
-                  >
-                    <div className={style.contentsbox}>
-                      <img
-                        src={data[2].thumbNailImage}
-                        alt="img"
-                        className={style.contentsImg}
-                      />
-                      <div className={style.contentsText}>{data[2].title}</div>
-                      <div className={style.contentsSub}>{data[2].content}</div>
-                      <div
-                        className={style.contentsFooter}
-                      >{`@${data[2].displayName}`}</div>
-                    </div>
-                  </Link>
-
-                  <Link
-                    to={`/fundingdetail/${data[3].upcyclingId}`}
-                    className={style.link}
-                  >
-                    <div className={style.contentsbox}>
-                      <img
-                        src={data[3].thumbNailImage}
-                        alt="img"
-                        className={style.contentsImg}
-                      />
-                      <div className={style.contentsText}>{data[3].title}</div>
-                      <div className={style.contentsSub}>{data[3].content}</div>
-                      <div
-                        className={style.contentsFooter}
-                      >{`@${data[3].displayName}`}</div>
-                    </div>
-                  </Link>
-                </div>
+                  ))}
+                </Contentslist>
               ) : null}
-            </div>
-            <div id={style.footer}>
-              <img
-                src={process.env.PUBLIC_URL + "/image/test8.jpg"}
-                alt="test"
-                className={style.mainImg}
-              />
-            </div>
-          </div>
+            </ContentsFrame>
+            <Footer />
+          </Main>
         </div>
       ) : (
         <Loading />
@@ -378,3 +189,153 @@ const MainPage = () => {
 };
 
 export default MainPage;
+
+//styled-components
+
+const ModalOverlay = styled.div`
+  position: fixed;
+  z-index: 95;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+`;
+
+const ModalContent = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: #f5f5f5;
+  height: 100%;
+  width: 20%;
+  animation: ${(props) => {
+      if (props.isUnmount === true) {
+        return closeModal;
+      } else {
+        return openModal;
+      }
+    }}
+    1s forwards;
+`;
+
+const openModal = keyframes`
+  0% {
+    transform: translateX(-300px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+`;
+
+const closeModal = keyframes`
+  0% {
+    margin-top: 0px;
+  }
+  100% {
+    transform: translateX(-300px);
+  }
+`;
+
+const ModalLogo = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  > img {
+    margin-top: 10px;
+    width: 60px;
+    height: 60px;
+  }
+`;
+
+const Closebutton = styled.button`
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin: 20px;
+  cursor: pointer;
+  position: absolute;
+  top: 1px;
+  right: 1px;
+`;
+
+const Sidelist = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+`;
+
+const TeamName = styled.p`
+  font-size: "35px";
+  color: "#353535";
+  font-weight: "bold";
+  margin-top: "170px";
+`;
+
+const Header = styled.div`
+  position: fixed;
+  top: 0;
+  width: calc(100% - 65px);
+  height: 70px;
+  z-index: 90;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: transparent;
+  padding: 0 30px;
+  padding-top: 30px;
+`;
+
+const OpenModalButton = styled.button`
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+`;
+
+const Logo = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const LogoImg = styled.img`
+  width: 60px;
+  height: 60px;
+  border-radius: 20px;
+`;
+
+const Main = styled.div`
+  padding: 0 100px;
+  background-color: #f5f5f5;
+  margin-bottom: 100vh;
+`;
+
+const Horwrap = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 280vw;
+  height: 80vh;
+  padding-left: 350px;
+`;
+
+const ContentsFrame = styled.div`
+  margin-top: 50px;
+  padding-bottom: 145px;
+`;
+
+const Contentslist = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 50px 0;
+`;
+
+const H1 = styled.h1`
+  margin-top: 130px;
+  color: #639443;
+`;
