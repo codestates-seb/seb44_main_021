@@ -197,7 +197,7 @@ const FundingPage = () => {
             menu={["All", "천", "목재", "플라스틱", "철제", "유리", "기타"]}
           />
           <Funding>
-            {true
+            {isLoding
               ? fundingList.map((obj, index) => <List key={index} {...obj} />)
               : null}
           </Funding>
