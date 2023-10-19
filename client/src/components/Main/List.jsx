@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-const List = ({ upcyclingId, thumbNailImage, title, content, displayName }) => {
+const List = (props) => {
   return (
-    <ListLink to={`/fundingdetail/${upcyclingId}`}>
+    <ListLink to={`/fundingdetail/${props.upcyclingId}`}>
       <Contentsbox>
-        <ContentsImg src={thumbNailImage} alt="img" />
-        <ContentsText>{title}</ContentsText>
-        <ContentsSub>{content}</ContentsSub>
-        <ContentsFooter>{`@${displayName}`}</ContentsFooter>
+        <ContentsImg src={props.thumbNailImage} alt="img" />
+        <ContentsText>{props.title}</ContentsText>
+        <ContentsSub>{props.content}</ContentsSub>
+        <ContentsFooter>{`@${props.displayName}`}</ContentsFooter>
       </Contentsbox>
     </ListLink>
   );

@@ -166,13 +166,7 @@ const MainPage = () => {
                 <Contentslist>
                   {data.slice(0, 4).map((item, index) => (
                     <div key={index}>
-                      <List
-                        upcyclingId={item.upcyclingId}
-                        thumbNailImage={item.thumbNailImage}
-                        title={item.title}
-                        content={item.content}
-                        displayName={item.displayName}
-                      />
+                      <List {...obj} />
                     </div>
                   ))}
                 </Contentslist>
