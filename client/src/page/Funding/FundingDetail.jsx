@@ -153,7 +153,15 @@ const FundingDetail = () => {
         </Wrapper>
       </AllWrapper>
       <Footer />
-      {isModalOpen && <Modal id={id} data={data} userData={userData} />}
+      {isModalOpen && (
+        <Modal
+          id={id}
+          data={data}
+          userData={userData}
+          setIsModalOpen={setIsModalOpen}
+          setFundingRate={setFundingRate}
+        />
+      )}
     </div>
   );
 };

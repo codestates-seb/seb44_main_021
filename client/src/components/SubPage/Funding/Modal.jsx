@@ -4,7 +4,7 @@ import axios from "axios";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
 
-const Modal = ({ id, data, userData }) => {
+const Modal = ({ id, data, userData, setIsModalOpen, setFundingRate }) => {
   const [quantity, setQuantity] = useState(0);
   const [funding, setFunding] = useState(false);
 
