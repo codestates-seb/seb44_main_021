@@ -1,11 +1,12 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../../components/Header/Header";
-import style from "./StoreDetail.module.css";
 import axios from "axios";
-import CloseIcon from "@mui/icons-material/Close";
 import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { UserDataContext } from "../../contexts/UserDataContext";
+import { useSelector } from "react-redux";
+import { axiosInstance } from "../../api/axiosInstance";
+import styled from "styled-components";
+import Modal from "../../components/SubPage/Store/Modal";
 
 const StoreDetail = () => {
   const { id } = useParams();
@@ -13,10 +14,11 @@ const StoreDetail = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [quantity, setQuantity] = useState(0);
   const [profile, setprofile] = useState("");
-  const { userData } = useContext(UserDataContext);
+
+  const userData = useSelector((state) => state.userData);
 
   useEffect(() => {
-    axios({
+    axiosInstance({
       url: `/sells/${id}`,
       method: "get",
     })
@@ -62,11 +64,6 @@ const StoreDetail = () => {
     }
   };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setQuantity(0);
-  };
-
   const navigate = useNavigate();
 
   const deleteStore = () => {
@@ -97,169 +94,362 @@ const StoreDetail = () => {
   };
 
   return (
-    <div id={style.AllContainer}>
+    <div>
       <Header />
-      <div id={style.AllWrapper}>
-        <div id={style.leftWrapper}>
-          <div id={style.imgContainer}>
-            <img id={style.thumimg} src={data.thumbNailImage} alt="img" />
-          </div>
-          <div id={style.MaterierBox}>
-            <div className={style.materiarblank}></div>
-            <div className={style.materiartext}>
+      <Wrapper>
+        <LeftWrapper>
+          <ImgContainer>
+            <Thumimg src={data.thumbNailImage} alt="img" />
+          </ImgContainer>
+          <MaterierBox>
+            <Materiartext>
               판매자가 작성한 제품에 사용된 업사이클링 품목입니다.
-            </div>
-            <div className={style.materiartext}>
+            </Materiartext>
+            <Materiartext>
               이은 스토어는 단순히 수익성 제품을 판매하는 것이 아닌 업사이클링
               제품을 판매하는 과정을 지원해요.
-            </div>
-            <hr id={style.materiarhr}></hr>
-            <div id={style.materialcontext}>{data.material}</div>
-            <div className={style.materiarblank}></div>
-          </div>
-        </div>
-        <div id={style.rightWrapper}>
-          <div id={style.userbox}>
-            <div id={style.userinf}>
+            </Materiartext>
+            <Materiarhr />
+            <Materialcontext>{data.material}</Materialcontext>
+          </MaterierBox>
+        </LeftWrapper>
+        <RightWrapper>
+          <Userbox>
+            <Userinf>
               {profile !== null ? (
-                <img
-                  id={style.userprofile}
-                  src={profile}
-                  alt="펀딩 이미지 미리보기"
-                />
+                <Userprofile src={profile} alt="펀딩 이미지 미리보기" />
               ) : (
-                <img
-                  id={style.userprofile}
+                <Userprofile
                   src={`${process.env.PUBLIC_URL}/image/profile.jpeg`}
                   alt="기본 프로필"
                 />
               )}
-              <div id={style.upcycler}>{data.displayName}</div>
-            </div>
-            <div id={style.useroption}>
-              {userData.memberId === data.memberId ? (
-                <div id={style.buttonContainer}>
-                  <button className={style.button} onClick={deleteStore}>
-                    삭제
-                  </button>
-                  <Link to={`/storeedit/${data.sellId}`} className={style.link}>
-                    <button className={style.button}>수정</button>
-                  </Link>
-                </div>
-              ) : null}
-            </div>
-          </div>
-          <div id={style.subbox}>
-            <div className={style.text1}>
+              <Upcycler>{data.displayName}</Upcycler>
+            </Userinf>
+            {userData.memberId === data.memberId ? (
+              <ButtonContainer>
+                <Button onClick={deleteStore}>삭제</Button>
+                <LinkEdit to={`/storeedit/${data.sellId}`}>
+                  <Button>수정</Button>
+                </LinkEdit>
+              </ButtonContainer>
+            ) : null}
+          </Userbox>
+          <Subbox>
+            <SubTitle>
               🛒 스토어 {">"} {data.sellCategoryName}
-            </div>
-            <div id={style.viewtext}>조회수 {data.viewCount}</div>
-          </div>
-          <div id={style.NameInput}>
+            </SubTitle>
+            <ViewCount>조회수 {data.viewCount}</ViewCount>
+          </Subbox>
+          <ItemName>
             <h3>{data.title}</h3>
-          </div>
-          <div id={style.IntroduceBox}>{data.content}</div>
-          <div className={style.AmountBox}>
-            <div className={style.text2}>상품 금액</div>
-            <div className={style.text2}>
-              {formatPriceWithCommas(data.price)}원
-            </div>
-          </div>
-          <div className={style.quantity}>
-            <div className={style.text2}>수량</div>
+          </ItemName>
+          <ItemInfo>{data.content}</ItemInfo>
+          <AmountBox>
+            <Text>상품 금액</Text>
+            <Text>{formatPriceWithCommas(data.price)}원</Text>
+          </AmountBox>
+          <Quantity>
+            <Text>수량</Text>
             <div>
-              <select
-                id={style.quantitybox}
+              <Quantitybox
                 value={quantity}
                 label="quantity"
                 onChange={handleChange}
               >
-                <option className={style.text2}>선택해주세요.</option>
-                <option className={style.text2} value={1}>
-                  1개
-                </option>
-                <option className={style.text2} value={2}>
-                  2개
-                </option>
-                <option className={style.text2} value={3}>
-                  3개
-                </option>
-                <option className={style.text2} value={4}>
-                  4개
-                </option>
-                <option className={style.text2} value={5}>
-                  5개
-                </option>
-              </select>
+                <Option>선택해주세요.</Option>
+                <Option value={1}>1개</Option>
+                <Option value={2}>2개</Option>
+                <Option value={3}>3개</Option>
+                <Option value={4}>4개</Option>
+                <Option value={5}>5개</Option>
+              </Quantitybox>
             </div>
-          </div>
-          <div className={style.quantity}>
-            <div className={style.text1}>총 결제 금액 </div>
+          </Quantity>
+          <Quantity>
+            <SubTitle>총 결제 금액 </SubTitle>
             <div>
               {quantity ? (
-                <div className={style.text3}>
+                <TotalAmount>
                   {formatPriceWithCommas(data.price * quantity)}원
-                </div>
+                </TotalAmount>
               ) : (
-                <div className={style.text3}>
+                <TotalAmount>
                   {formatPriceWithCommas(data.price * quantity)}
-                </div>
+                </TotalAmount>
               )}
             </div>
-          </div>
+          </Quantity>
           {localStorage.getItem("token") ? (
-            <button id={style.CreateButton} onClick={handleOpenModal}>
-              구매하기
-            </button>
+            <CreateButton onClick={handleOpenModal}>구매하기</CreateButton>
           ) : (
             <Link to="/login">
-              <button id={style.CreateButton}>
-                로그인 이후 구매 가능합니다
-              </button>
+              <CreateButton>로그인 이후 구매 가능합니다</CreateButton>
             </Link>
           )}
-        </div>
-      </div>
+        </RightWrapper>
+      </Wrapper>
       {isModalOpen && (
-        <div className={style.modalOverlay}>
-          <div className={style.modalContent}>
-            <button className={style.closeButton} onClick={handleCloseModal}>
-              <CloseIcon />
-            </button>
-            <div id={style.modaltitle}>
-              {userData.displayName}님, 구매해 주셔서 감사합니다!!
-            </div>
-            <div className={style.modaltext1}>제품명</div>
-            <div className={style.modaltext}>{data.title}</div>
-            <div className={style.modaltext1}>수량</div>
-            <div className={style.modaltext}>{quantity}개</div>
-            <div id={style.modaltitle1}>
-              총 금액 : {data.price * quantity}원
-            </div>
-            <div id={style.stoerButton}>
-              <Link to="/mypage">
-                <button className={style.fundingButton}>
-                  구매 내역 보러가기
-                </button>
-              </Link>
-              <Link to="/store">
-                <button className={style.fundingButton1}>
-                  다른 상품 보러가기
-                </button>
-              </Link>
-            </div>
-          </div>
-        </div>
+        <Modal
+          data={data}
+          userData={userData}
+          quantity={quantity}
+          setQuantity={setQuantity}
+          setIsModalOpen={setIsModalOpen}
+        />
       )}
-      <div id={style.infoWrapper}>
-        <div id={style.info}>
-          <div id={style.infoTitle}>제품 상세 정보</div>
+      <InfoWrapper>
+        <Info>
+          <InfoTitle>제품 상세 정보</InfoTitle>
           <img src={data.contentImage} alt="img" />
-        </div>
-        <div id={style.footer}>IEUN CO.</div>
-      </div>
+        </Info>
+        <Footer>IEUN CO.</Footer>
+      </InfoWrapper>
     </div>
   );
 };
 
 export default StoreDetail;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+`;
+
+const LeftWrapper = styled.div`
+  width: 45%;
+  margin-right: 10px;
+`;
+
+const RightWrapper = styled.div`
+  width: 25%;
+  margin-left: 10px;
+`;
+
+const ImgContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 500px;
+  width: 100%;
+`;
+
+const Thumimg = styled.img`
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+`;
+
+const MaterierBox = styled.div`
+  background-color: rgb(249, 250, 251);
+  margin-top: 20px;
+  padding: 10px, 0;
+  border-radius: 5px;
+`;
+
+const Materiartext = styled.div`
+  margin-top: 5px;
+  margin-left: 20px;
+  font-size: 12px;
+`;
+
+const Materiarhr = styled.hr`
+  margin-top: 5px;
+  border: 0.5px solid rgb(243, 244, 246);
+`;
+
+const Materialcontext = styled.div`
+  margin-top: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+  font-size: 15px;
+`;
+
+const Userbox = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  border-bottom: 0.8px solid rgb(236, 236, 238);
+`;
+
+const Userinf = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const Userprofile = styled.img`
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+`;
+
+const Upcycler = styled.div`
+  margin-left: 10px;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+`;
+
+const Button = styled.button`
+  background-color: #6e934d;
+  border: none;
+  border-radius: 10px;
+  height: 30px;
+  width: 50px;
+  text-align: center;
+  cursor: pointer;
+  color: #fff;
+  margin-left: 10px;
+`;
+
+const LinkEdit = styled(Link)`
+  outline: none;
+  text-decoration: none;
+  color: black;
+`;
+
+const Subbox = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const SubTitle = styled.div`
+  margin-top: 10px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  font-weight: 600;
+`;
+
+const ViewCount = styled.div`
+  font-size: 13px;
+`;
+
+const ItemName = styled.div`
+  width: 100%;
+  height: 50px;
+  font-size: 17px;
+  resize: none;
+  font-family: Arial, Helvetica, sans-serif;
+  white-space: pre-line;
+  word-break: break-all;
+  margin-bottom: 10px;
+`;
+
+const ItemInfo = styled.div`
+  width: 100%;
+  height: 300px;
+  font-size: 14px;
+  margin-top: 5px;
+  margin-bottom: 25px;
+  font-family: Arial, Helvetica, sans-serif;
+  resize: none;
+  white-space: pre-line;
+  word-break: break-all;
+`;
+
+const AmountBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 15px;
+  margin-bottom: 10px;
+  border-top: 0.8px solid rgb(236, 236, 238);
+`;
+
+const Text = styled.div`
+  font-size: 14px;
+  margin-right: 5px;
+`;
+
+const Quantity = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+`;
+
+const Quantitybox = styled.select`
+  width: 90px;
+  height: 20px;
+  &:focus {
+    outline: none;
+  }
+`;
+
+const Option = styled.option`
+  font-size: 14px;
+  margin-right: 5px;
+`;
+
+const TotalAmount = styled.div`
+  margin-top: 10px;
+  margin-bottom: 15px;
+  font-size: 20px;
+  font-weight: 800;
+  color: #6e934d;
+`;
+
+const CreateButton = styled.button`
+  width: 100%;
+  height: 50px;
+  font-size: 17px;
+  font-weight: 400;
+  border: none;
+  background-color: #6e934d;
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  &:hover {
+    background-color: #6e934d91;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+`;
+
+const InfoWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Info = styled.div`
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 50px;
+`;
+
+const InfoTitle = styled.div`
+  color: #6e934d;
+  margin: 10px 0 50px 0;
+  font-size: 22px;
+  font-weight: bold;
+  border-bottom: 1px solid rgb(243, 244, 246);
+  padding-bottom: 20px;
+`;
+
+const Footer = styled.div`
+  width: 100%;
+  height: 50px;
+  margin-top: 20px;
+  background-color: #6e934d;
+  text-align: center;
+  padding-top: 25px;
+  color: #fff;
+  font-size: 20px;
+`;
