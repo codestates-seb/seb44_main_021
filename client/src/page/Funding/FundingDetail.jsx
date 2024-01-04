@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Header from "../../components/Header/Header";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
@@ -78,7 +77,6 @@ const FundingDetail = () => {
 
   return (
     <div>
-      <Header />
       <AllWrapper>
         <Wrapper width="45%">
           <Thumimg src={data.thumbNailImage} alt="img" />

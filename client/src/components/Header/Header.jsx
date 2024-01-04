@@ -1,11 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Logo from "../Logo/Logo";
 import ProfileDropdown from "./dropdown/ProfileDropdown";
 import * as S from "./Header.styled";
 import SearchBar from "./SearchBar/SearchBar";
 
-const Header = ({ url, setSearchParam }) => {
+const Header = () => {
+  let { pathname } = useLocation();
   return (
     <S.HeaderContainer>
       <S.HeaderWrapper>
@@ -23,9 +24,8 @@ const Header = ({ url, setSearchParam }) => {
         </S.LeftArea>
 
         <S.RightArea>
-          {(window.location.pathname === "/funding" ||
-            window.location.pathname === "/store") && (
-            <SearchBar url={url} setSearchParam={setSearchParam} />
+          {(pathname === "/funding" || pathname === "/store") && (
+            <SearchBar pathname={pathname} />
           )}
           <ProfileDropdown />
         </S.RightArea>

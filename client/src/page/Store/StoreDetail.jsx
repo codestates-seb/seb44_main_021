@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Header from "../../components/Header/Header";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
@@ -95,7 +94,6 @@ const StoreDetail = () => {
 
   return (
     <div>
-      <Header />
       <Wrapper>
         <LeftWrapper>
           <ImgContainer>

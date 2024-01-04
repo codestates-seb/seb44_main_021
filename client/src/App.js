@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 // import { UserDataProvider } from "./store/UserDataSlice";
 import MainPage from "./page/Main/MainPage";
 import UserSelectionPage from "./page/SignupPage/UserSelectionPage";
@@ -14,11 +14,15 @@ import FundingCreatePage from "./page/Funding/FundingCreatePage";
 import FundingEditPage from "./page/Funding/FundingEditPage";
 import StoreCreatePage from "./page/Store/StoreCreatePage";
 import StoreEditPage from "./page/Store/StoreEditPage";
+import Header from "./components/Header/Header";
 
 function App() {
+  const { pathname } = useLocation();
+
   return (
     <div>
       {/* <UserDataProvider> */}
+      {pathname !== "/" && <Header />}
       <Routes>
         <Route element={<MainPage />} path="/" />
         <Route element={<StorePage />} path="/store" />
