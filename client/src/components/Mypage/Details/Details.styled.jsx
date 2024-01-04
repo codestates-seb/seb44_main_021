@@ -39,8 +39,8 @@ export const DetailsTable = styled.table`
 
 export const DetailsTableHeader = styled.th`
   font-weight: 500;
-  border-top: 2px solid #6e934d;
-  border-bottom: 1px solid #6e934d;
+  border-top: 2px solid var(--color-main);
+  border-bottom: 1px solid var(--color-main);
   height: 2.2rem;
   @media (max-width: 768px) {
     font-size: 0.8rem;

@@ -4,7 +4,7 @@ export const FormContainer = styled.div`
   display: grid;
   grid-gap: 3rem;
   h1 {
-    color: #6e934d;
+    color: var(--color-main);
     text-align: center;
   }
   p {

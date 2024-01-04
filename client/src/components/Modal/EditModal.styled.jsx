@@ -111,11 +111,11 @@ export const ModalContent = styled.div`
   flex-direction: column;
   /* justify-content: left; */
 
-  label {
+  & label {
     margin-top: 15px;
     margin-bottom: 7px;
   }
-  input {
+  & input {
     width: 240px;
     height: 30px;
     padding: 0 10px;
@@ -124,7 +124,7 @@ export const ModalContent = styled.div`
     border-radius: 5px;
     &:focus {
       outline: none !important;
-      border-color: #6e934d;
+      border-color: var(--color-main);
     }
   }
 `;
@@ -144,7 +144,7 @@ export const UserImg = styled.img`
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  border: solid 4px #6e934d;
+  border: solid 4px var(--color-main);
   margin-bottom: 20px;
   position: relative;
   z-index: 1;

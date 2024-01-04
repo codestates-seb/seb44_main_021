@@ -1,6 +1,5 @@
 import { useState } from "react";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../../api/logout";
 import * as S from "./ProfileDropdown.styled";
 
@@ -18,16 +17,16 @@ const ProfileDropdown = () => {
   };
   return (
     <S.DropdownContainer>
-      <AccountCircleIcon
+      <S.AccountBtn
         sx={{ fontSize: 35, fill: "#6e934d" }}
         onClick={openDropdown}
       />
       <S.DropdownWrapper>
         {menuView && (
           <ul>
-            <S.MenuItem onClick={() => navigate("/mypage/funding")}>
-              My page
-            </S.MenuItem>
+            <Link to="/mypage/funding">
+              <S.MenuItem>My page</S.MenuItem>
+            </Link>
             <S.MenuItem onClick={logout}>Logout</S.MenuItem>
           </ul>
         )}

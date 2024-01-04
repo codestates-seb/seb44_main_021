@@ -14,7 +14,7 @@ export const MyPageContainer = styled.main`
 `;
 
 export const MyPageWrapper = styled.div`
-  width: 70%;
+  width: 62rem;
   display: flex;
   @media (max-width: 768px) {
     flex-direction: column;

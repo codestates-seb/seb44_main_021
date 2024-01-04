@@ -20,7 +20,7 @@ export const SearchInput = styled.input`
 `;
 
 export const VerticalLine = styled.div`
-  border-left: 1px solid #6e934d;
+  border-left: 1px solid var(--color-main);
   height: 20px;
   margin: 0 0.5rem;
 `;
@@ -34,7 +34,7 @@ export const CloseBtn = styled(HiX)`
 
 export const SearchBtn = styled(HiSearch)`
   font-size: 1.8rem;
-  color: #6e934d;
+  color: var(--color-main);
   font-weight: 800;
   cursor: pointer;
 `;

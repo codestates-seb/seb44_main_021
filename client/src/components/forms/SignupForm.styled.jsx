@@ -11,7 +11,7 @@ export const EmailAuthBtn = styled.button`
   justify-content: center;
   align-items: center;
   color: #ffffff;
-  background: #6e934d;
+  background: var(--color-main);
   box-shadow: 3px 3px 6px 0 rgba(95, 95, 95, 0.37);
   border-radius: 5px;
   border: none;

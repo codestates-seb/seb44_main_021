@@ -19,7 +19,7 @@ const SubmitButton = styled.button`
   width: 100%;
   letter-spacing: 3.5px;
   color: #ffffff;
-  background: ${({ disabled }) => (disabled ? "#afafaf" : "#6e934d")};
+  background: ${({ disabled }) => (disabled ? "#afafaf" : "var(--color-main)")};
   border-radius: 5px;
   border: none;
 

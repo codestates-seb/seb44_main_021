@@ -15,7 +15,7 @@ export const CreateFormWrapper = styled.form`
 
 export const TitleBox = styled.div`
   & h1 {
-    color: #6e934d;
+    color: var(--color-main);
   }
   & p {
     font-size: 0.9rem;

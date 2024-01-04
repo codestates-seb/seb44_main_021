@@ -12,11 +12,11 @@ export const SignupButton = styled.button`
   padding: 10px;
   width: 100%;
   letter-spacing: 3.5px;
-  color: #6e934d;
+  color: var(--color-main);
   background: #ffffff;
   box-shadow: 3px 3px 6px rgba(95, 95, 95, 0.37);
   border-radius: 5px;
-  border: solid 1px #6e934d;
+  border: solid 1px var(--color-main);
   text-transform: uppercase;
   cursor: pointer;
   &:active {

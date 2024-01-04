@@ -104,7 +104,7 @@ const ImgUploadBtn = styled.label`
   margin-top: 1rem;
 
   color: #ffffff;
-  background: #6e934d;
+  background: var(--color-main);
   border-radius: 5px;
   box-shadow: 3px 3px 6px rgba(95, 95, 95, 0.37);
 

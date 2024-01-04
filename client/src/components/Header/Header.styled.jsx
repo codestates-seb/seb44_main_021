@@ -37,7 +37,7 @@ export const LeftArea = styled.section`
       font-size: 1.2rem;
       font-weight: bold;
       text-align: right;
-      color: #6e934d;
+      color: var(--color-main);
     }
   }
 `;

@@ -98,7 +98,7 @@ const RadioBtn = styled.input`
     outline: none;
   }
   &:checked {
-    border-color: #6e934d;
+    border-color: var(--color-main);
     /* border-radius: 50px; */
   }
 `;

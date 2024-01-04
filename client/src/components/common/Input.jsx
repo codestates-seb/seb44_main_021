@@ -1,35 +1,33 @@
 import React from "react";
 import styled from "styled-components";
 
-const Input = ({ label, type, name, placeholder, onChange, onBlur }) => {
+const Input = ({ label, ...inputProps }) => {
   return (
     <FormField>
       <label>{label}</label>
-      <InputField
-        type={type}
-        name={name}
-        placeholder={placeholder}
-        onChange={onChange}
-        onBlur={onBlur}
-      />
+      <InputField {...inputProps} />
     </FormField>
   );
 };
 
 export default Input;
+
 const FormField = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  /* width: 100%; */
 `;
+
 const InputField = styled.input`
+  box-sizing: border-box;
   background-color: #ffffff9d;
   box-shadow: 3px 3px 10px 0 rgba(95, 95, 95, 0.37);
-  padding: 10px;
   border: none;
   border-radius: 5px;
+  padding: 0.7rem;
+
   &:focus {
     outline: none !important;
-    border-color: #6e934d;
+    border-color: var(--color-main);
   }
 `;

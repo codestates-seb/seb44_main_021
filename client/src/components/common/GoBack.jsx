@@ -13,7 +13,7 @@ const GoBack = () => {
   return (
     <GoBackBtnContainer>
       <ArrowBackIcon
-        sx={{ fill: "#6e934d", fontSize: "2rem" }}
+        sx={{ fill: "var(--color-main)", fontSize: "2rem" }}
         onClick={handleGoBack}
       />
     </GoBackBtnContainer>
