@@ -1,17 +1,21 @@
-import React from 'react';
+import React from "react";
 import { Link } from "react-router-dom";
-import style from "./Logo.module.css";
+import { styled } from "styled-components";
 
-const logo = () => {
-    return (
-        <Link to="/">
-            <img
-            className={style.logo}
-            src={`${process.env.PUBLIC_URL}/image/logo2.png`}
-            alt="logo"
-            ></img>
-        </Link>
-    );
+const Logo = () => {
+  return (
+    <Link to="/">
+      <LogoImg
+        src={`${process.env.PUBLIC_URL}/image/logo2.png`}
+        alt="logo"
+      ></LogoImg>
+    </Link>
+  );
 };
 
-export default logo;
+export default Logo;
+
+const LogoImg = styled.img`
+  width: 70px;
+  height: 70px;
+`;

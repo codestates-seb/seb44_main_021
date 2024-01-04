@@ -23,7 +23,6 @@ const FundingPage = () => {
   const urlParams = new URL(window.location.href).searchParams;
   const serch = urlParams.get("serch");
   const [searchParam, setSearchParam] = useState(serch);
-
   useEffect(() => {
     if (searchParam) {
       axiosInstance({

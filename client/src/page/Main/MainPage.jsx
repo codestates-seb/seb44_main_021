@@ -166,7 +166,7 @@ const MainPage = () => {
                 <Contentslist>
                   {data.slice(0, 4).map((item, index) => (
                     <div key={index}>
-                      <List {...obj} />
+                      <List {...item} />
                     </div>
                   ))}
                 </Contentslist>

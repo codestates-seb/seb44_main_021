@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { axiosInstance } from "../../api/axiosInstance";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import Modal from "../../components/SubPage/Funding/Modal";
 
 const FundingDetail = () => {
@@ -159,6 +159,7 @@ const FundingDetail = () => {
           data={data}
           userData={userData}
           setIsModalOpen={setIsModalOpen}
+          fundingRate={fundingRate}
           setFundingRate={setFundingRate}
         />
       )}

@@ -6,6 +6,7 @@ import { axiosInstance } from "../../api/axiosInstance";
 import Banner from "../../components/SubPage/SideBar";
 import Navigation from "../../components/SubPage/Navigation";
 import Item from "../../components/SubPage/Store/Item";
+import styled from "styled-components";
 
 const StorePage = () => {
   const userData = useSelector((state) => state.userData);

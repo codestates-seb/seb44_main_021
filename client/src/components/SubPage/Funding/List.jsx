@@ -38,10 +38,10 @@ const LinkDetail = styled(Link)`
 `;
 
 const ThumbNailImage = styled.img`
-  width: "250px";
-  height: "60%";
-  border-radius: "20px";
-  object-fit: "cover";
+  width: 250px;
+  height: 60%;
+  border-radius: 20px;
+  object-fit: cover;
 `;
 
 const ListText = styled.div`
