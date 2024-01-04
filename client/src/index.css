@@ -12,3 +12,7 @@ input,
 textarea:focus {
   outline: none;
 }
+
+:root {
+  --color-main: #6e934d;
+}
