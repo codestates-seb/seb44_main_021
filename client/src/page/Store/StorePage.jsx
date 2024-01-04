@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Lenis from "@studio-freight/lenis";
-import Header from "../../components/Header/Header";
 import { useSelector } from "react-redux";
 import { axiosInstance } from "../../api/axiosInstance";
 import Banner from "../../components/SubPage/SideBar";
@@ -17,9 +16,7 @@ const StorePage = () => {
   const [isLoding, setIsLoding] = useState(false);
   const [role, setrole] = useState("");
 
-  const urlParams = new URL(window.location.href).searchParams;
-  const serch = urlParams.get("serch");
-  const [searchParam, setSearchParam] = useState(serch);
+  const searchParam = useSelector((state) => state.search.searchWord);
 
   useEffect(() => {
     if (searchParam) {
@@ -174,7 +171,7 @@ const StorePage = () => {
 
   return (
     <div>
-      <Header url="store" setSearchParam={setSearchParam} />
+      {/* <Header url="store" /> */}
       <Container>
         <Navigation
           sort={sort}

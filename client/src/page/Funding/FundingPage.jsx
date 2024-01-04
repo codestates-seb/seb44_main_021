@@ -20,9 +20,8 @@ const FundingPage = () => {
   const [isLoding, setIsLoding] = useState(false);
   const [role, setrole] = useState("");
 
-  const urlParams = new URL(window.location.href).searchParams;
-  const serch = urlParams.get("serch");
-  const [searchParam, setSearchParam] = useState(serch);
+  const searchParam = useSelector((state) => state.search.searchWord);
+
   useEffect(() => {
     if (searchParam) {
       axiosInstance({
@@ -181,7 +180,7 @@ const FundingPage = () => {
 
   return (
     <div>
-      <Header url="funding" setSearchParam={setSearchParam} />
+      {/* <Header url="funding" setSearchParam={setSearchParam} /> */}
       <Container>
         <Navigation
           sort={sort}
