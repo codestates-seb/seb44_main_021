@@ -1,14 +1,21 @@
 import React from "react";
 import useSearch from "../../../hooks/useSearch";
 import * as S from "./SearchBar.styled";
-
-const SearchBar = ({ url, setSearchParam }) => {
+import { useDispatch } from "react-redux";
+import { setSearchWord } from "../../../store/searchSlice";
+import { useNavigate } from "react-router-dom";
+const SearchBar = ({ pathname }) => {
   const [searchInput, setSearchInput, handleInputChange] = useSearch();
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleKeyPress = (event) => {
     if (event.keyCode === 13) {
-      setSearchParam(searchInput);
-      window.history.pushState("", null, `/${url}?serch=${searchInput}`);
+      // setSearchParam(searchInput);
+      dispatch(setSearchWord(searchInput));
+      // window.history.pushState("", null, `/${url}?serch=${searchInput}`);
+      navigate(`${pathname}?serch=${searchInput}`);
     }
   };
 
@@ -16,15 +23,15 @@ const SearchBar = ({ url, setSearchParam }) => {
     // 검색 버튼 클릭 시 수행할 작업
     // 검색어가 비어있지 않은 경우에만 URL 파라미터를 추가하도록 설정
     if (searchInput.trim() !== "") {
-      setSearchParam(searchInput);
-      window.history.pushState("", null, `/${url}?serch=${searchInput}`);
+      dispatch(setSearchWord(searchInput));
+      navigate(`${pathname}?serch=${searchInput}`);
     }
   };
 
   const deleteSearch = () => {
     setSearchInput("");
-    setSearchParam("");
-    window.history.pushState("", null, `/${url}`);
+    dispatch(setSearchWord(""));
+    navigate(`${pathname}`);
   };
 
   return (
