@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Lenis from "@studio-freight/lenis";
-import Header from "../../components/Header/Header";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { useGetMemberId } from "../../hooks/useGetMemberId";
@@ -186,7 +185,8 @@ const FundingPage = () => {
           sort={sort}
           setSort={setSort}
           role={role}
-          link="/fundingcreate"
+          param="/funding"
+          // link="/fundingcreate"
         />
         <ContainerBottom>
           <Banner
