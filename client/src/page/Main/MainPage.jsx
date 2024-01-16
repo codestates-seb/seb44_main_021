@@ -7,7 +7,6 @@ import Loading from "../../loading";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import ProfileDropdown from "../../components/Header/dropdown/ProfileDropdown";
-import Contents from "../../components/Main/Contents";
 import List from "../../components/Main/List";
 import SideLink from "../../components/Main/SideLink";
 import Banner from "./../../components/Main/Banner";
@@ -21,8 +20,6 @@ const MainPage = () => {
   const horwrapRef = useRef(null);
 
   const [isUnmount, setIsUnmount] = useState(false);
-
-  // const loginStatus = JSON.parse(localStorage.getItem("login"));
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -39,26 +36,29 @@ const MainPage = () => {
         setData(response.data.data);
       })
       .catch((err) => console.log(err));
+
+    setNowloding(true);
   }, []);
 
   useEffect(() => {
     if (horwrapRef.current) {
       const horwrapWidth = horwrapRef.current.offsetWidth;
-      gsap.to(".horwrap", {
-        x: -horwrapWidth * 2 - 600,
+
+      gsap.to(horwrapRef.current, {
+        // x: -horwrapWidth,
+        xPercent: -100,
         duration: 3,
         scrollTrigger: {
-          trigger: ".horwrap",
-          start: "top 145px",
-          end: "+=330%",
-          scrub: true,
-          pin: ".horwrap",
-          // markers: true,
+          trigger: horwrapRef.current,
+          // start: "top center",
+          end: `+=${horwrapWidth}`,
+          scrub: 0.5,
+          pin: horwrapRef.current,
         },
       });
     }
     setNowloding(true);
-  }, [horwrapRef.current]);
+  }, [nowloding, horwrapRef.current]);
 
   gsap.registerPlugin(ScrollTrigger);
   const lenis = new Lenis();
@@ -124,7 +124,7 @@ const MainPage = () => {
           </Header>
 
           <Main>
-            <Horwrap ref={horwrapRef}>
+            <Horwrap className="horwrap" ref={horwrapRef}>
               <Banner link="/about" img="/image/test4.jpg" />
               <Banner link="/funding" img="/image/test6.jpg" />
               <Banner link="/store" img="/image/test7.jpg" />
@@ -132,28 +132,28 @@ const MainPage = () => {
             <ContentsFrame>
               <H1>Magazine</H1>
               <Contentslist>
-                <Contents
+                <List
                   href="https://eco-fresh.co.kr/article/%EC%97%90%EC%BD%94-%EB%A7%A4%EA%B1%B0%EC%A7%84/1008/168259/"
                   src="/image/test13.png"
                   title="이은이 알려주는 친환경 잡지"
                   text="제로 웨이스트, 리업사이클 등 8개의 키워드 제품을 판매하는 eco fresh를 소개할게요!"
                   footer="@ecomagazine"
                 />
-                <Contents
+                <List
                   href="https://www.eyesmag.com/search?s=%EC%97%85%EC%82%AC%EC%9D%B4%ED%81%B4%EB%A7%81"
                   src="/image/test14.png"
                   title="친환경을 주목하는 아이즈매거진"
                   text="클린뷰티부터 스투시까지, 이은이 소개하는 업사이클링의 최신 트렌트를 읽어보세요 🙂"
                   footer="@eyesmagazine"
                 />
-                <Contents
+                <List
                   href="https://www.beautifulstore.org/upcycling"
                   src="/image/test15.jpg"
                   title="'에코라이프스타일'의 확산"
                   text="아름다운 가게에서 소개하는 '에코파티메아리'를 확인해보세요😎"
                   footer="@beautifulstore"
                 />
-                <Contents
+                <List
                   href="https://metropolismag.com/sustainability/"
                   src="/image/test16.jpg"
                   title="지속가능한 업사이클링 인테리어"
@@ -172,8 +172,8 @@ const MainPage = () => {
                 </Contentslist>
               ) : null}
             </ContentsFrame>
-            <Footer />
           </Main>
+          <Footer />
         </div>
       ) : (
         <Loading />
@@ -263,16 +263,16 @@ const Sidelist = styled.div`
 `;
 
 const TeamName = styled.p`
-  font-size: "35px";
-  color: "#353535";
-  font-weight: "bold";
-  margin-top: "170px";
+  font-size: 35px;
+  color: #353535;
+  font-weight: bold;
+  margin-top: 170px;
 `;
 
 const Header = styled.div`
   position: fixed;
   top: 0;
-  width: calc(100% - 65px);
+  width: 100vw;
   height: 70px;
   z-index: 90;
   display: flex;
@@ -304,32 +304,32 @@ const LogoImg = styled.img`
 `;
 
 const Main = styled.div`
-  padding: 0 100px;
   background-color: #f5f5f5;
   margin-bottom: 100vh;
 `;
 
 const Horwrap = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  gap: 1rem;
   justify-content: space-between;
-  width: 280vw;
-  height: 80vh;
-  padding-left: 350px;
+  align-items: center;
+  width: 200vw;
+  height: 100%;
 `;
 
 const ContentsFrame = styled.div`
-  margin-top: 50px;
-  padding-bottom: 145px;
+  padding: 5rem;
 `;
 
 const Contentslist = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin: 50px 0;
+  display: grid;
+  gap: 3rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 `;
 
 const H1 = styled.h1`
-  margin-top: 130px;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
   color: #639443;
 `;

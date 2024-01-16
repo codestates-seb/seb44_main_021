@@ -5,7 +5,9 @@ const Banner = ({ link, img }) => {
   return (
     <Hor>
       <LinkPage to={link}>
-        <Image src={process.env.PUBLIC_URL + img} alt="banner" />
+        <span>
+          <Image src={process.env.PUBLIC_URL + img} alt="banner" />
+        </span>
       </LinkPage>
     </Hor>
   );
@@ -14,18 +16,22 @@ const Banner = ({ link, img }) => {
 export default Banner;
 
 const Hor = styled.div`
-  width: 90vw;
-  height: 100%;
-  border-radius: 20px;
+  min-width: 100vw;
+  min-height: 100%;
+  margin-top: 70px;
+
+  /* border-radius: 20px; */
 `;
 
 const LinkPage = styled(Link)`
-  width: 90vw;
-  height: 100%;
-  border-radius: 20px;
+  /* width: 90vw;
+  height: 100%; */
 `;
 
 const Image = styled.img`
-  width: 100%;
-  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  padding: 5rem;
+  padding-bottom: 0;
+  object-fit: cover;
 `;

@@ -3,14 +3,27 @@ import { Link } from "react-router-dom";
 
 const List = (props) => {
   return (
-    <ListLink to={`/fundingdetail/${props.upcyclingId}`}>
-      <Contentsbox>
-        <ContentsImg src={props.thumbNailImage} alt="img" />
-        <ContentsText>{props.title}</ContentsText>
-        <ContentsSub>{props.content}</ContentsSub>
-        <ContentsFooter>{`@${props.displayName}`}</ContentsFooter>
-      </Contentsbox>
-    </ListLink>
+    <>
+      {props.upcyclingId ? (
+        <ListLink to={`/fundingdetail/${props.upcyclingId}`}>
+          <Contentsbox>
+            <ContentsImg src={props.thumbNailImage} alt="img" />
+            <ContentsText>{props.title}</ContentsText>
+            <ContentsSub>{props.content}</ContentsSub>
+            <ContentsFooter>{`@${props.displayName}`}</ContentsFooter>
+          </Contentsbox>
+        </ListLink>
+      ) : (
+        <A href={props.href} target="_blank" rel="noreferrer">
+          <Contentsbox>
+            <ContentsImg src={process.env.PUBLIC_URL + props.src} alt="test" />
+            <ContentsText>{props.title}</ContentsText>
+            <ContentsSub>{props.text}</ContentsSub>
+            <ContentsFooter>{props.footer}</ContentsFooter>
+          </Contentsbox>
+        </A>
+      )}
+    </>
   );
 };
 
@@ -23,8 +36,8 @@ const ListLink = styled(Link)`
 `;
 
 const Contentsbox = styled.div`
-  width: 17.7vw;
-  height: 35vh;
+  /* height: auto; */
+  width: 100%;
   border-radius: 20px;
   /* background-color: #c7ffcc; */
   color: rgb(43, 43, 43);
@@ -33,7 +46,7 @@ const Contentsbox = styled.div`
 
 const ContentsImg = styled.img`
   width: 100%;
-  height: 80%;
+  height: 250px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   object-fit: cover;
@@ -42,15 +55,15 @@ const ContentsImg = styled.img`
 const ContentsText = styled.div`
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   overflow: hidden;
-  font-size: 20px;
+  font-size: 1.2rem;
   font-weight: bold;
   margin: 15px 0 10px 0;
 `;
 
 const ContentsSub = styled.div`
-  font-size: 14px;
+  font-size: 0.9rem;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
@@ -58,6 +71,19 @@ const ContentsSub = styled.div`
 `;
 
 const ContentsFooter = styled.div`
-  font-size: 6px;
+  font-size: 0.8rem;
   line-height: 1.6;
 `;
+
+const A = styled.a`
+  color: black;
+`;
+
+// const ContentsBox = styled.div`
+//   width: 17.7vw;
+//   /* height: 35vh; */
+//   border-radius: 20px;
+//   /* background-color: #c7ffcc; */
+//   color: rgb(43, 43, 43);
+//   word-break: break-all;
+// `;
