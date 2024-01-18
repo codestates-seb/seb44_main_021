@@ -1,7 +1,10 @@
+import { useSelector } from "react-redux";
 import DetailsCategory from "../Category/DetailsCategory";
 import * as S from "./UserProfile.styled";
 
-const UserProfile = ({ onClick, userData }) => {
+const UserProfile = ({ openModal }) => {
+  const userData = useSelector((state) => state.userData);
+
   return (
     <S.ProfileContainer>
       <S.UserInfoContainer>
@@ -15,7 +18,7 @@ const UserProfile = ({ onClick, userData }) => {
         <S.UserInfo>
           <S.UserName>{userData.displayName} 님</S.UserName>
           <S.UserEmail>{userData.email}</S.UserEmail>
-          <S.EditButton onClick={onClick}>Edit Profile</S.EditButton>
+          <S.EditButton onClick={openModal}>Edit Profile</S.EditButton>
         </S.UserInfo>
       </S.UserInfoContainer>
       <DetailsCategory userData={userData} />

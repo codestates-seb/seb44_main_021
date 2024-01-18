@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import CloseIcon from "@mui/icons-material/Close";
 
 /* edit modal */
@@ -14,7 +14,7 @@ export const ModalContainer = styled.div`
   font-size: 14px;
 `;
 
-export const FirstModalWrapper = styled.div`
+const commonModalWrapperStyles = css`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -25,23 +25,19 @@ export const FirstModalWrapper = styled.div`
   box-shadow: 0 8px 20px 0 rgba(40, 40, 40, 0.37);
   border-radius: 10px;
   border: 1px solid rgba(220, 220, 220, 0.18);
-  animation: ${({ isUnmount }) =>
-      isUnmount ? closeModalAnimation : openModalAnimation}
-    1.5s forwards;
 `;
+
+export const FirstModalWrapper = styled.div`
+  ${commonModalWrapperStyles}
+  animation: ${({ isUnmount }) =>
+    isUnmount ? closeModalAnimation : openModalAnimation}
+  1.5s forwards;
+`;
+
 export const SecondModalWrapper = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 30px 50px;
-  background: rgb(255, 255, 255);
-  box-shadow: 0 8px 20px 0 rgba(40, 40, 40, 0.37);
-  border-radius: 10px;
-  border: 1px solid rgba(220, 220, 220, 0.18);
-  animation: ${({ isUnmount }) => isUnmount && closeModalAnimation} 1.5s
-    forwards;
+  ${commonModalWrapperStyles}
+  animation: ${({ isUnmount }) =>
+    isUnmount && closeModalAnimation} 1.5s forwards;
 `;
 
 const openModalAnimation = keyframes`
@@ -84,7 +80,7 @@ export const EditButton = styled.button`
   box-shadow: 3px 3px 5px rgba(68, 68, 68, 0.288);
   border-radius: 5px;
   border: none;
-  margin: 20px;
+  /* margin: 20px; */
   &:active {
     box-shadow: 1px 1px 3px rgba(107, 107, 107, 0.288);
   }
@@ -96,7 +92,7 @@ export const EditButton = styled.button`
 `;
 
 export const ModalLayer = styled.div`
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -106,33 +102,19 @@ export const ModalLayer = styled.div`
 `;
 
 /* edit modal content */
-export const ModalContent = styled.div`
-  display: flex;
+export const ModalContent = styled.form`
+  display: grid;
+  gap: 0.4rem;
   flex-direction: column;
-  /* justify-content: left; */
-
-  & label {
-    margin-top: 15px;
-    margin-bottom: 7px;
-  }
-  & input {
-    width: 240px;
-    height: 30px;
-    padding: 0 10px;
-    /* margin-bottom: 20px; */
-    border: solid 1px #c6c6c6;
-    border-radius: 5px;
-    &:focus {
-      outline: none !important;
-      border-color: var(--color-main);
+  .Edit__email {
+    > label {
+      font-weight: 400;
+      display: inline-block;
+    }
+    > p {
+      padding: 0.7rem;
     }
   }
-`;
-
-export const ErrMsg = styled.p`
-  margin-top: 5px;
-  font-size: 14px;
-  color: rgb(221, 106, 106);
 `;
 
 export const ImgUpload = styled.div`

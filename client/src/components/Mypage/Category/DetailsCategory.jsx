@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { userDetailsActions } from "../../../store/userDetailsSlice";
+import { userDetailsActions } from "../../../store/slice/userDetailsSlice";
 import { getDetailDatas } from "../../../api/getDetailDatas";
 import * as S from "./DetailsCategory.styled";
 import { useNavigate } from "react-router-dom";
 
-const DetailsCategory = ({ userData }) => {
+const DetailsCategory = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const userData = useSelector((state) => state.userData);
+
   const detailAllDatas = useSelector((state) => state.userDetails);
   const detailData = Object.keys(detailAllDatas.details).map(
     (key) => detailAllDatas.details[key]
@@ -29,7 +32,7 @@ const DetailsCategory = ({ userData }) => {
   return (
     <S.CategoryContainer>
       <hr />
-      {userData.memberRole === "MEMBER_USER" && (
+      {userData.memberRole === "MEMBER_USER" ? (
         <ul>
           {detailData.slice(0, 2).map((data, index) => (
             <S.CategoryList
@@ -37,7 +40,7 @@ const DetailsCategory = ({ userData }) => {
               className={
                 detailAllDatas.currentCartegory === data.category
                   ? "selected"
-                  : ""
+                  : "underline-effect"
               }
               active={detailAllDatas.currentCartegory === data.category}
               onClick={() => handleCategoryClick(data)}
@@ -46,8 +49,7 @@ const DetailsCategory = ({ userData }) => {
             </S.CategoryList>
           ))}
         </ul>
-      )}
-      {userData.memberRole === "MEMBER_UPCYCLER" && (
+      ) : (
         <ul>
           {detailData.map((data, index) => (
             <S.CategoryList
@@ -55,9 +57,8 @@ const DetailsCategory = ({ userData }) => {
               className={
                 detailAllDatas.currentCartegory === data.category
                   ? "selected"
-                  : ""
+                  : "underline-effect"
               }
-              active={detailAllDatas.currentCartegory === data.category}
               onClick={() => {
                 handleCategoryClick(data);
               }}

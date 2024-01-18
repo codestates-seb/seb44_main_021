@@ -4,14 +4,12 @@ import Lenis from "@studio-freight/lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Loading from "../../loading";
-import MenuIcon from "@mui/icons-material/Menu";
 import ProfileDropdown from "../../components/Header/dropdown/ProfileDropdown";
 import List from "../../components/Main/List";
 import Banner from "./../../components/Main/Banner";
 import Footer from "../../components/Main/Footer";
 import styled from "styled-components";
 import SideBarModal from "../../components/common/SideBarModal";
-import useModal from "../../hooks/useModal";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import "swiper/css";
@@ -67,19 +65,13 @@ const MainPage = () => {
     requestAnimationFrame(raf);
   }
   requestAnimationFrame(raf);
-  const { isOpen, isUnmount, openModal, closeModal } = useModal();
-  console.log(isOpen);
+
   return (
     <>
       {nowloding ? (
         <div>
-          {isOpen ? (
-            <SideBarModal isUnmount={isUnmount} closeModal={closeModal} />
-          ) : null}
           <Header>
-            <OpenModalButton onClick={() => openModal()}>
-              <MenuIcon sx={{ fontSize: 40, color: "#6E934D" }} />
-            </OpenModalButton>
+            <SideBarModal />
             <Logo>
               <LogoImg
                 src={process.env.PUBLIC_URL + "/image/logo3.png"}
@@ -205,14 +197,6 @@ const Header = styled.div`
   background-color: transparent;
   padding: 0 30px;
   padding-top: 30px;
-`;
-
-const OpenModalButton = styled.button`
-  background-color: transparent;
-  border: none;
-  padding: 0;
-  margin: 0;
-  cursor: pointer;
 `;
 
 const Logo = styled.div`

@@ -15,23 +15,23 @@ export default Button;
 
 const SubmitButton = styled.button`
   /* height: 100%; */
-  padding: 10px;
+  padding: 13px;
   width: 100%;
-  letter-spacing: 3.5px;
+  /* letter-spacing: 3.5px; */
   color: #ffffff;
   background: ${({ disabled }) => (disabled ? "#afafaf" : "var(--color-main)")};
   border-radius: 5px;
-  border: none;
-
   text-transform: uppercase;
+  transition: all 0.2s ease-in-out;
   box-shadow: ${({ disabled }) =>
-    disabled ? "none" : "3px 3px 6px rgba(95, 95, 95, 0.37)"};
+    disabled ? "none" : "5px 5px 10px rgba(0, 0, 0, 0.1)"};
 
+  &:hover {
+    box-shadow: ${({ disabled }) =>
+      disabled ? "none" : " 2px 2px 3px rgba(0, 0, 0, 0.1)"};
+  }
   &:active {
     box-shadow: ${({ disabled }) =>
-      disabled ? "none" : "1px 1px 3px rgba(95, 95, 95, 0.37)"};
-  }
-  &:hover {
-    cursor: ${({ disabled }) => (disabled ? "default" : "pointer")};
+      disabled ? "none" : "inset 2px 2px 3px rgba(0, 0, 0, 0.1)"};
   }
 `;

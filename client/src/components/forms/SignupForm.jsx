@@ -6,14 +6,11 @@ import Input from "../common/Input";
 import { axiosInstance } from "../../api/axiosInstance";
 import * as S from "./SignupForm.styled";
 import { LodingSpiner } from "../common/LodingSpiner";
+import useErrHandler from "../../hooks/useErrHandler";
+import { isEmpty } from "../../utils/validateInput";
 
 const SignupForm = () => {
   const { role } = useParams();
-
-  const NAME_REGEX = /^[A-Za-z0-9ㄱ-ㅎㅏ-ㅣ가-힣]{2,6}$/;
-  const EMAIL_REGEX = /^[A-Za-z0-9.\-_]+@([A-Za-z0-9-]+\.)+[A-Za-z]{2,6}$/;
-  const PWD_REGEX =
-    /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>/?]).{8,24}$/;
 
   const [signupInfo, onChange] = useInputs({
     displayName: "",
@@ -24,65 +21,47 @@ const SignupForm = () => {
     code: "",
   });
   /* 에러메세지 */
-  const [emailErrMsg, setEmailErrMsg] = useState("");
-  const [pwdErrMsg, setPwdErrMsg] = useState("");
-  const [nameErrMsg, setNameErrMsg] = useState("");
-  const [AuthNumErrMsg, setAuthNumErrMsg] = useState("");
-
-  /* 입력란 공백 및 유효성 통과 여부 */
-  const [isEmail, setIsEmail] = useState(false);
-  const [isPassword, setIsPassword] = useState(false);
-  const [isName, setIsName] = useState(false);
+  const NAME_REGEX = /^[A-Za-z0-9ㄱ-ㅎㅏ-ㅣ가-힣]{2,6}$/;
+  const EMAIL_REGEX = /^[A-Za-z0-9.\-_]+@([A-Za-z0-9-]+\.)+[A-Za-z]{2,6}$/;
+  const PWD_REGEX =
+    /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>/?]).{8,24}$/;
+  const validationsSignup = {
+    displayName: (value) =>
+      !NAME_REGEX.test(value) ? "특수 문자 제외 2자 ~ 6자를 입력하세요." : "",
+    email: (value) =>
+      !EMAIL_REGEX.test(value) ? "이메일 형식에 맞지 않습니다." : "",
+    password: (value) =>
+      !PWD_REGEX.test(value)
+        ? "숫자, 문자, 특수문자 포함 8자 이상 입력하세요."
+        : "",
+    verifyPwd: (value) =>
+      signupInfo.password !== value ? "비밀번호가 일치하지 않습니다." : "",
+    code: (value) =>
+      value.toString().startsWith("0")
+        ? "판매 금액 첫번째 자리에 0이 입력되면 안됩니다."
+        : "",
+  };
+  const handleInputChange = (e) => {
+    handleInputErr(e, validationsSignup);
+    onChange(e);
+  };
+  const { handleInputErr, errMsgObj } = useErrHandler();
 
   /* 이메일 인증번호 전송 여부*/
   const [isAuthNum, setIsAuthNum] = useState("");
   const [isAuthNumSent, setIsAuthNumSent] = useState(false);
-  const [isCheckAuthNum, setIsCheckAuthNum] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
-  /* 유효성 함수 */
-  const IsValidName = () => {
-    if (!NAME_REGEX.test(signupInfo.displayName)) {
-      setNameErrMsg("특수 문자 제외 2자 ~ 6자를 입력하세요.");
-      setIsName(false);
-    } else {
-      setNameErrMsg("");
-      setIsName(true);
-    }
-  };
-
-  const IsValidEmail = () => {
-    if (!EMAIL_REGEX.test(signupInfo.email)) {
-      setEmailErrMsg("이메일 형식에 맞지 않습니다.");
-      setIsEmail(false);
-    } else {
-      setEmailErrMsg("");
-      setIsEmail(true);
-    }
-  };
-
-  const IsValidPwd = () => {
-    if (!PWD_REGEX.test(signupInfo.password)) {
-      setPwdErrMsg("숫자, 문자, 특수문자 포함 8자 이상 입력하세요.");
-      setIsPassword(false);
-    } else if (signupInfo.password !== signupInfo.verifyPwd) {
-      setPwdErrMsg("비밀번호가 일치하지 않습니다.");
-      setIsPassword(false);
-    } else {
-      setPwdErrMsg("");
-      setIsPassword(true);
-    }
-  };
-
   /* post 요청 함수 */
   const AxiosPost = (e) => {
     e.preventDefault();
+    const signupCondition = isEmpty(errMsgObj) && !isEmpty(signupInfo);
 
     const { displayName, email, password, role, code } = signupInfo;
 
-    if (isPassword && isEmail && isName && isCheckAuthNum) {
+    if (signupCondition) {
       axiosInstance
         .post("/members/signup", { displayName, email, password, role, code })
         .then((res) => {
@@ -93,13 +72,15 @@ const SignupForm = () => {
         })
         .catch((err) => {
           if (err.response.data === "DisplayName exists") {
-            setNameErrMsg("중복된 닉네임입니다.");
-            setIsName(false);
+            handleInputErr({
+              target: { name: "code", value: "중복된 닉네임입니다." },
+            });
           }
 
           if (err.response.data === "Email exists") {
-            setEmailErrMsg("중복된 이메일입니다.");
-            setIsEmail(false);
+            handleInputErr({
+              target: { name: "code", value: "중복된 이메일입니다." },
+            });
           }
         });
     }
@@ -109,20 +90,25 @@ const SignupForm = () => {
     const { email } = signupInfo;
 
     if (!email) {
-      setEmailErrMsg("이메일을 입력하세요.");
+      return handleInputErr({
+        target: { name: "email", value: "이메일을 입력하세요." },
+      });
     }
-    if (isEmail) {
+    if (!errMsgObj.email && email) {
       setLoading(true);
-      axiosInstance
+      return axiosInstance
         .post("/members/sendmail", { email })
         .then((res) => {
+          console.log(res.data.message);
           setIsAuthNum(res.data.message);
           setIsAuthNumSent(true);
           setLoading(false);
         })
         .catch((err) => {
           if (err.response.data.message === "이미 존재하는 이메일입니다.") {
-            setEmailErrMsg("이미 존재하는 이메일입니다.");
+            handleInputErr({
+              target: { name: "email", value: "이미 존재하는 이메일입니다." },
+            });
             setLoading(false);
           }
         });
@@ -133,15 +119,17 @@ const SignupForm = () => {
     const { code } = signupInfo;
 
     if (code === isAuthNum) {
-      // console.log(code);
-      setIsCheckAuthNum(true);
-      setAuthNumErrMsg("");
+      handleInputErr({
+        target: { name: "code", value: "" },
+      });
       alert("인증이 완료되었습니다.");
+      return;
     }
     if (code !== isAuthNum) {
-      // console.log(code);
-      setIsCheckAuthNum(false);
-      setAuthNumErrMsg("인증번호를 확인해주세요.");
+      handleInputErr({
+        target: { name: "code", value: "인증번호를 확인해주세요." },
+      });
+      return;
     }
   };
 
@@ -150,84 +138,89 @@ const SignupForm = () => {
       <div>
         <S.EmailAuthField>
           <Input
+            variant="primary"
             label="이메일"
             type="email"
             placeholder="이메일을 입력하세요."
             name="email"
-            onChange={onChange}
-            onBlur={IsValidEmail}
+            onChange={handleInputChange}
           />
           <S.EmailAuthBtn type="button" onClick={sendAuthNumber}>
             {loading ? <LodingSpiner /> : "인증 요청"}
           </S.EmailAuthBtn>
         </S.EmailAuthField>
-        {emailErrMsg !== "" && <S.ErrMsg>{emailErrMsg}</S.ErrMsg>}
+        <S.ErrMsg>{errMsgObj.email}</S.ErrMsg>
       </div>
 
       {isAuthNumSent && (
         <div>
           <S.EmailAuthField>
             <Input
+              variant="primary"
               label="인증번호"
               type="text"
               placeholder="인증번호를 입력하세요."
               name="code"
-              onChange={onChange}
+              onChange={handleInputChange}
             />
             <S.EmailAuthBtn type="button" onClick={CheckAuthNumber}>
               인증 확인
             </S.EmailAuthBtn>
           </S.EmailAuthField>
-          {AuthNumErrMsg !== "" && <S.ErrMsg>{AuthNumErrMsg}</S.ErrMsg>}
+          <S.ErrMsg>{errMsgObj.code}</S.ErrMsg>
         </div>
       )}
 
       {signupInfo.role === "users" && (
         <div>
           <Input
+            variant="primary"
             label="닉네임"
             type="text"
             placeholder="닉네임을 입력하세요."
             name="displayName"
-            onChange={onChange}
-            onBlur={IsValidName}
+            onChange={handleInputChange}
           />
-          {nameErrMsg !== "" && <S.ErrMsg>{nameErrMsg}</S.ErrMsg>}
+          <S.ErrMsg>{errMsgObj.displayName}</S.ErrMsg>
         </div>
       )}
 
       {signupInfo.role === "upcycler" && (
         <div>
           <Input
+            variant="primary"
             label="업사이클러명"
             type="text"
             placeholder="업사이클러명을 입력하세요."
             name="displayName"
-            onChange={onChange}
-            onBlur={IsValidName}
+            onChange={handleInputChange}
           />
-          {nameErrMsg !== "" && <S.ErrMsg>{nameErrMsg}</S.ErrMsg>}
+          <S.ErrMsg>{errMsgObj.displayName}</S.ErrMsg>
         </div>
       )}
 
-      <Input
-        label="비밀번호"
-        type="password"
-        placeholder="비밀번호를 입력하세요."
-        name="password"
-        onChange={onChange}
-        onBlur={IsValidPwd}
-      />
       <div>
         <Input
+          variant="primary"
+          label="비밀번호"
+          type="password"
+          placeholder="비밀번호를 입력하세요."
+          name="password"
+          onChange={handleInputChange}
+        />
+        <S.ErrMsg>{errMsgObj.password}</S.ErrMsg>
+      </div>
+
+      <div>
+        <Input
+          variant="primary"
           label="비밀번호 확인"
           type="password"
           placeholder="비밀번호를 한번 더 입력하세요."
           name="verifyPwd"
-          onChange={onChange}
-          onBlur={IsValidPwd}
+          onChange={handleInputChange}
         />
-        {pwdErrMsg !== "" && <S.ErrMsg>{pwdErrMsg}</S.ErrMsg>}
+        <S.ErrMsg>{errMsgObj.verifyPwd}</S.ErrMsg>
       </div>
 
       <Button formFields={signupInfo} content="sign up" />

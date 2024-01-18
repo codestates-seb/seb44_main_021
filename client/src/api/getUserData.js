@@ -1,5 +1,5 @@
 import { axiosInstance } from "./axiosInstance";
-import { userDataActions } from "../store/userDataSlice";
+import { userDataActions } from "../store/slice/userDataSlice";
 
 export const getUserData = (memberId, dispatch) => {
   axiosInstance

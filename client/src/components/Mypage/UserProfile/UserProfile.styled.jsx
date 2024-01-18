@@ -17,7 +17,6 @@ export const UserInfoContainer = styled.div`
   background: var(--color-main);
   @media (max-width: 768px) {
     flex-direction: row;
-    /* margin: 0 2.5rem; */
   }
 `;
 

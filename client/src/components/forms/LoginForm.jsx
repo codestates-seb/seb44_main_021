@@ -15,16 +15,28 @@ const LoginForm = () => {
 
   const AxiosLogin = (e) => {
     e.preventDefault();
-    postLogin(loginInfo, navigate);
-  };
-
-  const handleButtonClick = () => {
-    navigate("/signup");
+    postLogin(loginInfo)
+      .then((res) => {
+        if (res.status === 200) {
+          const authHeader = res.headers.authorization;
+          const accessToken = authHeader.split(" ")[1];
+          localStorage.setItem("token", accessToken);
+          localStorage.setItem("login", "true");
+        }
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
+        if (err.response.data === "Member not found") {
+          alert("이메일 또는 비밀번호를 확인하세요.");
+        }
+      });
   };
 
   return (
     <S.LoginFormContainer onSubmit={AxiosLogin}>
       <Input
+        variant="primary"
         label="이메일"
         type="email"
         name="username"
@@ -32,6 +44,7 @@ const LoginForm = () => {
         onChange={onChange}
       ></Input>
       <Input
+        variant="primary"
         label="비밀번호"
         type="password"
         name="password"
@@ -39,9 +52,11 @@ const LoginForm = () => {
         onChange={onChange}
       ></Input>
       <Button formFields={loginInfo} content="log in" />
-      <div>
-        <p>아직 이은의 회원이 아니라면,</p>
-        <S.SignupButton onClick={handleButtonClick}>signup</S.SignupButton>
+      <div className="move-signup">
+        아직 이은의 회원이 아니라면,
+        <S.SignupButton onClick={() => navigate("/signup")}>
+          sign up
+        </S.SignupButton>
       </div>
     </S.LoginFormContainer>
   );

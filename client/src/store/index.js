@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userDataReducer from "./userDataSlice";
-// import { bookmarkReducer } from "./bookmarkSlice";
-import userDetailsReducer from "./userDetailsSlice";
-import searchReducer from "./searchSlice";
+import userDataReducer from "./slice/userDataSlice";
+import userDetailsReducer from "./slice/userDetailsSlice";
+import searchReducer from "./slice/searchSlice";
+
 const store = configureStore({
   reducer: {
     userData: userDataReducer,

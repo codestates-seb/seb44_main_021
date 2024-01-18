@@ -1,21 +1,24 @@
 import styled from "styled-components";
-import { HiOutlineMenu } from "react-icons/hi";
 export const HeaderContainer = styled.header`
   display: flex;
   justify-content: center;
   position: sticky;
   top: 0;
-  border-bottom: 1px solid rgb(242, 244, 246);
-  background-color: white;
+  border-bottom: 1px solid var(--color-gray-30);
+  background-color: #fff;
   z-index: 999;
+  width: 100%;
 `;
 export const HeaderWrapper = styled.div`
-  width: 62rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  height: 80px;
   @media (max-width: 768px) {
-    width: 100%;
+    /* width: 100%; */
   }
 `;
 
@@ -33,11 +36,11 @@ export const LeftArea = styled.section`
     }
 
     & li {
-      list-style: none;
       font-size: 1.2rem;
       font-weight: bold;
       text-align: right;
       color: var(--color-main);
+      cursor: pointer;
     }
   }
 `;
@@ -45,14 +48,4 @@ export const LeftArea = styled.section`
 export const RightArea = styled.section`
   display: flex;
   align-items: center;
-`;
-
-export const MenuBtn = styled(HiOutlineMenu)`
-  display: none;
-
-  @media (max-width: 768px) {
-    display: block;
-    font-size: 1.5rem;
-    margin: 1rem;
-  }
 `;

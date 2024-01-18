@@ -1,64 +1,94 @@
-import React from "react";
+import React, { useState } from "react";
 import * as S from "./Details.styled";
 import { useSelector } from "react-redux";
+import { Pagination } from "@mui/material";
+import styled from "styled-components";
 
 const Details = () => {
   const detailsData = useSelector((state) => state.userDetails);
-  const currentCartegory = detailsData.currentCartegory;
-  const currentCategoryData = detailsData.details[currentCartegory];
+  const totalCartegory = detailsData.currentCartegory;
+  const totalCategoryData = detailsData.details[totalCartegory];
 
-  const { tableHeader, detail } = currentCategoryData || {
+  const { tableHeader, detail } = totalCategoryData || {
     tableHeader: [],
     detail: [],
   };
 
+  // pagination logic
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const LAST_PAGE =
+    detail.length % 10 === 0
+      ? parseInt(detail.length / 10)
+      : parseInt(detail.length / 10) + 1;
+
+  const handlePageChange = (e) => {
+    setCurrentPage(Number(e.target.outerText));
+  };
+
   return (
     <S.DetailsContainer>
-      <S.DetailsWrapper>
-        <S.DetailsTitle>
-          <S.DetailsTitleIcon
-            src={`${process.env.PUBLIC_URL}/image/logo1.png`}
-          />
-          <S.DetailsTitleText>{detailsData.currentTitle}</S.DetailsTitleText>
-        </S.DetailsTitle>
-
-        <S.DetailsTable>
-          {tableHeader.length > 0 && (
-            <>
-              <thead>
-                <S.DetailsTableRow>
-                  {tableHeader.map((text, index) => (
-                    <S.DetailsTableHeader key={index}>
-                      {text}
-                    </S.DetailsTableHeader>
-                  ))}
-                </S.DetailsTableRow>
-              </thead>
-              <S.DetailsTableBody>
-                {detail.length > 0 ? (
-                  detail.map((data, Index) => (
-                    <S.DetailsTableRow key={Index}>
+      <S.DetailsTitle>
+        <S.DetailsTitleIcon
+          src={`${process.env.PUBLIC_URL}/image/logo1.png`}
+          alt="cartegory-title-icon"
+        />
+        <S.DetailsTitleText>{detailsData.currentTitle}</S.DetailsTitleText>
+      </S.DetailsTitle>
+      <S.DetailsTable>
+        {tableHeader.length > 0 && (
+          <>
+            <thead>
+              <tr>
+                {tableHeader.map((text, index) => (
+                  <th key={index}>{text}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {detail.length > 0 ? (
+                detail
+                  .slice(5 * (currentPage - 1), 10 * (currentPage - 1) + 10)
+                  .map((data, Index) => (
+                    <tr key={Index}>
                       {Object.keys(data).map((key, keyIndex) => (
-                        <S.DetailsTableCell key={keyIndex}>
-                          {data[key]}
-                        </S.DetailsTableCell>
+                        <td key={keyIndex}>{data[key]}</td>
                       ))}
-                    </S.DetailsTableRow>
+                    </tr>
                   ))
-                ) : (
-                  <S.DetailsTableRow>
-                    <S.DetailsTableCell colSpan={tableHeader.length}>
-                      내역이 없습니다.
-                    </S.DetailsTableCell>
-                  </S.DetailsTableRow>
-                )}
-              </S.DetailsTableBody>
-            </>
-          )}
-        </S.DetailsTable>
-      </S.DetailsWrapper>
+              ) : (
+                <tr>
+                  <td colSpan={tableHeader.length}>내역이 없습니다.</td>
+                </tr>
+              )}
+            </tbody>
+          </>
+        )}
+      </S.DetailsTable>
+      {detail.length > 0 && (
+        <CustomPagination
+          page={currentPage}
+          count={LAST_PAGE}
+          onChange={handlePageChange}
+          shape="rounded"
+        />
+      )}
     </S.DetailsContainer>
   );
 };
 
 export default Details;
+const CustomPagination = styled(Pagination)`
+  .MuiPagination-ul {
+    margin-top: 1rem;
+    justify-content: center;
+    .Mui-selected {
+      background-color: var(--color-main);
+      color: #fff;
+
+      &:hover {
+        background-color: var(--color-main-80);
+      }
+    }
+  }
+`;

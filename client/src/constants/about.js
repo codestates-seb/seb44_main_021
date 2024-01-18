@@ -1,0 +1,72 @@
+export const teamInfo = [
+  {
+    imgSrc: `${process.env.PUBLIC_URL}/image/team/성철.png`,
+    alt: "team-img",
+    name: "FE 신성철",
+    workLog: [
+      "Main Page",
+      "Funding Detail Page",
+      "Store Detail Page",
+      "Funding List Page",
+      "Store List Page",
+    ],
+  },
+  {
+    imgSrc: `${process.env.PUBLIC_URL}/image/team/시현.jpg`,
+    alt: "team-img",
+    name: "FE 곽시현",
+    workLog: [
+      "Funding Create Page",
+      "Store Create Page",
+      "Funding Edit Page",
+      "Store Edit Page",
+    ],
+  },
+  {
+    imgSrc: `${process.env.PUBLIC_URL}/image/team/예진.jpg`,
+    alt: "team-img",
+    name: "FE 나예진",
+    workLog: ["SignUp page", "LogIn Page", "My Page"],
+  },
+  {
+    imgSrc: `${process.env.PUBLIC_URL}/image/team/병주.jpg`,
+    alt: "team-img",
+    name: "BE 강병주",
+    workLog: [
+      "Sell CRUD",
+      "Order",
+      "OrderSell",
+      "검색기능",
+      "기술 문서 작성 (notion, google sheet) 및 배너 디자인",
+    ],
+  },
+  {
+    imgSrc: `${process.env.PUBLIC_URL}/image/team/재성.jpg`,
+    alt: "team-img",
+    name: "BE 박재성",
+    workLog: [
+      "Member CRUD",
+      "AWS S3 버킷 이미지 연동",
+      "JWT",
+      "카테고리",
+      "클라이언트, 서버 배포 및 관리",
+      "인증번호 이메일",
+      "GitHub Actions",
+      "정렬, 필터 기능",
+    ],
+  },
+  {
+    imgSrc: `${process.env.PUBLIC_URL}/image/team/승현.jpg`,
+    alt: "team-img",
+    name: "BE 윤승현",
+    workLog: [
+      "Upcycling CRUD",
+      "Funding CRUD",
+      "검색기능",
+      "Order",
+      "검색기능",
+      "Redis 로그아웃",
+      "인증번호 이메일",
+    ],
+  },
+];

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 import { MdAccountCircle } from "react-icons/md";
 
@@ -10,28 +10,44 @@ export const DropdownContainer = styled.div`
     margin: 1rem;
   }
 `;
-
+const dropdownAnimation = keyframes`
+  0% {
+    opacity:0;
+    transform: translateY(-100%);
+  }
+  100% {
+    opacity:1;
+    transform: translateY(0);
+  }
+`;
 export const DropdownWrapper = styled.div`
   position: absolute;
-  /* left: 0; */
-  top: 100%;
-  border: 0.3px solid #6e934d;
-  background-color: white;
-  ul {
+  right: 0;
+  top: 80px;
+  overflow: hidden;
+  z-index: 1;
+
+  > ul {
+    background-color: white;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.244),
+      0px 0px 1px rgba(0, 0, 0, 0.244);
+    margin: 2px 5px;
+    border-radius: 5px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    /* transition: 0.3s ease-in-out; */
+    animation: ${dropdownAnimation} 0.4s ease;
+
+    > li {
+      padding: 0.75rem 1rem;
+      color: var(--color-main);
+      font-weight: bold;
+      cursor: pointer;
+      /* transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; */
+    }
   }
-`;
-
-export const MenuItem = styled.li`
-  list-style: none;
-
-  padding: 0.75rem 1rem;
-  color: #6e934d;
-  font-weight: bold;
-  cursor: pointer;
 `;
 
 export const AccountBtn = styled(MdAccountCircle)`

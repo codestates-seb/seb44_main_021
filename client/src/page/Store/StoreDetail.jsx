@@ -28,7 +28,7 @@ const StoreDetail = () => {
   }, []);
 
   useEffect(() => {
-    axios
+    axiosInstance
       .get(`/members/${data.memberId}`)
       .then((res) => {
         setprofile(res.data.data.thumbNailImage);
@@ -45,7 +45,7 @@ const StoreDetail = () => {
   const handleOpenModal = () => {
     if (quantity) {
       setIsModalOpen(true);
-      axios({
+      axiosInstance({
         url: `/orders`,
         method: "post",
         data: {
@@ -74,7 +74,7 @@ const StoreDetail = () => {
   };
 
   const handleDelete = () => {
-    axios({
+    axiosInstance({
       url: `/sells/${id}`,
       method: "delete",
     })

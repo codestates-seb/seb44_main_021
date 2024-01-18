@@ -44,23 +44,20 @@ body{
   .underline-effect {
     position:relative;
     display: inline-block;
-    margin: 0.4rem 0;
-    /* line-height: 2rem; */
     cursor: pointer;
     
-  &:not(.selected)::after {
+  &::after {
     background: #c0d6b1;
-    bottom: 0;
-    content: "";
-    display: block;
-    height: 3px;
-    left: 50%;
     position: absolute;
+    left: 50%;
+    bottom: -0.5rem;
+    content: "";
+    height: 3px;
     transition: width 0.3s ease 0s, left 0.3s ease 0s;
     width: 0;
   }
 
-  &:not(.selected):hover::after {
+  &:hover::after {
     left: 0;
     width: 100%;
   }

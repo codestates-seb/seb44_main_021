@@ -4,7 +4,7 @@ import {
   mapOrderDetails,
   mapUpcyclingDetails,
   mapSellsDetails,
-} from "../utils/mapDetails";
+} from "../../utils/mapDetails";
 
 const initialState = {
   currentTitle: "나의 펀딩 내역",

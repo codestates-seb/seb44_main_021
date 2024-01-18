@@ -30,7 +30,8 @@ textarea:focus {
 
 :root {
   --color-main: #6e934d;
-  --color-main-40: rgb(192, 214, 177, 0.4);
+  --color-main-80: rgb(110, 147, 77, 0.8);
+  --color-main-40: rgb(110, 147, 77, 0.4);
   --color-gray: #c6c6c6;
   --color-gray-50: rgba(198, 198, 198, 0.5);
   --color-gray-30: rgba(198, 198, 198, 0.3);

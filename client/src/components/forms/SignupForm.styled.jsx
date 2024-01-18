@@ -12,14 +12,19 @@ export const EmailAuthBtn = styled.button`
   align-items: center;
   color: #ffffff;
   background: var(--color-main);
-  box-shadow: 3px 3px 6px 0 rgba(95, 95, 95, 0.37);
+  box-shadow: var(--shadow-btn);
   border-radius: 5px;
   border: none;
   margin-left: 0.5rem;
   margin-top: 1rem;
   cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    box-shadow: var(--shadow-btn-hover);
+  }
+
   &:active {
-    box-shadow: 1px 1px 3px rgba(107, 107, 107, 0.288);
+    box-shadow: var(--shadow-btn-active);
   }
 `;
 

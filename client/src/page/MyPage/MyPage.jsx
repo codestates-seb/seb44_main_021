@@ -1,41 +1,26 @@
-import React, { useState, useEffect } from "react";
-import EditModal from "../../components/Modal/EditModal";
-import Header from "../../components/Header/Header";
+import React, { useEffect } from "react";
+import EditModal from "../../components/Mypage/Modal/EditModal";
 import UserDetails from "../../components/Mypage/Details/Details";
 import UserProfile from "../../components/Mypage/UserProfile/UserProfile";
 import { useSelector, useDispatch } from "react-redux";
 import { useGetMemberId } from "../../hooks/useGetMemberId";
-import * as S from "./MyPage.styled";
 import { getDetailDatas } from "../../api/getDetailDatas";
-import useScrollLock from "../../hooks/useScrollLock";
 import { getUserData } from "../../api/getUserData";
 import { useParams } from "react-router-dom";
-import { userDetailsActions } from "../../store/userDetailsSlice";
+import { userDetailsActions } from "../../store/slice/userDetailsSlice";
+import styled from "styled-components";
+import useModal from "../../hooks/useModal";
 
 const MyPage = () => {
+  const dispatch = useDispatch();
+
   const userData = useSelector((state) => state.userData);
   const detailsData = useSelector((state) => state.userDetails);
-  const dispatch = useDispatch();
+  // const isOpenModal = useSelector((state) => state.modal.isOpen);
+
+  const { isOpenModal, isUnmount, openModal, closeModal } = useModal();
   const { path } = useParams();
   const { getMemberId } = useGetMemberId();
-  const { lockScroll, activeScroll } = useScrollLock();
-
-  const [isOpenModal, setIsOpenModal] = useState(false);
-  const [isUnmount, setIsUnmount] = useState(false);
-
-  const handleOpenModal = () => {
-    lockScroll();
-    setIsOpenModal(!isOpenModal);
-    setIsUnmount(false);
-  };
-
-  const handleCloseModal = () => {
-    setIsUnmount(true);
-    setTimeout(() => {
-      activeScroll();
-      setIsOpenModal(!isOpenModal);
-    }, 1000);
-  };
 
   useEffect(() => {
     getMemberId();
@@ -52,22 +37,30 @@ const MyPage = () => {
 
   return (
     <>
-      <Header />
-      <S.MyPageContainer>
-        <S.MyPageWrapper>
-          <UserProfile onClick={handleOpenModal} userData={userData} />
-          <UserDetails userData={userData} />
-        </S.MyPageWrapper>
-      </S.MyPageContainer>
+      <MyPageContainer>
+        <UserProfile userData={userData} openModal={openModal} />
+        <UserDetails userData={userData} />
+      </MyPageContainer>
       {isOpenModal && (
-        <EditModal
-          onClose={handleCloseModal}
-          setIsUnmount={setIsUnmount}
-          isUnmount={isUnmount}
-        />
+        <EditModal closeModal={closeModal} isUnmount={isUnmount} />
       )}
     </>
   );
 };
 
 export default MyPage;
+
+const MyPageContainer = styled.main`
+  display: flex;
+  max-width: 1000px;
+  margin: auto;
+  /* display: grid;
+  grid-template-columns: 25% 75%; */
+
+  padding: 2rem 0;
+  color: #3a3a3a;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    width: 100%;
+  }
+`;

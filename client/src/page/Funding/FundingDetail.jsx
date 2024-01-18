@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -64,7 +63,7 @@ const FundingDetail = () => {
   };
 
   const handleDelete = () => {
-    axios({
+    axiosInstance({
       url: `/upcyclings/${id}`,
       method: "delete",
     })

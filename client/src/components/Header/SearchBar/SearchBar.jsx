@@ -2,8 +2,10 @@ import React from "react";
 import useSearch from "../../../hooks/useSearch";
 import * as S from "./SearchBar.styled";
 import { useDispatch } from "react-redux";
-import { setSearchWord } from "../../../store/searchSlice";
+import { setSearchWord } from "../../../store/slice/searchSlice";
 import { useNavigate } from "react-router-dom";
+import Input from "../../common/Input";
+
 const SearchBar = ({ pathname }) => {
   const [searchInput, setSearchInput, handleInputChange] = useSearch();
 
@@ -36,7 +38,7 @@ const SearchBar = ({ pathname }) => {
 
   return (
     <S.SeachContainer>
-      <S.SearchInput
+      <Input
         placeholder="검색어를 입력하세요."
         type="text"
         value={searchInput}

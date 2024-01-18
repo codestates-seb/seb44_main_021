@@ -1,25 +1,25 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
-import Logo from "../Logo/Logo";
+import { useLocation, useNavigate } from "react-router-dom";
+import Logo from "../common/Logo";
 import ProfileDropdown from "./dropdown/ProfileDropdown";
 import * as S from "./Header.styled";
 import SearchBar from "./SearchBar/SearchBar";
+import SideBarModal from "../common/SideBarModal";
 
 const Header = () => {
-  let { pathname } = useLocation();
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+
   return (
     <S.HeaderContainer>
       <S.HeaderWrapper>
         <S.LeftArea>
-          <S.MenuBtn />
+          {/* <SideBarModal /> */}
+          {window.innerWidth <= 768 && <SideBarModal />}
           <Logo />
           <ul>
-            <Link to="/funding">
-              <li>펀딩+</li>
-            </Link>
-            <Link to="/store">
-              <li>스토어</li>
-            </Link>
+            <li onClick={() => navigate("/funding")}>펀딩+</li>
+            <li onClick={() => navigate("/store")}>스토어</li>
           </ul>
         </S.LeftArea>
 
