@@ -15,14 +15,28 @@ import FundingEditPage from "./page/Funding/FundingEditPage";
 import StoreCreatePage from "./page/Store/StoreCreatePage";
 import StoreEditPage from "./page/Store/StoreEditPage";
 import Header from "./components/Header/Header";
+import { useEffect } from "react";
+import { useGetMemberId } from "./hooks/useGetMemberId";
+import { useSelector } from "react-redux";
 
 function App() {
   const { pathname } = useLocation();
 
+  const { getMemberId } = useGetMemberId();
+
+  const userData = useSelector((state) => state.userData);
+
+  useEffect(() => {
+    getMemberId();
+  }, [userData.memberId]);
+
   return (
     <div>
       {/* <UserDataProvider> */}
-      {pathname !== "/" && <Header />}
+      {pathname !== "/" &&
+        pathname !== "/login" &&
+        !pathname.includes("/signup") && <Header />}
+
       <Routes>
         <Route element={<MainPage />} path="/" />
         <Route element={<StorePage />} path="/store" />
