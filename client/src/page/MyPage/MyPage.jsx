@@ -8,6 +8,7 @@ import { getDetailDatas } from "../../api/getDetailDatas";
 import { getUserData } from "../../api/getUserData";
 import { useParams } from "react-router-dom";
 import { userDetailsActions } from "../../store/slice/userDetailsSlice";
+import { userDataActions } from "../../store/slice/userDataSlice";
 import styled from "styled-components";
 import useModal from "../../hooks/useModal";
 
@@ -32,7 +33,21 @@ const MyPage = () => {
       detailsData.details[path]?.mapFunction,
       detailsData.details[path]?.category
     );
-    getUserData(userData.memberId, dispatch);
+    getUserData(userData.memberId)
+      .then((res) => {
+        const user = res.data.data;
+        dispatch(
+          userDataActions.setUserData({
+            email: user.email,
+            displayName: user.displayName,
+            memberRole: user.memberRole,
+            thumbNailImage: user.thumbNailImage,
+          })
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, [userData.memberId]);
 
   return (

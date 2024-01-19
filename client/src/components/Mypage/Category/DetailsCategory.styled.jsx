@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import styled from "styled-components";
 
 // History
@@ -33,14 +34,12 @@ export const CategoryContainer = styled.div`
 export const CategoryList = styled.li`
   ${(props) =>
     props.className === "selected" &&
-    `   
-    text-decoration: underline;
-    text-underline-offset: 0.5rem;
-    text-decoration-color: #c0d6b1;
-    text-decoration-thickness: 3px;
-
-        
-      `}
+    css`
+      text-decoration: underline;
+      text-underline-offset: 0.5rem;
+      text-decoration-color: #c0d6b1;
+      text-decoration-thickness: 3px;
+    `}
 
   @media (max-width: 768px) {
     margin: 0.4rem auto;

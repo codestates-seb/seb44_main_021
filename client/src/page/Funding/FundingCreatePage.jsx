@@ -11,7 +11,7 @@ import { FUNDING_TIPS } from "../../constants/tips";
 import { isEmpty, validationsPost } from "../../utils/validateInput";
 
 const FundingCreatePage = () => {
-  const { handleInputErr, errMsgObj } = useErrHandler();
+  const { handleValidation, errMsgObj } = useErrHandler();
   const userData = useSelector((state) => state.userData);
   const navigate = useNavigate();
 
@@ -25,7 +25,7 @@ const FundingCreatePage = () => {
   });
   console.log(createData);
   const handleInputChange = (e) => {
-    handleInputErr(e, validationsPost);
+    handleValidation(e, validationsPost);
     onChange(e);
   };
 

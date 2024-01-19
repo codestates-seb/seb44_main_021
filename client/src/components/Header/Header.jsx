@@ -1,15 +1,15 @@
 import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Logo from "../common/Logo";
 import ProfileDropdown from "./dropdown/ProfileDropdown";
 import * as S from "./Header.styled";
 import SearchBar from "./SearchBar/SearchBar";
 import SideBarModal from "../common/SideBarModal";
 
-const Header = () => {
-  const { pathname } = useLocation();
+const Header = ({ pathname }) => {
   const navigate = useNavigate();
-
+  const handleFundingClick = () => navigate("/funding");
+  const handleStoreClick = () => navigate("/store");
   return (
     <S.HeaderContainer>
       <S.HeaderWrapper>
@@ -18,8 +18,8 @@ const Header = () => {
           {window.innerWidth <= 768 && <SideBarModal />}
           <Logo />
           <ul>
-            <li onClick={() => navigate("/funding")}>펀딩+</li>
-            <li onClick={() => navigate("/store")}>스토어</li>
+            <li onClick={handleFundingClick}>펀딩+</li>
+            <li onClick={handleStoreClick}>스토어</li>
           </ul>
         </S.LeftArea>
 
@@ -34,4 +34,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default React.memo(Header);

@@ -24,8 +24,8 @@ const A = styled.a`
 `;
 
 const ContentsBox = styled.div`
-  width: 17.7vw;
-  height: 35vh;
+  /* width: 17.7vw;
+  height: 35vh; */
   border-radius: 20px;
   /* background-color: #c7ffcc; */
   color: rgb(43, 43, 43);

@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 const List = (props) => {
   return (
-    <ListFrame>
-      <LinkDetail to={`/fundingdetail/${props.upcyclingId}`}>
+    <figure>
+      <Link to={`/fundingdetail/${props.upcyclingId}`}>
         <ThumbNailImage src={props.thumbNailImage} alt="섬네일" />
         <ListText>
           <ListTitle>{props.title}</ListTitle>
@@ -16,30 +16,24 @@ const List = (props) => {
             {props.categoryName}
           </Materiar>
         </ListText>
-      </LinkDetail>
-    </ListFrame>
+      </Link>
+    </figure>
   );
 };
 
 export default List;
 
-const ListFrame = styled.div`
-  width: 250px;
-  height: 300px;
-  margin-top: 30px;
-  justify-self: end;
-  word-break: break-all;
-`;
-
-const LinkDetail = styled(Link)`
-  outline: none;
-  text-decoration: none;
-  color: black;
+const ListFrame = styled.figure`
+  /* width: 100px;
+  height: 100px; */
+  /* margin-top: 30px; */
+  /* justify-self: end; */
+  /* word-break: break-all; */
 `;
 
 const ThumbNailImage = styled.img`
-  width: 250px;
-  height: 60%;
+  width: 100%;
+  height: 150px;
   border-radius: 20px;
   object-fit: cover;
 `;
@@ -47,16 +41,15 @@ const ThumbNailImage = styled.img`
 const ListText = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  height: 15%;
+  /* justify-content: space-between; */
+  /* height: 15%; */
   margin-top: 10px;
 `;
 
 const ListTitle = styled.div`
   display: block;
-  font-size: 1em;
-  font-weight: bold;
-  width: 250px;
+  font-size: 0.95rem;
+  font-weight: 400;
   white-space: pre-line;
   word-break: break-all;
 `;

@@ -35,7 +35,7 @@ function App() {
       {/* <UserDataProvider> */}
       {pathname !== "/" &&
         pathname !== "/login" &&
-        !pathname.includes("/signup") && <Header />}
+        !pathname.includes("/signup") && <Header pathname={pathname} />}
 
       <Routes>
         <Route element={<MainPage />} path="/" />

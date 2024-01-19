@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import styled, { css } from "styled-components";
 import Button from "../common/Button";
 
-const Navigation = ({ sort, setSort, role, param }) => {
+const SortButton = ({ sort, setSort, role, param }) => {
   const handleChange = (event) => {
     setSort(event.target.value);
   };
@@ -47,19 +47,23 @@ const Navigation = ({ sort, setSort, role, param }) => {
   );
 };
 
-export default Navigation;
+export default SortButton;
 
 const Navigate = styled.section`
   display: flex;
-  width: 70%;
-  margin-left: 25%;
+  position: sticky;
+  background-color: #fff;
+  width: 100%;
+  /* top: 50px; */
+  padding-top: 50px;
+  /* margin-left: 25%; */
 `;
 
 const Sort = styled.div`
   display: flex;
   justify-content: space-between;
   width: 80%;
-  margin-top: 40px;
+  /* margin-top: 40px; */
   height: 30px;
   margin-bottom: 20px;
 `;

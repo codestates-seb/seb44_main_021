@@ -4,8 +4,8 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { useGetMemberId } from "../../hooks/useGetMemberId";
 import { axiosInstance } from "../../api/axiosInstance";
-import Banner from "../../components/SubPage/SideBar";
-import Navigation from "../../components/SubPage/Navigation";
+import SideBar from "../../components/SubPage/SideBar";
+import SortButton from "../../components/SubPage/SortButton";
 import List from "../../components/SubPage/Funding/List";
 
 const FundingPage = () => {
@@ -178,52 +178,54 @@ const FundingPage = () => {
   requestAnimationFrame(raf);
 
   return (
-    <div>
-      {/* <Header url="funding" setSearchParam={setSearchParam} /> */}
-      <Container>
-        <Navigation
+    <Container>
+      <SideBar
+        kategorie={kategorie}
+        setKategorie={setKategorie}
+        menu={["All", "천", "목재", "플라스틱", "철제", "유리", "기타"]}
+      />
+      <ContainerBottom>
+        <SortButton
           sort={sort}
           setSort={setSort}
           role={role}
           param="/funding"
           // link="/fundingcreate"
         />
-        <ContainerBottom>
-          <Banner
-            kategorie={kategorie}
-            setKategorie={setKategorie}
-            menu={["All", "천", "목재", "플라스틱", "철제", "유리", "기타"]}
-          />
-          <Funding>
-            {isLoding
-              ? fundingList.map((obj, index) => <List key={index} {...obj} />)
-              : null}
-          </Funding>
-        </ContainerBottom>
-      </Container>
-    </div>
+        <Funding>
+          {isLoding
+            ? fundingList.map((obj, index) => <List key={index} {...obj} />)
+            : null}
+        </Funding>
+      </ContainerBottom>
+    </Container>
   );
 };
 
 export default FundingPage;
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
   justify-content: center;
   align-items: center;
+  column-gap: 2rem; */
+  display: grid;
+  grid-template-columns: 15% 85%;
+  max-width: 1000px;
+  margin: auto;
 `;
 
 const ContainerBottom = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  width: 70%;
+  border-left: 1px solid var(--color-gray-30);
+  padding-left: 3rem;
+  height: 100%;
+  margin-bottom: calc(90vh - 400px);
 `;
 
 const Funding = styled.div`
-  float: right;
+  /* float: right; */
   display: grid;
-  width: 80%;
+  width: 100%;
   grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
 `;

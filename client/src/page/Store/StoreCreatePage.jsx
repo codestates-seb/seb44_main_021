@@ -14,7 +14,7 @@ import { createStorePost } from "../../api/createPost";
 import { validationsPost } from "../../utils/validateInput";
 
 const StoreCreatePage = () => {
-  const { handleInputErr, errMsgObj } = useErrHandler();
+  const { handleValidation, errMsgObj } = useErrHandler();
   const userData = useSelector((state) => state.userData);
   const [createData, onChange] = useInputs({
     sellCategoryId: null,
@@ -51,7 +51,7 @@ const StoreCreatePage = () => {
   // };
 
   const handleInputChange = (e) => {
-    handleInputErr(e, validationsPost);
+    handleValidation(e, validationsPost);
     onChange(e);
     console.log(userData);
   };

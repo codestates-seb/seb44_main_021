@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../common/Button";
 import Input from "../common/Input";
 import * as S from "./LoginForm.styled";
+import { axiosInstance } from "../../api/axiosInstance";
 
 const LoginForm = () => {
   const [loginInfo, onChange] = useInputs({
@@ -18,11 +19,19 @@ const LoginForm = () => {
     postLogin(loginInfo)
       .then((res) => {
         if (res.status === 200) {
-          const authHeader = res.headers.authorization;
+          console.log(res);
+          // const accessToken = res.headers["authorization"];
+          // console.log("Access Token:", accessToken);
+          const authHeader = res.headers["authorization"];
+          console.log(authHeader);
           const accessToken = authHeader.split(" ")[1];
+          axiosInstance.defaults.headers.common[
+            "Authorization"
+          ] = `Bearer ${accessToken}`;
           localStorage.setItem("token", accessToken);
           localStorage.setItem("login", "true");
         }
+
         navigate("/");
       })
       .catch((err) => {

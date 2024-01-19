@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import Lenis from "@studio-freight/lenis";
 import { useSelector } from "react-redux";
 import { axiosInstance } from "../../api/axiosInstance";
-import Banner from "../../components/SubPage/SideBar";
-import Navigation from "../../components/SubPage/Navigation";
+import SideBar from "../../components/SubPage/SideBar";
+import SortButton from "../../components/SubPage/SortButton";
 import Item from "../../components/SubPage/Store/Item";
 import styled from "styled-components";
 
@@ -170,51 +170,48 @@ const StorePage = () => {
   requestAnimationFrame(raf);
 
   return (
-    <div>
-      {/* <Header url="store" /> */}
-      <Container>
-        <Navigation
+    <Container>
+      <SideBar
+        kategorie={kategorie}
+        setKategorie={setKategorie}
+        menu={["All", "의류", "가구", "인테리어", "소품", "기타"]}
+      />
+      <ContainerBottom>
+        <SortButton
           sort={sort}
           setSort={setSort}
           role={role}
           link="/storecreate"
         />
-        <ContainerBottom>
-          <Banner
-            kategorie={kategorie}
-            setKategorie={setKategorie}
-            menu={["All", "의류", "가구", "인테리어", "소품", "기타"]}
-          />
-          <SellItem>
-            {isLoding
-              ? stoerList.map((obj, index) => <Item key={index} {...obj} />)
-              : null}
-          </SellItem>
-        </ContainerBottom>
-      </Container>
-    </div>
+        <SellItem>
+          {isLoding
+            ? stoerList.map((obj, index) => <Item key={index} {...obj} />)
+            : null}
+        </SellItem>
+      </ContainerBottom>
+    </Container>
   );
 };
 
 export default StorePage;
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 15% 85%;
+  max-width: 1000px;
+  margin: auto;
 `;
 
 const ContainerBottom = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  width: 70%;
+  border-left: 1px solid var(--color-gray-30);
+  padding: 0 3rem;
+  height: 100%;
+  margin-bottom: calc(90vh - 400px);
 `;
 
 const SellItem = styled.div`
-  float: right;
   display: grid;
-  width: 80%;
-  grid-template-columns: 0fr 1fr 1fr 1fr;
+  width: 100%;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
 `;

@@ -44,6 +44,7 @@ body{
   .underline-effect {
     position:relative;
     display: inline-block;
+    width:fit-content;
     cursor: pointer;
     
   &::after {

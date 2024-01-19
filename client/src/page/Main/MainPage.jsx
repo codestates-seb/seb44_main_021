@@ -214,12 +214,14 @@ const LogoImg = styled.img`
 const Main = styled.div`
   background-color: #f5f5f5;
   margin-bottom: 100vh;
+  overflow: hidden;
 `;
 
 const Horwrap = styled.div`
   display: flex;
   justify-content: space-between;
   width: 200vw;
+
   background-color: #f5f5f5;
   height: 100%;
   @media (max-width: 768px) {
@@ -234,7 +236,11 @@ const ContentsFrame = styled.div`
 const Contentslist = styled.div`
   display: grid;
   gap: 3rem;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  /* grid-template-columns: repeat(4, minmax(0, 1fr)); */
+  grid-template-columns: repeat(4, 1fr);
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;
 
 const H1 = styled.h1`

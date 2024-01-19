@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import DetailsCategory from "../Category/DetailsCategory";
 import * as S from "./UserProfile.styled";
+import React from "react";
 
 const UserProfile = ({ openModal }) => {
   const userData = useSelector((state) => state.userData);
@@ -26,4 +27,4 @@ const UserProfile = ({ openModal }) => {
   );
 };
 
-export default UserProfile;
+export default React.memo(UserProfile);

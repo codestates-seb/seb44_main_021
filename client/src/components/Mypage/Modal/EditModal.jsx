@@ -11,11 +11,9 @@ import Input from "../../../components/common/Input";
 
 const EditModal = ({ closeModal, isUnmount }) => {
   const dispatch = useDispatch();
-  // const { closeModal } = useModal();
-  const { handleInputErr, handleInputError, errMsgObj } = useErrHandler();
+  const { handleInputErr, handleValidation, errMsgObj } = useErrHandler();
 
   const userData = useSelector((state) => state.userData);
-  // const isUnmount = useSelector((state) => state.modal.isUnmount);
 
   const [isPasswordVerified, setIsPasswordVerified] = useState(false);
   const [editUserInfo, onChange] = useInputs({
@@ -28,8 +26,8 @@ const EditModal = ({ closeModal, isUnmount }) => {
   console.log(editUserInfo);
 
   const handleInputChange = (e) => {
-    handleInputErr(e, valEditProfile);
     onChange(e);
+    handleValidation(e, valEditProfile);
   };
 
   // 유효성 검사
@@ -40,18 +38,18 @@ const EditModal = ({ closeModal, isUnmount }) => {
     onChange(e);
 
     if (!PWD_REGEX.test(editUserInfo.password)) {
-      handleInputError(
+      handleInputErr(
         "password",
         "숫자 ,문자, 특수문자 포함 8자 이상 입력하세요."
       );
     } else if (editUserInfo.password !== editUserInfo.verifyPwd) {
-      handleInputError("password", "새 비밀번호와 일치하지 않습니다.");
+      handleInputErr("password", "새 비밀번호와 일치하지 않습니다.");
     } else {
-      handleInputError("password", "");
+      handleInputErr("password", "");
     }
   };
 
-  const handleInfoUpdate = (e) => {
+  const updateUserInfo = (e) => {
     e.preventDefault();
 
     const { displayName, password, thumbNailImage } = editUserInfo;
@@ -91,13 +89,13 @@ const EditModal = ({ closeModal, isUnmount }) => {
     })
       .then((res) => {
         if (res.data === "성공") {
-          handleInputError("currentPwd", "");
+          handleInputErr("currentPwd", "");
           setIsPasswordVerified(true);
         }
       })
       .catch((err) => {
         if (err.response.data === "실패");
-        handleInputError("currentPwd", "비밀번호가 일치하지 않습니다.");
+        handleInputErr("currentPwd", "비밀번호가 일치하지 않습니다.");
         setIsPasswordVerified(false);
       });
   };
@@ -107,7 +105,7 @@ const EditModal = ({ closeModal, isUnmount }) => {
       {!isPasswordVerified ? (
         <S.FirstModalWrapper isUnmount={isUnmount}>
           <S.StyledCloseIcon onClick={closeModal} />
-          <S.ModalContent onSubmit={handleInfoUpdate}>
+          <S.ModalContent onSubmit={handleVerifyPwd}>
             <Input
               variant="outline"
               label="현재 비밀번호"
@@ -128,7 +126,7 @@ const EditModal = ({ closeModal, isUnmount }) => {
             name="thumbNailImage"
             purpose="profile"
           />
-          <S.ModalContent onSubmit={handleInfoUpdate}>
+          <S.ModalContent onSubmit={updateUserInfo}>
             <div className="Edit__email">
               <label>이메일</label>
               <p>{userData.email}</p>
@@ -165,7 +163,7 @@ const EditModal = ({ closeModal, isUnmount }) => {
               errMsg={errMsgObj.password}
             />
 
-            <S.EditButton onClick={handleInfoUpdate}>Edit</S.EditButton>
+            <S.EditButton onClick={updateUserInfo}>Edit</S.EditButton>
           </S.ModalContent>
         </S.SecondModalWrapper>
       )}

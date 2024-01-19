@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userDetailsActions } from "../../../store/slice/userDetailsSlice";
 import { getDetailDatas } from "../../../api/getDetailDatas";
@@ -16,8 +16,7 @@ const DetailsCategory = () => {
     (key) => detailAllDatas.details[key]
   );
 
-  const handleCategoryClick = (data) => {
-    // setSelectedCategory(data.category);
+  const handleCategoryClick = useCallback((data) => {
     dispatch(userDetailsActions.setTitle(data.title));
     dispatch(userDetailsActions.setCategory(data.category));
     getDetailDatas(
@@ -27,7 +26,20 @@ const DetailsCategory = () => {
       data.category
     );
     navigate(`/mypage/${data.category}`);
-  };
+  }, []);
+
+  // (data) => {
+  //   // setSelectedCategory(data.category);
+  //   dispatch(userDetailsActions.setTitle(data.title));
+  //   dispatch(userDetailsActions.setCategory(data.category));
+  //   getDetailDatas(
+  //     userData.memberId,
+  //     dispatch,
+  //     data.mapFunction,
+  //     data.category
+  //   );
+  //   navigate(`/mypage/${data.category}`);
+  // };
 
   return (
     <S.CategoryContainer>
@@ -72,4 +84,4 @@ const DetailsCategory = () => {
   );
 };
 
-export default DetailsCategory;
+export default React.memo(DetailsCategory);
