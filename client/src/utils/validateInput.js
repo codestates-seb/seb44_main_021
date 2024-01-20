@@ -40,26 +40,16 @@ export const validationsLogin = {
       : "",
 };
 
-// export const validationsSignup = {
-//   displayName: (value) =>
-//     !NAME_REGEX.test(value) ? "특수 문자 제외 2자 ~ 6자를 입력하세요." : "",
-//   email: (value) =>
-//   !EMAIL_REGEX.test(value)
-//       ? "이메일 형식에 맞지 않습니다."
-//       : "",
-//   password: (value) =>
-//   !PWD_REGEX.test(value)
-//       ? "숫자, 문자, 특수문자 포함 8자 이상 입력하세요."
-//       : "",
-//   verifyPwd: (value) =>
-//   signupInfo.password !== value
-//       ? "비밀번호가 일치하지 않습니다."
-//       : "",
-//   code: (value) =>
-//     value.toString().startsWith("0")
-//       ? "판매 금액 첫번째 자리에 0이 입력되면 안됩니다."
-//       : "",
-// };
+export const validationsSignup = {
+  displayName: (value) =>
+    !NAME_REGEX.test(value) ? "특수 문자 제외 2자 ~ 6자를 입력하세요." : "",
+  email: (value) =>
+    !EMAIL_REGEX.test(value) ? "이메일 형식에 맞지 않습니다." : "",
+  password: (value) =>
+    !PWD_REGEX.test(value)
+      ? "숫자, 문자, 특수문자 포함 8자 이상 입력하세요."
+      : "",
+};
 
 export const valEditProfile = {
   displayName: (value) =>
@@ -82,5 +72,5 @@ export const isEmpty = (obj) => {
 // signup regex
 const NAME_REGEX = /^[A-Za-z0-9ㄱ-ㅎㅏ-ㅣ가-힣]{2,6}$/;
 const EMAIL_REGEX = /^[A-Za-z0-9.\-_]+@([A-Za-z0-9-]+\.)+[A-Za-z]{2,6}$/;
-const PWD_REGEX =
+export const PWD_REGEX =
   /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>/?]).{8,24}$/;
