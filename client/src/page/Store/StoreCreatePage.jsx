@@ -29,27 +29,6 @@ const StoreCreatePage = () => {
 
   const navigate = useNavigate();
 
-  // const validations = {
-  //   title: (value) =>
-  //     value.length < 5 && value !== "" ? "제목은 5자 이상 입력해주세요." : "",
-  //   content: (value) =>
-  //     value.length < 10 && value !== ""
-  //       ? "제품 소개글은 10자 이상 입력해주세요."
-  //       : "",
-  //   totalQuantity: (value) =>
-  //     value.toString().startsWith("0")
-  //       ? "수량 첫번째 자리에 0이 입력되면 안됩니다."
-  //       : "",
-  //   material: (value) =>
-  //     value.length < 5 && value !== ""
-  //       ? "자재 소개는 5자 이상 입력해주세요."
-  //       : "",
-  //   price: (value) =>
-  //     value.toString().startsWith("0")
-  //       ? "판매 금액 첫번째 자리에 0이 입력되면 안됩니다."
-  //       : "",
-  // };
-
   const handleInputChange = (e) => {
     handleValidation(e, validationsPost);
     onChange(e);
@@ -115,119 +94,14 @@ const StoreCreatePage = () => {
             />
           ))}
           <Button
-            formFields={{ ...createData /* thumbNailImage: imgUrl */ }}
-            content="등록하기"
             type="submit"
-          />
+            formFields={{ ...createData /* thumbNailImage: imgUrl */ }}
+          >
+            등록하기
+          </Button>
         </fieldset>
       </S.CreateForm>
     </S.CreateFormContainer>
-    // <div>
-    //   <div id={style.AllContainer}>
-    //     <div id={style.AllWrapper}>
-    //       <div id={style.UpWrapper}>
-    //         <div id={style.leftWrapper}>
-    //           <div id={style.TitleName}>스토어 기본 정보</div>
-    //           <div id={style.SubTitle}>
-    //             판매하실 업사이클링 제품을 대표하는 중요한 정보들을
-    //             입력해주세요.
-    //           </div>
-    //           <SelectBox options={CATEGORY_OPTIONS} onChange/>
-    //           <div className={style.Titlebox}>
-    //             <div className={style.CommonMent}>제품 제목</div>
-    //             <div className={style.star}>*</div>
-    //           </div>
-    //           <textarea
-    //             onChange={handleInputChange}
-    //             ref={titleRef}
-    //             placeholder="40자 이내로 입력해주세요."
-    //             id={style.NameInput}
-    //             maxLength="40"
-    //           />
-    //           <p className={style.errMsg}>{titleMsg}</p>
-    //           <div className={style.Titlebox}>
-    //             <div className={style.CommonMent}>대표 이미지</div>
-    //             <div className={style.star}>*</div>
-    //           </div>
-    //           <SettingUserThumbnail
-    //             setThumimgurl={setThumimgurl}
-    //             ThumImgurl={handleInputChange}
-    //           />
-    //           <p className={style.errMsg}>{thumimgurlMsg}</p>
-    //           <div className={style.Titlebox}>
-    //             <div className={style.CommonMent}>제품 소개</div>
-    //             <div className={style.star}>*</div>
-    //           </div>
-    //           <textarea
-    //             onChange={handleInputChange}
-    //             ref={contentRef}
-    //             placeholder="500자 이내로 입력해주세요."
-    //             id={style.IntroduceBox}
-    //             maxLength="500"
-    //           />
-    //           <p className={style.errMsg}>{contentMsg}</p>
-    //           <div className={style.Titlebox}>
-    //             <div className={style.CommonMent}>자재 소개</div>
-    //             <div className={style.star}>*</div>
-    //           </div>
-    //           <textarea
-    //             onChange={handleInputChange}
-    //             ref={materialRef}
-    //             placeholder=
-    //             id={style.materialInput}
-    //             maxLength="100"
-    //           />
-    //           <p className={style.errMsg}>{materialMsg}</p>
-
-    //           <p className={style.errMsg}>{categoryidMsg}</p>
-    //           <div className={style.Titlebox}>
-    //             <div className={style.CommonMent}>판매 금액</div>
-    //             <div className={style.star}>*</div>
-    //           </div>
-    //           <input
-    //             type="text"
-    //             onChange={handleInputChange}
-    //             ref={priceRef}
-    //             onInput={blockTextInput}
-    //             placeholder="숫자만 입력해주세요."
-    //             id={style.AmountInput}
-    //           />
-    //           <p className={style.errMsg}>{priceMsg}</p>
-    //           <div className={style.Titlebox}>
-    //             <div className={style.CommonMent}>상세 정보 이미지</div>
-    //             <div className={style.star}>*</div>
-    //           </div>
-    //           <SettingContentimg
-    //             setContentimgurl={setContentimgurl}
-    //             ContentImgurl={handleInputChange}
-    //           />
-    //           <p className={style.errMsg}>{contentimgurlMsg}</p>
-    //           <div id={style.subMent}>
-    //             아래에서 상세 정보 이미지를 미리 볼 수 있어요.
-    //           </div>
-    //           <button id={style.CreateButton} onClick={Create}>
-    //             등록하기
-    //           </button>
-    //         </div>
-    //
-    //         </div>
-    //       </div>
-    //       <div id={style.downWrapper}>
-    //         <div id={style.ContentimgWrapper}>
-    //           {contentimgurl ? (
-    //             <img
-    //               className={style.FundingImg}
-    //               src={contentimgurl}
-    //               alt="제품 컨텐츠 이미지 미리보기"
-    //             />
-    //           ) : (
-    //             <div>+ 이미지를 추가해주세요.</div>
-    //           )}
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>
   );
 };
 

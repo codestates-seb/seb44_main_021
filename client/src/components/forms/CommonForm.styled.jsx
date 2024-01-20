@@ -1,13 +1,25 @@
 import styled from "styled-components";
 
 export const FormContainer = styled.div`
-  height: 100vh;
-  width: 100vw;
+  width: 100%;
+  /* height: 100vh; */
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background: url("/image/sign-bg.webp") center;
+  /* background: url("/image/footer.webp") center; */
+  /* background-size: cover; */
+  margin: 5rem 0;
+`;
+
+export const BackgroundCover = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
+  background: url("/image/footer.webp") center;
   background-size: cover;
 `;
 
@@ -20,6 +32,11 @@ export const FormLogo = styled.div`
 `;
 
 export const Form = styled.div`
+  /* display: grid;
+  grid-template-columns: 1.2fr 2.5fr;
+  gap: 3rem;
+  place-items: center; */
+
   width: 30rem;
   background: rgba(255, 255, 255, 0.25);
   box-shadow: 0 8px 32px 0 rgba(95, 95, 95, 0.37);
@@ -27,9 +44,12 @@ export const Form = styled.div`
   -webkit-backdrop-filter: blur(4px);
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.18);
-  padding: 4rem 2rem;
+  padding: 3rem;
 
   @media (max-width: 768px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 0;
     width: 100%;
   }

@@ -1,6 +1,6 @@
 import React from "react";
 import useInputs from "../../hooks/useInputs";
-import { postLogin } from "../../api/postLogin";
+import { postLogin } from "../../api/authApi";
 import { useNavigate } from "react-router-dom";
 import Button from "../common/Button";
 import Input from "../common/Input";
@@ -60,7 +60,9 @@ const LoginForm = () => {
         placeholder="비밀번호를 입력해주세요."
         onChange={onChange}
       ></Input>
-      <Button formFields={loginInfo} content="log in" />
+      <Button type="submit" formFields={loginInfo}>
+        log in
+      </Button>
       <div className="move-signup">
         아직 이은의 회원이 아니라면,
         <S.SignupButton onClick={() => navigate("/signup")}>

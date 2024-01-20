@@ -3,12 +3,17 @@ import styled from "styled-components";
 export const FormContainer = styled.div`
   display: grid;
   grid-gap: 3rem;
+  width: 100%;
   h1 {
     color: var(--color-main);
     text-align: center;
   }
   p {
     margin-bottom: 0.5rem;
+    color: #fff;
+  }
+  @media (max-width: 768px) {
+    max-width: 350px;
   }
 `;
 export const UserRoleBtn = styled.button`

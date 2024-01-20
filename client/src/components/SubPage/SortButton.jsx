@@ -33,13 +33,14 @@ const SortButton = ({ sort, setSort, role, param }) => {
           </Sortbox>
         </Sortcontainer>
         {loginStatus &&
-          (role === "MEMBER_UPCYCLER" && pathname === param ? (
+          role === "MEMBER_UPCYCLER" &&
+          (pathname === param ? (
             <Link to="/fundingcreate">
-              <Button content="펀딩 제품 등록" />
+              <Button>펀딩 제품 등록</Button>
             </Link>
           ) : (
             <Link to={"/storecreate"}>
-              <Button content="스토어 제품 등록" />
+              <Button>스토어 제품 등록</Button>
             </Link>
           ))}
       </Sort>
@@ -51,21 +52,18 @@ export default SortButton;
 
 const Navigate = styled.section`
   display: flex;
-  position: sticky;
+  /* position: sticky; */
   background-color: #fff;
   width: 100%;
-  /* top: 50px; */
-  padding-top: 50px;
-  /* margin-left: 25%; */
+  /* top: 80px; */
+  padding: 1rem 0;
 `;
 
 const Sort = styled.div`
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  width: 80%;
-  /* margin-top: 40px; */
-  height: 30px;
-  margin-bottom: 20px;
+  width: 100%;
 `;
 
 const Sortcontainer = styled.div`

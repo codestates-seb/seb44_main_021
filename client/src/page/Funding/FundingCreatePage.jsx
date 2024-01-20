@@ -66,10 +66,11 @@ const FundingCreatePage = () => {
             />
           ))}
           <Button
-            formFields={{ ...createData /* thumbNailImage: imgUrl */ }}
-            content="등록하기"
             type="submit"
-          />
+            formFields={{ ...createData /* thumbNailImage: imgUrl */ }}
+          >
+            등록하기
+          </Button>
         </fieldset>
       </S.CreateForm>
     </S.CreateFormContainer>

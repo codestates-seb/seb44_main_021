@@ -231,6 +231,9 @@ const Horwrap = styled.div`
 
 const ContentsFrame = styled.div`
   padding: 5rem;
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
 `;
 
 const Contentslist = styled.div`
@@ -240,6 +243,7 @@ const Contentslist = styled.div`
   grid-template-columns: repeat(4, 1fr);
   @media (max-width: 768px) {
     grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
   }
 `;
 

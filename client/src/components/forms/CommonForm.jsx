@@ -6,6 +6,7 @@ import GoBack from "../common/GoBack";
 const CommonForm = ({ children }) => {
   return (
     <S.FormContainer>
+      <S.BackgroundCover />
       <GoBack />
       <S.FormLogo>
         숨어있는 것들로 세상을 이롭게,
@@ -16,6 +17,7 @@ const CommonForm = ({ children }) => {
           />
         </Link>
       </S.FormLogo>
+
       <S.Form>{children}</S.Form>
     </S.FormContainer>
   );

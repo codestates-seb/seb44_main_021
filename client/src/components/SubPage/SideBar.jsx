@@ -35,9 +35,17 @@ const Aside = styled.aside`
   width: 100%;
   height: 300px;
   position: sticky;
+  background-color: #fff;
   top: 80px;
   padding-top: 80px;
   margin-bottom: calc(90vh - 400px);
+
+  @media (max-width: 768px) {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    padding: 1rem;
+  }
 `;
 
 const Kategorie = styled.div`
@@ -52,6 +60,12 @@ const CartegoryList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  @media (max-width: 768px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+  }
 `;
 const ListItem = styled.li`
   font-size: 1.1rem;
@@ -64,9 +78,4 @@ const ListItem = styled.li`
       text-decoration-color: #c0d6b1;
       text-decoration-thickness: 3px;
     `}
-
-  @media (max-width: 768px) {
-    margin: 0.4rem auto;
-    font-size: 0.7rem;
-  }
 `;

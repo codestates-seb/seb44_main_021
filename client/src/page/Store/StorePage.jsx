@@ -200,6 +200,12 @@ const Container = styled.div`
   grid-template-columns: 15% 85%;
   max-width: 1000px;
   margin: auto;
+  @media (max-width: 768px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
 `;
 
 const ContainerBottom = styled.div`
@@ -207,6 +213,9 @@ const ContainerBottom = styled.div`
   padding: 0 3rem;
   height: 100%;
   margin-bottom: calc(90vh - 400px);
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
 `;
 
 const SellItem = styled.div`
@@ -214,4 +223,7 @@ const SellItem = styled.div`
   width: 100%;
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;

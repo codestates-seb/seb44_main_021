@@ -4,7 +4,11 @@ import { userDataActions } from "../../../store/slice/userDataSlice";
 import useInputs from "../../../hooks/useInputs";
 import * as S from "./EditModal.styled";
 import useErrHandler from "../../../hooks/useErrHandler";
-import { isEmpty, valEditProfile } from "../../../utils/validateInput";
+import {
+  PWD_REGEX,
+  isEmpty,
+  valEditProfile,
+} from "../../../utils/validateInput";
 import { patchInfo, verifyPwd } from "../../../api/authApi";
 import ImgUploader from "../../common/imgUploader/ImgUploader";
 import Input from "../../../components/common/Input";
@@ -32,9 +36,6 @@ const EditModal = ({ closeModal, isUnmount }) => {
 
   // 유효성 검사
   const IsValidPwd = (e) => {
-    const PWD_REGEX =
-      /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>/?]).{8,24}$/;
-
     onChange(e);
 
     if (!PWD_REGEX.test(editUserInfo.password)) {

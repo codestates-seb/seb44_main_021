@@ -6,12 +6,21 @@ const Input = ({
   label,
   variant,
   errMsg = "",
+  children,
   ...inputProps
 }) => {
   return (
     <InputField variant={variant}>
       <label>{label}</label>
-      <input type={type} {...inputProps} />
+      {children ? (
+        <div className="horizontal">
+          <input type={type} {...inputProps} />
+          <span>{children}</span>
+        </div>
+      ) : (
+        <input type={type} {...inputProps} />
+      )}
+
       <p>{errMsg}</p>
     </InputField>
   );
@@ -54,5 +63,17 @@ const InputField = styled.div`
     margin-top: 5px;
     font-size: 14px;
     color: rgb(221, 106, 106);
+  }
+  .horizontal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    > input {
+      flex: 1;
+    }
+    > span {
+      margin-left: 0.7rem;
+      flex-basis: 90px;
+    }
   }
 `;

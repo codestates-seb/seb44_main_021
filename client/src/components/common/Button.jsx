@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
-const Button = ({ formFields = {}, content, onClick }) => {
+const Button = ({ formFields = {}, children, onClick }) => {
   const isDisabled = Object.values(formFields).some((field) => !field);
   const buttonType = Object.keys(formFields).length === 0 ? "button" : "submit";
   return (
     <SubmitButton type={buttonType} disabled={isDisabled} onClick={onClick}>
-      {content}
+      {children}
     </SubmitButton>
   );
 };
@@ -14,10 +14,11 @@ const Button = ({ formFields = {}, content, onClick }) => {
 export default Button;
 
 const SubmitButton = styled.button`
-  /* height: 100%; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 13px;
   width: 100%;
-  /* letter-spacing: 3.5px; */
   color: #ffffff;
   background: ${({ disabled }) => (disabled ? "#afafaf" : "var(--color-main)")};
   border-radius: 5px;
