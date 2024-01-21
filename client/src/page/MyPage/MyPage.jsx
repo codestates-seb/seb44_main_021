@@ -3,58 +3,62 @@ import EditModal from "../../components/Mypage/Modal/EditModal";
 import UserDetails from "../../components/Mypage/Details/Details";
 import UserProfile from "../../components/Mypage/UserProfile/UserProfile";
 import { useSelector, useDispatch } from "react-redux";
-import { useGetMemberId } from "../../hooks/useGetMemberId";
 import { getDetailDatas } from "../../api/getDetailDatas";
 import { getUserData } from "../../api/getUserData";
 import { useParams } from "react-router-dom";
-import { userDetailsActions } from "../../store/slice/userDetailsSlice";
 import { userDataActions } from "../../store/slice/userDataSlice";
 import styled from "styled-components";
 import useModal from "../../hooks/useModal";
+import useGetUserDetails from "../../hooks/useGetUserDetails";
+import DetailsCategory from "../../components/Mypage/Category/DetailsCategory";
+import { userDetailsActions } from "../../store/slice/userDetailsSlice";
 
 const MyPage = () => {
   const dispatch = useDispatch();
-
   const userData = useSelector((state) => state.userData);
-  const detailsData = useSelector((state) => state.userDetails);
-  // const isOpenModal = useSelector((state) => state.modal.isOpen);
 
   const { isOpenModal, isUnmount, openModal, closeModal } = useModal();
   const { path } = useParams();
-  const { getMemberId } = useGetMemberId();
+  const { details, getUserDetails } = useGetUserDetails();
 
   useEffect(() => {
-    getMemberId();
-    dispatch(userDetailsActions.setTitle(detailsData.details[path]?.title));
-    dispatch(userDetailsActions.setCategory(path));
-    getDetailDatas(
-      userData.memberId,
-      dispatch,
-      detailsData.details[path]?.mapFunction,
-      detailsData.details[path]?.category
-    );
-    getUserData(userData.memberId)
-      .then((res) => {
-        const user = res.data.data;
-        dispatch(
-          userDataActions.setUserData({
-            email: user.email,
-            displayName: user.displayName,
-            memberRole: user.memberRole,
-            thumbNailImage: user.thumbNailImage,
-          })
-        );
-      })
-      .catch((err) => {
-        console.log(err);
+    if (userData.memberId) {
+      dispatch(userDetailsActions.setTitle("나의 펀딩 내역"));
+      dispatch(userDetailsActions.setCategory("funding"));
+      getDetailDatas(userData.memberId, path).then((res) => {
+        getUserDetails(path, res.data.data);
       });
+
+      getUserData(userData.memberId)
+        .then((res) => {
+          const user = res.data.data;
+          dispatch(
+            userDataActions.setUserData({
+              email: user.email,
+              displayName: user.displayName,
+              memberRole: user.memberRole,
+              thumbNailImage: user.thumbNailImage,
+            })
+          );
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }, [userData.memberId]);
 
   return (
     <>
       <MyPageContainer>
-        <UserProfile userData={userData} openModal={openModal} />
-        <UserDetails userData={userData} />
+        <div>
+          <UserProfile openModal={openModal} />
+          <DetailsCategory
+            userData={userData}
+            details={details}
+            getUserDetails={getUserDetails}
+          />
+        </div>
+        <UserDetails userData={userData} details={details} />
       </MyPageContainer>
       {isOpenModal && (
         <EditModal closeModal={closeModal} isUnmount={isUnmount} />

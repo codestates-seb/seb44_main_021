@@ -18,8 +18,7 @@ const commonModalWrapperStyles = css`
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  width: 20rem;
   padding: 30px 50px;
   background: rgb(255, 255, 255);
   box-shadow: 0 8px 20px 0 rgba(40, 40, 40, 0.37);
@@ -109,6 +108,7 @@ export const ModalContent = styled.form`
   .Edit__email {
     > label {
       font-weight: 400;
+      color: #595959;
       display: inline-block;
     }
     > p {

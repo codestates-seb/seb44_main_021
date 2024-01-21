@@ -4,17 +4,18 @@ import { useSelector } from "react-redux";
 import { Pagination } from "@mui/material";
 import styled from "styled-components";
 
-const Details = () => {
+const Details = ({ details }) => {
   const detailsData = useSelector((state) => state.userDetails);
-  const totalCartegory = detailsData.currentCartegory;
-  const totalCategoryData = detailsData.details[totalCartegory];
+
+  const currentCategory = detailsData.currentCategory;
+  const totalCategoryData = details[currentCategory];
 
   const { tableHeader, detail } = totalCategoryData || {
     tableHeader: [],
     detail: [],
   };
 
-  // pagination logic
+  // pagination
   const [currentPage, setCurrentPage] = useState(1);
 
   const LAST_PAGE =

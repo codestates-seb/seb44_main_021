@@ -1,5 +1,4 @@
 import { Route, Routes, useLocation } from "react-router-dom";
-// import { UserDataProvider } from "./store/UserDataSlice";
 import MainPage from "./page/Main/MainPage";
 import UserSelectionPage from "./page/SignupPage/UserSelectionPage";
 import SignupPage from "./page/SignupPage/SignupPage";
@@ -19,7 +18,7 @@ import { useEffect } from "react";
 import { useGetMemberId } from "./hooks/useGetMemberId";
 import { useSelector } from "react-redux";
 
-function App() {
+const App = () => {
   const { pathname } = useLocation();
 
   const { getMemberId } = useGetMemberId();
@@ -56,6 +55,6 @@ function App() {
       {/* </UserDataProvider> */}
     </div>
   );
-}
+};
 
 export default App;

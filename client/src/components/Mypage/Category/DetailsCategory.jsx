@@ -5,41 +5,27 @@ import { getDetailDatas } from "../../../api/getDetailDatas";
 import * as S from "./DetailsCategory.styled";
 import { useNavigate } from "react-router-dom";
 
-const DetailsCategory = () => {
+const DetailsCategory = ({ details, getUserDetails }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const userData = useSelector((state) => state.userData);
 
-  const detailAllDatas = useSelector((state) => state.userDetails);
-  const detailData = Object.keys(detailAllDatas.details).map(
-    (key) => detailAllDatas.details[key]
+  const currentCategory = useSelector(
+    (state) => state.userDetails.currentCategory
   );
+  const detailData = Object.keys(details).map((key) => details[key]);
 
-  const handleCategoryClick = useCallback((data) => {
+  const handleCategoryClick = (data) => {
     dispatch(userDetailsActions.setTitle(data.title));
     dispatch(userDetailsActions.setCategory(data.category));
-    getDetailDatas(
-      userData.memberId,
-      dispatch,
-      data.mapFunction,
-      data.category
-    );
-    navigate(`/mypage/${data.category}`);
-  }, []);
 
-  // (data) => {
-  //   // setSelectedCategory(data.category);
-  //   dispatch(userDetailsActions.setTitle(data.title));
-  //   dispatch(userDetailsActions.setCategory(data.category));
-  //   getDetailDatas(
-  //     userData.memberId,
-  //     dispatch,
-  //     data.mapFunction,
-  //     data.category
-  //   );
-  //   navigate(`/mypage/${data.category}`);
-  // };
+    getDetailDatas(userData.memberId, data.category).then((res) => {
+      getUserDetails(data.category, res.data.data);
+    });
+
+    navigate(`/mypage/${data.category}`);
+  };
 
   return (
     <S.CategoryContainer>
@@ -49,12 +35,8 @@ const DetailsCategory = () => {
           {detailData.slice(0, 2).map((data, index) => (
             <S.CategoryList
               key={index}
-              className={
-                detailAllDatas.currentCartegory === data.category
-                  ? "selected"
-                  : "underline-effect"
-              }
-              active={detailAllDatas.currentCartegory === data.category}
+              className={currentCategory === data[index].category && "selected"}
+              active={currentCategory === data.category}
               onClick={() => handleCategoryClick(data)}
             >
               {data.title}
@@ -67,7 +49,7 @@ const DetailsCategory = () => {
             <S.CategoryList
               key={index}
               className={
-                detailAllDatas.currentCartegory === data.category
+                currentCategory === data.category
                   ? "selected"
                   : "underline-effect"
               }
@@ -84,4 +66,4 @@ const DetailsCategory = () => {
   );
 };
 
-export default React.memo(DetailsCategory);
+export default DetailsCategory;

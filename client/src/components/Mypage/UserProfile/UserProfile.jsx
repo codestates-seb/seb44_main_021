@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux";
-import DetailsCategory from "../Category/DetailsCategory";
 import * as S from "./UserProfile.styled";
 import React from "react";
 
@@ -22,7 +21,6 @@ const UserProfile = ({ openModal }) => {
           <S.EditButton onClick={openModal}>Edit Profile</S.EditButton>
         </S.UserInfo>
       </S.UserInfoContainer>
-      <DetailsCategory userData={userData} />
     </S.ProfileContainer>
   );
 };

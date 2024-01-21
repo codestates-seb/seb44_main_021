@@ -1,18 +1,15 @@
-import { css } from "@emotion/react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 // History
 export const CategoryContainer = styled.div`
   margin: 0 auto;
 
-  /* width: 80%; */
   hr {
     margin: 2rem 0 1.5rem 0;
     border: none;
     border-top: 1px solid #d1d1d1;
   }
   ul {
-    /* width: 100%; */
     display: flex;
     align-items: start;
     flex-direction: column;
@@ -20,7 +17,6 @@ export const CategoryContainer = styled.div`
   }
 
   @media (max-width: 768px) {
-    /* width: 90%; */
     margin-top: 1rem;
     hr {
       display: none;
