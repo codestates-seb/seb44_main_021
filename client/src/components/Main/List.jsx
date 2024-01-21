@@ -14,14 +14,14 @@ const List = (props) => {
           </Contentsbox>
         </ListLink>
       ) : (
-        <A href={props.href} target="_blank" rel="noreferrer">
+        <a href={props.href} target="_blank" rel="noreferrer">
           <Contentsbox>
             <ContentsImg src={process.env.PUBLIC_URL + props.src} alt="test" />
             <ContentsText>{props.title}</ContentsText>
             <ContentsSub>{props.text}</ContentsSub>
             <ContentsFooter>{props.footer}</ContentsFooter>
           </Contentsbox>
-        </A>
+        </a>
       )}
     </>
   );
@@ -45,11 +45,15 @@ const Contentsbox = styled.div`
 `;
 
 const ContentsImg = styled.img`
-  width: 100%;
-  height: 250px;
+  height: 30vh;
+  width: 17.7vw;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   object-fit: cover;
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 250px;
+  }
 `;
 
 const ContentsText = styled.div`
@@ -73,10 +77,6 @@ const ContentsSub = styled.div`
 const ContentsFooter = styled.div`
   font-size: 0.8rem;
   line-height: 1.6;
-`;
-
-const A = styled.a`
-  color: black;
 `;
 
 // const ContentsBox = styled.div`

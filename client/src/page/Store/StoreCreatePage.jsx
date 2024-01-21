@@ -7,11 +7,12 @@ import * as S from "./StoreCreatePage.Styled";
 import Button from "../../components/common/Button";
 import { STORE_TIPS } from "../../constants/tips";
 import { STORE_INPUT_ATT } from "../../constants/attribute";
-import FundingFormSection from "../../components/create/funding/FundingFormSection";
+import CreateFormSection from "../../components/create/CreateFormSection";
 import SelectBox from "../../components/common/SelectBox";
 import styled from "styled-components";
 import { createStorePost } from "../../api/createPost";
 import { validationsPost } from "../../utils/validateInput";
+import React from "react";
 
 const StoreCreatePage = () => {
   const { handleValidation, errMsgObj } = useErrHandler();
@@ -85,7 +86,7 @@ const StoreCreatePage = () => {
             {/* <p className="err-msg">{errMsg}</p> */}
           </InputSection>
           {STORE_INPUT_ATT.map((att, idx) => (
-            <FundingFormSection
+            <CreateFormSection
               key={idx}
               onChange={handleInputChange}
               errMsg={errMsgObj[att.name]}
@@ -105,7 +106,7 @@ const StoreCreatePage = () => {
   );
 };
 
-export default StoreCreatePage;
+export default React.memo(StoreCreatePage);
 const InputSection = styled.div`
   display: flex;
   align-items: center;

@@ -90,6 +90,7 @@ const OtherBanner = styled.div`
       font-size: 2rem;
       color: #545454;
       letter-spacing: 0.3rem;
+      font-weight: 800;
     }
     p {
       margin-top: 3rem;

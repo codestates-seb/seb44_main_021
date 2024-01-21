@@ -15,7 +15,7 @@ const TipSection = ({ children }) => {
   );
 };
 
-export default TipSection;
+export default React.memo(TipSection);
 
 const TipBox = styled.div`
   height: fit-content;

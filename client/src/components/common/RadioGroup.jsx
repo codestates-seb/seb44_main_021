@@ -17,7 +17,7 @@ const RadioGroup = ({ name, options, onChange }) => {
     </RadioBox>
   );
 };
-export default RadioGroup;
+export default React.memo(RadioGroup);
 
 const RadioBox = styled.div`
   display: flex;

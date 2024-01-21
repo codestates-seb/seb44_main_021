@@ -1,14 +1,14 @@
 // FundingSection.jsx
 import React from "react";
-import Input from "../../common/Input";
-import ImgUploader from "../../common/imgUploader/ImgUploader";
+import Input from "../common/Input";
+import ImgUploader from "../common/imgUploader/ImgUploader";
 import styled from "styled-components";
-import TipSection from "./TipSection";
-import RadioGroup from "../../common/RadioGroup";
-import { MATERIAL_OPTIONS } from "../../../constants/options";
-import { blockTextInput } from "../../../utils/transformInputValue";
+import TipSection from "./funding/TipSection";
+import RadioGroup from "../common/RadioGroup";
+import { MATERIAL_OPTIONS } from "../../constants/options";
+import { blockTextInput } from "../../utils/transformInputValue";
 
-const FundingFormSection = ({ errMsg, onChange, description, ...att }) => {
+const CreateFormSection = ({ errMsg, onChange, description, ...att }) => {
   //날짜 최소 최대 값 변수
   const today = new Date();
   const minDate = today.toISOString().split("T")[0];
@@ -88,7 +88,7 @@ const FundingFormSection = ({ errMsg, onChange, description, ...att }) => {
   );
 };
 
-export default FundingFormSection;
+export default CreateFormSection;
 
 export const FormSectionContainer = styled.div`
   display: grid;

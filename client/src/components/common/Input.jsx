@@ -48,7 +48,7 @@ const InputField = styled.div`
     display: inline-block;
     margin-bottom: 0.5rem;
     font-weight: 400;
-    color: #fff;
+    color: #595959;
   }
   & input {
     ${(props) => props.variant && VARIANT[props.variant]};

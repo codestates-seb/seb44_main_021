@@ -88,12 +88,17 @@ const ImgUploader = React.memo(({ onChange, purpose = "", ...att }) => {
 
 export default ImgUploader;
 const ImgUploaderWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
   ${({ purpose }) =>
-    purpose === "profile" &&
-    `position: relative;
-  cursor: pointer;`}
+    purpose === "profile"
+      ? `
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;`
+      : `
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+`}
 `;

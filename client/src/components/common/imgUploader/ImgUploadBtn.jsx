@@ -61,6 +61,6 @@ const UploadIcon = styled.img`
   color: rgb(95, 148, 49);
   position: absolute;
   top: 80px;
-  left: 75px;
+  right: 60px;
   z-index: 2;
 `;

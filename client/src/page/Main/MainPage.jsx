@@ -238,6 +238,7 @@ const ContentsFrame = styled.div`
 
 const Contentslist = styled.div`
   display: grid;
+  width: 100%;
   gap: 3rem;
   /* grid-template-columns: repeat(4, minmax(0, 1fr)); */
   grid-template-columns: repeat(4, 1fr);
@@ -245,11 +246,16 @@ const Contentslist = styled.div`
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
   }
+  @media (max-width: 425px) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
 `;
 
 const H1 = styled.h1`
   margin-top: 2rem;
   margin-bottom: 1.5rem;
   font-size: 2rem;
+  font-weight: 700;
   color: #639443;
 `;

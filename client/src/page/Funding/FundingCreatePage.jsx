@@ -4,11 +4,12 @@ import Button from "../../components/common/Button";
 import useInputs from "../../hooks/useInputs";
 import * as S from "./FundingCreatePage.styeld";
 import { createFundingPost } from "../../api/createPost";
-import FundingFormSection from "../../components/create/funding/FundingFormSection";
+import CreateFormSection from "../../components/create/CreateFormSection";
 import useErrHandler from "../../hooks/useErrHandler";
 import { FUNDING_INPUT_ATT } from "../../constants/attribute";
 import { FUNDING_TIPS } from "../../constants/tips";
 import { isEmpty, validationsPost } from "../../utils/validateInput";
+import React, { useCallback } from "react";
 
 const FundingCreatePage = () => {
   const { handleValidation, errMsgObj } = useErrHandler();
@@ -24,10 +25,10 @@ const FundingCreatePage = () => {
     thumbNailImage: null,
   });
   console.log(createData);
-  const handleInputChange = (e) => {
+  const handleInputChange = useCallback((e) => {
     handleValidation(e, validationsPost);
     onChange(e);
-  };
+  }, []);
 
   const createFunding = (e) => {
     e.preventDefault();
@@ -57,7 +58,7 @@ const FundingCreatePage = () => {
             필수<span>(*)</span> 입력란은 반드시 입력해주세요.
           </p>
           {FUNDING_INPUT_ATT.map((att, idx) => (
-            <FundingFormSection
+            <CreateFormSection
               key={idx}
               onChange={handleInputChange}
               errMsg={errMsgObj[att.name]}
@@ -77,4 +78,4 @@ const FundingCreatePage = () => {
   );
 };
 
-export default FundingCreatePage;
+export default React.memo(FundingCreatePage);

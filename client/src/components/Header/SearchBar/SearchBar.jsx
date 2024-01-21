@@ -38,7 +38,7 @@ const SearchBar = ({ pathname }) => {
 
   return (
     <S.SeachContainer>
-      <Input
+      <input
         placeholder="검색어를 입력하세요."
         type="text"
         value={searchInput}

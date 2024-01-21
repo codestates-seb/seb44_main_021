@@ -69,8 +69,8 @@ const FooterStyle = styled.div`
 
   .about_us {
     position: absolute;
-    bottom: 10px;
-    right: 10px;
+    bottom: 20px;
+    right: 30px;
 
     font-weight: 100;
     > p {
