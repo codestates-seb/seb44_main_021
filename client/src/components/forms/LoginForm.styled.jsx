@@ -3,13 +3,13 @@ import styled from "styled-components";
 export const LoginFormContainer = styled.form`
   display: grid;
   grid-gap: 1.8rem;
-  width: 100%;
 
-  & > p {
-    margin-bottom: 0.5rem;
-  }
-  @media (max-width: 768px) {
-    max-width: 350px;
+  .signup_btn {
+    & > p {
+      font-size: 0.875rem;
+      margin-bottom: 0.5rem;
+      color: #fff;
+    }
   }
 `;
 export const SignupButton = styled.button`

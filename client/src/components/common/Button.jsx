@@ -16,9 +16,9 @@ export default Button;
 const SubmitButton = styled.button`
   display: flex;
   justify-content: center;
+  white-space: nowrap;
   align-items: center;
-  padding: 13px;
-  width: 100%;
+  padding: 0.7rem;
   color: #ffffff;
   background: ${({ disabled }) => (disabled ? "#afafaf" : "var(--color-main)")};
   border-radius: 5px;

@@ -5,23 +5,15 @@ const Input = ({
   type = "text",
   label,
   variant,
-  errMsg = "",
   children,
+  errMsg,
   ...inputProps
 }) => {
   return (
-    <InputField variant={variant}>
+    <InputField variant={variant} errMsg={errMsg}>
       <label>{label}</label>
-      {children ? (
-        <div className="horizontal">
-          <input type={type} {...inputProps} />
-          <span>{children}</span>
-        </div>
-      ) : (
-        <input type={type} {...inputProps} />
-      )}
-
-      <p>{errMsg}</p>
+      <input type={type} {...inputProps} />
+      {/* <p>{errMsg}</p> */}
     </InputField>
   );
 };
@@ -50,30 +42,21 @@ const VARIANT = {
 };
 
 const InputField = styled.div`
+  display: flex;
+  flex-direction: column;
   & label {
     display: inline-block;
     margin-bottom: 0.5rem;
     font-weight: 400;
+    color: #fff;
   }
   & input {
     ${(props) => props.variant && VARIANT[props.variant]};
-    width: 100%;
+    /* width: 100%; */
   }
   & p {
     margin-top: 5px;
     font-size: 14px;
     color: rgb(221, 106, 106);
-  }
-  .horizontal {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    > input {
-      flex: 1;
-    }
-    > span {
-      margin-left: 0.7rem;
-      flex-basis: 90px;
-    }
   }
 `;

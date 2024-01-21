@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import useInputs from "../../hooks/useInputs";
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "../common/Button";
@@ -35,26 +35,30 @@ const SignupForm = () => {
     handleValidation(e, validationsSignup);
     onChange(e);
   };
+  console.log(signupInfo);
 
-  const IsValidPwd = (e) => {
-    onChange(e);
-    if (signupInfo.password !== signupInfo.verifyPwd) {
-      handleInputErr("password", "비밀번호가 일치하지 않습니다.");
-    } else {
-      handleInputErr("password", "");
-    }
-  };
+  const IsValidPwd = useCallback(
+    (e) => {
+      onChange(e);
+      if (signupInfo.password !== e.target.value) {
+        handleInputErr("verifyPwd", "비밀번호가 일치하지 않습니다.");
+      } else {
+        handleInputErr("verifyPwd", "");
+      }
+    },
+    [signupInfo]
+  );
 
   /* 계정 생성 */
   const createAccount = (e) => {
     e.preventDefault();
 
-    const signupCondition = isEmpty(errMsgObj) && !isEmpty(signupInfo);
-
     const { displayName, email, password, role, code } = signupInfo;
 
-    if (signupCondition) {
-      postSignup({ displayName, email, password, role, code })
+    if (!isEmpty(errMsgObj)) {
+      return alert("입력락을 확인해주세요.");
+    } else if (!isEmpty(signupInfo)) {
+      return postSignup({ displayName, email, password, role, code })
         .then((res) => {
           if (res.status === 201) {
             console.log(res);
@@ -116,80 +120,99 @@ const SignupForm = () => {
 
   return (
     <SignupFormContainer onSubmit={createAccount}>
-      <Input
-        variant="primary"
-        label="이메일"
-        type="email"
-        placeholder="이메일을 입력하세요."
-        name="email"
-        onChange={handleInputChange}
-        errMsg={errMsgObj.email}
-      >
-        <Button type="button" onClick={sendAuthCode}>
-          {loading ? <LodingSpiner /> : "인증 요청"}
-        </Button>
-      </Input>
-
-      {isAuthNumSent && (
-        <Input
-          variant="primary"
-          label="인증번호"
-          type="text"
-          placeholder="인증번호를 입력하세요."
-          name="code"
-          onChange={handleInputChange}
-          errMsg={errMsgObj.code}
-        >
-          <Button type="button" onClick={CheckAuthCode}>
-            인증 확인
+      <InputFieldBox>
+        <div className="Signup__flex-row">
+          <Input
+            variant="primary"
+            label="이메일"
+            type="email"
+            placeholder="이메일을 입력하세요."
+            name="email"
+            onChange={handleInputChange}
+          />
+          <Button type="button" onClick={sendAuthCode}>
+            {loading ? (
+              <div className="button-loding">
+                <LodingSpiner />
+                인증 요청
+              </div>
+            ) : (
+              "인증 요청"
+            )}
           </Button>
-        </Input>
+        </div>
+        <p>{errMsgObj.email}</p>
+      </InputFieldBox>
+      {isAuthNumSent && (
+        <InputFieldBox>
+          <div className="Signup__flex-row">
+            <Input
+              variant="primary"
+              label="인증번호"
+              type="text"
+              placeholder="인증번호를 입력하세요."
+              name="code"
+              onChange={handleInputChange}
+            />
+            <Button type="button" onClick={CheckAuthCode}>
+              인증 확인
+            </Button>
+          </div>
+          <p>{errMsgObj.code}</p>
+        </InputFieldBox>
       )}
 
       {signupInfo.role === "users" && (
-        <Input
-          variant="primary"
-          label="닉네임"
-          type="text"
-          placeholder="닉네임을 입력하세요."
-          name="displayName"
-          onChange={handleInputChange}
-          errMsg={errMsgObj.displayName}
-        />
+        <InputFieldBox>
+          <Input
+            variant="primary"
+            label="닉네임"
+            type="text"
+            placeholder="닉네임을 입력하세요."
+            name="displayName"
+            onChange={handleInputChange}
+          />
+          <p>{errMsgObj.displayName}</p>
+        </InputFieldBox>
       )}
 
       {signupInfo.role === "upcycler" && (
+        <InputFieldBox>
+          <Input
+            variant="primary"
+            label="업사이클러명"
+            type="text"
+            placeholder="업사이클러명을 입력하세요."
+            name="displayName"
+            onChange={handleInputChange}
+            errMsg={errMsgObj.displayName}
+          />
+          <p>{errMsgObj.displayName}</p>
+        </InputFieldBox>
+      )}
+      <InputFieldBox>
         <Input
           variant="primary"
-          label="업사이클러명"
-          type="text"
-          placeholder="업사이클러명을 입력하세요."
-          name="displayName"
+          label="비밀번호"
+          type="password"
+          placeholder="비밀번호를 입력하세요."
+          name="password"
           onChange={handleInputChange}
-          errMsg={errMsgObj.displayName}
         />
-      )}
-
-      <Input
-        variant="primary"
-        label="비밀번호"
-        type="password"
-        placeholder="비밀번호를 입력하세요."
-        name="password"
-        onChange={handleInputChange}
-        errMsg={errMsgObj.password}
-      />
-
-      <Input
-        variant="primary"
-        label="비밀번호 확인"
-        type="password"
-        placeholder="비밀번호를 한번 더 입력하세요."
-        name="verifyPwd"
-        onChange={IsValidPwd}
-        errMsg={errMsgObj.verifyPwd}
-      />
-
+        <p>{errMsgObj.password}</p>
+      </InputFieldBox>
+      <InputFieldBox>
+        <Input
+          variant="primary"
+          label="비밀번호 확인"
+          type="password"
+          placeholder="비밀번호를 한번 더 입력하세요."
+          name="verifyPwd"
+          onChange={IsValidPwd}
+          errMsg={errMsgObj.verifyPwd}
+        />
+        <p>{errMsgObj.verifyPwd}</p>
+      </InputFieldBox>
       <Button type="submit" formFields={signupInfo}>
         sign up
       </Button>
@@ -202,8 +225,24 @@ export default SignupForm;
 const SignupFormContainer = styled.form`
   display: grid;
   grid-gap: 1.5rem;
-  width: 100%;
-  @media (max-width: 768px) {
-    max-width: 350px;
+`;
+const InputFieldBox = styled.div`
+  & p {
+    margin-top: 5px;
+    font-size: 14px;
+    color: rgb(235, 86, 86);
+  }
+  .Signup__flex-row {
+    display: flex;
+    align-items: end;
+    gap: 1rem;
+    .button-loding {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    & > div {
+      flex-grow: 1;
+    }
   }
 `;

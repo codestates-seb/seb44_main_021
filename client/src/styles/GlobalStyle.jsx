@@ -9,11 +9,11 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     border: 0;
     vertical-align: baseline;
-    font-size: 1rem;
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif; 
+    font-weight: 200;
   }
 body{
-  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif; 
-  font-weight: 200;
+
 }
   a {
     text-decoration: none;
@@ -40,6 +40,8 @@ body{
   textarea::placeholder {color:#777; font-size: 0.85rem;}
   textarea::-webkit-input-placeholder {color:#777; font-size: 0.85rem;}
   textarea:-moz-input-placeholder {color:#777; font-size: 0.85rem;}
+
+
 
   .underline-effect {
     position:relative;

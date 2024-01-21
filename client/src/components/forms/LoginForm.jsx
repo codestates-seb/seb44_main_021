@@ -63,8 +63,8 @@ const LoginForm = () => {
       <Button type="submit" formFields={loginInfo}>
         log in
       </Button>
-      <div className="move-signup">
-        아직 이은의 회원이 아니라면,
+      <div className="signup_btn">
+        <p>아직 이은의 회원이 아니라면,</p>
         <S.SignupButton onClick={() => navigate("/signup")}>
           sign up
         </S.SignupButton>

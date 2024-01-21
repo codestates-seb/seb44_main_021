@@ -1,14 +1,10 @@
 import styled from "styled-components";
 
 export const FormContainer = styled.div`
-  width: 100%;
-  /* height: 100vh; */
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  /* background: url("/image/footer.webp") center; */
-  /* background-size: cover; */
   margin: 5rem 0;
 `;
 
@@ -46,12 +42,9 @@ export const Form = styled.div`
   border: 1px solid rgba(255, 255, 255, 0.18);
   padding: 3rem;
 
-  @media (max-width: 768px) {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  @media (max-width: 425px) {
     border-radius: 0;
-    width: 100%;
+    width: 100vw;
   }
 `;
 
