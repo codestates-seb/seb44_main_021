@@ -119,8 +119,12 @@
 |![로그인](https://github.com/codestates-seb/seb44_main_021/assets/124851544/a564ea6b-6c02-4c1c-9a25-edb14f19e793)|![mypage](https://github.com/yejinzz/Ieun/assets/124851544/02538ce7-3cac-42e2-b329-61e412a2eba7)|
 |<b>Funding Page</b>|<b>Funding Create Page</b>|
 |![펀딩](https://github.com/yejinzz/Ieun/assets/124851544/93fbbd24-05c0-4db1-9516-37f1957e2506)|![펀딩글작성](https://github.com/yejinzz/Ieun/assets/124851544/9a03d6cf-b37f-443f-80e5-aab1cdf78dd8)|
-|<b>Funding Detail Page</b>|<b>Funding Edit/Delete</b>|![펀딩상세](https://github.com/yejinzz/Ieun/assets/124851544/a8ab0124-6ecd-4c08-976e-4186fc4fa246)|![펀딩수정삭제](https://github.com/yejinzz/Ieun/assets/124851544/d4ee917b-c474-4d8d-8e9e-fade81ece83f)|
-|<b>Store Page</b>|<b>Store Create Page</b>|![스토어](https://github.com/yejinzz/Ieun/assets/124851544/276267f3-94e5-47a2-88de-8eb58c60a51a)|![스토어 글작성](https://github.com/yejinzz/Ieun/assets/124851544/f878d500-5620-4f42-a137-c36e06317aa7)|<b>Store Detail Page</b>|<b>Store Edit/Delete</b>|![스토어 상세](https://github.com/yejinzz/Ieun/assets/124851544/8e8882af-70b9-4966-a0d5-7c983c23bbc9)|![스토어글 수정삭제](https://github.com/yejinzz/Ieun/assets/124851544/8b5a3e42-20a0-478d-944d-a31e6ce1a840)
+|<b>Funding Detail Page</b>|<b>Funding Edit/Delete</b>|
+|![펀딩상세](https://github.com/yejinzz/Ieun/assets/124851544/a8ab0124-6ecd-4c08-976e-4186fc4fa246)|![펀딩수정삭제](https://github.com/yejinzz/Ieun/assets/124851544/d4ee917b-c474-4d8d-8e9e-fade81ece83f)|
+|<b>Store Page</b>|<b>Store Create Page</b>|
+|![스토어](https://github.com/yejinzz/Ieun/assets/124851544/276267f3-94e5-47a2-88de-8eb58c60a51a)|![스토어 글작성](https://github.com/yejinzz/Ieun/assets/124851544/f878d500-5620-4f42-a137-c36e06317aa7)|
+|<b>Store Detail Page</b>|<b>Store Edit/Delete</b>|
+|![스토어 상세](https://github.com/yejinzz/Ieun/assets/124851544/8e8882af-70b9-4966-a0d5-7c983c23bbc9)|![스토어글 수정삭제](https://github.com/yejinzz/Ieun/assets/124851544/8b5a3e42-20a0-478d-944d-a31e6ce1a840)|
 
 
 
