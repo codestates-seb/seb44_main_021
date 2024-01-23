@@ -112,19 +112,21 @@
 
 ## 📸 화면 구성
 
-|메인페이지|로그인/회원가입|
+|Main Page|Signup Page|
 |:---:|:---:|
-|![MAINPAGE](https://github.com/codestates-seb/seb44_main_021/assets/99308074/e49d503f-d419-4112-8eb9-706e3eef121b)|![signup_login](https://github.com/codestates-seb/seb44_main_021/assets/99308074/4455e006-1cae-4e2c-8408-6263922ae2f3)|
-|<b>업사이클링 페이지</b>|<b>업사이클링 펀딩 글 등록</b>|
-|![upcycling](https://github.com/codestates-seb/seb44_main_021/assets/99308074/3af83feb-b433-41a0-b3b1-059360f29924)|![2023_07_25_00_10_57_249 mp4_20230725_002629](https://github.com/codestates-seb/seb44_main_021/assets/99308074/fdd0ce8e-7f46-4828-9eb1-01adba485dee)|
-|<b>업사이클링 펀딩 글 확인</b>|<b>업사이클링 펀딩 수정/삭제</b>|
-|![UPCYCLING1](https://github.com/codestates-seb/seb44_main_021/assets/99308074/d54c2c69-6b3a-438b-a862-300ab998f1f1)|![upcycling2](https://github.com/codestates-seb/seb44_main_021/assets/99308074/9af48b56-6bb6-497d-9484-f0a4e4106f3c)|
-|<b>상품 페이지</b>|<b>상품 등록</b>|
-|![upcycling](https://github.com/codestates-seb/seb44_main_021/assets/99308074/ce9b0ce6-241a-462e-af23-d60bd6ec3efd)|![fe6ba8af5e93dd3e](https://github.com/codestates-seb/seb44_main_021/assets/99308074/f217ce16-7b7f-4d2b-be07-5956889e2e08)|
-|<b>상품 확인</b>|<b>상품 수정/삭제</b>|
-|![ce3b139fe88a1391](https://github.com/codestates-seb/seb44_main_021/assets/99308074/44afa4a3-eac6-4583-9c9d-a7816974e64e)|![debf89bd9e9cb7bf](https://github.com/codestates-seb/seb44_main_021/assets/99308074/739b9603-bb2a-4262-82e2-293a1a951189)|
-|<b>마이페이지</b>|<b>About</b>|
-|![mypage](https://github.com/codestates-seb/seb44_main_021/assets/99308074/f83d520d-2b90-4fac-ad4e-8e2e7a3701f5)|![about](https://github.com/codestates-seb/seb44_main_021/assets/99308074/12fab642-e582-47a8-bb2f-38e87c987c8d)|
+|![main](https://github.com/codestates-seb/seb44_main_021/assets/124851544/92fbaf39-4c0a-43cd-a872-28edff8ac9f4)|![회원가입](https://github.com/codestates-seb/seb44_main_021/assets/124851544/0e419630-df3e-4e6f-a6e6-ea7fc62f8989)|
+|<b>Login Page</b>|<b>My Page</b>|
+|![로그인](https://github.com/codestates-seb/seb44_main_021/assets/124851544/a564ea6b-6c02-4c1c-9a25-edb14f19e793)|![mypage](https://github.com/yejinzz/Ieun/assets/124851544/02538ce7-3cac-42e2-b329-61e412a2eba7)|
+|<b>Funding Page</b>|<b>Funding Create Page</b>|
+|![펀딩](https://github.com/yejinzz/Ieun/assets/124851544/93fbbd24-05c0-4db1-9516-37f1957e2506)|![펀딩글작성](https://github.com/yejinzz/Ieun/assets/124851544/9a03d6cf-b37f-443f-80e5-aab1cdf78dd8)|
+
+|<b>Funding Detail Page</b>|<b>Funding Edit/Delete</b>|
+|![펀딩상세](https://github.com/yejinzz/Ieun/assets/124851544/a8ab0124-6ecd-4c08-976e-4186fc4fa246)|![펀딩수정삭제](https://github.com/yejinzz/Ieun/assets/124851544/d4ee917b-c474-4d8d-8e9e-fade81ece83f)|
+|<b>Store Page</b>|<b>Store Create Page</b>|
+|![스토어](https://github.com/yejinzz/Ieun/assets/124851544/276267f3-94e5-47a2-88de-8eb58c60a51a)|![스토어 글작성](https://github.com/yejinzz/Ieun/assets/124851544/f878d500-5620-4f42-a137-c36e06317aa7)|
+|<b>Store Detail Page</b>|<b>Store Edit/Delete</b>|
+|![스토어 상세](https://github.com/yejinzz/Ieun/assets/124851544/8e8882af-70b9-4966-a0d5-7c983c23bbc9)|![스토어글 수정삭제](https://github.com/yejinzz/Ieun/assets/124851544/8b5a3e42-20a0-478d-944d-a31e6ce1a840)
+
 
 
 <br>
