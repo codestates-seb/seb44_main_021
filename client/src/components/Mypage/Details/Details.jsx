@@ -1,21 +1,16 @@
 import React, { useState } from "react";
 import * as S from "./Details.styled";
-import { useSelector } from "react-redux";
 import { Pagination } from "@mui/material";
 import styled from "styled-components";
+import { useParams } from "react-router-dom";
+import { detailsInfo } from "../../../constants/detailsInfo";
 
 const Details = ({ details }) => {
-  const detailsData = useSelector((state) => state.userDetails);
+  const { path } = useParams();
+  const totalCategoryData = details[path];
+  const { detail } = totalCategoryData;
 
-  const currentCategory = detailsData.currentCategory;
-  const totalCategoryData = details[currentCategory];
-
-  const { tableHeader, detail } = totalCategoryData || {
-    tableHeader: [],
-    detail: [],
-  };
-
-  // pagination
+  const currentCategory = detailsInfo[path];
   const [currentPage, setCurrentPage] = useState(1);
 
   const LAST_PAGE =
@@ -34,14 +29,14 @@ const Details = ({ details }) => {
           src={`${process.env.PUBLIC_URL}/image/logo1.png`}
           alt="cartegory-title-icon"
         />
-        <S.DetailsTitleText>{detailsData.currentTitle}</S.DetailsTitleText>
+        <S.DetailsTitleText>{currentCategory.title}</S.DetailsTitleText>
       </S.DetailsTitle>
       <S.DetailsTable>
-        {tableHeader.length > 0 && (
+        {currentCategory.tableHeader.length > 0 && (
           <>
             <thead>
               <tr>
-                {tableHeader.map((text, index) => (
+                {currentCategory.tableHeader.map((text, index) => (
                   <th key={index}>{text}</th>
                 ))}
               </tr>
@@ -59,7 +54,9 @@ const Details = ({ details }) => {
                   ))
               ) : (
                 <tr>
-                  <td colSpan={tableHeader.length}>내역이 없습니다.</td>
+                  <td colSpan={currentCategory.tableHeader.length}>
+                    내역이 없습니다.
+                  </td>
                 </tr>
               )}
             </tbody>

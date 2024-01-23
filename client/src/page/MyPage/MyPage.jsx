@@ -12,23 +12,23 @@ import useModal from "../../hooks/useModal";
 import useGetUserDetails from "../../hooks/useGetUserDetails";
 import DetailsCategory from "../../components/Mypage/Category/DetailsCategory";
 import { userDetailsActions } from "../../store/slice/userDetailsSlice";
+import { useGetMemberId } from "../../hooks/useGetMemberId";
 
 const MyPage = () => {
   const dispatch = useDispatch();
+
   const userData = useSelector((state) => state.userData);
+
+  const { getMemberId } = useGetMemberId();
 
   const { isOpenModal, isUnmount, openModal, closeModal } = useModal();
   const { path } = useParams();
   const { details, getUserDetails } = useGetUserDetails();
 
   useEffect(() => {
-    if (userData.memberId) {
-      dispatch(userDetailsActions.setTitle("나의 펀딩 내역"));
-      dispatch(userDetailsActions.setCategory("funding"));
-      getDetailDatas(userData.memberId, path).then((res) => {
-        getUserDetails(path, res.data.data);
-      });
+    getMemberId();
 
+    if (userData.memberId) {
       getUserData(userData.memberId)
         .then((res) => {
           const user = res.data.data;
@@ -41,12 +41,17 @@ const MyPage = () => {
             })
           );
         })
+
         .catch((err) => {
           console.log(err);
         });
+
+      dispatch(userDetailsActions.setTitle(details[path].title));
+      getDetailDatas(userData.memberId, path).then((res) => {
+        getUserDetails(path, res.data.data);
+      });
     }
   }, [userData.memberId]);
-
   return (
     <>
       <MyPageContainer>
@@ -54,11 +59,11 @@ const MyPage = () => {
           <UserProfile openModal={openModal} />
           <DetailsCategory
             userData={userData}
-            details={details}
             getUserDetails={getUserDetails}
+            currentCategory={path}
           />
         </div>
-        <UserDetails userData={userData} details={details} />
+        <UserDetails details={details} />
       </MyPageContainer>
       {isOpenModal && (
         <EditModal closeModal={closeModal} isUnmount={isUnmount} />

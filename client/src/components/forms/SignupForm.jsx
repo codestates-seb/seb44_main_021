@@ -129,6 +129,7 @@ const SignupForm = () => {
             placeholder="이메일을 입력하세요."
             name="email"
             onChange={handleInputChange}
+            color="#fff"
           />
           <Button type="button" onClick={sendAuthCode}>
             {loading ? (
@@ -153,6 +154,7 @@ const SignupForm = () => {
               placeholder="인증번호를 입력하세요."
               name="code"
               onChange={handleInputChange}
+              color="#fff"
             />
             <Button type="button" onClick={CheckAuthCode}>
               인증 확인
@@ -171,6 +173,7 @@ const SignupForm = () => {
             placeholder="닉네임을 입력하세요."
             name="displayName"
             onChange={handleInputChange}
+            color="#fff"
           />
           <p>{errMsgObj.displayName}</p>
         </InputFieldBox>
@@ -186,6 +189,7 @@ const SignupForm = () => {
             name="displayName"
             onChange={handleInputChange}
             errMsg={errMsgObj.displayName}
+            color="#fff"
           />
           <p>{errMsgObj.displayName}</p>
         </InputFieldBox>
@@ -198,6 +202,7 @@ const SignupForm = () => {
           placeholder="비밀번호를 입력하세요."
           name="password"
           onChange={handleInputChange}
+          color="#fff"
         />
         <p>{errMsgObj.password}</p>
       </InputFieldBox>
@@ -210,8 +215,8 @@ const SignupForm = () => {
           name="verifyPwd"
           onChange={IsValidPwd}
           errMsg={errMsgObj.verifyPwd}
+          color="#fff"
         />
-        <p>{errMsgObj.verifyPwd}</p>
       </InputFieldBox>
       <Button type="submit" formFields={signupInfo}>
         sign up

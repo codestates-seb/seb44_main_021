@@ -27,7 +27,7 @@ const EditModal = ({ closeModal, isUnmount }) => {
     currentPwd: "",
     thumbNailImage: "",
   });
-  console.log(editUserInfo);
+  // console.log(editUserInfo);
 
   const handleInputChange = (e) => {
     onChange(e);
@@ -38,15 +38,10 @@ const EditModal = ({ closeModal, isUnmount }) => {
   const IsValidPwd = (e) => {
     onChange(e);
 
-    if (!PWD_REGEX.test(editUserInfo.password)) {
-      handleInputErr(
-        "password",
-        "숫자 ,문자, 특수문자 포함 8자 이상 입력하세요."
-      );
-    } else if (editUserInfo.password !== editUserInfo.verifyPwd) {
-      handleInputErr("password", "새 비밀번호와 일치하지 않습니다.");
+    if (editUserInfo.password !== e.target.value) {
+      handleInputErr("verifyPwd", "새 비밀번호와 일치하지 않습니다.");
     } else {
-      handleInputErr("password", "");
+      handleInputErr("verifyPwd", "");
     }
   };
 
@@ -55,8 +50,7 @@ const EditModal = ({ closeModal, isUnmount }) => {
 
     const { displayName, password, thumbNailImage } = editUserInfo;
 
-    const updateCondition =
-      isEmpty(errMsgObj) && !isEmpty({ displayName, password });
+    const updateCondition = isEmpty(errMsgObj);
 
     if (updateCondition) {
       patchInfo(userData.memberId, {
@@ -132,7 +126,6 @@ const EditModal = ({ closeModal, isUnmount }) => {
               <label>이메일</label>
               <p>{userData.email}</p>
             </div>
-
             <Input
               variant="outline"
               label={
@@ -152,19 +145,19 @@ const EditModal = ({ closeModal, isUnmount }) => {
               type="password"
               name="password"
               placeholder="새 비밀번호를 입력해주세요."
-              onChange={IsValidPwd}
+              onChange={handleInputChange}
+              errMsg={errMsgObj.password}
             />
             <Input
               variant="outline"
               label="새 비밀번호 확인"
               type="password"
               name="verifyPwd"
-              placeholder="닉네임을 입력해주세요"
+              placeholder="새 비밀번호를 한번 더 입력해주세요."
               onChange={IsValidPwd}
-              errMsg={errMsgObj.password}
+              errMsg={errMsgObj.verifyPwd}
             />
-
-            <S.EditButton onClick={updateUserInfo}>Edit</S.EditButton>
+            <S.EditButton type="submit">Edit</S.EditButton>
           </S.ModalContent>
         </S.SecondModalWrapper>
       )}

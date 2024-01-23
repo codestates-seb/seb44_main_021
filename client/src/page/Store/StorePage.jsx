@@ -21,7 +21,7 @@ const StorePage = () => {
   useEffect(() => {
     if (searchParam) {
       axiosInstance({
-        url: `/sells/search?page=1&size=8&searchKeyword=${searchParam}`,
+        url: `/sells/search?page=1&size=16&searchKeyword=${searchParam}`,
         method: "get",
       })
         .then((response) => {
@@ -31,7 +31,7 @@ const StorePage = () => {
         .catch((err) => console.log(err));
     } else {
       axiosInstance({
-        url: "/sells/descending?page=1&size=8",
+        url: "/sells/descending?page=1&size=16",
         method: "get",
       })
         .then((response) => {
@@ -64,7 +64,7 @@ const StorePage = () => {
     if (searchParam) {
       if (kategorie === 0) {
         axiosInstance({
-          url: `/sells/search?page=1&size=8&sort=${sort}&searchKeyword=${searchParam}`,
+          url: `/sells/search?page=1&size=16&sort=${sort}&searchKeyword=${searchParam}`,
           method: "get",
         })
           .then((response) => {
@@ -74,7 +74,7 @@ const StorePage = () => {
           .catch((err) => console.log(err));
       } else {
         axiosInstance({
-          url: `/sells/search?page=1&size=8&sort=${sort}&sellCategoryId=${kategorie}&searchKeyword=${searchParam}`,
+          url: `/sells/search?page=1&size=16&sort=${sort}&sellCategoryId=${kategorie}&searchKeyword=${searchParam}`,
           method: "get",
         })
           .then((response) => {
@@ -86,7 +86,7 @@ const StorePage = () => {
     } else {
       if (kategorie === 0) {
         axiosInstance({
-          url: `/sells/${sort}?page=1&size=8`,
+          url: `/sells/${sort}?page=1&size=16`,
           method: "get",
         })
           .then((response) => {
@@ -96,7 +96,7 @@ const StorePage = () => {
           .catch((err) => console.log(err));
       } else {
         axiosInstance({
-          url: `/sells/${sort}/sellcategories/${kategorie}?page=1&size=8`,
+          url: `/sells/${sort}/sellcategories/${kategorie}?page=1&size=16`,
           method: "get",
         })
           .then((response) => {
@@ -121,7 +121,7 @@ const StorePage = () => {
       if (searchParam) {
         if (kategorie === 0) {
           axiosInstance({
-            url: `/sells/search?page=${page}&size=8&sort=${sort}&searchKeyword=${searchParam}`,
+            url: `/sells/search?page=${page}&size=16&sort=${sort}&searchKeyword=${searchParam}`,
             method: "get",
           })
             .then((response) => {
@@ -130,7 +130,7 @@ const StorePage = () => {
             .catch((err) => console.log(err));
         } else {
           axiosInstance({
-            url: `/sells/search?page=${page}&size=8&sort=${sort}&sellCategoryId=${kategorie}&searchKeyword=${searchParam}`,
+            url: `/sells/search?page=${page}&size=16&sort=${sort}&sellCategoryId=${kategorie}&searchKeyword=${searchParam}`,
             method: "get",
           })
             .then((response) => {
@@ -141,7 +141,7 @@ const StorePage = () => {
       } else {
         if (kategorie === 0) {
           axiosInstance({
-            url: `/sells/${sort}?page=${page}&size=8`,
+            url: `/sells/${sort}?page=${page}&size=16`,
             method: "get",
           })
             .then((response) => {
@@ -150,7 +150,7 @@ const StorePage = () => {
             .catch((err) => console.log(err));
         } else {
           axiosInstance({
-            url: `/sells/${sort}/sellcategories/${kategorie}?page=${page}&size=8`,
+            url: `/sells/${sort}/sellcategories/${kategorie}?page=${page}&size=16`,
             method: "get",
           })
             .then((response) => {

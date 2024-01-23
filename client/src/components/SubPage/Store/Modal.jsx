@@ -27,7 +27,7 @@ const Modal = ({ data, userData, quantity, setQuantity, setIsModalOpen }) => {
         <Modaltext marginTop="10px">{quantity}개</Modaltext>
         <Amount>총 금액 : {data.price * quantity}원</Amount>
         <ButtonFrame>
-          <Link to="/mypage">
+          <Link to="/mypage/orders">
             <FundingButton marginRight="20px">구매 내역 보러가기</FundingButton>
           </Link>
           <Link to="/store">

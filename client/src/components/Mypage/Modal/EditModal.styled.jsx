@@ -103,8 +103,13 @@ export const ModalLayer = styled.div`
 /* edit modal content */
 export const ModalContent = styled.form`
   display: grid;
-  gap: 0.4rem;
+  gap: 0.7rem;
   flex-direction: column;
+  & > p {
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: rgb(235, 86, 86);
+  }
   .Edit__email {
     > label {
       font-weight: 400;

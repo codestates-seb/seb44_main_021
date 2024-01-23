@@ -34,7 +34,7 @@ const FundingPage = () => {
         .catch((err) => console.log(err));
     } else {
       axiosInstance({
-        url: "/upcyclings/descending?page=1&size=8",
+        url: "/upcyclings/descending?page=1&size=16",
         method: "get",
       })
         .then((response) => {
@@ -90,7 +90,7 @@ const FundingPage = () => {
     } else {
       if (kategorie === 0) {
         axiosInstance({
-          url: `/upcyclings/${sort}?page=1&size=8`,
+          url: `/upcyclings/${sort}?page=1&size=16`,
           method: "get",
         })
           .then((response) => {
@@ -100,7 +100,7 @@ const FundingPage = () => {
           .catch((err) => console.log(err));
       } else {
         axiosInstance({
-          url: `/upcyclings/${sort}/categories/${kategorie}?page=1&size=8`,
+          url: `/upcyclings/${sort}/categories/${kategorie}?page=1&size=16`,
           method: "get",
         })
           .then((response) => {
@@ -125,7 +125,7 @@ const FundingPage = () => {
       if (searchParam) {
         if (kategorie === 0) {
           axiosInstance({
-            url: `/upcyclings/search?page=${page}&size=8&sort=${sort}&searchKeyword=${searchParam}`,
+            url: `/upcyclings/search?page=${page}&size=16&sort=${sort}&searchKeyword=${searchParam}`,
             method: "get",
           })
             .then((response) => {
@@ -134,7 +134,7 @@ const FundingPage = () => {
             .catch((err) => console.log(err));
         } else {
           axiosInstance({
-            url: `/upcyclings/search?page=${page}&size=8&sort=${sort}&categoryId=${kategorie}&searchKeyword=${searchParam}`,
+            url: `/upcyclings/search?page=${page}&size=16&sort=${sort}&categoryId=${kategorie}&searchKeyword=${searchParam}`,
             method: "get",
           })
             .then((response) => {
@@ -145,7 +145,7 @@ const FundingPage = () => {
       } else {
         if (kategorie === 0) {
           axiosInstance({
-            url: `/upcyclings/${sort}?page=${page}&size=8`,
+            url: `/upcyclings/${sort}?page=${page}&size=16`,
             method: "get",
           })
             .then((response) => {

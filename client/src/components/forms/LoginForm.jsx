@@ -51,6 +51,7 @@ const LoginForm = () => {
         name="username"
         placeholder="이메일을 입력해주세요."
         onChange={onChange}
+        color="#fff"
       ></Input>
       <Input
         variant="primary"
@@ -59,6 +60,7 @@ const LoginForm = () => {
         name="password"
         placeholder="비밀번호를 입력해주세요."
         onChange={onChange}
+        color="#fff"
       ></Input>
       <Button type="submit" formFields={loginInfo}>
         log in

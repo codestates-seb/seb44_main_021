@@ -143,44 +143,50 @@ const StoreDetail = () => {
             <h3>{data.title}</h3>
           </ItemName>
           <ItemInfo>{data.content}</ItemInfo>
-          <AmountBox>
-            <Text>상품 금액</Text>
-            <Text>{formatPriceWithCommas(data.price)}원</Text>
-          </AmountBox>
-          <Quantity>
-            <Text>수량</Text>
-            <div>
-              <Quantitybox
-                value={quantity}
-                label="quantity"
-                onChange={handleChange}
-              >
-                <Option>선택해주세요.</Option>
-                <Option value={1}>1개</Option>
-                <Option value={2}>2개</Option>
-                <Option value={3}>3개</Option>
-                <Option value={4}>4개</Option>
-                <Option value={5}>5개</Option>
-              </Quantitybox>
-            </div>
-          </Quantity>
-          <Quantity>
-            <SubTitle>총 결제 금액 </SubTitle>
-            <div>
-              {quantity ? (
-                <TotalAmount>
-                  {formatPriceWithCommas(data.price * quantity)}원
-                </TotalAmount>
-              ) : (
-                <TotalAmount>
-                  {formatPriceWithCommas(data.price * quantity)}
-                </TotalAmount>
-              )}
-            </div>
-          </Quantity>
-          {localStorage.getItem("token") ? (
-            <CreateButton onClick={handleOpenModal}>구매하기</CreateButton>
-          ) : (
+          {localStorage.getItem("token") &&
+            userData.memberId !== data.memberId && (
+              <>
+                <AmountBox>
+                  <Text>상품 금액</Text>
+                  <Text>{formatPriceWithCommas(data.price)}원</Text>
+                </AmountBox>
+                <Quantity>
+                  <Text>수량</Text>
+                  <div>
+                    <Quantitybox
+                      value={quantity}
+                      label="quantity"
+                      onChange={handleChange}
+                    >
+                      <Option>선택해주세요.</Option>
+                      <Option value={1}>1개</Option>
+                      <Option value={2}>2개</Option>
+                      <Option value={3}>3개</Option>
+                      <Option value={4}>4개</Option>
+                      <Option value={5}>5개</Option>
+                    </Quantitybox>
+                  </div>
+                </Quantity>
+                <Quantity>
+                  <SubTitle>총 결제 금액 </SubTitle>
+                  <div>
+                    {quantity ? (
+                      <TotalAmount>
+                        {formatPriceWithCommas(data.price * quantity)}원
+                      </TotalAmount>
+                    ) : (
+                      <TotalAmount>
+                        {formatPriceWithCommas(data.price * quantity)}
+                      </TotalAmount>
+                    )}
+                  </div>
+                </Quantity>
+
+                <CreateButton onClick={handleOpenModal}>구매하기</CreateButton>
+              </>
+            )}
+
+          {!localStorage.getItem("token") && (
             <Link to="/login">
               <CreateButton>로그인 이후 구매 가능합니다</CreateButton>
             </Link>
@@ -212,7 +218,7 @@ export default StoreDetail;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
+  /* align-items: center; */
   justify-content: center;
   margin-top: 30px;
 `;

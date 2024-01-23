@@ -140,9 +140,12 @@ const FundingDetail = () => {
             </WrapperText>
             <div>달성했습니다.</div>
           </Fundingpercent>
-          {localStorage.getItem("token") ? (
-            <CreateButton onClick={handleOpenModal}>펀딩하기</CreateButton>
-          ) : (
+          {localStorage.getItem("token") &&
+            userData.memberId !== data.memberId && (
+              <CreateButton onClick={handleOpenModal}>펀딩하기</CreateButton>
+            )}
+
+          {!localStorage.getItem("token") && (
             <Link to="/login">
               <CreateButton>로그인 이후 펀딩 가능합니다</CreateButton>
             </Link>
@@ -187,8 +190,6 @@ const Thumimg = styled.img`
   height: 500px;
   width: 100%;
   object-fit: cover;
-  width: 100%;
-  height: 100%;
   border-radius: 10px;
 `;
 
@@ -214,13 +215,13 @@ const Materials = styled.div`
   box-sizing: border-box;
   background-repeat: no-repeat;
   background-position: center center;
-  background-image: ${(props) => `url(/image/${props.image}.png)`};
-  background-size: "cover";
+  background-image: ${(props) => `url(/icon/${props.image}.png)`};
+  background-size: cover;
   &:focus {
     outline: none;
   }
   ${(props) =>
-    props.categoryId !== props.idx + 1 &&
+    props.categoryId === props.idx + 1 &&
     css`
       border-color: #6e934d;
       background-color: #fff;
