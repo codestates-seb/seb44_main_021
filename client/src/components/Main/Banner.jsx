@@ -80,15 +80,18 @@ const Hor = styled.div`
 `;
 
 const OtherBanner = styled.div`
-  width: 100vw;
   height: calc(100vh - 7rem);
   display: flex;
-
+  position: relative;
   .caption {
-    padding-left: 1rem;
+    background-color: rgba(223, 223, 223, 0.4);
+    padding: 2rem;
+    position: absolute;
+    color: #fff;
+    top: 1rem;
+    right: 1rem;
     > strong {
       font-size: 2rem;
-      color: #545454;
       letter-spacing: 0.3rem;
       font-weight: 800;
     }
@@ -97,34 +100,36 @@ const OtherBanner = styled.div`
       font-size: 1.1rem;
       letter-spacing: -1.5px;
       line-height: 2rem;
-      font-weight: 100;
+      font-weight: 200;
     }
   }
   img {
-    width: 65%;
-    padding-bottom: 0;
+    width: 100%;
+    height: calc(100vh - 8rem);
     object-fit: cover;
   }
   @media (max-width: 768px) {
-    position: relative;
     flex-direction: column;
     width: 100%;
     height: 100%;
     img {
       width: 100%;
-      height: 500px;
+      /* height: 500px; */
     }
-
     .caption {
-      left: 10px;
-      top: 50%;
-      position: absolute;
-      padding-left: 0;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+      top: auto;
+      right: auto;
+
       > strong {
+        font-size: 1.5rem;
         color: #ffffffc2;
       }
       p {
-        display: none;
+        margin-top: 2rem;
+        /* display: none; */
       }
     }
   }
@@ -135,7 +140,8 @@ const FirstBanner = styled.div`
   position: relative;
   > img {
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
+    height: calc(100vh - 8rem);
     object-fit: cover;
   }
 
@@ -168,14 +174,11 @@ const FirstBanner = styled.div`
   @media (max-width: 768px) {
     width: 100%;
     height: 100%;
-    > img {
-      height: 500px;
-    }
     > .paragraph {
-      top: 20px;
-      right: 10px;
+      top: 2rem;
+      right: 1rem;
       > p {
-        font-size: 0.8rem;
+        font-size: 1rem;
         &:nth-child(2) {
           margin: 0 0.3rem;
           top: -15px;

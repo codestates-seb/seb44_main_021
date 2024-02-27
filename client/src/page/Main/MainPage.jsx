@@ -9,7 +9,7 @@ import List from "../../components/Main/List";
 import Banner from "./../../components/Main/Banner";
 import Footer from "../../components/Main/Footer";
 import styled from "styled-components";
-import SideBarModal from "../../components/common/SideBarModal";
+import SideBarModal from "../../components/Header/SideBarModal";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import "swiper/css";
@@ -174,11 +174,6 @@ export default MainPage;
 const CustomSwiper = styled(Swiper)`
   .swiper-slide {
     margin-top: 7rem;
-    height: 450px;
-  }
-
-  .swiper-wrapper {
-    height: 100%;
   }
   .swiper-pagination-bullet-active {
     background: var(--color-main);
@@ -253,7 +248,7 @@ const Contentslist = styled.div`
 `;
 
 const H1 = styled.h1`
-  margin-top: 2rem;
+  margin-top: 3rem;
   margin-bottom: 1.5rem;
   font-size: 2rem;
   font-weight: 700;

@@ -46,7 +46,7 @@ const Contentsbox = styled.div`
 
 const ContentsImg = styled.img`
   height: 30vh;
-  width: 17.7vw;
+  width: 100%;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   object-fit: cover;
