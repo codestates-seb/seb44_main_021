@@ -1,29 +1,5 @@
 import { useCallback, useState } from "react";
-import {
-  mapFundingDetails,
-  mapOrderDetails,
-  mapUpcyclingDetails,
-  mapSellsDetails,
-} from "../utils/mapDetails";
-
-const detailsInfo = {
-  funding: {
-    mapFunction: mapFundingDetails,
-    detail: [],
-  },
-  orders: {
-    mapFunction: mapOrderDetails,
-    detail: [],
-  },
-  upcyclings: {
-    mapFunction: mapUpcyclingDetails,
-    detail: [],
-  },
-  sells: {
-    mapFunction: mapSellsDetails,
-    detail: [],
-  },
-};
+import { detailsInfo } from "../constants/detailsInfo";
 
 const useGetUserDetails = () => {
   const [details, setDetails] = useState(detailsInfo);
