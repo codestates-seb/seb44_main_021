@@ -4,7 +4,7 @@ import Logo from "../common/Logo";
 import ProfileDropdown from "./dropdown/ProfileDropdown";
 import * as S from "./Header.styled";
 import SearchBar from "./SearchBar/SearchBar";
-import SideBarModal from "../common/SideBarModal";
+import SideBarModal from "./SideBarModal";
 
 const Header = ({ pathname }) => {
   const navigate = useNavigate();

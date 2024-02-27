@@ -148,8 +148,11 @@ const TeamName = styled.p`
 `;
 
 const MenuBtn = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
-  padding: 1rem;
+  /* padding: 1rem; */
   svg {
     color: var(--color-main);
     font-size: 1.8rem;

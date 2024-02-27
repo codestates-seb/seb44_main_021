@@ -5,9 +5,7 @@ import { MdAccountCircle } from "react-icons/md";
 export const DropdownContainer = styled.div`
   display: flex;
   align-items: center;
-  margin-left: 1rem;
   @media (max-width: 768px) {
-    margin: 1rem;
   }
 `;
 const dropdownAnimation = keyframes`

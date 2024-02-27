@@ -8,6 +8,9 @@ export const HeaderContainer = styled.header`
   background-color: #fff;
   z-index: 999;
   width: 100%;
+  @media (max-width: 768px) {
+    padding: 0 1rem;
+  }
 `;
 export const HeaderWrapper = styled.div`
   display: flex;
@@ -17,19 +20,17 @@ export const HeaderWrapper = styled.div`
   width: 100%;
   max-width: 1000px;
   height: 80px;
-  @media (max-width: 768px) {
-    /* width: 100%; */
-  }
 `;
 
 export const LeftArea = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 0.5rem;
 
   & > ul {
-    display: grid;
-    grid-template-columns: 3.7rem 3.7rem;
+    display: flex;
+    gap: 0.7rem;
 
     @media (max-width: 768px) {
       display: none;
@@ -48,4 +49,5 @@ export const LeftArea = styled.section`
 export const RightArea = styled.section`
   display: flex;
   align-items: center;
+  gap: 1rem;
 `;
