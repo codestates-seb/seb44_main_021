@@ -7,6 +7,7 @@ const Modal = ({ data, userData, quantity, setQuantity, setIsModalOpen }) => {
     setIsModalOpen(false);
     setQuantity(0);
   };
+  console.log(userData);
 
   return (
     <ModalOverlay>
@@ -17,15 +18,13 @@ const Modal = ({ data, userData, quantity, setQuantity, setIsModalOpen }) => {
         <Modaltitle>
           {userData.displayName}님, 구매해 주셔서 감사합니다!!
         </Modaltitle>
-        <Modaltext bold marginTop="25px">
-          제품명
-        </Modaltext>
-        <Modaltext marginTop="10px">{data.title}</Modaltext>
-        <Modaltext bold marginTop="25px">
-          수량
-        </Modaltext>
-        <Modaltext marginTop="10px">{quantity}개</Modaltext>
-        <Amount>총 금액 : {data.price * quantity}원</Amount>
+        <TextFrame>
+          <ContentLabel>제품명</ContentLabel>
+          <p>{data.title}</p>
+          <ContentLabel>수량</ContentLabel>
+          <p>{quantity}개</p>
+          <Amount>총 금액 : {data.price * quantity}원</Amount>
+        </TextFrame>
         <ButtonFrame>
           <Link to="/mypage/orders">
             <FundingButton marginRight="20px">구매 내역 보러가기</FundingButton>
@@ -54,8 +53,9 @@ const ModalOverlay = styled.div`
 `;
 
 const ModalContent = styled.div`
+  position: relative;
   background-color: #fff;
-  padding: 20px;
+  padding: 3rem 2rem;
   border-radius: 10px;
   max-width: 400px;
   width: 100%;
@@ -64,29 +64,32 @@ const ModalContent = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 2rem;
 `;
 
 const CloseButton = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
   background-color: transparent;
   border: none;
   padding: 0;
   margin: 0;
   cursor: pointer;
   float: right;
-  margin-left: 380px;
 `;
 
 const Modaltitle = styled.div`
-  font-size: 18px;
-  margin-top: 35px;
+  font-size: 1rem;
   color: #6e934d;
 `;
-
-const Modaltext = styled.div`
-  margin-top: ${(props) => props.marginTop};
-  margin-left: 50px;
-  width: 90%;
-  font-weight: ${(props) => (props.bold ? "bold" : "normal")};
+const TextFrame = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+`;
+const ContentLabel = styled.p`
+  font-weight: bold;
 `;
 
 const Amount = styled.div`
@@ -99,24 +102,20 @@ const Amount = styled.div`
 const ButtonFrame = styled.div`
   display: flex;
   flex-direction: row;
+  gap: 2rem;
 `;
 
 const FundingButton = styled.button`
   background-color: #6e934d;
   border: none;
   border-radius: 10px;
-  cursor: pointer;
   color: #fff;
-  margin-top: 30px;
-  margin-right: ${(props) => props.marginRight};
-  margin-left: ${(props) => props.marginLeft};
-  width: 100%;
-  height: 40px;
+  padding: 0.8rem;
   font-size: 15px;
   text-align: center;
+  cursor: pointer;
   &:hover {
     background: #6e934d91;
     border-radius: 10px;
-    cursor: pointer;
   }
 `;
