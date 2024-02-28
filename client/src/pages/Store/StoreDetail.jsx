@@ -130,7 +130,7 @@ const StoreDetail = () => {
                 <Userprofile src={profile} alt="펀딩 이미지 미리보기" />
               ) : (
                 <Userprofile
-                  src={`${process.env.PUBLIC_URL}/image/profile.jpeg`}
+                  src={`${process.env.PUBLIC_URL}/image/profile.webp`}
                   alt="기본 프로필"
                 />
               )}

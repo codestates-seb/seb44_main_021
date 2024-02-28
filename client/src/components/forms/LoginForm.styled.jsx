@@ -16,15 +16,15 @@ export const LoginFormContainer = styled.form`
 export const SignupButton = styled.button`
   padding: 10px;
   width: 100%;
-  color: var(--color-main);
+  color: #5d7e3e;
   background: #ffffff;
   border-radius: 5px;
-  border: solid 1px var(--color-main);
+  border: solid 1px #5d7e3e;
   text-transform: uppercase;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   box-shadow: var(--shadow-btn);
-  /* font-size: 1rem; */
+  font-size: 0.9rem;
 
   &:hover {
     box-shadow: var(--shadow-btn-hover);

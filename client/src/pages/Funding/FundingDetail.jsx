@@ -108,7 +108,7 @@ const FundingDetail = () => {
                 <Userprofile src={profile} alt="유저 프로필" />
               ) : (
                 <Userprofile
-                  src={`${process.env.PUBLIC_URL}/image/profile.jpeg`}
+                  src={`${process.env.PUBLIC_URL}/image/profile.webp`}
                   alt="기본 프로필"
                 />
               )}

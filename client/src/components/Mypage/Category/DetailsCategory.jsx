@@ -7,7 +7,6 @@ const DetailsCategory = ({ userData, currentCategory, getUserDetails }) => {
   const navigate = useNavigate();
 
   const detailData = Object.keys(detailsInfo).map((key) => detailsInfo[key]);
-  console.log(detailData);
   const handleCategoryClick = (data) => {
     getDetailDatas(userData.memberId, data.category).then((res) => {
       getUserDetails(data.category, res.data.data);

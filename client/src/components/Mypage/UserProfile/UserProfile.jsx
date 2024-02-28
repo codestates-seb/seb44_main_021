@@ -11,7 +11,7 @@ const UserProfile = ({ openModal }) => {
         <S.UserImg
           src={
             userData.thumbNailImage ||
-            `${process.env.PUBLIC_URL}/image/profile.jpeg`
+            `${process.env.PUBLIC_URL}/image/profile.webp`
           }
           alt="profile-img"
         />
