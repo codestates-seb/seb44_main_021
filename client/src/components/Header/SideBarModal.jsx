@@ -42,8 +42,8 @@ const SideBarModal = () => {
                   {item.menu}
                 </li>
               ))}
-              <TeamName>IEUN CO.</TeamName>
             </Sidelist>
+            <TeamName>IEUN CO.</TeamName>
           </ModalContent>
           <ModalOverlay onClick={closeModal} />
         </>
@@ -129,8 +129,8 @@ const Sidelist = styled.nav`
   align-items: center;
   justify-content: center;
   height: 100%;
-  a li {
-    font-size: 1.2rem;
+  li {
+    font-size: 1.3rem;
   }
 `;
 

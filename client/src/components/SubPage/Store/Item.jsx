@@ -24,14 +24,6 @@ const Item = (props) => {
 
 export default Item;
 
-const ListFrame = styled.div`
-  /* width: 250px;
-  height: 300px;
-  margin-top: 30px;
-  justify-self: end;
-  word-break: break-all; */
-`;
-
 const ThumbNailImage = styled.img`
   width: 100%;
   height: 150px;
@@ -42,15 +34,22 @@ const ThumbNailImage = styled.img`
 const ListText = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 0.5rem;
   margin-top: 10px;
 `;
 
 const ListTitle = styled.div`
   display: block;
   font-size: 0.95rem;
-  font-weight: bold;
-  white-space: pre-line;
+  font-weight: 400;
+  height: 36.6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
   word-break: break-all;
+  white-space: normal;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;
 
 const Pricebox = styled.div`

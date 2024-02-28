@@ -23,14 +23,6 @@ const List = (props) => {
 
 export default List;
 
-const ListFrame = styled.figure`
-  /* width: 100px;
-  height: 100px; */
-  /* margin-top: 30px; */
-  /* justify-self: end; */
-  /* word-break: break-all; */
-`;
-
 const ThumbNailImage = styled.img`
   width: 100%;
   height: 150px;
@@ -41,6 +33,7 @@ const ThumbNailImage = styled.img`
 const ListText = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 0.5rem;
   /* justify-content: space-between; */
   /* height: 15%; */
   margin-top: 10px;
@@ -50,22 +43,25 @@ const ListTitle = styled.div`
   display: block;
   font-size: 0.95rem;
   font-weight: 400;
-  white-space: pre-line;
+  height: 36.6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
   word-break: break-all;
+  white-space: normal;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;
 
 const Materiar = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 3px;
+  /* margin-top: 3px; */
   background-color: #6e934d;
   width: max-content;
-  padding: 5px;
-  padding-right: 10px;
-  border-top-left-radius: 100px;
-  border-bottom-left-radius: 100px;
+  padding: 0.2rem 0.5rem;
+  border-radius: 25px;
   color: #fff;
-  height: 10px;
   font-size: 13px;
 `;
 
