@@ -51,6 +51,9 @@ const Aside = styled.aside`
 const Kategorie = styled.div`
   font-size: 1.5rem;
   padding-bottom: 1.5rem;
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+  }
 `;
 
 const CartegoryList = styled.ul`
@@ -68,7 +71,7 @@ const CartegoryList = styled.ul`
   }
 `;
 const ListItem = styled.li`
-  font-size: 1.1rem;
+  font-size: 1rem;
 
   ${(props) =>
     props.className === "selected" &&
@@ -78,4 +81,7 @@ const ListItem = styled.li`
       text-decoration-color: #c0d6b1;
       text-decoration-thickness: 3px;
     `}
+  @media (max-width: 768px) {
+    font-size: 0.85rem;
+  }
 `;
