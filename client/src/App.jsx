@@ -17,6 +17,8 @@ import Header from "./components/Header/Header";
 import { useEffect } from "react";
 import { useGetMemberId } from "./hooks/useGetMemberId";
 import { useSelector } from "react-redux";
+import NotFound from "./page/NotFound";
+import MainLayout from "./page/MainLayout";
 
 const App = () => {
   const { pathname } = useLocation();
@@ -31,26 +33,24 @@ const App = () => {
 
   return (
     <div>
-      {/* <UserDataProvider> */}
-      {pathname !== "/" &&
-        pathname !== "/login" &&
-        !pathname.includes("/signup") && <Header pathname={pathname} />}
-
       <Routes>
         <Route element={<MainPage />} path="/" />
-        <Route element={<StorePage />} path="/store" />
-        <Route element={<StoreDetail />} path="/storedetail/:id" />
-        <Route element={<FundingPage />} path="/funding" />
-        <Route element={<FundingDetail />} path="/fundingdetail/:id" />
-        <Route element={<AboutPage />} path="/about" />
         <Route element={<UserSelectionPage />} path="/signup" />
         <Route element={<SignupPage />} path="/signup/:role" />
-        <Route element={<FundingCreatePage />} path="/fundingcreate" />
         <Route element={<LoginPage />} path="/login" />
-        <Route element={<MyPage />} path="/mypage/:path" />
-        <Route element={<FundingEditPage />} path="/fundingedit/*" />
-        <Route element={<StoreCreatePage />} path="/storecreate" />
-        <Route element={<StoreEditPage />} path="/storeedit/*" />
+        <Route element={<MainLayout pathname={pathname} />}>
+          <Route element={<StorePage />} path="/store" />
+          <Route element={<StoreDetail />} path="/storedetail/:id" />
+          <Route element={<FundingPage />} path="/funding" />
+          <Route element={<FundingDetail />} path="/fundingdetail/:id" />
+          <Route element={<AboutPage />} path="/about" />
+          <Route element={<FundingCreatePage />} path="/fundingcreate" />
+          <Route element={<MyPage />} path="/mypage/:path" />
+          <Route element={<FundingEditPage />} path="/fundingedit/*" />
+          <Route element={<StoreCreatePage />} path="/storecreate" />
+          <Route element={<StoreEditPage />} path="/storeedit/*" />
+        </Route>
+        <Route element={<NotFound />} path="*" />
       </Routes>
       {/* </UserDataProvider> */}
     </div>

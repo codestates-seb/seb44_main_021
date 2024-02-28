@@ -6,7 +6,7 @@ export const HeaderContainer = styled.header`
   top: 0;
   border-bottom: 1px solid var(--color-gray-30);
   background-color: #fff;
-  z-index: 999;
+  z-index: 99;
   width: 100%;
   @media (max-width: 768px) {
     padding: 0 1rem;

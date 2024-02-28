@@ -36,6 +36,7 @@ export default AboutPage;
 
 const OverviewContainer = styled.main`
   position: relative;
+  z-index: 999;
   .About__overview-img {
     width: 100vw;
     height: calc(100vh - 80px);
