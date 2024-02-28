@@ -24,7 +24,7 @@ const FundingCreatePage = () => {
     deadline: null,
     thumbNailImage: null,
   });
-  console.log(createData);
+  // console.log(createData);
   const handleInputChange = useCallback((e) => {
     handleValidation(e, validationsPost);
     onChange(e);
