@@ -11,7 +11,7 @@ const ImgUploader = React.memo(({ onChange, purpose = "", ...att }) => {
     if (purpose === "profile") {
       return (
         userData.thumbNailImage ||
-        `${process.env.PUBLIC_URL}/image/profile.jpeg`
+        `${process.env.PUBLIC_URL}/image/profile.webp`
       );
     } else {
       return null;

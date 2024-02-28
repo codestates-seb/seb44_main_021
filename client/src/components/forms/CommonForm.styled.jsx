@@ -15,7 +15,7 @@ export const BackgroundCover = styled.div`
   width: 100%;
   height: 100vh;
   z-index: -1;
-  background: url("/image/banner1.jpeg") center;
+  background: url("/image/footer.webp") center;
   background-size: cover;
 `;
 

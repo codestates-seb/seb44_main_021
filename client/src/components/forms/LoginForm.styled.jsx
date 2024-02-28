@@ -9,7 +9,7 @@ export const LoginFormContainer = styled.form`
     & > p {
       font-size: 0.875rem;
       margin-bottom: 0.5rem;
-      /* color: #fff; */
+      color: #fff;
     }
   }
 `;

@@ -1,27 +1,27 @@
 export const MATERIAL_OPTIONS = [
   {
     value: "1",
-    btnImgUrl: "/icon/IconCloth.png",
+    btnImgUrl: "/icon/IconCloth.webp",
   },
   {
     value: "2",
-    btnImgUrl: "/icon/IconWood.png",
+    btnImgUrl: "/icon/IconWood.webp",
   },
   {
     value: "3",
-    btnImgUrl: "/icon/IconPlastic.png",
+    btnImgUrl: "/icon/IconPlastic.webp",
   },
   {
     value: "4",
-    btnImgUrl: "/icon/IconSteel.png",
+    btnImgUrl: "/icon/IconSteel.webp",
   },
   {
     value: "5",
-    btnImgUrl: "/icon/IconGlass.png",
+    btnImgUrl: "/icon/IconGlass.webp",
   },
   {
     value: "6",
-    btnImgUrl: "/icon/IconEtc.png",
+    btnImgUrl: "/icon/IconEtc.webp",
   },
 ];
 
