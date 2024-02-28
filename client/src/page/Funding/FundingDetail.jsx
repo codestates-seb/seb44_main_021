@@ -75,9 +75,9 @@ const FundingDetail = () => {
   };
 
   return (
-    <div>
+    <FundingDetailContainer>
       <AllWrapper>
-        <Wrapper width="45%">
+        <div className="FundingD__left_wrap">
           <Thumimg src={data.thumbNailImage} alt="img" />
           <MaterierBox>
             <MaterierGroup>
@@ -92,17 +92,16 @@ const FundingDetail = () => {
                 <Materials image={obj} categoryId={data.categoryId} idx={idx} />
               ))}
             </MaterierGroup>
-            <Materiarhr />
-            <Materiartext>
+            <p>
               "{data.categoryName}" 자재가 있다면 펀딩해주세요!
-            </Materiartext>
-            <Materiartext>
+              <br />
+              <br />
               이은 펀딩은 단순히 제품을 펀딩하는 것이 아닌 업사이클링 제품을
               위한 펀딩 과정을 지원해요.
-            </Materiartext>
+            </p>
           </MaterierBox>
-        </Wrapper>
-        <Wrapper width="25%">
+        </div>
+        <div className="FundingD__right_wrap">
           <Userbox>
             <Userinf>
               {profile !== null ? (
@@ -150,7 +149,7 @@ const FundingDetail = () => {
               <CreateButton>로그인 이후 펀딩 가능합니다</CreateButton>
             </Link>
           )}
-        </Wrapper>
+        </div>
       </AllWrapper>
       <Footer />
       {isModalOpen && (
@@ -163,23 +162,33 @@ const FundingDetail = () => {
           setFundingRate={setFundingRate}
         />
       )}
-    </div>
+    </FundingDetailContainer>
   );
 };
 
 export default FundingDetail;
-
-const AllWrapper = styled.div`
+const FundingDetailContainer = styled.div`
   display: flex;
-  flex-direction: row;
-  align-items: center;
   justify-content: center;
-  margin-top: 30px;
+  flex-direction: column;
+  max-width: 1000px;
+  margin: auto;
+  @media (max-width: 768px) {
+    padding: 2rem;
+  }
 `;
 
-const Wrapper = styled.div`
-  width: ${(props) => props.width};
-  margin-right: 10px;
+const AllWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  margin-top: 30px;
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    /* gap: 2rem; */
+    margin-top: 0px;
+  }
 `;
 
 const Thumimg = styled.img`
@@ -187,7 +196,7 @@ const Thumimg = styled.img`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 500px;
+  /* height: 500px; */
   width: 100%;
   object-fit: cover;
   border-radius: 10px;
@@ -195,13 +204,17 @@ const Thumimg = styled.img`
 
 const MaterierBox = styled.div`
   background-color: rgb(249, 250, 251);
-  margin-top: 20px;
   border-radius: 5px;
-  margin-bottom: 10px;
+  padding: 1rem;
+  & > p {
+    font-size: 12px;
+  }
 `;
 
 const MaterierGroup = styled.div`
   display: flex;
+  justify-content: space-around;
+  margin: 20px 0;
 `;
 
 const Materials = styled.div`
@@ -227,16 +240,9 @@ const Materials = styled.div`
       background-color: #fff;
       border-radius: 5px;
     `};
-`;
-
-const Materiarhr = styled.hr`
-  border: 0.5px solid rgb(243, 244, 246);
-`;
-
-const Materiartext = styled.div`
-  margin-top: 5px;
-  margin-left: 20px;
-  font-size: 12px;
+  @media (max-width: 768px) {
+    margin: 0;
+  }
 `;
 
 const Userbox = styled.div`

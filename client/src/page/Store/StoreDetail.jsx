@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { axiosInstance } from "../../api/axiosInstance";
 import styled from "styled-components";
 import Modal from "../../components/SubPage/Store/Modal";
+import { getUserData } from "../../api/getUserData";
+import { userDataActions } from "../../store/slice/userDataSlice";
 
 const StoreDetail = () => {
   const { id } = useParams();
@@ -13,7 +15,7 @@ const StoreDetail = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [quantity, setQuantity] = useState(0);
   const [profile, setprofile] = useState("");
-
+  const dispatch = useDispatch();
   const userData = useSelector((state) => state.userData);
 
   useEffect(() => {
@@ -58,7 +60,18 @@ const StoreDetail = () => {
           ],
         },
       })
-        .then((response) => {})
+        .then((response) => {
+          if (userData.memberId) {
+            getUserData(userData.memberId).then((res) => {
+              const user = res.data.data;
+              dispatch(
+                userDataActions.setUserData({
+                  displayName: user.displayName,
+                })
+              );
+            });
+          }
+        })
         .catch((err) => console.log(err));
     }
   };
@@ -93,25 +106,24 @@ const StoreDetail = () => {
   };
 
   return (
-    <div>
-      <Wrapper>
-        <LeftWrapper>
+    <StoreDetailContainer>
+      <RepInfoWrapper>
+        <div className="StoreD__left_wrap">
           <ImgContainer>
             <Thumimg src={data.thumbNailImage} alt="img" />
           </ImgContainer>
           <MaterierBox>
             <Materiartext>
               판매자가 작성한 제품에 사용된 업사이클링 품목입니다.
-            </Materiartext>
-            <Materiartext>
+              <br />
+              <br />
               이은 스토어는 단순히 수익성 제품을 판매하는 것이 아닌 업사이클링
               제품을 판매하는 과정을 지원해요.
             </Materiartext>
-            <Materiarhr />
             <Materialcontext>{data.material}</Materialcontext>
           </MaterierBox>
-        </LeftWrapper>
-        <RightWrapper>
+        </div>
+        <div className="StoreD__right_wrap">
           <Userbox>
             <Userinf>
               {profile !== null ? (
@@ -191,8 +203,8 @@ const StoreDetail = () => {
               <CreateButton>로그인 이후 구매 가능합니다</CreateButton>
             </Link>
           )}
-        </RightWrapper>
-      </Wrapper>
+        </div>
+      </RepInfoWrapper>
       {isModalOpen && (
         <Modal
           data={data}
@@ -209,28 +221,32 @@ const StoreDetail = () => {
         </Info>
         <Footer>IEUN CO.</Footer>
       </InfoWrapper>
-    </div>
+    </StoreDetailContainer>
   );
 };
 
 export default StoreDetail;
-
-const Wrapper = styled.div`
+const StoreDetailContainer = styled.div`
   display: flex;
-  flex-direction: row;
-  /* align-items: center; */
   justify-content: center;
+  flex-direction: column;
+  max-width: 1000px;
+  margin: auto;
+  @media (max-width: 768px) {
+    padding: 2rem;
+  }
+`;
+const RepInfoWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
   margin-top: 30px;
-`;
-
-const LeftWrapper = styled.div`
-  width: 45%;
-  margin-right: 10px;
-`;
-
-const RightWrapper = styled.div`
-  width: 25%;
-  margin-left: 10px;
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    /* gap: 2rem; */
+    margin-top: 0px;
+  }
 `;
 
 const ImgContainer = styled.div`
@@ -256,15 +272,9 @@ const MaterierBox = styled.div`
   border-radius: 5px;
 `;
 
-const Materiartext = styled.div`
-  margin-top: 5px;
-  margin-left: 20px;
+const Materiartext = styled.p`
+  padding: 0.5rem;
   font-size: 12px;
-`;
-
-const Materiarhr = styled.hr`
-  margin-top: 5px;
-  border: 0.5px solid rgb(243, 244, 246);
 `;
 
 const Materialcontext = styled.div`
@@ -431,7 +441,7 @@ const InfoWrapper = styled.div`
 `;
 
 const Info = styled.div`
-  width: 70%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -448,12 +458,11 @@ const InfoTitle = styled.div`
 `;
 
 const Footer = styled.div`
-  width: 100%;
-  height: 50px;
+  width: 100vw;
   margin-top: 20px;
   background-color: #6e934d;
   text-align: center;
-  padding-top: 25px;
+  padding: 1rem;
   color: #fff;
   font-size: 20px;
 `;
