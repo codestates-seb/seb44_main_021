@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
-import CloseIcon from "@mui/icons-material/Close";
-import { HiOutlineMenu } from "react-icons/hi";
 import useModal from "../../hooks/useModal";
+import { ReactComponent as CloseIcon } from "../../assets/icon/close_icon.svg";
+import { ReactComponent as MenuIcon } from "../../assets/icon/menu_bar_icon.svg";
 
 const sideLink = [
   { url: "/funding", menu: "펀딩+" },
@@ -21,7 +21,7 @@ const SideBarModal = () => {
   return (
     <>
       <MenuBtn aria-label="menu-button" className="SideBar__Menu-btn">
-        <HiOutlineMenu onClick={openModal} />
+        <MenuIcon onClick={openModal} />
       </MenuBtn>
       {isOpenModal ? (
         <>
@@ -112,14 +112,10 @@ const ModalContent = styled.aside`
 `;
 
 const Closebutton = styled(CloseIcon)`
-  background-color: transparent;
-  border: none;
-  padding: 0;
-  margin: 20px;
   cursor: pointer;
   position: absolute;
-  top: 1px;
-  right: 1px;
+  top: 15px;
+  right: 15px;
 `;
 
 const Sidelist = styled.nav`

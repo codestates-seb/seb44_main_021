@@ -14,7 +14,7 @@ export const UserInfoContainer = styled.div`
   align-items: center;
   padding: 3rem;
   border-radius: 10px;
-  background: var(--color-main);
+  background: #5d8042;
   @media (max-width: 768px) {
     flex-direction: row;
   }
@@ -40,7 +40,7 @@ export const UserInfo = styled.div`
 `;
 
 export const UserName = styled.p`
-  font-size: 25px;
+  font-size: 24px;
   font-weight: 800;
   margin-top: 20px;
   @media (max-width: 768px) {
@@ -55,8 +55,9 @@ export const UserEmail = styled.p`
 export const EditButton = styled.button`
   height: 30px;
   width: 130px;
+  font-size: 0.825rem;
   letter-spacing: 3.5px;
-  color: #ffffff;
+  color: #3d3d3d;
   background: #98ae83;
   box-shadow: 3px 3px 5px rgba(68, 68, 68, 0.288);
   border-radius: 5px;

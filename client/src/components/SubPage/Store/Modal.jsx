@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
+import { ReactComponent as CloseIcon } from "../../../assets/icon/close_icon.svg";
 
 const Modal = ({ data, userData, quantity, setQuantity, setIsModalOpen }) => {
   const handleCloseModal = () => {

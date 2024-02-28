@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import CloseIcon from "@mui/icons-material/Close";
+import { ReactComponent as CloseIcon } from "../../../assets/icon/close_icon.svg";
+
 import { Link } from "react-router-dom";
 
 const Modal = ({

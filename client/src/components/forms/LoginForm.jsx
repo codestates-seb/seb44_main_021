@@ -43,7 +43,7 @@ const LoginForm = () => {
   };
 
   return (
-    <S.LoginFormContainer onSubmit={AxiosLogin}>
+    <S.LoginFormContainer>
       <Input
         variant="primary"
         label="이메일"
@@ -62,7 +62,7 @@ const LoginForm = () => {
         onChange={onChange}
         color="#fff"
       ></Input>
-      <Button type="submit" formFields={loginInfo}>
+      <Button type="submit" onClick={AxiosLogin} formFields={loginInfo}>
         log in
       </Button>
       <div className="signup_btn">

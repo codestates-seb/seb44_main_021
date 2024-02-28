@@ -1,0 +1,343 @@
+#AllContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#AllWrapper{
+    display: flex;
+    width: 70%;
+    flex-direction: column;
+    margin-top: 70px;
+    margin-bottom: 100px;
+}
+
+#UpWrapper{
+    display: flex;
+    flex-direction: row;
+}
+
+#downWrapper{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid #dde2e6;
+    margin-top: 70px;
+}
+
+#leftWrapper{
+    width: 70%;
+}
+
+#rightWrapper{
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items:flex-end;
+}
+
+#TitleName{
+    color: #6E934D;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+#SubTitle{
+    color: #6E934D;
+    margin-top: 10px;
+    font-size: 15px;
+}
+
+#ContentimgWrapper{
+    width: 80%;
+    height: fit-content;
+    padding-top: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+#imgWrapper{
+    width: 100%;
+    height: 500px;
+    border: 1px solid #dde2e6;
+    margin-top: 10px;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.imgInput{
+    margin-top: 15px;
+}
+
+.imgInput::file-selector-button {
+    width: 100px;
+    height: 30px;
+    background: #dde2e6;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.imgInput::file-selector-button:hover{
+    background: #d1d5d9;
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+}
+
+.FundingImg{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.Titlebox{
+    display: flex;
+    flex-direction: row;
+    margin-top: 60px;
+}
+
+.star{
+    font-size: 18px;
+    color: red;
+    margin-left: 3px;
+}
+
+#subMent{
+    font-size: 15px;
+    margin-top: 10px ;
+}
+
+.CommonMent{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.CautionMent{
+    color: red;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+.radioGroup {
+    display: flex;
+    border: 1px solid #dde2e6;
+    justify-content: left;
+    align-items: center;
+    margin-top: 13px;
+    border-radius: 3px;
+    height: 30px;
+}
+
+.radioinput{
+    margin-left: 10px;
+    margin-right: 5px;
+}
+
+
+#AmountInput{
+    width: 100%;
+    height: 42px;
+    border: 1px solid #dde2e6;
+    box-sizing: border-box;
+    border-radius: 3px;
+    padding-left: 13px;    
+    font-size: 15px;
+    margin-top: 13px;
+    &:focus{
+        outline: none;
+        border: 1px solid #6E934D;
+    }
+}
+
+#AmountInput::-webkit-outer-spin-button,
+#AmountInput::-webkit-inner-spin-button {
+    margin: 0;
+}
+
+#NameInput{
+    width: 100%;
+    height: 42px;
+    font-size: 16px;
+    border: 1px solid #dde2e6;
+    box-sizing: border-box;
+    border-radius: 3px;
+    background-color: #fff;
+    padding-top: 11px;
+    padding-right: 16px;
+    padding-left: 16px;
+    margin-top: 13px;
+    resize: none;
+    font-family: Arial, Helvetica, sans-serif ;
+    &:focus{
+        border: 1px solid #6E934D;
+        outline: none;
+    }
+}
+
+#IntroduceBox{
+    width: 100%;
+    height: 210px;
+    font-size: 15px;
+    border: 1px solid #dde2e6;
+    box-sizing: border-box;
+    border-radius: 3px;
+    background-color: #fff;
+    padding-top: 11px;
+    padding-right: 16px;
+    padding-left: 16px;
+    margin-top: 13px;
+    font-family: Arial, Helvetica, sans-serif ;
+    resize: none;
+    &:focus{
+        border: 1px solid #6E934D;
+        outline: none;
+    }
+}
+
+#materialInput{
+    width: 100%;
+    height: 77px;
+    font-size: 16px;
+    border: 1px solid #dde2e6;
+    box-sizing: border-box;
+    border-radius: 3px;
+    background-color: #fff;
+    padding-top: 11px;
+    padding-right: 16px;
+    padding-left: 16px;
+    margin-top: 13px;
+    resize: none;
+    font-family: Arial, Helvetica, sans-serif ;
+    &:focus{
+        border: 1px solid #6E934D;
+        outline: none;
+    }
+}
+
+#DateInput{
+    width: 100%;
+    height: 42px;
+    font-size: 15px;
+    border: 1px solid #dde2e6;
+    box-sizing: border-box;
+    border-radius: 3px;
+    margin-top: 13px;
+    padding: 5px;
+    &:focus{
+        border: 1px solid #6E934D;
+        outline: none;
+    }
+}
+
+#CreateButton{
+    width: 100%;
+    height: 50px;
+    margin-top: 100px;
+    border: 3px solid #6E934D;
+    background-color: #6E934D;
+    border-radius: 5px;
+    color: #fff;
+    padding: 5px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.errMsg{
+    width: fit-content;
+    font-size: 13px;
+    color: red;   
+    margin-top: 5px;
+}
+
+#tipbox1{
+    width: 75%;
+    height: fit-content;
+    background-color: #ebedef;
+    border-radius: 3px;
+    padding: 10px;
+    white-space:pre-line;
+    word-break:normal;
+    margin-top: 130px;
+}
+
+#tipbox2{
+    width: 75%;
+    height: fit-content;
+    background-color: #ebedef;
+    border-radius: 3px;
+    padding: 10px;
+    white-space:pre-line;
+    word-break:normal;
+    margin-top: 110px;
+}
+
+#tipbox3{
+    width: 75%;
+    height: fit-content;
+    background-color: #ebedef;
+    border-radius: 3px;
+    padding: 10px;
+    white-space:pre-line;
+    word-break:normal;
+    margin-top: 475px;
+}
+
+#tipbox4{
+    width: 75%;
+    height: fit-content;
+    background-color: #ebedef;
+    border-radius: 3px;
+    padding: 10px;
+    white-space:pre-line;
+    word-break:normal;
+    margin-top: 230px;
+}
+
+#tipbox5{
+    width: 75%;
+    height: fit-content;
+    background-color: #ebedef;
+    border-radius: 3px;
+    padding: 10px;
+    white-space:pre-line;
+    word-break:normal;
+    margin-top: 200px;
+}
+
+#tipbox6{
+    width: 75%;
+    height: fit-content;
+    background-color: #ebedef;
+    border-radius: 3px;
+    padding: 10px;
+    white-space:pre-line;
+    word-break:normal;
+    margin-top: 70px;
+}
+
+.tiptitle{
+    font-size: 12px;
+    margin-top: 3px;
+    font-weight: bold;
+}
+
+.tipcontent{
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+#footer{
+    width: 100%;
+    height: 50px;
+    margin-top: 20px;
+    background-color: #6e934d;
+    text-align: center;
+    padding-top: 25px;
+    color: #fff;
+    font-size: 20px;
+}

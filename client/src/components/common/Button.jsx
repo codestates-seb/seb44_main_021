@@ -14,6 +14,7 @@ const Button = ({ formFields = {}, children, onClick }) => {
 export default Button;
 
 const SubmitButton = styled.button`
+  font-size: 0.9rem;
   display: flex;
   justify-content: center;
   white-space: nowrap;
