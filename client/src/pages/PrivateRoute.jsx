@@ -1,13 +1,13 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
-const PrivateRoute = ({ component }) => {
+const PrivateRoute = () => {
   const auth = localStorage.getItem("login");
 
   return auth ? (
-    component
+    <Outlet />
   ) : (
-    <Navigate to="/login" {...alert("로그인이 필요합니다.")}></Navigate>
+    <Navigate to="/login" {...alert("로그인이 필요합니다.")} />
   );
 };
 

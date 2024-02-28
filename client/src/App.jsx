@@ -6,6 +6,7 @@ import NotFound from "./pages/NotFound";
 import MainLayout from "./pages/MainLayout";
 import PrivateRoute from "./pages/PrivateRoute";
 import Loading from "./Loading";
+import PublicRoute from "./pages/PublicRoute";
 const MainPage = lazy(() => import("./pages/Main/MainPage"));
 const UserSelectionPage = lazy(() =>
   import("./pages/SignupPage/UserSelectionPage")
@@ -41,35 +42,24 @@ const App = () => {
       <Suspense fallback={<Loading />}>
         <Routes>
           <Route element={<MainPage />} path="/" />
-          <Route element={<UserSelectionPage />} path="/signup" />
-          <Route element={<SignupPage />} path="/signup/:role" />
-          <Route element={<LoginPage />} path="/login" />
+          <Route element={<PublicRoute />}>
+            <Route element={<UserSelectionPage />} path="/signup" />
+            <Route element={<SignupPage />} path="/signup/:role" />
+            <Route element={<LoginPage />} path="/login" />
+          </Route>
           <Route element={<MainLayout pathname={pathname} />}>
             <Route element={<StorePage />} path="/store" />
             <Route element={<StoreDetail />} path="/storedetail/:id" />
             <Route element={<FundingPage />} path="/funding" />
             <Route element={<FundingDetail />} path="/fundingdetail/:id" />
             <Route element={<AboutPage />} path="/about" />
-            <Route
-              element={<PrivateRoute component={<MyPage />} />}
-              path="/mypage/:path"
-            />
-            <Route
-              element={<PrivateRoute component={<FundingCreatePage />} />}
-              path="/fundingcreate"
-            />
-            <Route
-              element={<PrivateRoute component={<FundingEditPage />} />}
-              path="/fundingedit/*"
-            />
-            <Route
-              element={<PrivateRoute component={<StoreCreatePage />} />}
-              path="/storecreate"
-            />
-            <Route
-              element={<PrivateRoute component={<StoreEditPage />} />}
-              path="/storeedit/*"
-            />
+            <Route element={<PrivateRoute />}>
+              <Route element={<MyPage />} path="/mypage/:path" />
+              <Route element={<FundingCreatePage />} path="/fundingcreate" />
+              <Route element={<FundingEditPage />} path="/fundingedit/*" />
+              <Route element={<StoreCreatePage />} path="/storecreate" />
+              <Route element={<StoreEditPage />} path="/storeedit/*" />
+            </Route>
           </Route>
           <Route element={<NotFound />} path="*" />
         </Routes>
