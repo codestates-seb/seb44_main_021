@@ -1,14 +1,15 @@
 import styled from "styled-components";
 
 export const LoginFormContainer = styled.form`
-  display: grid;
-  grid-gap: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
 
   .signup_btn {
     & > p {
       font-size: 0.875rem;
       margin-bottom: 0.5rem;
-      color: #fff;
+      /* color: #fff; */
     }
   }
 `;
@@ -23,6 +24,7 @@ export const SignupButton = styled.button`
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   box-shadow: var(--shadow-btn);
+  /* font-size: 1rem; */
 
   &:hover {
     box-shadow: var(--shadow-btn-hover);

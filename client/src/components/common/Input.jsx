@@ -49,6 +49,7 @@ const InputField = styled.div`
     display: inline-block;
     margin-bottom: 0.5rem;
     font-weight: 300;
+    font-size: 0.875rem;
     color: ${(props) => props.color !== "" && props.color};
   }
   & input {

@@ -1,11 +1,9 @@
 import React from "react";
-import styles from "./AboutPage.module.css";
-import { teamInfo } from "../../constants/about";
 import { styled } from "styled-components";
 
 const AboutPage = () => {
   return (
-    <AboutContainer>
+    <>
       <OverviewContainer>
         <img
           className="About__overview-img"
@@ -30,49 +28,18 @@ const AboutPage = () => {
           과 함께 해보세요.
         </span>
       </OverviewContainer>
-      <div className={styles.title}>
-        <h1>Our team</h1>
-        <h1>Re:21</h1>
-      </div>
-      <TeamInfoContainer>
-        <ul>
-          {teamInfo.map((member, index) => (
-            <li key={index} className="About__info-box">
-              <div>
-                <img src={member.imgSrc} alt={member.alt} />
-                <p>{member.name}</p>
-              </div>
-
-              <div className="worklog">
-                <h2>Work Log</h2>
-
-                {member.workLog.map((log, logIndex) => (
-                  <p key={logIndex}>{log}</p>
-                ))}
-              </div>
-            </li>
-          ))}
-        </ul>
-      </TeamInfoContainer>
-      {/* <div id={styles.footer}>IEUN CO.</div> */}
-    </AboutContainer>
+    </>
   );
 };
 
 export default AboutPage;
 
-const AboutContainer = styled.main`
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-`;
-const OverviewContainer = styled.section`
+const OverviewContainer = styled.main`
   position: relative;
   .About__overview-img {
-    width: 100%;
+    width: 100vw;
     height: calc(100vh - 80px);
+    object-fit: cover;
   }
   & > span {
     width: 100%;
@@ -95,59 +62,6 @@ const OverviewContainer = styled.section`
     }
     & > em {
       font-weight: 500;
-    }
-  }
-`;
-const TeamInfoContainer = styled.section`
-  height: 200px;
-  width: 100%;
-  ul {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 30px;
-  }
-  .About__info-box {
-    padding: 1rem;
-    margin-top: 10rem;
-    position: relative;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    width: 100px;
-    height: 120px;
-    background-color: #ffffff;
-    border-radius: 0px;
-    border: 1px solid rgb(30, 30, 35);
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
-    overflow: hidden;
-    transition: 300ms ease;
-
-    div > img {
-      width: 90px;
-      height: 90px;
-      border-radius: 20px;
-    }
-
-    &:hover {
-      padding-right: 200px;
-      height: 200px;
-    }
-
-    .worklog {
-      position: absolute;
-      top: 0;
-      color: red;
-      width: 180px;
-      left: 150px;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      /* overflow: hidden; */
-      opacity: 1;
-      transition: left 250ms ease, opacity 400ms ease;
-      cursor: default;
     }
   }
 `;

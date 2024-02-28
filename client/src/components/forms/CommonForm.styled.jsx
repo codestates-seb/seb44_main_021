@@ -15,7 +15,7 @@ export const BackgroundCover = styled.div`
   width: 100%;
   height: 100vh;
   z-index: -1;
-  background: url("/image/footer.webp") center;
+  background: url("/image/banner1.jpeg") center;
   background-size: cover;
 `;
 
@@ -28,11 +28,6 @@ export const FormLogo = styled.div`
 `;
 
 export const Form = styled.div`
-  /* display: grid;
-  grid-template-columns: 1.2fr 2.5fr;
-  gap: 3rem;
-  place-items: center; */
-
   width: 30rem;
   background: rgba(255, 255, 255, 0.25);
   box-shadow: 0 8px 32px 0 rgba(95, 95, 95, 0.37);

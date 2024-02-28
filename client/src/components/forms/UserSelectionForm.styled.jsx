@@ -30,6 +30,8 @@ export const UserRoleBtn = styled.button`
   border: solid 1px var(--color-gray-50);
   border-radius: 5px;
   /* transition: all 0.2s ease-in-out; */
+  transition: all 0.2s ease-in-out;
+
   cursor: pointer;
   &:hover {
     box-shadow: var(--shadow-btn-hover);
