@@ -4,25 +4,21 @@ import Lenis from "@studio-freight/lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Loading from "../../loading";
-import MenuIcon from "@mui/icons-material/Menu";
-import CloseIcon from "@mui/icons-material/Close";
 import ProfileDropdown from "../../components/Header/dropdown/ProfileDropdown";
-import Contents from "../../components/Main/Contents";
 import List from "../../components/Main/List";
-import SideLink from "../../components/Main/SideLink";
 import Banner from "./../../components/Main/Banner";
 import Footer from "../../components/Main/Footer";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
+import SideBarModal from "../../components/Header/SideBarModal";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
 
 const MainPage = () => {
   const [nowloding, setNowloding] = useState(false);
-  const [open, setOpen] = useState(false);
   const [data, setData] = useState([]);
   const horwrapRef = useRef(null);
-
-  const [isUnmount, setIsUnmount] = useState(false);
-
-  // const loginStatus = JSON.parse(localStorage.getItem("login"));
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -39,26 +35,28 @@ const MainPage = () => {
         setData(response.data.data);
       })
       .catch((err) => console.log(err));
+
+    setNowloding(true);
   }, []);
 
   useEffect(() => {
     if (horwrapRef.current) {
       const horwrapWidth = horwrapRef.current.offsetWidth;
-      gsap.to(".horwrap", {
-        x: -horwrapWidth * 2 - 600,
+
+      gsap.to(horwrapRef.current, {
+        xPercent: -100,
         duration: 3,
         scrollTrigger: {
-          trigger: ".horwrap",
-          start: "top 145px",
-          end: "+=330%",
-          scrub: true,
-          pin: ".horwrap",
-          // markers: true,
+          trigger: horwrapRef.current,
+          // start: "top center",
+          end: `+=${horwrapWidth}`,
+          scrub: window.innerWidth > 768 ? 0.5 : 0,
+          pin: window.innerWidth > 768 ? horwrapRef.current : false,
         },
       });
     }
     setNowloding(true);
-  }, [horwrapRef.current]);
+  }, [nowloding, horwrapRef.current]);
 
   gsap.registerPlugin(ScrollTrigger);
   const lenis = new Lenis();
@@ -68,48 +66,12 @@ const MainPage = () => {
   }
   requestAnimationFrame(raf);
 
-  const openModal = () => {
-    setIsUnmount(false);
-    setOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsUnmount(true);
-
-    setTimeout(() => {
-      setOpen(false); // animeTimeMs의 시간후 모달 닫음
-    }, 900);
-  };
-
   return (
     <>
       {nowloding ? (
         <div>
-          {open ? (
-            <ModalOverlay>
-              <ModalContent isUnmount={isUnmount}>
-                <ModalLogo>
-                  <img
-                    src={process.env.PUBLIC_URL + "/image/logo1.png"}
-                    alt="로고"
-                  />
-                  <Closebutton onClick={closeModal}>
-                    <CloseIcon sx={{ fontSize: 30, color: "#000000" }} />
-                  </Closebutton>
-                </ModalLogo>
-                <Sidelist>
-                  <SideLink to="/funding" text="펀딩+" />
-                  <SideLink to="/store" text="스토어" />
-                  <SideLink to="/about" text="About" />
-                  <TeamName>IEUN CO.</TeamName>
-                </Sidelist>
-              </ModalContent>
-            </ModalOverlay>
-          ) : null}
           <Header>
-            <OpenModalButton onClick={openModal}>
-              <MenuIcon sx={{ fontSize: 40, color: "#6E934D" }} />
-            </OpenModalButton>
+            <SideBarModal />
             <Logo>
               <LogoImg
                 src={process.env.PUBLIC_URL + "/image/logo3.png"}
@@ -124,36 +86,59 @@ const MainPage = () => {
           </Header>
 
           <Main>
-            <Horwrap ref={horwrapRef}>
-              <Banner link="/about" img="/image/test4.jpg" />
-              <Banner link="/funding" img="/image/test6.jpg" />
-              <Banner link="/store" img="/image/test7.jpg" />
-            </Horwrap>
+            {/* 반응형 배너 캐러셀 적용 */}
+            {window.innerWidth <= 768 ? (
+              <CustomSwiper
+                pagination={true}
+                modules={[Pagination]}
+                autoHeight={true}
+              >
+                <SwiperSlide>
+                  <Banner
+                    link="/about"
+                    img="/image/banner1.jpeg"
+                    order="first"
+                  />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <Banner link="/funding" img="/image/banner5.png" />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <Banner link="/store" img="/image/banner3.jpg" />
+                </SwiperSlide>
+              </CustomSwiper>
+            ) : (
+              <Horwrap className="horwrap" ref={horwrapRef}>
+                <Banner link="/about" img="/image/banner1.jpeg" order="first" />
+                <Banner link="/funding" img="/image/banner5.png" />
+                <Banner link="/store" img="/image/banner3.jpg" />
+              </Horwrap>
+            )}
             <ContentsFrame>
               <H1>Magazine</H1>
               <Contentslist>
-                <Contents
+                <List
                   href="https://eco-fresh.co.kr/article/%EC%97%90%EC%BD%94-%EB%A7%A4%EA%B1%B0%EC%A7%84/1008/168259/"
                   src="/image/test13.png"
                   title="이은이 알려주는 친환경 잡지"
                   text="제로 웨이스트, 리업사이클 등 8개의 키워드 제품을 판매하는 eco fresh를 소개할게요!"
                   footer="@ecomagazine"
                 />
-                <Contents
+                <List
                   href="https://www.eyesmag.com/search?s=%EC%97%85%EC%82%AC%EC%9D%B4%ED%81%B4%EB%A7%81"
                   src="/image/test14.png"
                   title="친환경을 주목하는 아이즈매거진"
                   text="클린뷰티부터 스투시까지, 이은이 소개하는 업사이클링의 최신 트렌트를 읽어보세요 🙂"
                   footer="@eyesmagazine"
                 />
-                <Contents
+                <List
                   href="https://www.beautifulstore.org/upcycling"
                   src="/image/test15.jpg"
                   title="'에코라이프스타일'의 확산"
                   text="아름다운 가게에서 소개하는 '에코파티메아리'를 확인해보세요😎"
                   footer="@beautifulstore"
                 />
-                <Contents
+                <List
                   href="https://metropolismag.com/sustainability/"
                   src="/image/test16.jpg"
                   title="지속가능한 업사이클링 인테리어"
@@ -166,14 +151,14 @@ const MainPage = () => {
                 <Contentslist>
                   {data.slice(0, 4).map((item, index) => (
                     <div key={index}>
-                      <List {...obj} />
+                      <List {...item} />
                     </div>
                   ))}
                 </Contentslist>
               ) : null}
             </ContentsFrame>
-            <Footer />
           </Main>
+          <Footer />
         </div>
       ) : (
         <Loading />
@@ -186,93 +171,19 @@ export default MainPage;
 
 //styled-components
 
-const ModalOverlay = styled.div`
-  position: fixed;
-  z-index: 95;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-`;
-
-const ModalContent = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  background-color: #f5f5f5;
-  height: 100%;
-  width: 20%;
-  animation: ${(props) => {
-      if (props.isUnmount === true) {
-        return closeModal;
-      } else {
-        return openModal;
-      }
-    }}
-    1s forwards;
-`;
-
-const openModal = keyframes`
-  0% {
-    transform: translateX(-300px);
+const CustomSwiper = styled(Swiper)`
+  .swiper-slide {
+    margin-top: 7rem;
   }
-  100% {
-    transform: translateX(0px);
+  .swiper-pagination-bullet-active {
+    background: var(--color-main);
   }
-`;
-
-const closeModal = keyframes`
-  0% {
-    margin-top: 0px;
-  }
-  100% {
-    transform: translateX(-300px);
-  }
-`;
-
-const ModalLogo = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  > img {
-    margin-top: 10px;
-    width: 60px;
-    height: 60px;
-  }
-`;
-
-const Closebutton = styled.button`
-  background-color: transparent;
-  border: none;
-  padding: 0;
-  margin: 20px;
-  cursor: pointer;
-  position: absolute;
-  top: 1px;
-  right: 1px;
-`;
-
-const Sidelist = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-`;
-
-const TeamName = styled.p`
-  font-size: "35px";
-  color: "#353535";
-  font-weight: "bold";
-  margin-top: "170px";
 `;
 
 const Header = styled.div`
   position: fixed;
   top: 0;
-  width: calc(100% - 65px);
+  width: 100vw;
   height: 70px;
   z-index: 90;
   display: flex;
@@ -281,14 +192,6 @@ const Header = styled.div`
   background-color: transparent;
   padding: 0 30px;
   padding-top: 30px;
-`;
-
-const OpenModalButton = styled.button`
-  background-color: transparent;
-  border: none;
-  padding: 0;
-  margin: 0;
-  cursor: pointer;
 `;
 
 const Logo = styled.div`
@@ -304,32 +207,50 @@ const LogoImg = styled.img`
 `;
 
 const Main = styled.div`
-  padding: 0 100px;
   background-color: #f5f5f5;
   margin-bottom: 100vh;
+  overflow: hidden;
 `;
 
 const Horwrap = styled.div`
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
-  width: 280vw;
-  height: 80vh;
-  padding-left: 350px;
+  width: 200vw;
+
+  background-color: #f5f5f5;
+  height: 100%;
+  @media (max-width: 768px) {
+    width: 100vw;
+  }
 `;
 
 const ContentsFrame = styled.div`
-  margin-top: 50px;
-  padding-bottom: 145px;
+  padding: 5rem;
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
 `;
 
 const Contentslist = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin: 50px 0;
+  display: grid;
+  width: 100%;
+  gap: 3rem;
+  /* grid-template-columns: repeat(4, minmax(0, 1fr)); */
+  grid-template-columns: repeat(4, 1fr);
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  @media (max-width: 425px) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
 `;
 
 const H1 = styled.h1`
-  margin-top: 130px;
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  font-weight: 700;
   color: #639443;
 `;

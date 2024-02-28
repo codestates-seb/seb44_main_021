@@ -7,8 +7,8 @@ const Item = (props) => {
   };
 
   return (
-    <ListFrame>
-      <LinkDetail to={`/storedetail/${props.sellId}`}>
+    <figure>
+      <Link to={`/storedetail/${props.sellId}`}>
         <ThumbNailImage src={props.thumbNailImage} alt="로고" />
         <ListText>
           <ListTitle>{props.title}</ListTitle>
@@ -17,49 +17,39 @@ const Item = (props) => {
             <PriceText>원</PriceText>
           </Pricebox>
         </ListText>
-      </LinkDetail>
-    </ListFrame>
+      </Link>
+    </figure>
   );
 };
 
 export default Item;
 
-const ListFrame = styled.div`
-  width: 250px;
-  height: 300px;
-  margin-top: 30px;
-  justify-self: end;
-  word-break: break-all;
-`;
-
-const LinkDetail = styled(Link)`
-  outline: none;
-  text-decoration: none;
-  color: black;
-`;
-
 const ThumbNailImage = styled.img`
-  width: "250px";
-  height: "60%";
-  border-radius: "20px";
-  object-fit: "cover";
+  width: 100%;
+  height: 150px;
+  border-radius: 20px;
+  object-fit: cover;
 `;
 
 const ListText = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  height: 15%;
+  gap: 0.5rem;
   margin-top: 10px;
 `;
 
 const ListTitle = styled.div`
   display: block;
-  font-size: 1em;
-  font-weight: bold;
-  width: 250px;
-  white-space: pre-line;
+  font-size: 0.95rem;
+  font-weight: 400;
+  height: 36.6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
   word-break: break-all;
+  white-space: normal;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;
 
 const Pricebox = styled.div`

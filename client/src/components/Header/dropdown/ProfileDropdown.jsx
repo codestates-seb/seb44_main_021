@@ -1,5 +1,4 @@
-import { useState } from "react";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../../api/logout";
 import * as S from "./ProfileDropdown.styled";
@@ -8,6 +7,7 @@ const ProfileDropdown = () => {
   const [menuView, setMenuView] = useState(false);
   const navigate = useNavigate();
   const loginStatus = JSON.parse(localStorage.getItem("login"));
+  const dropdownRef = useRef(null);
 
   const openDropdown = () => {
     if (loginStatus) {
@@ -16,19 +16,42 @@ const ProfileDropdown = () => {
       navigate("/login");
     }
   };
+
+  const handleMyPageClick = () => {
+    navigate("/mypage/funding");
+    setMenuView(false);
+  };
+
+  const handleLogoutClick = () => {
+    logout();
+    setMenuView(false);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setMenuView(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <S.DropdownContainer>
-      <AccountCircleIcon
+    <S.DropdownContainer ref={dropdownRef}>
+      <S.AccountBtn
         sx={{ fontSize: 35, fill: "#6e934d" }}
         onClick={openDropdown}
       />
       <S.DropdownWrapper>
         {menuView && (
           <ul>
-            <S.MenuItem onClick={() => navigate("/mypage/funding")}>
-              My page
-            </S.MenuItem>
-            <S.MenuItem onClick={logout}>Logout</S.MenuItem>
+            <li onClick={handleMyPageClick}>My page</li>
+            <li onClick={handleLogoutClick}>Logout</li>
           </ul>
         )}
       </S.DropdownWrapper>

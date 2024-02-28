@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Lenis from "@studio-freight/lenis";
-import Header from "../../components/Header/Header";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { useGetMemberId } from "../../hooks/useGetMemberId";
 import { axiosInstance } from "../../api/axiosInstance";
-import Banner from "../../components/SubPage/SideBar";
-import Navigation from "../../components/SubPage/Navigation";
+import SideBar from "../../components/SubPage/SideBar";
+import SortButton from "../../components/SubPage/SortButton";
 import List from "../../components/SubPage/Funding/List";
 
 const FundingPage = () => {
@@ -20,9 +19,7 @@ const FundingPage = () => {
   const [isLoding, setIsLoding] = useState(false);
   const [role, setrole] = useState("");
 
-  const urlParams = new URL(window.location.href).searchParams;
-  const serch = urlParams.get("serch");
-  const [searchParam, setSearchParam] = useState(serch);
+  const searchParam = useSelector((state) => state.search.searchWord);
 
   useEffect(() => {
     if (searchParam) {
@@ -37,7 +34,7 @@ const FundingPage = () => {
         .catch((err) => console.log(err));
     } else {
       axiosInstance({
-        url: "/upcyclings/descending?page=1&size=8",
+        url: "/upcyclings/descending?page=1&size=16",
         method: "get",
       })
         .then((response) => {
@@ -93,7 +90,7 @@ const FundingPage = () => {
     } else {
       if (kategorie === 0) {
         axiosInstance({
-          url: `/upcyclings/${sort}?page=1&size=8`,
+          url: `/upcyclings/${sort}?page=1&size=16`,
           method: "get",
         })
           .then((response) => {
@@ -103,7 +100,7 @@ const FundingPage = () => {
           .catch((err) => console.log(err));
       } else {
         axiosInstance({
-          url: `/upcyclings/${sort}/categories/${kategorie}?page=1&size=8`,
+          url: `/upcyclings/${sort}/categories/${kategorie}?page=1&size=16`,
           method: "get",
         })
           .then((response) => {
@@ -128,7 +125,7 @@ const FundingPage = () => {
       if (searchParam) {
         if (kategorie === 0) {
           axiosInstance({
-            url: `/upcyclings/search?page=${page}&size=8&sort=${sort}&searchKeyword=${searchParam}`,
+            url: `/upcyclings/search?page=${page}&size=16&sort=${sort}&searchKeyword=${searchParam}`,
             method: "get",
           })
             .then((response) => {
@@ -137,7 +134,7 @@ const FundingPage = () => {
             .catch((err) => console.log(err));
         } else {
           axiosInstance({
-            url: `/upcyclings/search?page=${page}&size=8&sort=${sort}&categoryId=${kategorie}&searchKeyword=${searchParam}`,
+            url: `/upcyclings/search?page=${page}&size=16&sort=${sort}&categoryId=${kategorie}&searchKeyword=${searchParam}`,
             method: "get",
           })
             .then((response) => {
@@ -148,7 +145,7 @@ const FundingPage = () => {
       } else {
         if (kategorie === 0) {
           axiosInstance({
-            url: `/upcyclings/${sort}?page=${page}&size=8`,
+            url: `/upcyclings/${sort}?page=${page}&size=16`,
             method: "get",
           })
             .then((response) => {
@@ -169,10 +166,6 @@ const FundingPage = () => {
     }
   }, [page]);
 
-  const handleChange = (event) => {
-    setSort(event.target.value);
-  };
-
   const lenis = new Lenis();
   function raf(time) {
     lenis.raf(time);
@@ -181,51 +174,66 @@ const FundingPage = () => {
   requestAnimationFrame(raf);
 
   return (
-    <div>
-      <Header url="funding" setSearchParam={setSearchParam} />
-      <Container>
-        <Navigation
+    <Container>
+      <SideBar
+        kategorie={kategorie}
+        setKategorie={setKategorie}
+        menu={["All", "천", "목재", "플라스틱", "철제", "유리", "기타"]}
+      />
+      <ContainerBottom>
+        <SortButton
           sort={sort}
           setSort={setSort}
           role={role}
-          link="/fundingcreate"
+          param="/funding"
+          // link="/fundingcreate"
         />
-        <ContainerBottom>
-          <Banner
-            kategorie={kategorie}
-            setKategorie={setKategorie}
-            menu={["All", "천", "목재", "플라스틱", "철제", "유리", "기타"]}
-          />
-          <Funding>
-            {isLoding
-              ? fundingList.map((obj, index) => <List key={index} {...obj} />)
-              : null}
-          </Funding>
-        </ContainerBottom>
-      </Container>
-    </div>
+        <Funding>
+          {isLoding
+            ? fundingList.map((obj, index) => <List key={index} {...obj} />)
+            : null}
+        </Funding>
+      </ContainerBottom>
+    </Container>
   );
 };
 
 export default FundingPage;
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
   justify-content: center;
   align-items: center;
+  column-gap: 2rem; */
+  display: grid;
+  grid-template-columns: 15% 85%;
+  max-width: 1000px;
+  margin: auto;
+  @media (max-width: 768px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
 `;
 
 const ContainerBottom = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  width: 70%;
+  border-left: 1px solid var(--color-gray-30);
+  padding-left: 3rem;
+  height: 100%;
+  margin-bottom: calc(90vh - 400px);
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
 `;
 
 const Funding = styled.div`
-  float: right;
+  /* float: right; */
   display: grid;
-  width: 80%;
-  grid-template-columns: 0fr 1fr 1fr 1fr;
+  width: 100%;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;

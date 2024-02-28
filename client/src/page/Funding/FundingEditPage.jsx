@@ -1,5 +1,4 @@
 import React from "react";
-import Header from "../../components/Header/Header";
 import style from "./FundingEditPage.module.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -77,7 +76,6 @@ const FundingEditPage = () => {
 
   return (
     <div id={style.AllContainer}>
-      <Header />
       <div id={style.AllWrapper}>
         <div id={style.leftWrapper}>
           <div id={style.imgContainer}>

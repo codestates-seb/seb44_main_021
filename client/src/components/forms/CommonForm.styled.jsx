@@ -1,57 +1,45 @@
 import styled from "styled-components";
 
 export const FormContainer = styled.div`
-  height: 100vh;
-  width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 0.8rem;
-  color: #454545;
+  flex-direction: column;
+  margin: 5rem 0;
 `;
 
-export const FormWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  width: 40rem;
-  background: url("/image/sign-bg.png") center top;
+export const BackgroundCover = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
+  background: url("/image/banner1.jpeg") center;
   background-size: cover;
-  box-shadow: 0 8px 32px 0 rgba(119, 119, 119, 0.37);
-  border-radius: 20px;
-
-  @media (max-width: 820px) {
-    min-width: 100vw;
-    min-height: 100vh;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border-radius: 0;
-  }
 `;
 
-export const NoticeBox = styled.div`
+export const FormLogo = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  font-size: 0.6rem;
+  font-size: 0.85rem;
   color: #fff;
 `;
 
-export const FormBox = styled.div`
-  background: #fff;
-  border-top-right-radius: 20px;
-  border-bottom-right-radius: 20px;
+export const Form = styled.div`
+  width: 30rem;
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(95, 95, 95, 0.37);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.18);
-  padding: 4rem 2rem;
+  padding: 3rem;
 
-  @media (max-width: 820px) {
+  @media (max-width: 425px) {
     border-radius: 0;
-    background: rgba(255, 255, 255, 0.25);
-    box-shadow: 0 8px 32px 0 rgba(95, 95, 95, 0.37);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(4px);
+    width: 100vw;
   }
 `;
 

@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 const List = (props) => {
   return (
-    <ListFrame>
-      <LinkDetail to={`/fundingdetail/${props.upcyclingId}`}>
+    <figure>
+      <Link to={`/fundingdetail/${props.upcyclingId}`}>
         <ThumbNailImage src={props.thumbNailImage} alt="섬네일" />
         <ListText>
           <ListTitle>{props.title}</ListTitle>
@@ -16,63 +16,52 @@ const List = (props) => {
             {props.categoryName}
           </Materiar>
         </ListText>
-      </LinkDetail>
-    </ListFrame>
+      </Link>
+    </figure>
   );
 };
 
 export default List;
 
-const ListFrame = styled.div`
-  width: 250px;
-  height: 300px;
-  margin-top: 30px;
-  justify-self: end;
-  word-break: break-all;
-`;
-
-const LinkDetail = styled(Link)`
-  outline: none;
-  text-decoration: none;
-  color: black;
-`;
-
 const ThumbNailImage = styled.img`
-  width: "250px";
-  height: "60%";
-  border-radius: "20px";
-  object-fit: "cover";
+  width: 100%;
+  height: 150px;
+  border-radius: 20px;
+  object-fit: cover;
 `;
 
 const ListText = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  height: 15%;
+  gap: 0.5rem;
+  /* justify-content: space-between; */
+  /* height: 15%; */
   margin-top: 10px;
 `;
 
 const ListTitle = styled.div`
   display: block;
-  font-size: 1em;
-  font-weight: bold;
-  width: 250px;
-  white-space: pre-line;
+  font-size: 0.95rem;
+  font-weight: 400;
+  height: 36.6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
   word-break: break-all;
+  white-space: normal;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;
 
 const Materiar = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 3px;
+  /* margin-top: 3px; */
   background-color: #6e934d;
   width: max-content;
-  padding: 5px;
-  padding-right: 10px;
-  border-top-left-radius: 100px;
-  border-bottom-left-radius: 100px;
+  padding: 0.2rem 0.5rem;
+  border-radius: 25px;
   color: #fff;
-  height: 10px;
   font-size: 13px;
 `;
 

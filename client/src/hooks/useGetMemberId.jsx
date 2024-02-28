@@ -1,9 +1,8 @@
 import { useDispatch } from "react-redux";
-import { userDataActions } from "../store/userDataSlice";
+import { userDataActions } from "../store/slice/userDataSlice";
 
 export const useGetMemberId = () => {
   const dispatch = useDispatch();
-
   const getMemberId = () => {
     const accessToken = localStorage.getItem("token");
 

@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
-const Button = ({ formFields = {}, content, onClick }) => {
+const Button = ({ formFields = {}, children, onClick }) => {
   const isDisabled = Object.values(formFields).some((field) => !field);
   const buttonType = Object.keys(formFields).length === 0 ? "button" : "submit";
   return (
     <SubmitButton type={buttonType} disabled={isDisabled} onClick={onClick}>
-      {content}
+      {children}
     </SubmitButton>
   );
 };
@@ -14,24 +14,25 @@ const Button = ({ formFields = {}, content, onClick }) => {
 export default Button;
 
 const SubmitButton = styled.button`
-  /* height: 100%; */
-  padding: 10px;
-  width: 100%;
-  letter-spacing: 3.5px;
+  display: flex;
+  justify-content: center;
+  white-space: nowrap;
+  align-items: center;
+  padding: 0.7rem;
   color: #ffffff;
-  background: ${({ disabled }) => (disabled ? "#afafaf" : "#6e934d")};
+  background: ${({ disabled }) => (disabled ? "#afafaf" : "var(--color-main)")};
   border-radius: 5px;
-  border: none;
-
   text-transform: uppercase;
+  transition: all 0.2s ease-in-out;
   box-shadow: ${({ disabled }) =>
-    disabled ? "none" : "3px 3px 6px rgba(95, 95, 95, 0.37)"};
+    disabled ? "none" : "5px 5px 10px rgba(0, 0, 0, 0.1)"};
 
+  &:hover {
+    box-shadow: ${({ disabled }) =>
+      disabled ? "none" : " 2px 2px 3px rgba(0, 0, 0, 0.1)"};
+  }
   &:active {
     box-shadow: ${({ disabled }) =>
-      disabled ? "none" : "1px 1px 3px rgba(95, 95, 95, 0.37)"};
-  }
-  &:hover {
-    cursor: ${({ disabled }) => (disabled ? "default" : "pointer")};
+      disabled ? "none" : "inset 2px 2px 3px rgba(0, 0, 0, 0.1)"};
   }
 `;

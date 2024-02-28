@@ -1,6 +1,5 @@
 import React from "react";
 import style from "./StoreEditPage.module.css";
-import Header from "../../components/Header/Header";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -77,7 +76,6 @@ const StoreEditPage = () => {
 
   return (
     <div id={style.AllContainer}>
-      <Header />
       <div id={style.AllWrapper}>
         <div id={style.leftWrapper}>
           <div id={style.imgContainer}>

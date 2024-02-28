@@ -1,14 +1,22 @@
 import styled from "styled-components";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 
 export const FormContainer = styled.div`
   display: grid;
   grid-gap: 3rem;
-  h1 {
-    color: #6e934d;
+  & > h1 {
+    font-size: 1.3rem;
+    color: var(--color-main);
     text-align: center;
+    font-weight: 600;
   }
   p {
+    font-size: 0.875rem;
     margin-bottom: 0.5rem;
+    color: #fff;
+  }
+  @media (max-width: 425px) {
+    /* max-width: 350px; */
   }
 `;
 export const UserRoleBtn = styled.button`
@@ -18,11 +26,23 @@ export const UserRoleBtn = styled.button`
   color: #454545;
   padding: 7px;
   background: #fff;
-  box-shadow: 3px 3px 6px rgba(95, 95, 95, 0.37);
-  border: none;
+  box-shadow: var(--shadow-btn);
+  border: solid 1px var(--color-gray-50);
   border-radius: 5px;
+  /* transition: all 0.2s ease-in-out; */
+  transition: all 0.2s ease-in-out;
+
   cursor: pointer;
-  &:active {
-    box-shadow: 1px 1px 3px rgba(107, 107, 107, 0.288);
+  &:hover {
+    box-shadow: var(--shadow-btn-hover);
   }
+  &:active {
+    box-shadow: var(--shadow-btn-active);
+  }
+`;
+
+export const CheckIcon = styled(CheckCircleOutlineIcon)`
+  font-size: 20px;
+  color: var(--color-main);
+  margin: 0 0.5rem;
 `;

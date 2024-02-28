@@ -1,20 +1,26 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import useInputs from "../../hooks/useInputs";
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "../common/Button";
 import Input from "../common/Input";
 import { axiosInstance } from "../../api/axiosInstance";
-import * as S from "./SignupForm.styled";
 import { LodingSpiner } from "../common/LodingSpiner";
+import useErrHandler from "../../hooks/useErrHandler";
+import { isEmpty, validationsSignup } from "../../utils/validateInput";
+import { postSignup } from "../../api/authApi";
+import styled from "styled-components";
 
 const SignupForm = () => {
   const { role } = useParams();
+  const navigate = useNavigate();
+  const { handleValidation, handleInputErr, errMsgObj } = useErrHandler();
 
-  const NAME_REGEX = /^[A-Za-z0-9ㄱ-ㅎㅏ-ㅣ가-힣]{2,6}$/;
-  const EMAIL_REGEX = /^[A-Za-z0-9.\-_]+@([A-Za-z0-9-]+\.)+[A-Za-z]{2,6}$/;
-  const PWD_REGEX =
-    /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>/?]).{8,24}$/;
+  /* 이메일 인증번호 전송 여부*/
+  const [isAuthNum, setIsAuthNum] = useState("");
+  const [isAuthNumSent, setIsAuthNumSent] = useState(false);
+  const [loading, setLoading] = useState(false);
 
+  /* 회원가입 데이터 객체*/
   const [signupInfo, onChange] = useInputs({
     displayName: "",
     email: "",
@@ -23,216 +29,225 @@ const SignupForm = () => {
     verifyPwd: "",
     code: "",
   });
-  /* 에러메세지 */
-  const [emailErrMsg, setEmailErrMsg] = useState("");
-  const [pwdErrMsg, setPwdErrMsg] = useState("");
-  const [nameErrMsg, setNameErrMsg] = useState("");
-  const [AuthNumErrMsg, setAuthNumErrMsg] = useState("");
 
-  /* 입력란 공백 및 유효성 통과 여부 */
-  const [isEmail, setIsEmail] = useState(false);
-  const [isPassword, setIsPassword] = useState(false);
-  const [isName, setIsName] = useState(false);
-
-  /* 이메일 인증번호 전송 여부*/
-  const [isAuthNum, setIsAuthNum] = useState("");
-  const [isAuthNumSent, setIsAuthNumSent] = useState(false);
-  const [isCheckAuthNum, setIsCheckAuthNum] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const navigate = useNavigate();
-
-  /* 유효성 함수 */
-  const IsValidName = () => {
-    if (!NAME_REGEX.test(signupInfo.displayName)) {
-      setNameErrMsg("특수 문자 제외 2자 ~ 6자를 입력하세요.");
-      setIsName(false);
-    } else {
-      setNameErrMsg("");
-      setIsName(true);
-    }
+  /* 가입 정보 유효성 검사 */
+  const handleInputChange = (e) => {
+    handleValidation(e, validationsSignup);
+    onChange(e);
   };
+  console.log(signupInfo);
 
-  const IsValidEmail = () => {
-    if (!EMAIL_REGEX.test(signupInfo.email)) {
-      setEmailErrMsg("이메일 형식에 맞지 않습니다.");
-      setIsEmail(false);
-    } else {
-      setEmailErrMsg("");
-      setIsEmail(true);
-    }
-  };
+  const IsValidPwd = useCallback(
+    (e) => {
+      onChange(e);
+      if (signupInfo.password !== e.target.value) {
+        handleInputErr("verifyPwd", "비밀번호가 일치하지 않습니다.");
+      } else {
+        handleInputErr("verifyPwd", "");
+      }
+    },
+    [signupInfo]
+  );
 
-  const IsValidPwd = () => {
-    if (!PWD_REGEX.test(signupInfo.password)) {
-      setPwdErrMsg("숫자, 문자, 특수문자 포함 8자 이상 입력하세요.");
-      setIsPassword(false);
-    } else if (signupInfo.password !== signupInfo.verifyPwd) {
-      setPwdErrMsg("비밀번호가 일치하지 않습니다.");
-      setIsPassword(false);
-    } else {
-      setPwdErrMsg("");
-      setIsPassword(true);
-    }
-  };
-
-  /* post 요청 함수 */
-  const AxiosPost = (e) => {
+  /* 계정 생성 */
+  const createAccount = (e) => {
     e.preventDefault();
 
     const { displayName, email, password, role, code } = signupInfo;
 
-    if (isPassword && isEmail && isName && isCheckAuthNum) {
-      axiosInstance
-        .post("/members/signup", { displayName, email, password, role, code })
+    if (!isEmpty(errMsgObj)) {
+      return alert("입력락을 확인해주세요.");
+    } else if (!isEmpty(signupInfo)) {
+      return postSignup({ displayName, email, password, role, code })
         .then((res) => {
           if (res.status === 201) {
+            console.log(res);
             alert("회원가입이 완료 되었습니다.");
             navigate("/login");
           }
         })
         .catch((err) => {
           if (err.response.data === "DisplayName exists") {
-            setNameErrMsg("중복된 닉네임입니다.");
-            setIsName(false);
+            handleInputErr("displayName", "중복된 닉네임입니다.");
           }
 
           if (err.response.data === "Email exists") {
-            setEmailErrMsg("중복된 이메일입니다.");
-            setIsEmail(false);
+            handleInputErr("email", "중복된 이메일입니다.");
           }
         });
     }
   };
-  /* 이메일 인증 */
-  const sendAuthNumber = () => {
+
+  /* 이메일 인증 메일 전송*/
+  const sendAuthCode = () => {
     const { email } = signupInfo;
 
     if (!email) {
-      setEmailErrMsg("이메일을 입력하세요.");
-    }
-    if (isEmail) {
+      return handleInputErr("email", "이메일을 입력하세요.");
+    } else if (!errMsgObj.email) {
+      handleInputErr("email", "");
       setLoading(true);
-      axiosInstance
+      return axiosInstance
         .post("/members/sendmail", { email })
         .then((res) => {
+          console.log(res.data.message);
           setIsAuthNum(res.data.message);
           setIsAuthNumSent(true);
           setLoading(false);
         })
         .catch((err) => {
+          console.log(err.response.data.message);
           if (err.response.data.message === "이미 존재하는 이메일입니다.") {
-            setEmailErrMsg("이미 존재하는 이메일입니다.");
+            handleInputErr("email", err.response.data.message);
             setLoading(false);
           }
         });
     }
   };
-
-  const CheckAuthNumber = () => {
+  /* 인증번호 확인 */
+  const CheckAuthCode = () => {
     const { code } = signupInfo;
 
     if (code === isAuthNum) {
-      // console.log(code);
-      setIsCheckAuthNum(true);
-      setAuthNumErrMsg("");
-      alert("인증이 완료되었습니다.");
+      handleInputErr("code", "");
+
+      return alert("인증이 완료되었습니다.");
     }
     if (code !== isAuthNum) {
-      // console.log(code);
-      setIsCheckAuthNum(false);
-      setAuthNumErrMsg("인증번호를 확인해주세요.");
+      return handleInputErr("code", "인증번호를 확인해주세요.");
     }
   };
 
   return (
-    <S.SignupFormContainer onSubmit={AxiosPost}>
-      <div>
-        <S.EmailAuthField>
+    <SignupFormContainer onSubmit={createAccount}>
+      <InputFieldBox>
+        <div className="Signup__flex-row">
           <Input
+            variant="primary"
             label="이메일"
             type="email"
             placeholder="이메일을 입력하세요."
             name="email"
-            onChange={onChange}
-            onBlur={IsValidEmail}
+            onChange={handleInputChange}
+            color="#fff"
           />
-          <S.EmailAuthBtn type="button" onClick={sendAuthNumber}>
-            {loading ? <LodingSpiner /> : "인증 요청"}
-          </S.EmailAuthBtn>
-        </S.EmailAuthField>
-        {emailErrMsg !== "" && <S.ErrMsg>{emailErrMsg}</S.ErrMsg>}
-      </div>
-
+          <Button type="button" onClick={sendAuthCode}>
+            {loading ? (
+              <div className="button-loding">
+                <LodingSpiner />
+                인증 요청
+              </div>
+            ) : (
+              "인증 요청"
+            )}
+          </Button>
+        </div>
+        <p>{errMsgObj.email}</p>
+      </InputFieldBox>
       {isAuthNumSent && (
-        <div>
-          <S.EmailAuthField>
+        <InputFieldBox>
+          <div className="Signup__flex-row">
             <Input
+              variant="primary"
               label="인증번호"
               type="text"
               placeholder="인증번호를 입력하세요."
               name="code"
-              onChange={onChange}
+              onChange={handleInputChange}
+              color="#fff"
             />
-            <S.EmailAuthBtn type="button" onClick={CheckAuthNumber}>
+            <Button type="button" onClick={CheckAuthCode}>
               인증 확인
-            </S.EmailAuthBtn>
-          </S.EmailAuthField>
-          {AuthNumErrMsg !== "" && <S.ErrMsg>{AuthNumErrMsg}</S.ErrMsg>}
-        </div>
+            </Button>
+          </div>
+          <p>{errMsgObj.code}</p>
+        </InputFieldBox>
       )}
 
       {signupInfo.role === "users" && (
-        <div>
+        <InputFieldBox>
           <Input
+            variant="primary"
             label="닉네임"
             type="text"
             placeholder="닉네임을 입력하세요."
             name="displayName"
-            onChange={onChange}
-            onBlur={IsValidName}
+            onChange={handleInputChange}
+            color="#fff"
           />
-          {nameErrMsg !== "" && <S.ErrMsg>{nameErrMsg}</S.ErrMsg>}
-        </div>
+          <p>{errMsgObj.displayName}</p>
+        </InputFieldBox>
       )}
 
       {signupInfo.role === "upcycler" && (
-        <div>
+        <InputFieldBox>
           <Input
+            variant="primary"
             label="업사이클러명"
             type="text"
             placeholder="업사이클러명을 입력하세요."
             name="displayName"
-            onChange={onChange}
-            onBlur={IsValidName}
+            onChange={handleInputChange}
+            errMsg={errMsgObj.displayName}
+            color="#fff"
           />
-          {nameErrMsg !== "" && <S.ErrMsg>{nameErrMsg}</S.ErrMsg>}
-        </div>
+          <p>{errMsgObj.displayName}</p>
+        </InputFieldBox>
       )}
-
-      <Input
-        label="비밀번호"
-        type="password"
-        placeholder="비밀번호를 입력하세요."
-        name="password"
-        onChange={onChange}
-        onBlur={IsValidPwd}
-      />
-      <div>
+      <InputFieldBox>
         <Input
+          variant="primary"
+          label="비밀번호"
+          type="password"
+          placeholder="비밀번호를 입력하세요."
+          name="password"
+          onChange={handleInputChange}
+          color="#fff"
+        />
+        <p>{errMsgObj.password}</p>
+      </InputFieldBox>
+      <InputFieldBox>
+        <Input
+          variant="primary"
           label="비밀번호 확인"
           type="password"
           placeholder="비밀번호를 한번 더 입력하세요."
           name="verifyPwd"
-          onChange={onChange}
-          onBlur={IsValidPwd}
+          onChange={IsValidPwd}
+          errMsg={errMsgObj.verifyPwd}
+          color="#fff"
         />
-        {pwdErrMsg !== "" && <S.ErrMsg>{pwdErrMsg}</S.ErrMsg>}
-      </div>
-
-      <Button formFields={signupInfo} content="sign up" />
-    </S.SignupFormContainer>
+      </InputFieldBox>
+      <Button type="submit" formFields={signupInfo}>
+        sign up
+      </Button>
+    </SignupFormContainer>
   );
 };
 
 export default SignupForm;
+
+const SignupFormContainer = styled.form`
+  display: grid;
+  grid-gap: 1.5rem;
+`;
+const InputFieldBox = styled.div`
+  & p {
+    margin-top: 5px;
+    font-size: 14px;
+    color: rgb(235, 86, 86);
+  }
+  .Signup__flex-row {
+    display: flex;
+    align-items: end;
+    gap: 1rem;
+    .button-loding {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    & > div {
+      flex-grow: 1;
+    }
+  }
+`;

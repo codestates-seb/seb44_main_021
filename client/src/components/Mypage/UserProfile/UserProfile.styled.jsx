@@ -14,10 +14,9 @@ export const UserInfoContainer = styled.div`
   align-items: center;
   padding: 3rem;
   border-radius: 10px;
-  background: #6e934d;
+  background: var(--color-main);
   @media (max-width: 768px) {
     flex-direction: row;
-    /* margin: 0 2.5rem; */
   }
 `;
 

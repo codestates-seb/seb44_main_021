@@ -1,63 +1,50 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { userDetailsActions } from "../../../store/userDetailsSlice";
 import { getDetailDatas } from "../../../api/getDetailDatas";
 import * as S from "./DetailsCategory.styled";
 import { useNavigate } from "react-router-dom";
+import { detailsInfo } from "../../../constants/detailsInfo";
 
-const DetailsCategory = ({ userData }) => {
-  const dispatch = useDispatch();
+const DetailsCategory = ({ userData, currentCategory, getUserDetails }) => {
   const navigate = useNavigate();
-  const detailAllDatas = useSelector((state) => state.userDetails);
-  const detailData = Object.keys(detailAllDatas.details).map(
-    (key) => detailAllDatas.details[key]
-  );
 
+  const detailData = Object.keys(detailsInfo).map((key) => detailsInfo[key]);
+  console.log(detailData);
   const handleCategoryClick = (data) => {
-    // setSelectedCategory(data.category);
-    dispatch(userDetailsActions.setTitle(data.title));
-    dispatch(userDetailsActions.setCategory(data.category));
-    getDetailDatas(
-      userData.memberId,
-      dispatch,
-      data.mapFunction,
-      data.category
-    );
+    getDetailDatas(userData.memberId, data.category).then((res) => {
+      getUserDetails(data.category, res.data.data);
+    });
+
     navigate(`/mypage/${data.category}`);
   };
 
   return (
     <S.CategoryContainer>
       <hr />
-      {userData.memberRole === "MEMBER_USER" && (
+      {userData.memberRole === "MEMBER_USER" ? (
         <ul>
           {detailData.slice(0, 2).map((data, index) => (
             <S.CategoryList
               key={index}
               className={
-                detailAllDatas.currentCartegory === data.category
+                currentCategory === data.category
                   ? "selected"
-                  : ""
+                  : "underline-effect"
               }
-              active={detailAllDatas.currentCartegory === data.category}
               onClick={() => handleCategoryClick(data)}
             >
               {data.title}
             </S.CategoryList>
           ))}
         </ul>
-      )}
-      {userData.memberRole === "MEMBER_UPCYCLER" && (
+      ) : (
         <ul>
           {detailData.map((data, index) => (
             <S.CategoryList
               key={index}
               className={
-                detailAllDatas.currentCartegory === data.category
+                currentCategory === data.category
                   ? "selected"
-                  : ""
+                  : "underline-effect"
               }
-              active={detailAllDatas.currentCartegory === data.category}
               onClick={() => {
                 handleCategoryClick(data);
               }}

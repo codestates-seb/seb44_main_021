@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Lenis from "@studio-freight/lenis";
-import Header from "../../components/Header/Header";
 import { useSelector } from "react-redux";
 import { axiosInstance } from "../../api/axiosInstance";
-import Banner from "../../components/SubPage/SideBar";
-import Navigation from "../../components/SubPage/Navigation";
+import SideBar from "../../components/SubPage/SideBar";
+import SortButton from "../../components/SubPage/SortButton";
 import Item from "../../components/SubPage/Store/Item";
+import styled from "styled-components";
 
 const StorePage = () => {
   const userData = useSelector((state) => state.userData);
@@ -16,14 +16,12 @@ const StorePage = () => {
   const [isLoding, setIsLoding] = useState(false);
   const [role, setrole] = useState("");
 
-  const urlParams = new URL(window.location.href).searchParams;
-  const serch = urlParams.get("serch");
-  const [searchParam, setSearchParam] = useState(serch);
+  const searchParam = useSelector((state) => state.search.searchWord);
 
   useEffect(() => {
     if (searchParam) {
       axiosInstance({
-        url: `/sells/search?page=1&size=8&searchKeyword=${searchParam}`,
+        url: `/sells/search?page=1&size=16&searchKeyword=${searchParam}`,
         method: "get",
       })
         .then((response) => {
@@ -33,7 +31,7 @@ const StorePage = () => {
         .catch((err) => console.log(err));
     } else {
       axiosInstance({
-        url: "/sells/descending?page=1&size=8",
+        url: "/sells/descending?page=1&size=16",
         method: "get",
       })
         .then((response) => {
@@ -66,7 +64,7 @@ const StorePage = () => {
     if (searchParam) {
       if (kategorie === 0) {
         axiosInstance({
-          url: `/sells/search?page=1&size=8&sort=${sort}&searchKeyword=${searchParam}`,
+          url: `/sells/search?page=1&size=16&sort=${sort}&searchKeyword=${searchParam}`,
           method: "get",
         })
           .then((response) => {
@@ -76,7 +74,7 @@ const StorePage = () => {
           .catch((err) => console.log(err));
       } else {
         axiosInstance({
-          url: `/sells/search?page=1&size=8&sort=${sort}&sellCategoryId=${kategorie}&searchKeyword=${searchParam}`,
+          url: `/sells/search?page=1&size=16&sort=${sort}&sellCategoryId=${kategorie}&searchKeyword=${searchParam}`,
           method: "get",
         })
           .then((response) => {
@@ -88,7 +86,7 @@ const StorePage = () => {
     } else {
       if (kategorie === 0) {
         axiosInstance({
-          url: `/sells/${sort}?page=1&size=8`,
+          url: `/sells/${sort}?page=1&size=16`,
           method: "get",
         })
           .then((response) => {
@@ -98,7 +96,7 @@ const StorePage = () => {
           .catch((err) => console.log(err));
       } else {
         axiosInstance({
-          url: `/sells/${sort}/sellcategories/${kategorie}?page=1&size=8`,
+          url: `/sells/${sort}/sellcategories/${kategorie}?page=1&size=16`,
           method: "get",
         })
           .then((response) => {
@@ -123,7 +121,7 @@ const StorePage = () => {
       if (searchParam) {
         if (kategorie === 0) {
           axiosInstance({
-            url: `/sells/search?page=${page}&size=8&sort=${sort}&searchKeyword=${searchParam}`,
+            url: `/sells/search?page=${page}&size=16&sort=${sort}&searchKeyword=${searchParam}`,
             method: "get",
           })
             .then((response) => {
@@ -132,7 +130,7 @@ const StorePage = () => {
             .catch((err) => console.log(err));
         } else {
           axiosInstance({
-            url: `/sells/search?page=${page}&size=8&sort=${sort}&sellCategoryId=${kategorie}&searchKeyword=${searchParam}`,
+            url: `/sells/search?page=${page}&size=16&sort=${sort}&sellCategoryId=${kategorie}&searchKeyword=${searchParam}`,
             method: "get",
           })
             .then((response) => {
@@ -143,7 +141,7 @@ const StorePage = () => {
       } else {
         if (kategorie === 0) {
           axiosInstance({
-            url: `/sells/${sort}?page=${page}&size=8`,
+            url: `/sells/${sort}?page=${page}&size=16`,
             method: "get",
           })
             .then((response) => {
@@ -152,7 +150,7 @@ const StorePage = () => {
             .catch((err) => console.log(err));
         } else {
           axiosInstance({
-            url: `/sells/${sort}/sellcategories/${kategorie}?page=${page}&size=8`,
+            url: `/sells/${sort}/sellcategories/${kategorie}?page=${page}&size=16`,
             method: "get",
           })
             .then((response) => {
@@ -172,51 +170,60 @@ const StorePage = () => {
   requestAnimationFrame(raf);
 
   return (
-    <div>
-      <Header url="store" setSearchParam={setSearchParam} />
-      <Container>
-        <Navigation
+    <Container>
+      <SideBar
+        kategorie={kategorie}
+        setKategorie={setKategorie}
+        menu={["All", "의류", "가구", "인테리어", "소품", "기타"]}
+      />
+      <ContainerBottom>
+        <SortButton
           sort={sort}
           setSort={setSort}
           role={role}
           link="/storecreate"
         />
-        <ContainerBottom>
-          <Banner
-            kategorie={kategorie}
-            setKategorie={setKategorie}
-            menu={["All", "의류", "가구", "인테리어", "소품", "기타"]}
-          />
-          <SellItem>
-            {isLoding
-              ? stoerList.map((obj, index) => <Item key={index} {...obj} />)
-              : null}
-          </SellItem>
-        </ContainerBottom>
-      </Container>
-    </div>
+        <SellItem>
+          {isLoding
+            ? stoerList.map((obj, index) => <Item key={index} {...obj} />)
+            : null}
+        </SellItem>
+      </ContainerBottom>
+    </Container>
   );
 };
 
 export default StorePage;
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 15% 85%;
+  max-width: 1000px;
+  margin: auto;
+  @media (max-width: 768px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
 `;
 
 const ContainerBottom = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  width: 70%;
+  border-left: 1px solid var(--color-gray-30);
+  padding: 0 3rem;
+  height: 100%;
+  margin-bottom: calc(90vh - 400px);
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
 `;
 
 const SellItem = styled.div`
-  float: right;
   display: grid;
-  width: 80%;
-  grid-template-columns: 0fr 1fr 1fr 1fr;
+  width: 100%;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;

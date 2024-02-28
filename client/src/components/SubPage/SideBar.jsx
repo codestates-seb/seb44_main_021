@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-const Banner = ({ kategorie, setKategorie, menu }) => {
+const SideBar = ({ kategorie, setKategorie, menu }) => {
   const SideBtn = (kategorieNum) => {
     if (kategorie !== kategorieNum) {
       setKategorie(kategorieNum);
@@ -11,51 +11,77 @@ const Banner = ({ kategorie, setKategorie, menu }) => {
   return (
     <Aside>
       <Kategorie>카테고리</Kategorie>
-      {menu.map((obj, idx) => (
-        <Button
-          kategorieIdx={idx}
-          kategorie={kategorie}
-          onClick={() => SideBtn(idx)}
-        >
-          {obj}
-        </Button>
-      ))}
+      <CartegoryList>
+        {menu.map((obj, idx) => (
+          <ListItem
+            className={idx === kategorie ? "selected" : "underline-effect"}
+            kategorieIdx={idx}
+            kategorie={kategorie}
+            onClick={() => SideBtn(idx)}
+          >
+            {obj}
+          </ListItem>
+        ))}
+      </CartegoryList>
     </Aside>
   );
 };
 
-export default Banner;
+export default SideBar;
 
-const Aside = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 15%;
-  height: 400px;
+const Aside = styled.aside`
+  /* align-items: center; */
+
+  width: 100%;
+  height: 300px;
   position: sticky;
-  top: 72px;
-  margin-top: 30px;
+  background-color: #fff;
+  top: 80px;
+  padding-top: 80px;
   margin-bottom: calc(90vh - 400px);
+
+  @media (max-width: 768px) {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    padding: 1rem;
+  }
 `;
 
 const Kategorie = styled.div`
-  font-size: 25px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #6e934d;
+  font-size: 1.5rem;
+  padding-bottom: 1.5rem;
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+  }
 `;
 
-const Button = styled.button`
+const CartegoryList = styled.ul`
   background-color: transparent;
   border: none;
-  text-align: left;
   cursor: pointer;
-  font-size: 20px;
-  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  @media (max-width: 768px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+  }
+`;
+const ListItem = styled.li`
+  font-size: 1rem;
+
   ${(props) =>
-    props.kategorieIdx === props.kategorie &&
+    props.className === "selected" &&
     css`
-      width: fit-content;
-      border-bottom: 2px solid #6e934d;
-      padding: 10px 0;
-    `};
+      text-decoration: underline;
+      text-underline-offset: 0.5rem;
+      text-decoration-color: #c0d6b1;
+      text-decoration-thickness: 3px;
+    `}
+  @media (max-width: 768px) {
+    font-size: 0.85rem;
+  }
 `;

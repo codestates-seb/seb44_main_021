@@ -1,73 +1,90 @@
-import React, { useState, useEffect } from "react";
-import EditModal from "../../components/Modal/EditModal";
-import Header from "../../components/Header/Header";
+import React, { useEffect } from "react";
+import EditModal from "../../components/Mypage/Modal/EditModal";
 import UserDetails from "../../components/Mypage/Details/Details";
 import UserProfile from "../../components/Mypage/UserProfile/UserProfile";
 import { useSelector, useDispatch } from "react-redux";
-import { useGetMemberId } from "../../hooks/useGetMemberId";
-import * as S from "./MyPage.styled";
 import { getDetailDatas } from "../../api/getDetailDatas";
-import useScrollLock from "../../hooks/useScrollLock";
 import { getUserData } from "../../api/getUserData";
 import { useParams } from "react-router-dom";
-import { userDetailsActions } from "../../store/userDetailsSlice";
+import { userDataActions } from "../../store/slice/userDataSlice";
+import styled from "styled-components";
+import useModal from "../../hooks/useModal";
+import useGetUserDetails from "../../hooks/useGetUserDetails";
+import DetailsCategory from "../../components/Mypage/Category/DetailsCategory";
+import { userDetailsActions } from "../../store/slice/userDetailsSlice";
+import { useGetMemberId } from "../../hooks/useGetMemberId";
 
 const MyPage = () => {
-  const userData = useSelector((state) => state.userData);
-  const detailsData = useSelector((state) => state.userDetails);
   const dispatch = useDispatch();
-  const { path } = useParams();
+
+  const userData = useSelector((state) => state.userData);
+
   const { getMemberId } = useGetMemberId();
-  const { lockScroll, activeScroll } = useScrollLock();
 
-  const [isOpenModal, setIsOpenModal] = useState(false);
-  const [isUnmount, setIsUnmount] = useState(false);
-
-  const handleOpenModal = () => {
-    lockScroll();
-    setIsOpenModal(!isOpenModal);
-    setIsUnmount(false);
-  };
-
-  const handleCloseModal = () => {
-    setIsUnmount(true);
-    setTimeout(() => {
-      activeScroll();
-      setIsOpenModal(!isOpenModal);
-    }, 1000);
-  };
+  const { isOpenModal, isUnmount, openModal, closeModal } = useModal();
+  const { path } = useParams();
+  const { details, getUserDetails } = useGetUserDetails();
 
   useEffect(() => {
     getMemberId();
-    dispatch(userDetailsActions.setTitle(detailsData.details[path]?.title));
-    dispatch(userDetailsActions.setCategory(path));
-    getDetailDatas(
-      userData.memberId,
-      dispatch,
-      detailsData.details[path]?.mapFunction,
-      detailsData.details[path]?.category
-    );
-    getUserData(userData.memberId, dispatch);
-  }, [userData.memberId]);
 
+    if (userData.memberId) {
+      getUserData(userData.memberId)
+        .then((res) => {
+          const user = res.data.data;
+          dispatch(
+            userDataActions.setUserData({
+              email: user.email,
+              displayName: user.displayName,
+              memberRole: user.memberRole,
+              thumbNailImage: user.thumbNailImage,
+            })
+          );
+        })
+
+        .catch((err) => {
+          console.log(err);
+        });
+
+      dispatch(userDetailsActions.setTitle(details[path].title));
+      getDetailDatas(userData.memberId, path).then((res) => {
+        getUserDetails(path, res.data.data);
+      });
+    }
+  }, [userData.memberId]);
   return (
     <>
-      <Header />
-      <S.MyPageContainer>
-        <S.MyPageWrapper>
-          <UserProfile onClick={handleOpenModal} userData={userData} />
-          <UserDetails userData={userData} />
-        </S.MyPageWrapper>
-      </S.MyPageContainer>
+      <MyPageContainer>
+        <div>
+          <UserProfile openModal={openModal} />
+          <DetailsCategory
+            userData={userData}
+            getUserDetails={getUserDetails}
+            currentCategory={path}
+          />
+        </div>
+        <UserDetails details={details} />
+      </MyPageContainer>
       {isOpenModal && (
-        <EditModal
-          onClose={handleCloseModal}
-          setIsUnmount={setIsUnmount}
-          isUnmount={isUnmount}
-        />
+        <EditModal closeModal={closeModal} isUnmount={isUnmount} />
       )}
     </>
   );
 };
 
 export default MyPage;
+
+const MyPageContainer = styled.main`
+  display: flex;
+  max-width: 1000px;
+  margin: auto;
+  /* display: grid;
+  grid-template-columns: 25% 75%; */
+
+  padding: 2rem 0;
+  color: #3a3a3a;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    width: 100%;
+  }
+`;

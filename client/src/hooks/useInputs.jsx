@@ -6,7 +6,6 @@ const useInputs = (initialValue) => {
   const onChange = useCallback((e) => {
     const { name, value } = e.target;
 
-    // console.log(value);
     setForm((form) => ({ ...form, [name]: value }));
   }, []);
 
