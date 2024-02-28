@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../../api/logout";
 import * as S from "./ProfileDropdown.styled";
+import { ReactComponent as AccountIcon } from "../../../assets/icon/account_icon.svg";
 
 const ProfileDropdown = () => {
   const [menuView, setMenuView] = useState(false);
@@ -43,10 +44,7 @@ const ProfileDropdown = () => {
 
   return (
     <S.DropdownContainer ref={dropdownRef}>
-      <S.AccountBtn
-        sx={{ fontSize: 35, fill: "#6e934d" }}
-        onClick={openDropdown}
-      />
+      <AccountIcon onClick={openDropdown} />
       <S.DropdownWrapper>
         {menuView && (
           <ul>

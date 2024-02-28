@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import styled from "styled-components";
+import { ReactComponent as ArrowBackIcon } from "../../assets/icon/arrow_back_icon.svg";
 
 const GoBack = () => {
   const navigate = useNavigate();
@@ -12,10 +12,7 @@ const GoBack = () => {
 
   return (
     <GoBackBtnContainer>
-      <ArrowBackIcon
-        sx={{ fill: "var(--color-main)", fontSize: "2rem" }}
-        onClick={handleGoBack}
-      />
+      <ArrowBackIcon stroke="var(--color-main)" onClick={handleGoBack} />
     </GoBackBtnContainer>
   );
 };

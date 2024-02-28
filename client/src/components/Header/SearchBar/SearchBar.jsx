@@ -4,7 +4,8 @@ import * as S from "./SearchBar.styled";
 import { useDispatch } from "react-redux";
 import { setSearchWord } from "../../../store/slice/searchSlice";
 import { useNavigate } from "react-router-dom";
-import Input from "../../common/Input";
+import { ReactComponent as CloseIcon } from "../../../assets/icon/close_icon.svg";
+import { ReactComponent as SearchIcon } from "../../../assets/icon/search_icon.svg";
 
 const SearchBar = ({ pathname }) => {
   const [searchInput, setSearchInput, handleInputChange] = useSearch();
@@ -45,9 +46,9 @@ const SearchBar = ({ pathname }) => {
         onChange={handleInputChange}
         onKeyDown={handleKeyPress}
       />
-      {searchInput ? <S.CloseBtn onClick={deleteSearch} /> : null}
+      {searchInput ? <CloseIcon onClick={deleteSearch} /> : null}
       <S.VerticalLine />
-      <S.SearchBtn onClick={handleSearch} />
+      <SearchIcon onClick={handleSearch} />
     </S.SeachContainer>
   );
 };

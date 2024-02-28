@@ -1,5 +1,5 @@
 import styled, { css, keyframes } from "styled-components";
-import CloseIcon from "@mui/icons-material/Close";
+import { ReactComponent as CloseIcon } from "../../../assets/icon/close_icon.svg";
 
 /* edit modal */
 export const ModalContainer = styled.div`
@@ -67,7 +67,6 @@ export const StyledCloseIcon = styled(CloseIcon)`
   position: absolute;
   top: 10px;
   right: 10px;
-  color: #6b6b6b;
   cursor: pointer;
 `;
 export const EditButton = styled.button`

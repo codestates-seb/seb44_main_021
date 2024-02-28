@@ -1,11 +1,10 @@
 import styled, { keyframes } from "styled-components";
 
-import { MdAccountCircle } from "react-icons/md";
-
 export const DropdownContainer = styled.div`
   display: flex;
   align-items: center;
-  @media (max-width: 768px) {
+  & > svg {
+    cursor: pointer;
   }
 `;
 const dropdownAnimation = keyframes`
@@ -46,11 +45,4 @@ export const DropdownWrapper = styled.div`
       /* transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; */
     }
   }
-`;
-
-export const AccountBtn = styled(MdAccountCircle)`
-  font-size: 2.1rem;
-  color: #6e934d;
-  font-weight: 800;
-  cursor: pointer;
 `;
