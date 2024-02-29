@@ -13,6 +13,7 @@ const LoginForm = () => {
     password: "",
   });
   const navigate = useNavigate();
+  console.log(loginInfo);
 
   const AxiosLogin = (e) => {
     e.preventDefault();

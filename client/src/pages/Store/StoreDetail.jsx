@@ -6,12 +6,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { axiosInstance } from "../../api/axiosInstance";
 import styled from "styled-components";
 import Modal from "../../components/SubPage/Store/Modal";
-import { getUserData } from "../../api/getUserData";
+import { getSellData, getUserData } from "../../api/getDatas";
 import { userDataActions } from "../../store/slice/userDataSlice";
+import {
+  GridWrapper,
+  MaxWidthContainer,
+  ThumbnailImg,
+} from "../../styles/CommonStyle";
+import { deleteSell } from "../../api/deleteApi";
 
 const StoreDetail = () => {
   const { id } = useParams();
-  const [data, setData] = useState("");
+  const [data, setData] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [quantity, setQuantity] = useState(0);
   const [profile, setprofile] = useState("");
@@ -19,26 +25,14 @@ const StoreDetail = () => {
   const userData = useSelector((state) => state.userData);
 
   useEffect(() => {
-    axiosInstance({
-      url: `/sells/${id}`,
-      method: "get",
-    })
-      .then((response) => {
-        setData(response.data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+    getSellData(id).then((response) => {
+      setData(response.data);
 
-  useEffect(() => {
-    axiosInstance
-      .get(`/members/${data.memberId}`)
-      .then((res) => {
+      getUserData(response.data.memberId).then((res) => {
         setprofile(res.data.data.thumbNailImage);
-      })
-      .catch((err) => {
-        console.log(err);
       });
-  }, [data.memberId]);
+    });
+  }, []);
 
   const handleChange = (event) => {
     setQuantity(event.target.value);
@@ -59,20 +53,18 @@ const StoreDetail = () => {
             },
           ],
         },
-      })
-        .then((response) => {
-          if (userData.memberId) {
-            getUserData(userData.memberId).then((res) => {
-              const user = res.data.data;
-              dispatch(
-                userDataActions.setUserData({
-                  displayName: user.displayName,
-                })
-              );
-            });
-          }
-        })
-        .catch((err) => console.log(err));
+      }).then((response) => {
+        if (userData.memberId) {
+          getUserData(userData.memberId).then((res) => {
+            const user = res.data.data;
+            dispatch(
+              userDataActions.setUserData({
+                displayName: user.displayName,
+              })
+            );
+          });
+        }
+      });
     }
   };
 
@@ -87,15 +79,10 @@ const StoreDetail = () => {
   };
 
   const handleDelete = () => {
-    axiosInstance({
-      url: `/sells/${id}`,
-      method: "delete",
-    })
-      .then((response) => {
-        navigate("/store");
-      })
-      .catch((err) => console.log(err));
-    alert("삭제되었습니다.");
+    deleteSell(id).then(() => {
+      navigate("/store");
+      alert("삭제되었습니다.");
+    });
   };
 
   const formatPriceWithCommas = (price) => {
@@ -106,12 +93,10 @@ const StoreDetail = () => {
   };
 
   return (
-    <StoreDetailContainer>
-      <RepInfoWrapper>
+    <MaxWidthContainer>
+      <GridWrapper>
         <div className="StoreD__left_wrap">
-          <ImgContainer>
-            <Thumimg src={data.thumbNailImage} alt="img" />
-          </ImgContainer>
+          <ThumbnailImg src={data.thumbNailImage} alt="img" />
           <MaterierBox>
             <Materiartext>
               판매자가 작성한 제품에 사용된 업사이클링 품목입니다.
@@ -123,6 +108,7 @@ const StoreDetail = () => {
             <Materialcontext>{data.material}</Materialcontext>
           </MaterierBox>
         </div>
+        {/* </GridWrapper> */}
         <div className="StoreD__right_wrap">
           <Userbox>
             <Userinf>
@@ -204,7 +190,7 @@ const StoreDetail = () => {
             </Link>
           )}
         </div>
-      </RepInfoWrapper>
+      </GridWrapper>
       {isModalOpen && (
         <Modal
           data={data}
@@ -215,55 +201,17 @@ const StoreDetail = () => {
         />
       )}
       <InfoWrapper>
-        <Info>
-          <InfoTitle>제품 상세 정보</InfoTitle>
+        <div className="item-info">
+          <h2>제품 상세 정보</h2>
           <img src={data.contentImage} alt="img" />
-        </Info>
-        <Footer>IEUN CO.</Footer>
+        </div>
+        <p className="footer">IEUN CO.</p>
       </InfoWrapper>
-    </StoreDetailContainer>
+    </MaxWidthContainer>
   );
 };
 
 export default StoreDetail;
-const StoreDetailContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  max-width: 1000px;
-  margin: auto;
-  @media (max-width: 768px) {
-    padding: 2rem;
-  }
-`;
-const RepInfoWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 2rem;
-  margin-top: 30px;
-  @media (max-width: 768px) {
-    display: flex;
-    flex-direction: column;
-    /* gap: 2rem; */
-    margin-top: 0px;
-  }
-`;
-
-const ImgContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 500px;
-  width: 100%;
-`;
-
-const Thumimg = styled.img`
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
-`;
 
 const MaterierBox = styled.div`
   background-color: rgb(249, 250, 251);
@@ -432,37 +380,66 @@ const CreateButton = styled.button`
     cursor: pointer;
   }
 `;
-
 const InfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  .item-info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 50px;
+    h2 {
+      color: #6e934d;
+      margin: 10px 0 50px 0;
+      font-size: 22px;
+      font-weight: bold;
+      border-bottom: 1px solid rgb(243, 244, 246);
+      padding-bottom: 20px;
+    }
+  }
+  .footer {
+    width: 100vw;
+    margin-top: 20px;
+    background-color: #6e934d;
+    text-align: center;
+    padding: 1rem;
+    color: #fff;
+    font-size: 20px;
+  }
 `;
+// const InfoWrapper = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+// `;
 
-const Info = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  margin-top: 50px;
-`;
+// const Info = styled.div`
+//   width: 100%;
+//   display: flex;
+//   flex-direction: column;
+//   text-align: center;
+//   margin-top: 50px;
+// `;
 
-const InfoTitle = styled.div`
-  color: #6e934d;
-  margin: 10px 0 50px 0;
-  font-size: 22px;
-  font-weight: bold;
-  border-bottom: 1px solid rgb(243, 244, 246);
-  padding-bottom: 20px;
-`;
+// const InfoTitle = styled.div`
+//   color: #6e934d;
+//   margin: 10px 0 50px 0;
+//   font-size: 22px;
+//   font-weight: bold;
+//   border-bottom: 1px solid rgb(243, 244, 246);
+//   padding-bottom: 20px;
+// `;
 
-const Footer = styled.div`
-  width: 100vw;
-  margin-top: 20px;
-  background-color: #6e934d;
-  text-align: center;
-  padding: 1rem;
-  color: #fff;
-  font-size: 20px;
-`;
+// const Footer = styled.div`
+//   width: 100vw;
+//   margin-top: 20px;
+//   background-color: #6e934d;
+//   text-align: center;
+//   padding: 1rem;
+//   color: #fff;
+//   font-size: 20px;
+// `;

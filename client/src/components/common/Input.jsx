@@ -11,7 +11,7 @@ const Input = ({
   ...inputProps
 }) => {
   return (
-    <InputField variant={variant} errMsg={errMsg} color={color}>
+    <InputField $variant={variant} errMsg={errMsg} color={color}>
       <label>{label}</label>
       <input type={type} {...inputProps} />
       {errMsg && <p>{errMsg}</p>}
@@ -53,7 +53,7 @@ const InputField = styled.div`
     color: ${(props) => props.color !== "" && props.color};
   }
   & input {
-    ${(props) => props.variant && VARIANT[props.variant]};
+    ${(props) => props.$variant && VARIANT[props.$variant]};
     /* width: 100%; */
   }
   & p {

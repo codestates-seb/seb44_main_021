@@ -2,9 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { axiosInstance } from "../../api/axiosInstance";
 import styled, { css } from "styled-components";
 import Modal from "../../components/SubPage/Funding/Modal";
+import {
+  GridWrapper,
+  MaxWidthContainer,
+  ThumbnailImg,
+} from "../../styles/CommonStyle";
+import { getUpcycleData, getUserData } from "../../api/getDatas";
+import { deleteUpcycle } from "../../api/deleteApi";
 
 const FundingDetail = () => {
   const { id } = useParams();
@@ -16,27 +22,14 @@ const FundingDetail = () => {
   const userData = useSelector((state) => state.userData);
 
   useEffect(() => {
-    axiosInstance({
-      url: `/upcyclings/${id}`,
-      method: "get",
-    })
-      .then((response) => {
-        setData(response.data.data);
-        console.log(response);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+    getUpcycleData(id).then((response) => {
+      setData(response.data.data);
 
-  useEffect(() => {
-    axiosInstance
-      .get(`/members/${data.memberId}`)
-      .then((res) => {
+      getUserData(response.data.data.memberId).then((res) => {
         setprofile(res.data.data.thumbNailImage);
-      })
-      .catch((err) => {
-        console.log(err);
       });
-  }, [data.memberId]);
+    });
+  }, []);
 
   useEffect(() => {
     if (data.totalReceivedQuantity === 0) {
@@ -63,22 +56,17 @@ const FundingDetail = () => {
   };
 
   const handleDelete = () => {
-    axiosInstance({
-      url: `/upcyclings/${id}`,
-      method: "delete",
-    })
-      .then((response) => {
-        navigate("/funding");
-        alert("삭제되었습니다.");
-      })
-      .catch((err) => console.log(err));
+    deleteUpcycle(id).then(() => {
+      navigate("/funding");
+      alert("삭제되었습니다.");
+    });
   };
 
   return (
-    <FundingDetailContainer>
-      <AllWrapper>
+    <MaxWidthContainer>
+      <GridWrapper>
         <div className="FundingD__left_wrap">
-          <Thumimg src={data.thumbNailImage} alt="img" />
+          <ThumbnailImg src={data.thumbNailImage} alt="img" />
           <MaterierBox>
             <MaterierGroup>
               {[
@@ -101,7 +89,7 @@ const FundingDetail = () => {
             </p>
           </MaterierBox>
         </div>
-        <div className="FundingD__right_wrap">
+        <RightArea>
           <Userbox>
             <Userinf>
               {profile !== null ? (
@@ -149,8 +137,8 @@ const FundingDetail = () => {
               <CreateButton>로그인 이후 펀딩 가능합니다</CreateButton>
             </Link>
           )}
-        </div>
-      </AllWrapper>
+        </RightArea>
+      </GridWrapper>
       <Footer />
       {isModalOpen && (
         <Modal
@@ -162,47 +150,16 @@ const FundingDetail = () => {
           setFundingRate={setFundingRate}
         />
       )}
-    </FundingDetailContainer>
+    </MaxWidthContainer>
   );
 };
 
 export default FundingDetail;
-const FundingDetailContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  max-width: 1000px;
-  margin: auto;
-  @media (max-width: 768px) {
-    padding: 2rem;
-  }
-`;
-
-const AllWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 2rem;
-  margin-top: 30px;
-  @media (max-width: 768px) {
-    display: flex;
-    flex-direction: column;
-    /* gap: 2rem; */
-    margin-top: 0px;
-  }
-`;
-
-const Thumimg = styled.img`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  /* height: 500px; */
-  width: 100%;
-  object-fit: cover;
-  border-radius: 10px;
-`;
 
 const MaterierBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   background-color: rgb(249, 250, 251);
   border-radius: 5px;
   padding: 1rem;
@@ -210,11 +167,19 @@ const MaterierBox = styled.div`
     font-size: 12px;
   }
 `;
+const RightArea = styled.div`
+  /* padding: 1rem; */
+  & p {
+    margin-top: 5px;
+    font-size: 14px;
+    color: rgb(221, 106, 106);
+  }
+`;
 
 const MaterierGroup = styled.div`
   display: flex;
   justify-content: space-around;
-  margin: 20px 0;
+  /* margin: 20px 0; */
 `;
 
 const Materials = styled.div`

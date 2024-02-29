@@ -2,9 +2,7 @@ export const validationsPost = {
   title: (value) =>
     value.length < 5 && value !== "" ? "제목은 5자 이상 입력해주세요." : "",
   content: (value) =>
-    value.length < 10 && value !== ""
-      ? "제품 소개글은 10자 이상 입력해주세요."
-      : "",
+    value.length < 10 && value !== "" ? "소개글은 10자 이상 입력해주세요." : "",
   totalQuantity: (value) =>
     value.toString().startsWith("0")
       ? "수량 첫번째 자리에 0이 입력되면 안됩니다."

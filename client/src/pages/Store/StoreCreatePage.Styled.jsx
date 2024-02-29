@@ -38,3 +38,19 @@ export const TitleBox = styled.div`
     }
   }
 `;
+export const InputSection = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 3rem;
+  .input-label {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-right: 0.8rem;
+    & > span {
+      font-size: 18px;
+      color: red;
+      margin-left: 3px;
+    }
+  }
+`;

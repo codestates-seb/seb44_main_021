@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import axios from "axios";
 import { ReactComponent as CloseIcon } from "../../../assets/icon/close_icon.svg";
 
 import { Link } from "react-router-dom";
+import SelectBox from "../../common/SelectBox";
+import useInputs from "../../../hooks/useInputs";
+import { fundingPost } from "../../../api/postApi";
 
 const Modal = ({
   id,
@@ -13,40 +15,56 @@ const Modal = ({
   fundingRate,
   setFundingRate,
 }) => {
-  const [quantity, setQuantity] = useState(0);
   const [funding, setFunding] = useState(false);
-
-  const handleChange = (event) => {
-    setQuantity(event.target.value);
-  };
+  const [fundingData, onChange] = useInputs({
+    quantity: 0,
+  });
+  console.log(fundingData);
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setFunding(false);
-    setQuantity(0);
   };
 
   const clickFunding = () => {
-    if (quantity !== 0) {
-      axios({
-        url: `/funding`,
-        method: "post",
-        data: {
-          memberId: userData.memberId,
-          upcyclingId: id,
-          quantity: quantity,
-        },
-      })
-        .then((response) => {})
-        .catch((err) => console.log(err));
-      setFunding(true);
+    if (fundingData.quantity !== 0) {
+      fundingPost({
+        memberId: userData.memberId,
+        upcyclingId: id,
+        quantity: fundingData.quantity,
+      }).then(() => {
+        setFunding(true);
+      });
+
       const nowtotalReceivedQuantity =
-        parseInt(data.totalReceivedQuantity) + parseInt(quantity);
+        parseInt(data.totalReceivedQuantity) + parseInt(fundingData.quantity);
       setFundingRate(
         ((nowtotalReceivedQuantity / data.totalQuantity) * 100).toFixed(1)
       );
     }
   };
+  const QUANTITY_OPTIONS = [
+    {
+      value: "1",
+      label: "1개",
+    },
+    {
+      value: "2",
+      label: "2개",
+    },
+    {
+      value: "3",
+      label: "3개",
+    },
+    {
+      value: "4",
+      label: "4개",
+    },
+    {
+      value: "5",
+      label: "5개",
+    },
+  ];
 
   return (
     <ModalOverlay>
@@ -54,61 +72,57 @@ const Modal = ({
         <CloseModalBtn onClick={handleCloseModal}>
           <CloseIcon />
         </CloseModalBtn>
-        <ModalBody>
-          {funding ? (
+        {funding ? (
+          <Modalbox>
+            <Modaltitle>
+              {userData.displayName}님의 펀딩으로 <br />
+              펀딩율이 아래와 같이 상승했습니다.
+            </Modaltitle>
+            <Ratebox>
+              <Rate>
+                {(
+                  (data.totalReceivedQuantity / data.totalQuantity) *
+                  100
+                ).toFixed(1)}
+                % -{">"}
+              </Rate>
+              <NowRate>{fundingRate}%</NowRate>
+            </Ratebox>
+            <Modaltext>주소 : 서울특별시 강남구 58 - 2</Modaltext>
+            <p className="required_msg">
+              택배는 위의 주소로 착불로 보내주시면 됩니다!
+            </p>
+            <Modaltitle>펀딩해주셔서 감사합니다!</Modaltitle>
+            <Link to="/funding">
+              <FundingButton marginTop="10px" marginBottom="20px" width="200px">
+                다른 펀딩 더 보러가기
+              </FundingButton>
+            </Link>
+          </Modalbox>
+        ) : (
+          <>
             <Modalbox>
-              <Modaltitle marginTop="35px">
-                {userData.displayName}님의 펀딩으로 <br />
-                펀딩율이 아래와 같이 상승했습니다.
+              <Modaltitle>
+                {userData.displayName}님, 펀딩 하시겠습니까?
               </Modaltitle>
-              <Ratebox>
-                <Rate>
-                  {(
-                    (data.totalReceivedQuantity / data.totalQuantity) *
-                    100
-                  ).toFixed(1)}
-                  % -{">"}
-                </Rate>
-                <NowRate>{fundingRate}%</NowRate>
-              </Ratebox>
-              <Modaltext>주소 : 서울특별시 강남구 58 - 2</Modaltext>
-              <Warning>택배는 위의 주소로 착불로 보내주시면 됩니다!</Warning>
-              <Modaltitle marginTop="30px">펀딩해주셔서 감사합니다!</Modaltitle>
-              <Link to="/funding">
-                <FundingButton
-                  marginTop="10px"
-                  marginBottom="20px"
-                  width="200px"
-                >
-                  다른 펀딩 더 보러가기
-                </FundingButton>
-              </Link>
-            </Modalbox>
-          ) : (
-            <>
-              <Modalbox>
-                <Modaltitle marginTop="35px">
-                  {userData.displayName}님, 펀딩 하시겠습니까?
-                </Modaltitle>
-                <Modaltext bold>펀딩명</Modaltext>
+              <TextFrame>
+                <ContentLabel>펀딩명</ContentLabel>
                 <Modaltext>{data.title}</Modaltext>
-                <Modaltext bold>펀딩 자재</Modaltext>
+                <ContentLabel>펀딩 자재</ContentLabel>
                 <Modaltext>{data.categoryName}</Modaltext>
-                <Modaltext bold>보내실 수량</Modaltext>
-                <Modalselect
-                  value={quantity}
-                  label="quantity"
-                  onChange={handleChange}
-                >
-                  <option value={0}>수량을 선택해주세요.</option>
-                  <option value={1}>1개</option>
-                  <option value={2}>2개</option>
-                  <option value={3}>3개</option>
-                  <option value={4}>4개</option>
-                  <option value={5}>5개</option>
-                </Modalselect>
-              </Modalbox>
-              <Warning margin>* 반드시 수량을 선택해 주세요!</Warning>
+                <ContentLabel>
+                  보내실 수량
+                  <span className="required_msg">
+                    * 반드시 수량을 선택해 주세요!
+                  </span>
+                </ContentLabel>
+                <SelectBox
+                  options={QUANTITY_OPTIONS}
+                  onChange={onChange}
+                  name="quantity"
+                />
+              </TextFrame>
+
               <FundingButton
                 marginTop="40px"
                 marginBottom="0"
@@ -117,16 +131,21 @@ const Modal = ({
               >
                 펀딩하기
               </FundingButton>
-            </>
-          )}
-        </ModalBody>
+            </Modalbox>
+          </>
+        )}
       </ModalContent>
     </ModalOverlay>
   );
 };
 
 export default Modal;
-
+const TextFrame = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+`;
 const ModalOverlay = styled.div`
   position: fixed;
   top: 0;
@@ -137,11 +156,17 @@ const ModalOverlay = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 99;
 `;
 
 const ModalContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
   background-color: #fff;
-  padding: 20px 30px 20px 30px;
+  padding: 3rem 2rem;
   border-radius: 10px;
   max-width: 400px;
   width: 100%;
@@ -149,6 +174,9 @@ const ModalContent = styled.div`
 `;
 
 const CloseModalBtn = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
   background-color: transparent;
   border: none;
   padding: 0;
@@ -157,29 +185,33 @@ const CloseModalBtn = styled.button`
   float: right;
 `;
 
-const ModalBody = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
 const Modalbox = styled.div`
-  width: 70%;
+  /* width: 70%; */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 2rem;
+  .required_msg {
+    font-size: 12px;
+    color: red;
+  }
 `;
-
-const Modaltitle = styled.div`
-  font-size: 18px;
-  margin-top: ${(props) => props.marginTop};
+const ContentLabel = styled.p`
+  font-weight: bold;
+  & > span {
+    margin-left: 5px;
+  }
+`;
+const Modaltitle = styled.p`
+  font-size: 1rem;
   color: #6e934d;
 `;
 
-const Modaltext = styled.div`
-  margin-top: 10px;
-  width: 90%;
+const Modaltext = styled.p`
+  /* margin-top: 10px; */
+  display: flex;
+  align-items: center;
   font-weight: ${(props) => (props.bold ? "bold" : "normal")};
 `;
 
@@ -207,14 +239,6 @@ const NowRate = styled.div`
   margin-left: 10px;
   color: #6e934d;
 `;
-
-const Warning = styled.div`
-  font-size: 12px;
-  color: red;
-  margin-top: 2px;
-  margin-left: ${(props) => (props.margin ? "20px" : "0px")};
-`;
-
 const FundingButton = styled.button`
   background-color: #6e934d;
   border: none;
@@ -224,8 +248,6 @@ const FundingButton = styled.button`
   height: 40px;
   font-size: 15px;
   text-align: center;
-  margin-top: ${(props) => props.marginTop};
-  margin-bottom: ${(props) => props.marginBottom};
   width: ${(props) => props.width};
   &:hover {
     background: #6e934d91;

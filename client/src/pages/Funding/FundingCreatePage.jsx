@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import Button from "../../components/common/Button";
 import useInputs from "../../hooks/useInputs";
 import * as S from "./FundingCreatePage.styeld";
-import { createFundingPost } from "../../api/createPost";
+import { createFundingPost } from "../../api/postApi";
 import CreateFormSection from "../../components/create/CreateFormSection";
 import useErrHandler from "../../hooks/useErrHandler";
 import { FUNDING_INPUT_ATT } from "../../constants/attribute";

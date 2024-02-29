@@ -14,7 +14,7 @@ const ImgUploadButton = ({ fileName, name, purpose }) => {
           />
         </label>
       ) : (
-        <ImgUploadBtn fileName={fileName}>
+        <ImgUploadBtn $fileName={fileName}>
           <label htmlFor={`fileInput_${name}`}>🔗 FILE UPLOAD</label>
           {fileName && <p className="file-name">{fileName}</p>}
         </ImgUploadBtn>
@@ -33,7 +33,8 @@ const ImgUploadBtn = styled.div`
     font-size: 0.85rem;
   }
   & > p {
-    color: ${({ fileName }) => fileName === "파일을 선택해 주세요." && "#777"};
+    color: ${({ $fileName }) =>
+      $fileName === "파일을 선택해 주세요." && "#777"};
     margin-left: 0.5rem;
   }
   & > label {

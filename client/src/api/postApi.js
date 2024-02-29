@@ -7,3 +7,7 @@ export const createFundingPost = (data) => {
 export const createStorePost = (data) => {
   return axiosInstance.post("/sells", data);
 };
+
+export const fundingPost = (data) => {
+  return axiosInstance.post("/funding", data);
+};
