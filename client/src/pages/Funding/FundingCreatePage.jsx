@@ -24,7 +24,6 @@ const FundingCreatePage = () => {
     deadline: null,
     thumbNailImage: null,
   });
-  // console.log(createData);
   const handleInputChange = useCallback((e) => {
     handleValidation(e, validationsPost);
     onChange(e);
@@ -38,13 +37,9 @@ const FundingCreatePage = () => {
       createFundingPost({
         ...createData,
         memberId: userData.memberId,
-      })
-        .then((res) => {
-          navigate("/funding");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      }).then((res) => {
+        navigate("/funding");
+      });
     } else {
       alert("입력란을 확인해주세요!");
     }

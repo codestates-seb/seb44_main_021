@@ -13,18 +13,13 @@ const LoginForm = () => {
     password: "",
   });
   const navigate = useNavigate();
-  console.log(loginInfo);
 
   const AxiosLogin = (e) => {
     e.preventDefault();
     postLogin(loginInfo)
       .then((res) => {
         if (res.status === 200) {
-          console.log(res);
-          // const accessToken = res.headers["authorization"];
-          // console.log("Access Token:", accessToken);
           const authHeader = res.headers["authorization"];
-          console.log(authHeader);
           const accessToken = authHeader.split(" ")[1];
           axiosInstance.defaults.headers.common[
             "Authorization"
@@ -36,7 +31,6 @@ const LoginForm = () => {
         navigate("/");
       })
       .catch((err) => {
-        console.log(err);
         if (err.response.data === "Member not found") {
           alert("이메일 또는 비밀번호를 확인하세요.");
         }

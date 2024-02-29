@@ -35,7 +35,6 @@ const SignupForm = () => {
     handleValidation(e, validationsSignup);
     onChange(e);
   };
-  console.log(signupInfo);
 
   const IsValidPwd = useCallback(
     (e) => {
@@ -61,7 +60,6 @@ const SignupForm = () => {
       return postSignup({ displayName, email, password, role, code })
         .then((res) => {
           if (res.status === 201) {
-            console.log(res);
             alert("회원가입이 완료 되었습니다.");
             navigate("/login");
           }
@@ -90,13 +88,11 @@ const SignupForm = () => {
       return axiosInstance
         .post("/members/sendmail", { email })
         .then((res) => {
-          console.log(res.data.message);
           setIsAuthNum(res.data.message);
           setIsAuthNumSent(true);
           setLoading(false);
         })
         .catch((err) => {
-          console.log(err.response.data.message);
           if (err.response.data.message === "이미 존재하는 이메일입니다.") {
             handleInputErr("email", err.response.data.message);
             setLoading(false);

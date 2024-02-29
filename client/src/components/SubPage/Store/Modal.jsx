@@ -7,7 +7,6 @@ const Modal = ({ data, userData, quantity, setQuantity, setIsModalOpen }) => {
     setIsModalOpen(false);
     setQuantity(0);
   };
-  console.log(userData);
 
   return (
     <ModalOverlay>

@@ -27,7 +27,6 @@ const EditModal = ({ closeModal, isUnmount }) => {
     currentPwd: "",
     thumbNailImage: "",
   });
-  // console.log(editUserInfo);
 
   const handleInputChange = (e) => {
     onChange(e);
@@ -58,21 +57,16 @@ const EditModal = ({ closeModal, isUnmount }) => {
         displayName,
         password,
         thumbNailImage,
-      })
-        .then((res) => {
-          console.log(res);
-          dispatch(
-            userDataActions.setUserData({
-              displayName: res.data.displayName,
-              thumbNailImage: res.data.thumbNailImage,
-            })
-          );
+      }).then((res) => {
+        dispatch(
+          userDataActions.setUserData({
+            displayName: res.data.displayName,
+            thumbNailImage: res.data.thumbNailImage,
+          })
+        );
 
-          closeModal();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+        closeModal();
+      });
     }
   };
 

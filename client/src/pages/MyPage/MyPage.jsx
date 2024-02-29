@@ -29,22 +29,17 @@ const MyPage = () => {
     getMemberId();
 
     if (userData.memberId) {
-      getUserData(userData.memberId)
-        .then((res) => {
-          const user = res.data.data;
-          dispatch(
-            userDataActions.setUserData({
-              email: user.email,
-              displayName: user.displayName,
-              memberRole: user.memberRole,
-              thumbNailImage: user.thumbNailImage,
-            })
-          );
-        })
-
-        .catch((err) => {
-          console.log(err);
-        });
+      getUserData(userData.memberId).then((res) => {
+        const user = res.data.data;
+        dispatch(
+          userDataActions.setUserData({
+            email: user.email,
+            displayName: user.displayName,
+            memberRole: user.memberRole,
+            thumbNailImage: user.thumbNailImage,
+          })
+        );
+      });
 
       dispatch(userDetailsActions.setTitle(details[path].title));
       getDetailDatas(userData.memberId, path).then((res) => {

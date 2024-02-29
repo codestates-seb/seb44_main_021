@@ -25,14 +25,12 @@ const StoreCreatePage = () => {
     thumbNailImage: null,
     contentImage: null,
   });
-  console.log(createData);
 
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     handleValidation(e, validationsPost);
     onChange(e);
-    console.log(userData);
   };
 
   const isErrMsgObjEmpty = Object.values(errMsgObj).every(
@@ -51,13 +49,9 @@ const StoreCreatePage = () => {
       createStorePost({
         ...createData,
         memberId: userData.memberId,
-      })
-        .then((res) => {
-          navigate("/store");
-        })
-        .catch((err) => {
-          console.log(err.response.data);
-        });
+      }).then((res) => {
+        navigate("/store");
+      });
     } else {
       alert("입력란을 확인해주세요!");
     }

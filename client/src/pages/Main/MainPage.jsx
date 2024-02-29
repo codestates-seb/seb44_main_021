@@ -31,11 +31,9 @@ const MainPage = () => {
     axiosInstance({
       url: "/upcyclings/descending?page=1&size=4",
       method: "get",
-    })
-      .then((response) => {
-        setData(response.data.data);
-      })
-      .catch((err) => console.log(err));
+    }).then((response) => {
+      setData(response.data.data);
+    });
 
     setNowloding(true);
   }, []);

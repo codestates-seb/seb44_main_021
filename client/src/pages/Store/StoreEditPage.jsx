@@ -25,7 +25,6 @@ const StoreEditPage = () => {
   const sellId = pathname.split("/").pop();
 
   const [editData, onChange, setEditData] = useInputs({});
-  console.log(editData);
 
   const handleInputChange = useCallback((e) => {
     handleValidation(e, validationsPost);

@@ -19,7 +19,6 @@ const Modal = ({
   const [fundingData, onChange] = useInputs({
     quantity: 0,
   });
-  console.log(fundingData);
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
