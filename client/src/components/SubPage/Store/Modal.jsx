@@ -19,9 +19,9 @@ const Modal = ({ data, userData, quantity, setQuantity, setIsModalOpen }) => {
         </Modaltitle>
         <TextFrame>
           <ContentLabel>제품명</ContentLabel>
-          <p>{data.title}</p>
+          <Modaltext>{data.title}</Modaltext>
           <ContentLabel>수량</ContentLabel>
-          <p>{quantity}개</p>
+          <Modaltext>{quantity}개</Modaltext>
           <Amount>총 금액 : {data.price * quantity}원</Amount>
         </TextFrame>
         <ButtonFrame>
@@ -82,6 +82,9 @@ const CloseButton = styled.button`
 const Modaltitle = styled.p`
   font-size: 1rem;
   color: #6e934d;
+`;
+const Modaltext = styled.p`
+  width: 200px;
 `;
 const TextFrame = styled.div`
   display: flex;
