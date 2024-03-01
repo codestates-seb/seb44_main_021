@@ -7,7 +7,6 @@ const Modal = ({ data, userData, quantity, setQuantity, setIsModalOpen }) => {
     setIsModalOpen(false);
     setQuantity(0);
   };
-  console.log(userData);
 
   return (
     <ModalOverlay>
@@ -50,6 +49,7 @@ const ModalOverlay = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 99;
 `;
 
 const ModalContent = styled.div`
@@ -79,7 +79,7 @@ const CloseButton = styled.button`
   float: right;
 `;
 
-const Modaltitle = styled.div`
+const Modaltitle = styled.p`
   font-size: 1rem;
   color: #6e934d;
 `;

@@ -13,7 +13,9 @@ export const CategoryContainer = styled.div`
     display: flex;
     align-items: start;
     flex-direction: column;
+    flex-wrap: wrap;
     gap: 1rem;
+    padding: 0.5rem;
   }
 
   @media (max-width: 768px) {
@@ -28,6 +30,7 @@ export const CategoryContainer = styled.div`
 `;
 
 export const CategoryList = styled.li`
+  white-space: nowrap;
   ${(props) =>
     props.className === "selected" &&
     css`

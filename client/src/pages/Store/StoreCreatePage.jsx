@@ -9,8 +9,7 @@ import { STORE_TIPS } from "../../constants/tips";
 import { STORE_INPUT_ATT } from "../../constants/attribute";
 import CreateFormSection from "../../components/create/CreateFormSection";
 import SelectBox from "../../components/common/SelectBox";
-import styled from "styled-components";
-import { createStorePost } from "../../api/createPost";
+import { createStorePost } from "../../api/postApi";
 import { validationsPost } from "../../utils/validateInput";
 import React from "react";
 
@@ -26,14 +25,12 @@ const StoreCreatePage = () => {
     thumbNailImage: null,
     contentImage: null,
   });
-  console.log(createData);
 
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     handleValidation(e, validationsPost);
     onChange(e);
-    console.log(userData);
   };
 
   const isErrMsgObjEmpty = Object.values(errMsgObj).every(
@@ -52,13 +49,9 @@ const StoreCreatePage = () => {
       createStorePost({
         ...createData,
         memberId: userData.memberId,
-      })
-        .then((res) => {
-          navigate("/store");
-        })
-        .catch((err) => {
-          console.log(err.response.data);
-        });
+      }).then((res) => {
+        navigate("/store");
+      });
     } else {
       alert("입력란을 확인해주세요!");
     }
@@ -73,7 +66,7 @@ const StoreCreatePage = () => {
             필수<span>(*)</span> 판매하실 업사이클링 제품을 대표하는 중요한
             정보들을 입력해주세요.
           </p>
-          <InputSection>
+          <S.InputSection>
             <label className="input-label">
               카테고리
               <span>*</span>
@@ -84,7 +77,7 @@ const StoreCreatePage = () => {
               onChange={handleInputChange}
             />
             {/* <p className="err-msg">{errMsg}</p> */}
-          </InputSection>
+          </S.InputSection>
           {STORE_INPUT_ATT.map((att, idx) => (
             <CreateFormSection
               key={idx}
@@ -107,19 +100,3 @@ const StoreCreatePage = () => {
 };
 
 export default React.memo(StoreCreatePage);
-const InputSection = styled.div`
-  display: flex;
-  align-items: center;
-  margin-top: 3rem;
-  .input-label {
-    display: block;
-    font-size: 1.1rem;
-    font-weight: bold;
-    margin-right: 0.8rem;
-    & > span {
-      font-size: 18px;
-      color: red;
-      margin-left: 3px;
-    }
-  }
-`;

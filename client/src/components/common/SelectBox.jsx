@@ -1,7 +1,7 @@
 import React from "react";
 import Select from "react-select";
 
-const SelectBox = ({ options, onChange }) => {
+const SelectBox = ({ options, onChange, name }) => {
   const customStyle = {
     control: (base) => ({
       ...base,
@@ -33,7 +33,7 @@ const SelectBox = ({ options, onChange }) => {
       options={options}
       placeholder="카테고리를 선택해주세요!"
       styles={customStyle}
-      name="sellCategoryId"
+      name={name}
       onChange={(selectedOption, { action, name }) => {
         if (action === "select-option") {
           onChange({ target: { name: name, value: selectedOption.value } });
@@ -42,4 +42,4 @@ const SelectBox = ({ options, onChange }) => {
     />
   );
 };
-export default React.memo(SelectBox);
+export default SelectBox;

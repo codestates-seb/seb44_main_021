@@ -7,6 +7,7 @@ import TipSection from "./funding/TipSection";
 import RadioGroup from "../common/RadioGroup";
 import { MATERIAL_OPTIONS } from "../../constants/options";
 import { blockTextInput } from "../../utils/transformInputValue";
+import TextArea from "../common/TextArea";
 
 const CreateFormSection = ({ errMsg, onChange, description, ...att }) => {
   //날짜 최소 최대 값 변수
@@ -49,7 +50,6 @@ const CreateFormSection = ({ errMsg, onChange, description, ...att }) => {
         {...att}
         variant="outline"
         type="date"
-        customStyle={false}
         min={minDate}
         max={formattedMaxDate}
         onChange={onChange}
@@ -119,16 +119,16 @@ const InputSection = styled.div`
   }
 `;
 
-const TextArea = styled.textarea`
-  width: 100%;
-  height: ${(props) => props.boxSize && props.boxSize};
-  resize: none;
-  background-color: #ffffff9d;
-  border: 1px solid var(--color-gray-50);
-  border-radius: 5px;
-  padding: 0.7rem;
-  font-family: Arial, Helvetica, sans-serif;
-  &:focus {
-    border-color: var(--color-main);
-  }
-`;
+// const TextArea = styled.textarea`
+//   width: 100%;
+//   height: ${(props) => props.boxSize && props.boxSize};
+//   resize: none;
+//   background-color: #ffffff9d;
+//   border: 1px solid var(--color-gray-50);
+//   border-radius: 5px;
+//   padding: 0.7rem;
+//   font-family: Arial, Helvetica, sans-serif;
+//   &:focus {
+//     border-color: var(--color-main);
+//   }
+// `;

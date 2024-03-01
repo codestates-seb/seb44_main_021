@@ -1,206 +1,138 @@
-import React from "react";
-import style from "./FundingEditPage.module.css";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { axiosInstance } from "../../api/axiosInstance";
+import React, { useCallback } from "react";
+import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import RadioGroup from "../../components/common/RadioGroup";
+import { MATERIAL_OPTIONS } from "../../constants/options";
+import useInputs from "../../hooks/useInputs";
+import useErrHandler from "../../hooks/useErrHandler";
+import { validationsPost } from "../../utils/validateInput";
+import TextArea from "../../components/common/TextArea";
+import Input from "../../components/common/Input";
+import styled from "styled-components";
+import {
+  GridWrapper,
+  MaxWidthContainer,
+  ThumbnailImg,
+} from "../../styles/CommonStyle";
+import Button from "../../components/common/Button";
+import { patchEditUpcycle } from "../../api/editApi";
+import { getUpcycleData } from "../../api/getDatas";
 
 const FundingEditPage = () => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
-  const [data, setData] = useState("");
+  const { handleValidation, errMsgObj } = useErrHandler();
 
-  //수정한 펀딩명, 펀딩 소개글 상태값
-  const [editTitle, setEditTitle] = useState("");
-  const [editContent, setContentText] = useState("");
-  const [titleMsg, setTitleMsg] = useState("");
-  const [contentMsg, setcontentMsg] = useState("");
+  const upcyclingId = pathname.split("/").pop();
 
-  // 현재 url에서 id 가져오기
-  const url = window.location.href;
-  const parts = url.split("/");
-  const upcyclingId = parts[parts.length - 1];
+  const [editData, onChange, setEditData] = useInputs({});
+
+  const handleInputChange = useCallback((e) => {
+    handleValidation(e, validationsPost);
+    onChange(e);
+  }, []);
 
   useEffect(() => {
-    axiosInstance({
-      url: `/upcyclings/${upcyclingId}`,
-      method: "get",
-    })
-      .then((response) => {
-        setData(response.data.data);
-        setContentText(response.data.data.content);
-        setEditTitle(response.data.data.title);
-      })
-      .catch((err) => console.log(err));
-  }, [upcyclingId]);
-
-  const handleTitleChange = (e) => {
-    const editTitleValue = e.target.value;
-    setEditTitle(editTitleValue);
-
-    if (editTitle.length < 4) {
-      setTitleMsg("펀딩명은 5자 이상이여야 합니다!");
-    } else {
-      setTitleMsg("");
-    }
-  };
-
-  const handleContentChange = (e) => {
-    const editContentValue = e.target.value;
-    setContentText(editContentValue);
-
-    if (editContent.length < 9) {
-      setcontentMsg("펀딩 소개글은 10자 이상이여야 합니다!");
-    } else {
-      setcontentMsg("");
-    }
-  };
+    getUpcycleData(upcyclingId).then((response) => {
+      setEditData((prevData) => ({ ...prevData, ...response.data.data }));
+    });
+  }, []);
 
   const handleSavaEdit = () => {
-    axiosInstance({
-      url: `/upcyclings/${upcyclingId}`,
-      method: "PATCH",
-      data: {
-        upcyclingId: upcyclingId,
-        title: editTitle,
-        content: editContent,
-        totalQuantity: data.totalQuantity,
-      },
-    })
-      .then((res) => {
-        navigate(`/fundingdetail/${upcyclingId}`);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const { title, content, totalQuantity } = editData;
+    patchEditUpcycle(upcyclingId, {
+      upcyclingId: upcyclingId,
+      title: title,
+      content: content,
+      totalQuantity: totalQuantity,
+    }).then(() => {
+      navigate(`/fundingdetail/${upcyclingId}`);
+    });
   };
 
   return (
-    <div id={style.AllContainer}>
-      <div id={style.AllWrapper}>
-        <div id={style.leftWrapper}>
-          <div id={style.imgContainer}>
-            <img
-              id={style.FundingImg}
-              src={data.thumbNailImage}
-              alt="펀딩 이미지 미리보기"
-            />
-          </div>
-          <div id={style.MaterierBox}>
-            <div className={style.radioGroup}>
-              <input
-                className={style.radio}
-                type="radio"
-                value="1"
-                name="materials"
-                style={{
-                  backgroundImage: "url(/image/IconCloth.png)",
-                  backgroundSize: "cover",
-                }}
-                checked={data.categoryId === 1}
-                disabled
-              />
-              <input
-                className={style.radio}
-                type="radio"
-                value="2"
-                name="materials"
-                style={{
-                  backgroundImage: "url(/image/IconWood.png)",
-                  backgroundSize: "cover",
-                }}
-                checked={data.categoryId === 2}
-                disabled
-              />
-              <input
-                className={style.radio}
-                type="radio"
-                value="3"
-                name="materials"
-                style={{
-                  backgroundImage: "url(/image/IconPlastic.png)",
-                  backgroundSize: "cover",
-                }}
-                checked={data.categoryId === 3}
-                disabled
-              />
-              <input
-                className={style.radio}
-                type="radio"
-                value="4"
-                name="materials"
-                style={{
-                  backgroundImage: "url(/image/IconSteel.png)",
-                  backgroundSize: "cover",
-                }}
-                checked={data.categoryId === 4}
-                disabled
-              />
-              <input
-                className={style.radio}
-                type="radio"
-                value="5"
-                name="materials"
-                style={{
-                  backgroundImage: "url(/image/IconGlass.png)",
-                  backgroundSize: "cover",
-                }}
-                checked={data.categoryId === 5}
-                disabled
-              />
-              <input
-                className={style.radio}
-                type="radio"
-                value="6"
-                name="materials"
-                style={{
-                  backgroundImage: "url(/image/IconEtc.png)",
-                  backgroundSize: "cover",
-                }}
-                checked={data.categoryId === 6}
-                disabled
-              />
-            </div>
-            <hr id={style.materiarhr}></hr>
-            <div className={style.materiartext}>
-              "{data.categoryName}" 자재를 선택하셨습니다.
-            </div>
-            <div id={style.materiarblank}></div>
-          </div>
-        </div>
-        <div id={style.rightWrapper}>
-          <textarea
-            id={style.NameInput}
+    <MaxWidthContainer>
+      <GridWrapper>
+        <LeftArea>
+          <ThumbnailImg
+            src={editData.thumbNailImage}
+            alt="펀딩 이미지 미리보기"
+          />
+
+          <RadioGroup
+            name="categoryId"
+            options={MATERIAL_OPTIONS}
+            onChange={onChange}
+          />
+          <p>"{editData.categoryName}" 자재를 선택하셨습니다.</p>
+        </LeftArea>
+
+        <RightArea>
+          <Input
+            variant="outline"
+            name="title"
             placeholder="40자 이내로 입력해주세요."
-            defaultValue={data.title}
+            defaultValue={editData.title}
             maxLength="40"
-            onChange={handleTitleChange}
+            onChange={handleInputChange}
           />
-          <p className={style.errMsg}>{titleMsg}</p>
-          <textarea
+          <p className="Edit__errMsg">{errMsgObj.content}</p>
+          <TextArea
+            boxSize="25rem"
             placeholder="500자 이내로 입력해주세요."
-            id={style.IntroduceBox}
-            defaultValue={data.content}
+            name="content"
+            defaultValue={editData.content}
             maxLength="500"
-            onChange={handleContentChange}
+            onChange={handleInputChange}
           />
-          <p className={style.errMsg}>{contentMsg}</p>
-          <div className={style.AmountBox}>
-            <div className={style.text1}>
-              마감일은 <p className={style.text2}>{data.deadline}</p>로
-              선택하셨습니다.{" "}
-            </div>
-            <div className={style.text1}>
-              수량은 <p className={style.text2}>{data.totalQuantity}</p>개
-              선택하셨습니다.
-            </div>
-          </div>
-          <button id={style.CreateButton} onClick={handleSavaEdit}>
-            수정하기
-          </button>
-        </div>
-      </div>
-    </div>
+          <p className="Edit__errMsg">{errMsgObj.content}</p>
+
+          <InfoText>
+            마감일은 <span>{editData.deadline}</span>로 선택하셨습니다.
+          </InfoText>
+          <InfoText>
+            수량은 <span>{editData.totalQuantity}</span>개 선택하셨습니다.
+          </InfoText>
+          <Button onClick={handleSavaEdit}>수정하기</Button>
+        </RightArea>
+      </GridWrapper>
+    </MaxWidthContainer>
   );
 };
 
 export default FundingEditPage;
+
+const LeftArea = styled.div`
+  & > div {
+    margin: 1rem 0;
+  }
+  & > p {
+    margin: 1rem 0;
+    font-size: 0.875rem;
+  }
+`;
+
+const RightArea = styled.div`
+  & > button {
+    width: 100%;
+  }
+  .Edit__errMsg {
+    margin-top: 5px;
+    font-size: 14px;
+    color: rgb(221, 106, 106);
+  }
+`;
+
+const InfoText = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+  margin: 10px 0;
+  & > span {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #6e934d;
+    margin: 0 2px;
+  }
+`;

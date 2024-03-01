@@ -23,22 +23,18 @@ const StorePage = () => {
       axiosInstance({
         url: `/sells/search?page=1&size=16&searchKeyword=${searchParam}`,
         method: "get",
-      })
-        .then((response) => {
-          setStoreList(response.data.data);
-          setIsLoding(true);
-        })
-        .catch((err) => console.log(err));
+      }).then((response) => {
+        setStoreList(response.data.data);
+        setIsLoding(true);
+      });
     } else {
       axiosInstance({
         url: "/sells/descending?page=1&size=16",
         method: "get",
-      })
-        .then((response) => {
-          setStoreList(response.data.data);
-          setIsLoding(true);
-        })
-        .catch((err) => console.log(err));
+      }).then((response) => {
+        setStoreList(response.data.data);
+        setIsLoding(true);
+      });
     }
 
     window.addEventListener("scroll", handleScroll);
@@ -48,14 +44,11 @@ const StorePage = () => {
   }, []);
 
   useEffect(() => {
-    axiosInstance
-      .get(`/members/${userData.memberId}`)
-      .then((res) => {
+    if (localStorage.getItem("login")) {
+      axiosInstance.get(`/members/${userData.memberId}`).then((res) => {
         setrole(res.data.data.memberRole);
-      })
-      .catch((err) => {
-        console.log(err);
       });
+    }
   }, [userData.memberId, userData.memberRole]);
 
   useEffect(() => {
@@ -66,44 +59,36 @@ const StorePage = () => {
         axiosInstance({
           url: `/sells/search?page=1&size=16&sort=${sort}&searchKeyword=${searchParam}`,
           method: "get",
-        })
-          .then((response) => {
-            setStoreList(response.data.data);
-            setIsLoding(true);
-          })
-          .catch((err) => console.log(err));
+        }).then((response) => {
+          setStoreList(response.data.data);
+          setIsLoding(true);
+        });
       } else {
         axiosInstance({
           url: `/sells/search?page=1&size=16&sort=${sort}&sellCategoryId=${kategorie}&searchKeyword=${searchParam}`,
           method: "get",
-        })
-          .then((response) => {
-            setStoreList(response.data.data);
-            setIsLoding(true);
-          })
-          .catch((err) => console.log(err));
+        }).then((response) => {
+          setStoreList(response.data.data);
+          setIsLoding(true);
+        });
       }
     } else {
       if (kategorie === 0) {
         axiosInstance({
           url: `/sells/${sort}?page=1&size=16`,
           method: "get",
-        })
-          .then((response) => {
-            setStoreList(response.data.data);
-            setIsLoding(true);
-          })
-          .catch((err) => console.log(err));
+        }).then((response) => {
+          setStoreList(response.data.data);
+          setIsLoding(true);
+        });
       } else {
         axiosInstance({
           url: `/sells/${sort}/sellcategories/${kategorie}?page=1&size=16`,
           method: "get",
-        })
-          .then((response) => {
-            setStoreList(response.data.data);
-            setIsLoding(true);
-          })
-          .catch((err) => console.log(err));
+        }).then((response) => {
+          setStoreList(response.data.data);
+          setIsLoding(true);
+        });
       }
     }
   }, [sort, kategorie, searchParam]);
@@ -123,40 +108,32 @@ const StorePage = () => {
           axiosInstance({
             url: `/sells/search?page=${page}&size=16&sort=${sort}&searchKeyword=${searchParam}`,
             method: "get",
-          })
-            .then((response) => {
-              setStoreList((prev) => [...prev, ...response.data.data]);
-            })
-            .catch((err) => console.log(err));
+          }).then((response) => {
+            setStoreList((prev) => [...prev, ...response.data.data]);
+          });
         } else {
           axiosInstance({
             url: `/sells/search?page=${page}&size=16&sort=${sort}&sellCategoryId=${kategorie}&searchKeyword=${searchParam}`,
             method: "get",
-          })
-            .then((response) => {
-              setStoreList((prev) => [...prev, ...response.data.data]);
-            })
-            .catch((err) => console.log(err));
+          }).then((response) => {
+            setStoreList((prev) => [...prev, ...response.data.data]);
+          });
         }
       } else {
         if (kategorie === 0) {
           axiosInstance({
             url: `/sells/${sort}?page=${page}&size=16`,
             method: "get",
-          })
-            .then((response) => {
-              setStoreList((prev) => [...prev, ...response.data.data]);
-            })
-            .catch((err) => console.log(err));
+          }).then((response) => {
+            setStoreList((prev) => [...prev, ...response.data.data]);
+          });
         } else {
           axiosInstance({
             url: `/sells/${sort}/sellcategories/${kategorie}?page=${page}&size=16`,
             method: "get",
-          })
-            .then((response) => {
-              setStoreList((prev) => [...prev, ...response.data.data]);
-            })
-            .catch((err) => console.log(err));
+          }).then((response) => {
+            setStoreList((prev) => [...prev, ...response.data.data]);
+          });
         }
       }
     }

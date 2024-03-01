@@ -5,7 +5,7 @@ import ImgUploadBtn from "./ImgUploadBtn";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 
-const ImgUploader = React.memo(({ onChange, purpose = "", ...att }) => {
+const ImgUploader = ({ onChange, purpose = "", ...att }) => {
   const userData = useSelector((state) => state.userData);
   const [imgPreviewSrc, setImgPreviewSrc] = useState(() => {
     if (purpose === "profile") {
@@ -24,7 +24,6 @@ const ImgUploader = React.memo(({ onChange, purpose = "", ...att }) => {
     if (!e.target.files) {
       return;
     }
-    console.log("onUpload function called");
     const file = e.target.files[0]; // 선택된 파일
     const reader = new FileReader(); // 파일을 읽기 위한 FileReader 객체 생성
     const formData = new FormData(); // 파일 데이터를 담을 FormData 객체 생성
@@ -84,7 +83,7 @@ const ImgUploader = React.memo(({ onChange, purpose = "", ...att }) => {
       />
     </ImgUploaderWrapper>
   );
-});
+};
 
 export default ImgUploader;
 const ImgUploaderWrapper = styled.div`

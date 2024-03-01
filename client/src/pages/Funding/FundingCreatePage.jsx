@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import Button from "../../components/common/Button";
 import useInputs from "../../hooks/useInputs";
 import * as S from "./FundingCreatePage.styeld";
-import { createFundingPost } from "../../api/createPost";
+import { createFundingPost } from "../../api/postApi";
 import CreateFormSection from "../../components/create/CreateFormSection";
 import useErrHandler from "../../hooks/useErrHandler";
 import { FUNDING_INPUT_ATT } from "../../constants/attribute";
@@ -24,7 +24,6 @@ const FundingCreatePage = () => {
     deadline: null,
     thumbNailImage: null,
   });
-  // console.log(createData);
   const handleInputChange = useCallback((e) => {
     handleValidation(e, validationsPost);
     onChange(e);
@@ -38,13 +37,9 @@ const FundingCreatePage = () => {
       createFundingPost({
         ...createData,
         memberId: userData.memberId,
-      })
-        .then((res) => {
-          navigate("/funding");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      }).then((res) => {
+        navigate("/funding");
+      });
     } else {
       alert("입력란을 확인해주세요!");
     }

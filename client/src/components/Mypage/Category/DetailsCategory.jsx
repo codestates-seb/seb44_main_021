@@ -1,4 +1,4 @@
-import { getDetailDatas } from "../../../api/getDetailDatas";
+import { getDetailDatas } from "../../../api/getDatas";
 import * as S from "./DetailsCategory.styled";
 import { useNavigate } from "react-router-dom";
 import { detailsInfo } from "../../../constants/detailsInfo";

@@ -9,15 +9,16 @@ const RadioGroup = ({ name, options, onChange }) => {
           key={option.value}
           name={name}
           type="radio"
+          aria-label={`${option.label} 옵션`}
           value={option.value}
-          url={option.btnImgUrl}
+          $url={option.btnImgUrl}
           onChange={onChange}
         />
       ))}
     </RadioBox>
   );
 };
-export default React.memo(RadioGroup);
+export default RadioGroup;
 
 const RadioBox = styled.div`
   display: flex;
@@ -26,7 +27,7 @@ const RadioBox = styled.div`
 `;
 
 const RadioBtn = styled.input`
-  background-image: ${({ url }) => `url(${url})`};
+  background-image: ${({ $url }) => `url(${$url})`};
   background-size: cover;
   appearance: none;
   width: 3rem;

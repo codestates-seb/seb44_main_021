@@ -26,21 +26,17 @@ const FundingPage = () => {
       axiosInstance({
         url: `/upcyclings/search?page=1&size=8&searchKeyword=${searchParam}`,
         method: "get",
-      })
-        .then((response) => {
-          setFundingList(response.data.data);
-          setIsLoding(true);
-        })
-        .catch((err) => console.log(err));
+      }).then((response) => {
+        setFundingList(response.data.data);
+        setIsLoding(true);
+      });
     } else {
       axiosInstance({
         url: "/upcyclings/descending?page=1&size=16",
         method: "get",
-      })
-        .then((response) => {
-          setIsLoding(true);
-        })
-        .catch((err) => console.log(err));
+      }).then((response) => {
+        setIsLoding(true);
+      });
     }
 
     getMemberId();
@@ -52,13 +48,9 @@ const FundingPage = () => {
   }, []);
 
   useEffect(() => {
-    axiosInstance
-      .get(`/members/${userData.memberId}`)
-      .then((res) => {
+    if (localStorage.getItem("login"))
+      axiosInstance.get(`/members/${userData.memberId}`).then((res) => {
         setrole(res.data.data.memberRole);
-      })
-      .catch((err) => {
-        console.log(err);
       });
   }, [userData.memberId, userData.memberRole]);
 
@@ -70,44 +62,36 @@ const FundingPage = () => {
         axiosInstance({
           url: `/upcyclings/search?page=1&size=8&sort=${sort}&searchKeyword=${searchParam}`,
           method: "get",
-        })
-          .then((response) => {
-            setFundingList(response.data.data);
-            setIsLoding(true);
-          })
-          .catch((err) => console.log(err));
+        }).then((response) => {
+          setFundingList(response.data.data);
+          setIsLoding(true);
+        });
       } else {
         axiosInstance({
           url: `/upcyclings/search?page=1&size=8&sort=${sort}&categoryId=${kategorie}&searchKeyword=${searchParam}`,
           method: "get",
-        })
-          .then((response) => {
-            setFundingList(response.data.data);
-            setIsLoding(true);
-          })
-          .catch((err) => console.log(err));
+        }).then((response) => {
+          setFundingList(response.data.data);
+          setIsLoding(true);
+        });
       }
     } else {
       if (kategorie === 0) {
         axiosInstance({
           url: `/upcyclings/${sort}?page=1&size=16`,
           method: "get",
-        })
-          .then((response) => {
-            setFundingList(response.data.data);
-            setIsLoding(true);
-          })
-          .catch((err) => console.log(err));
+        }).then((response) => {
+          setFundingList(response.data.data);
+          setIsLoding(true);
+        });
       } else {
         axiosInstance({
           url: `/upcyclings/${sort}/categories/${kategorie}?page=1&size=16`,
           method: "get",
-        })
-          .then((response) => {
-            setFundingList(response.data.data);
-            setIsLoding(true);
-          })
-          .catch((err) => console.log(err));
+        }).then((response) => {
+          setFundingList(response.data.data);
+          setIsLoding(true);
+        });
       }
     }
   }, [sort, kategorie, searchParam]);
@@ -127,40 +111,32 @@ const FundingPage = () => {
           axiosInstance({
             url: `/upcyclings/search?page=${page}&size=16&sort=${sort}&searchKeyword=${searchParam}`,
             method: "get",
-          })
-            .then((response) => {
-              setFundingList((prev) => [...prev, ...response.data.data]);
-            })
-            .catch((err) => console.log(err));
+          }).then((response) => {
+            setFundingList((prev) => [...prev, ...response.data.data]);
+          });
         } else {
           axiosInstance({
             url: `/upcyclings/search?page=${page}&size=16&sort=${sort}&categoryId=${kategorie}&searchKeyword=${searchParam}`,
             method: "get",
-          })
-            .then((response) => {
-              setFundingList((prev) => [...prev, ...response.data.data]);
-            })
-            .catch((err) => console.log(err));
+          }).then((response) => {
+            setFundingList((prev) => [...prev, ...response.data.data]);
+          });
         }
       } else {
         if (kategorie === 0) {
           axiosInstance({
             url: `/upcyclings/${sort}?page=${page}&size=16`,
             method: "get",
-          })
-            .then((response) => {
-              setFundingList((prev) => [...prev, ...response.data.data]);
-            })
-            .catch((err) => console.log(err));
+          }).then((response) => {
+            setFundingList((prev) => [...prev, ...response.data.data]);
+          });
         } else {
           axiosInstance({
             url: `/upcyclings/${sort}/categories/${kategorie}?page=${page}&size=8`,
             method: "get",
-          })
-            .then((response) => {
-              setFundingList((prev) => [...prev, ...response.data.data]);
-            })
-            .catch((err) => console.log(err));
+          }).then((response) => {
+            setFundingList((prev) => [...prev, ...response.data.data]);
+          });
         }
       }
     }

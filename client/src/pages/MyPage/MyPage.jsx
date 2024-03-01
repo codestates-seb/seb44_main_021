@@ -3,8 +3,8 @@ import EditModal from "../../components/Mypage/Modal/EditModal";
 import UserDetails from "../../components/Mypage/Details/Details";
 import UserProfile from "../../components/Mypage/UserProfile/UserProfile";
 import { useSelector, useDispatch } from "react-redux";
-import { getDetailDatas } from "../../api/getDetailDatas";
-import { getUserData } from "../../api/getUserData";
+import { getDetailDatas } from "../../api/getDatas";
+import { getUserData } from "../../api/getDatas";
 import { useParams } from "react-router-dom";
 import { userDataActions } from "../../store/slice/userDataSlice";
 import styled from "styled-components";
@@ -29,22 +29,17 @@ const MyPage = () => {
     getMemberId();
 
     if (userData.memberId) {
-      getUserData(userData.memberId)
-        .then((res) => {
-          const user = res.data.data;
-          dispatch(
-            userDataActions.setUserData({
-              email: user.email,
-              displayName: user.displayName,
-              memberRole: user.memberRole,
-              thumbNailImage: user.thumbNailImage,
-            })
-          );
-        })
-
-        .catch((err) => {
-          console.log(err);
-        });
+      getUserData(userData.memberId).then((res) => {
+        const user = res.data.data;
+        dispatch(
+          userDataActions.setUserData({
+            email: user.email,
+            displayName: user.displayName,
+            memberRole: user.memberRole,
+            thumbNailImage: user.thumbNailImage,
+          })
+        );
+      });
 
       dispatch(userDetailsActions.setTitle(details[path].title));
       getDetailDatas(userData.memberId, path).then((res) => {

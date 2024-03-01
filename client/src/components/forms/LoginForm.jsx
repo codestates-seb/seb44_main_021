@@ -19,15 +19,8 @@ const LoginForm = () => {
     postLogin(loginInfo)
       .then((res) => {
         if (res.status === 200) {
-          console.log(res);
-          // const accessToken = res.headers["authorization"];
-          // console.log("Access Token:", accessToken);
           const authHeader = res.headers["authorization"];
-          console.log(authHeader);
           const accessToken = authHeader.split(" ")[1];
-          axiosInstance.defaults.headers.common[
-            "Authorization"
-          ] = `Bearer ${accessToken}`;
           localStorage.setItem("token", accessToken);
           localStorage.setItem("login", "true");
         }
@@ -35,7 +28,6 @@ const LoginForm = () => {
         navigate("/");
       })
       .catch((err) => {
-        console.log(err);
         if (err.response.data === "Member not found") {
           alert("이메일 또는 비밀번호를 확인하세요.");
         }
