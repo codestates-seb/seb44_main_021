@@ -66,8 +66,8 @@ const ImgUploader = React.memo(({ onChange, purpose = "", ...att }) => {
   };
 
   return (
-    <ImgUploaderWrapper $purpose={purpose}>
-      <ImgUploadBtn name={att.name} fileName={fileName} $purpose={purpose} />
+    <ImgUploaderWrapper purpose={purpose}>
+      <ImgUploadBtn name={att.name} fileName={fileName} purpose={purpose} />
       <input
         type="file"
         accept="image/*"
@@ -79,7 +79,7 @@ const ImgUploader = React.memo(({ onChange, purpose = "", ...att }) => {
       <ImgPreview
         imageSrc={imgPreviewSrc}
         fileName={fileName}
-        $purpose={purpose}
+        purpose={purpose}
       />
     </ImgUploaderWrapper>
   );
@@ -87,8 +87,8 @@ const ImgUploader = React.memo(({ onChange, purpose = "", ...att }) => {
 
 export default ImgUploader;
 const ImgUploaderWrapper = styled.div`
-  ${({ $purpose }) =>
-    $purpose === "profile"
+  ${({ purpose }) =>
+    purpose === "profile"
       ? `
       position: relative;
       display: flex;

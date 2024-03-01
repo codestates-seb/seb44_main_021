@@ -48,9 +48,10 @@ const FundingPage = () => {
   }, []);
 
   useEffect(() => {
-    axiosInstance.get(`/members/${userData.memberId}`).then((res) => {
-      setrole(res.data.data.memberRole);
-    });
+    if (localStorage.getItem("login"))
+      axiosInstance.get(`/members/${userData.memberId}`).then((res) => {
+        setrole(res.data.data.memberRole);
+      });
   }, [userData.memberId, userData.memberRole]);
 
   useEffect(() => {
