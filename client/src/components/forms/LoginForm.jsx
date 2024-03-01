@@ -21,9 +21,6 @@ const LoginForm = () => {
         if (res.status === 200) {
           const authHeader = res.headers["authorization"];
           const accessToken = authHeader.split(" ")[1];
-          axiosInstance.defaults.headers.common[
-            "Authorization"
-          ] = `Bearer ${accessToken}`;
           localStorage.setItem("token", accessToken);
           localStorage.setItem("login", "true");
         }

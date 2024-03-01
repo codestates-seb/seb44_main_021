@@ -1,32 +1,22 @@
 import { useDispatch } from "react-redux";
 import { userDataActions } from "../store/slice/userDataSlice";
+import { useCallback } from "react";
 
 export const useGetMemberId = () => {
   const dispatch = useDispatch();
-  const getMemberId = () => {
+  const getMemberId = useCallback(() => {
     const accessToken = localStorage.getItem("token");
 
     if (accessToken) {
-      const payload = accessToken.substring(
-        accessToken.indexOf(".") + 1,
-        accessToken.lastIndexOf(".")
-      );
-      const decodedPayload = decodeURIComponent(
-        atob(payload)
-          .split("")
-          .map(function (c) {
-            return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-          })
-          .join("")
-      );
-      const dec = JSON.parse(decodedPayload);
+      const decodingToken = JSON.parse(atob(accessToken.split(".")[1]));
+
       dispatch(
         userDataActions.setUserData({
-          memberId: dec.memberId,
+          memberId: decodingToken.memberId,
         })
       );
     }
-  };
+  }, []);
 
   return { getMemberId };
 };
