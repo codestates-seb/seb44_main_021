@@ -5,7 +5,7 @@ import ImgUploadBtn from "./ImgUploadBtn";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 
-const ImgUploader = React.memo(({ onChange, purpose = "", ...att }) => {
+const ImgUploader = ({ onChange, purpose = "", ...att }) => {
   const userData = useSelector((state) => state.userData);
   const [imgPreviewSrc, setImgPreviewSrc] = useState(() => {
     if (purpose === "profile") {
@@ -83,7 +83,7 @@ const ImgUploader = React.memo(({ onChange, purpose = "", ...att }) => {
       />
     </ImgUploaderWrapper>
   );
-});
+};
 
 export default ImgUploader;
 const ImgUploaderWrapper = styled.div`

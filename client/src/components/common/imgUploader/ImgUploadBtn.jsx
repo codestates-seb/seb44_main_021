@@ -46,7 +46,7 @@ const ImgUploadBtn = styled.div`
     border-radius: 5px;
     transition: all 0.2s ease-in-out;
     box-shadow: var(--shadow-btn);
-
+    cursor: pointer;
     &:hover {
       box-shadow: var(--shadow-btn-hover);
     }
@@ -64,4 +64,5 @@ const UploadIcon = styled.img`
   top: 80px;
   right: 60px;
   z-index: 2;
+  cursor: pointer;
 `;

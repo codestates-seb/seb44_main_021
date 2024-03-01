@@ -49,6 +49,7 @@ const UserImg = styled.img`
   margin-bottom: 20px;
   position: relative;
   z-index: 1;
+  cursor: default;
 `;
 
 export default ImgPreview;
