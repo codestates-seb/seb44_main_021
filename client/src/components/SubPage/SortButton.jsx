@@ -81,6 +81,7 @@ const SortBtn = styled.button`
   border: none;
   margin-right: 5px;
   font-size: 16px;
+  color: unset;
   ${(props) =>
     props.isSelected &&
     css`

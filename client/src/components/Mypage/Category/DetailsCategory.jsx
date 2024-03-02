@@ -3,11 +3,17 @@ import * as S from "./DetailsCategory.styled";
 import { useNavigate } from "react-router-dom";
 import { detailsInfo } from "../../../constants/detailsInfo";
 
-const DetailsCategory = ({ userData, currentCategory, getUserDetails }) => {
+const DetailsCategory = ({
+  userData,
+  currentCategory,
+  getUserDetails,
+  setCurrentPage,
+}) => {
   const navigate = useNavigate();
 
   const detailData = Object.keys(detailsInfo).map((key) => detailsInfo[key]);
   const handleCategoryClick = (data) => {
+    setCurrentPage(1);
     getDetailDatas(userData.memberId, data.category).then((res) => {
       getUserDetails(data.category, res.data.data);
     });

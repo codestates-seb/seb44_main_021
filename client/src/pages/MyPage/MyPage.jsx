@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import EditModal from "../../components/Mypage/Modal/EditModal";
 import UserDetails from "../../components/Mypage/Details/Details";
 import UserProfile from "../../components/Mypage/UserProfile/UserProfile";
@@ -16,7 +16,7 @@ import { useGetMemberId } from "../../hooks/useGetMemberId";
 
 const MyPage = () => {
   const dispatch = useDispatch();
-
+  const [currentPage, setCurrentPage] = useState(1);
   const userData = useSelector((state) => state.userData);
 
   const { getMemberId } = useGetMemberId();
@@ -56,9 +56,14 @@ const MyPage = () => {
             userData={userData}
             getUserDetails={getUserDetails}
             currentCategory={path}
+            setCurrentPage={setCurrentPage}
           />
         </div>
-        <UserDetails details={details} />
+        <UserDetails
+          details={details}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
       </MyPageContainer>
       {isOpenModal && (
         <EditModal closeModal={closeModal} isUnmount={isUnmount} />
