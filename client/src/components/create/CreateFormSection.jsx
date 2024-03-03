@@ -1,5 +1,3 @@
-// FundingSection.jsx
-import React from "react";
 import Input from "../common/Input";
 import ImgUploader from "../common/imgUploader/ImgUploader";
 import styled from "styled-components";

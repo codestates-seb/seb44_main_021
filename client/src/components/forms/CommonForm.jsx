@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import * as S from "./CommonForm.styled";
 import GoBack from "../common/GoBack";

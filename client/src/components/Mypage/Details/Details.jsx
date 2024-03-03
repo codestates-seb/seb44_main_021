@@ -5,13 +5,13 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { detailsInfo } from "../../../constants/detailsInfo";
 
-const Details = ({ details }) => {
+const Details = ({ details, currentPage, setCurrentPage }) => {
   const { path } = useParams();
   const totalCategoryData = details[path];
   const { detail } = totalCategoryData;
 
   const currentCategory = detailsInfo[path];
-  const [currentPage, setCurrentPage] = useState(1);
+  // const [currentPage, setCurrentPage] = useState(1);
 
   const LAST_PAGE =
     detail.length % 10 === 0
@@ -44,7 +44,8 @@ const Details = ({ details }) => {
             <tbody>
               {detail.length > 0 ? (
                 detail
-                  .slice(5 * (currentPage - 1), 10 * (currentPage - 1) + 10)
+                  .slice(10 * (currentPage - 1), 10 * currentPage)
+
                   .map((data, Index) => (
                     <tr key={Index}>
                       {Object.keys(data).map((key, keyIndex) => (

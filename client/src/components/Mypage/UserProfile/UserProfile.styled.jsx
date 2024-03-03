@@ -2,7 +2,6 @@ import styled from "styled-components";
 // UserProfile
 export const ProfileContainer = styled.div`
   flex: 1;
-  /* height: 100%; */
   @media (max-width: 768px) {
     margin-right: 0;
   }
@@ -34,7 +33,6 @@ export const UserInfo = styled.div`
   align-items: center;
   color: #ffffff;
   @media (max-width: 768px) {
-    /* padding: 40px; */
     margin-left: 20px;
   }
 `;

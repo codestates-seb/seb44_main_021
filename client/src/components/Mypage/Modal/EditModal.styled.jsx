@@ -3,7 +3,7 @@ import { ReactComponent as CloseIcon } from "../../../assets/icon/close_icon.svg
 
 /* edit modal */
 export const ModalContainer = styled.div`
-  position: fixed; /* 고정 위치로 변경 */
+  position: fixed;
   top: 0;
   width: 100%;
   height: 100%;
@@ -78,7 +78,6 @@ export const EditButton = styled.button`
   box-shadow: 3px 3px 5px rgba(68, 68, 68, 0.288);
   border-radius: 5px;
   border: none;
-  /* margin: 20px; */
   &:active {
     box-shadow: 1px 1px 3px rgba(107, 107, 107, 0.288);
   }

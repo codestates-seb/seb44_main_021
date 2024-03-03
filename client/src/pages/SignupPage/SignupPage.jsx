@@ -1,4 +1,3 @@
-import React from "react";
 import SignupForm from "../../components/forms/SignupForm";
 import CommonForm from "../../components/forms/CommonForm";
 

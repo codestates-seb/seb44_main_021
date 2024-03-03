@@ -34,8 +34,6 @@ const ListText = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  /* justify-content: space-between; */
-  /* height: 15%; */
   margin-top: 10px;
 `;
 
@@ -56,7 +54,6 @@ const ListTitle = styled.div`
 const Materiar = styled.div`
   display: flex;
   align-items: center;
-  /* margin-top: 3px; */
   background-color: #6e934d;
   width: max-content;
   padding: 0.2rem 0.5rem;

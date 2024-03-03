@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 import * as S from "./UserProfile.styled";
-import React from "react";
 
 const UserProfile = ({ openModal }) => {
   const userData = useSelector((state) => state.userData);
@@ -25,4 +24,4 @@ const UserProfile = ({ openModal }) => {
   );
 };
 
-export default React.memo(UserProfile);
+export default UserProfile;

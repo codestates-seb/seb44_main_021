@@ -8,7 +8,11 @@ const Banner = ({ order, link, img }) => {
         {order === "first" ? (
           <>
             <FirstBanner>
-              <img src={process.env.PUBLIC_URL + img} alt="banner" />
+              <img
+                src={process.env.PUBLIC_URL + img}
+                alt="banner"
+                loading="lazy"
+              />
               <div className="paragraph">
                 <p className="sub-content">숨어있는 것들로 세상을 이롭게</p>
                 <p>··</p>
@@ -18,7 +22,11 @@ const Banner = ({ order, link, img }) => {
           </>
         ) : (
           <OtherBanner>
-            <img src={process.env.PUBLIC_URL + img} alt="banner" />
+            <img
+              src={process.env.PUBLIC_URL + img}
+              alt="banner"
+              loading="lazy"
+            />
             {order === "second" ? (
               <div className="caption">
                 <strong>
@@ -114,7 +122,6 @@ const OtherBanner = styled.div`
     height: 100%;
     img {
       width: 100%;
-      /* height: 500px; */
     }
     .caption {
       width: 100%;
@@ -129,7 +136,6 @@ const OtherBanner = styled.div`
       }
       p {
         margin-top: 2rem;
-        /* display: none; */
       }
     }
   }
@@ -140,7 +146,6 @@ const FirstBanner = styled.div`
   position: relative;
   > img {
     width: 100%;
-    /* height: 100%; */
     height: calc(100vh - 8rem);
     object-fit: cover;
   }

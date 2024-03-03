@@ -140,9 +140,11 @@ const Modal = ({
 
 export default Modal;
 const TextFrame = styled.div`
-  width: 100%;
+  /* width: 100%; */
   display: flex;
   flex-direction: column;
+  /* justify-content: center; */
+  /* align-items: center; */
   gap: 0.8rem;
 `;
 const ModalOverlay = styled.div`
@@ -208,19 +210,7 @@ const Modaltitle = styled.p`
 `;
 
 const Modaltext = styled.p`
-  /* margin-top: 10px; */
-  display: flex;
-  align-items: center;
-  font-weight: ${(props) => (props.bold ? "bold" : "normal")};
-`;
-
-const Modalselect = styled.div`
-  width: 90%;
-  height: 30px;
-  margin-top: 10px;
-  &:focus {
-    outline: none;
-  }
+  width: 200px;
 `;
 
 const Ratebox = styled.div`
