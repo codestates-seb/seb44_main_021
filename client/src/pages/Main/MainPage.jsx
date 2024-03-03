@@ -216,7 +216,6 @@ const Contentslist = styled.div`
   display: grid;
   width: 100%;
   gap: 3rem;
-  /* grid-template-columns: repeat(4, minmax(0, 1fr)); */
   grid-template-columns: repeat(4, 1fr);
   @media (max-width: 768px) {
     grid-template-columns: repeat(2, 1fr);

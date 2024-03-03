@@ -1,4 +1,3 @@
-import React from "react";
 import useSearch from "../../../hooks/useSearch";
 import * as S from "./SearchBar.styled";
 import { useDispatch } from "react-redux";

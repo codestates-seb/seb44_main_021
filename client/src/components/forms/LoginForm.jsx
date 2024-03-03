@@ -1,11 +1,9 @@
-import React from "react";
 import useInputs from "../../hooks/useInputs";
 import { postLogin } from "../../api/authApi";
 import { useNavigate } from "react-router-dom";
 import Button from "../common/Button";
 import Input from "../common/Input";
 import * as S from "./LoginForm.styled";
-import { axiosInstance } from "../../api/axiosInstance";
 
 const LoginForm = () => {
   const [loginInfo, onChange] = useInputs({

@@ -33,33 +33,27 @@ const FooterStyle = styled.div`
   top: 0px;
   left: 0;
   z-index: -1;
-  /* background-color: #4d4d4d; */
   width: 100vw;
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #c3c3c3;
-  /* font-family: "Noto Serif KR", serif; */
   > .paragraph {
     font-weight: 100;
     display: flex;
     position: absolute;
-    /* color: #fff; */
     p:nth-child(1) {
       writing-mode: vertical-rl;
       font-size: 1.2rem;
-      /* letter-spacing: 0.1rem; */
     }
     p:nth-child(2) {
       position: relative;
       top: -30px;
       font-size: 4rem;
       margin: 0 1rem;
-      /* letter-spacing: 0.2rem; */
     }
     p:nth-child(3) {
-      /* font-family: "Noto Serif KR", serif; */
       writing-mode: vertical-rl;
       font-size: 2.5rem;
       letter-spacing: 1.8rem;

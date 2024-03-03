@@ -11,7 +11,6 @@ import CreateFormSection from "../../components/create/CreateFormSection";
 import SelectBox from "../../components/common/SelectBox";
 import { createStorePost } from "../../api/postApi";
 import { validationsPost } from "../../utils/validateInput";
-import React from "react";
 
 const StoreCreatePage = () => {
   const { handleValidation, errMsgObj } = useErrHandler();
@@ -99,4 +98,4 @@ const StoreCreatePage = () => {
   );
 };
 
-export default React.memo(StoreCreatePage);
+export default StoreCreatePage;

@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { ReactComponent as ArrowBackIcon } from "../../assets/icon/arrow_back_icon.svg";

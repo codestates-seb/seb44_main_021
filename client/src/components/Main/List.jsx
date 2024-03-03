@@ -36,10 +36,8 @@ const ListLink = styled(Link)`
 `;
 
 const Contentsbox = styled.div`
-  /* height: auto; */
   width: 100%;
   border-radius: 20px;
-  /* background-color: #c7ffcc; */
   color: rgb(43, 43, 43);
   word-break: break-all;
 `;
@@ -78,12 +76,3 @@ const ContentsFooter = styled.div`
   font-size: 0.8rem;
   line-height: 1.6;
 `;
-
-// const ContentsBox = styled.div`
-//   width: 17.7vw;
-//   /* height: 35vh; */
-//   border-radius: 20px;
-//   /* background-color: #c7ffcc; */
-//   color: rgb(43, 43, 43);
-//   word-break: break-all;
-// `;

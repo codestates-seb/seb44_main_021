@@ -1,5 +1,3 @@
-// TipSection.js
-import React from "react";
 import styled from "styled-components";
 
 const TipSection = ({ children }) => {
@@ -15,7 +13,7 @@ const TipSection = ({ children }) => {
   );
 };
 
-export default React.memo(TipSection);
+export default TipSection;
 
 const TipBox = styled.div`
   height: fit-content;

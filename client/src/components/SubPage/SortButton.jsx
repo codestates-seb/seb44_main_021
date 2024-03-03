@@ -97,22 +97,3 @@ const Sorticon = styled.div`
   color: rgba(220, 220, 220, 0.826);
   font-size: 15px;
 `;
-
-// const LinkBtn = styled.button`
-//   background-color: #6e934d;
-//   border: none;
-//   border-radius: 10px;
-//   padding: 15px;
-//   text-align: left;
-//   cursor: pointer;
-//   color: #fff;
-
-//   :hover {
-//     background-color: #6e934d91;
-//     border-radius: 10px;
-//     padding: 15px;
-//     text-align: left;
-//     cursor: pointer;
-//     color: #fff;
-//   }
-// `;

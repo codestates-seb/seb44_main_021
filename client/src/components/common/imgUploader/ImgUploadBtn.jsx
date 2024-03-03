@@ -1,5 +1,3 @@
-// ImgUploadButton.js
-import React from "react";
 import styled from "styled-components";
 
 const ImgUploadButton = ({ fileName, name, purpose }) => {

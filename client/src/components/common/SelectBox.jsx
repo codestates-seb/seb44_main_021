@@ -1,4 +1,3 @@
-import React from "react";
 import Select from "react-select";
 
 const SelectBox = ({ options, onChange, name }) => {
