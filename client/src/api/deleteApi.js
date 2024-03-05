@@ -5,5 +5,5 @@ export const deleteSell = (id) => {
 };
 
 export const deleteUpcycle = (id) => {
-  return axiosInstance.patch(`/upcyclings/${id}`);
+  return axiosInstance.delete(`/upcyclings/${id}`);
 };
