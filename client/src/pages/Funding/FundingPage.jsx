@@ -7,6 +7,7 @@ import { axiosInstance } from "../../api/axiosInstance";
 import SideBar from "../../components/SubPage/SideBar";
 import SortButton from "../../components/SubPage/SortButton";
 import List from "../../components/SubPage/Funding/List";
+import { getUserData } from "../../api/getDatas";
 
 const FundingPage = () => {
   const { getMemberId } = useGetMemberId();
@@ -48,11 +49,11 @@ const FundingPage = () => {
   }, []);
 
   useEffect(() => {
-    if (localStorage.getItem("login"))
-      axiosInstance.get(`/members/${userData.memberId}`).then((res) => {
+    if (localStorage.getItem("login") && userData.memberId)
+      getUserData(userData.memberId).then((res) => {
         setrole(res.data.data.memberRole);
       });
-  }, [userData.memberId, userData.memberRole]);
+  }, [userData.memberId]);
 
   useEffect(() => {
     setIsLoding(false);

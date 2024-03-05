@@ -6,6 +6,7 @@ import SideBar from "../../components/SubPage/SideBar";
 import SortButton from "../../components/SubPage/SortButton";
 import Item from "../../components/SubPage/Store/Item";
 import styled from "styled-components";
+import { getUserData } from "../../api/getDatas";
 
 const StorePage = () => {
   const userData = useSelector((state) => state.userData);
@@ -44,12 +45,12 @@ const StorePage = () => {
   }, []);
 
   useEffect(() => {
-    if (localStorage.getItem("login")) {
-      axiosInstance.get(`/members/${userData.memberId}`).then((res) => {
+    if (localStorage.getItem("login") && userData.memberId) {
+      getUserData(userData.memberId).then((res) => {
         setrole(res.data.data.memberRole);
       });
     }
-  }, [userData.memberId, userData.memberRole]);
+  }, [userData.memberId]);
 
   useEffect(() => {
     setIsLoding(false);
