@@ -7,6 +7,7 @@ import { axiosInstance } from "../../api/axiosInstance";
 import SideBar from "../../components/SubPage/SideBar";
 import SortButton from "../../components/SubPage/SortButton";
 import List from "../../components/SubPage/Funding/List";
+import { getUserData } from "../../api/getDatas";
 
 const FundingPage = () => {
   const { getMemberId } = useGetMemberId();
@@ -48,11 +49,11 @@ const FundingPage = () => {
   }, []);
 
   useEffect(() => {
-    if (localStorage.getItem("login"))
-      axiosInstance.get(`/members/${userData.memberId}`).then((res) => {
+    if (localStorage.getItem("login") && userData.memberId)
+      getUserData(userData.memberId).then((res) => {
         setrole(res.data.data.memberRole);
       });
-  }, [userData.memberId, userData.memberRole]);
+  }, [userData.memberId]);
 
   useEffect(() => {
     setIsLoding(false);
@@ -157,6 +158,8 @@ const FundingPage = () => {
         menu={["All", "천", "목재", "플라스틱", "철제", "유리", "기타"]}
       />
       <ContainerBottom>
+        <h1>Funding</h1>
+
         <SortButton
           sort={sort}
           setSort={setSort}
@@ -186,10 +189,7 @@ const Container = styled.div`
   max-width: 1000px;
   margin: auto;
   @media (max-width: 768px) {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    grid-template-columns: 1fr 3fr;
   }
 `;
 
@@ -198,6 +198,12 @@ const ContainerBottom = styled.div`
   padding-left: 3rem;
   height: 100%;
   margin-bottom: calc(90vh - 400px);
+  & > h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-main);
+    margin: 1rem 0;
+  }
   @media (max-width: 768px) {
     padding: 1rem;
   }
@@ -210,6 +216,6 @@ const Funding = styled.div`
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
   @media (max-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
 `;

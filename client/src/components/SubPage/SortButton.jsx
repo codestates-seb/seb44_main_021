@@ -50,7 +50,7 @@ const SortButton = ({ sort, setSort, role, param }) => {
 
 export default SortButton;
 
-const Navigate = styled.section`
+const Navigate = styled.div`
   display: flex;
   /* position: sticky; */
   background-color: #fff;
