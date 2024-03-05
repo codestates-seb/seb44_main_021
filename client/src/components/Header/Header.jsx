@@ -14,7 +14,6 @@ const Header = ({ pathname }) => {
     <S.HeaderContainer>
       <S.HeaderWrapper>
         <S.LeftArea>
-          {/* <SideBarModal /> */}
           {window.innerWidth <= 768 && <SideBarModal />}
           <Logo />
           <ul>

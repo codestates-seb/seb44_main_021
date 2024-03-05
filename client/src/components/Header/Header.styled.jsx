@@ -16,7 +16,6 @@ export const HeaderWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: relative;
   width: 100%;
   max-width: 1000px;
   height: 80px;

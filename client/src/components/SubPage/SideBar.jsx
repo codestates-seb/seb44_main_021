@@ -41,8 +41,7 @@ const Aside = styled.aside`
   margin-bottom: calc(90vh - 400px);
 
   @media (max-width: 768px) {
-    padding: 0;
-    margin: 0;
+    margin-top: 1rem;
     height: 100%;
     padding: 1rem;
   }
@@ -51,6 +50,7 @@ const Aside = styled.aside`
 const Kategorie = styled.div`
   font-size: 1.5rem;
   padding-bottom: 1.5rem;
+  white-space: nowrap;
   @media (max-width: 768px) {
     font-size: 1.2rem;
   }
@@ -64,15 +64,15 @@ const CartegoryList = styled.ul`
   flex-direction: column;
   gap: 1rem;
   @media (max-width: 768px) {
-    display: flex;
+    /* display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: row;
+    flex-direction: row; */
   }
 `;
 const ListItem = styled.li`
   font-size: 1rem;
-
+  white-space: nowrap;
   ${(props) =>
     props.className === "selected" &&
     css`
@@ -81,7 +81,8 @@ const ListItem = styled.li`
       text-decoration-color: #c0d6b1;
       text-decoration-thickness: 3px;
     `}
-  @media (max-width: 768px) {
+  @media
+    (max-width: 768px) {
     font-size: 0.85rem;
   }
 `;
